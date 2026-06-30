@@ -1,0 +1,1 @@
+const o=6,t=7,S=42,n=["Mo","Tu","We","Th","Fr","Sa","Su"],_=["January","February","March","April","May","June","July","August","September","October","November","December"],c=Array.from({length:12},(e,r)=>r+1),p=Array.from({length:60},(e,r)=>r);export{t as GRID_COLS,o as GRID_ROWS,S as GRID_SIZE,c as HOURS_12,p as MINUTES_60,_ as MONTH_NAMES,n as WEEKDAY_LABELS};

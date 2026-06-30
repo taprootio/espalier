@@ -1,0 +1,1 @@
+function r(t){return t.replace(/\/$/,"")||"/"}function o(t,n=location.pathname){return r(t)===r(n)}function i(t,n){if(!n)return!1;const e=r(t),a=r(n);return e===a||e.startsWith(`${a}/`)}export{r as normalizePath,i as pathStartsWithSegment,o as pathsMatch};

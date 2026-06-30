@@ -1,19 +1,345 @@
 {
   "name": "@taprootio/espalier",
   "version": "2.0.0",
-  "description": "Scaffold placeholder for the public Espalier artifact repository. The taproot-controls release pipeline replaces this file before publishing.",
+  "description": "Espalier — an enterprise-grade web component design system built on Lit and browser standards. Provides accessible, themeable UI primitives with OKLCH perceptual color, APCA contrast, fluid typography, and native form participation via ElementInternals.",
+  "customElements": "custom-elements.json",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./action-menu": {
+      "types": "./dist/action-menu/esp-action-menu.d.ts",
+      "import": "./dist/action-menu/esp-action-menu.js"
+    },
+    "./action-menu/item": {
+      "types": "./dist/action-menu/esp-action-menu-item.d.ts",
+      "import": "./dist/action-menu/esp-action-menu-item.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/esp-avatar.d.ts",
+      "import": "./dist/avatar/esp-avatar.js"
+    },
+    "./avatar/profile-chip": {
+      "types": "./dist/avatar/esp-profile-chip.d.ts",
+      "import": "./dist/avatar/esp-profile-chip.js"
+    },
+    "./badge": {
+      "types": "./dist/badge/esp-badge.d.ts",
+      "import": "./dist/badge/esp-badge.js"
+    },
+    "./box": {
+      "types": "./dist/box/esp-box.d.ts",
+      "import": "./dist/box/esp-box.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/breadcrumbs/esp-breadcrumbs.d.ts",
+      "import": "./dist/breadcrumbs/esp-breadcrumbs.js"
+    },
+    "./burger": {
+      "types": "./dist/burger/esp-burger.d.ts",
+      "import": "./dist/burger/esp-burger.js"
+    },
+    "./button": {
+      "types": "./dist/button/esp-button.d.ts",
+      "import": "./dist/button/esp-button.js"
+    },
+    "./button/group": {
+      "types": "./dist/button/esp-button-group.d.ts",
+      "import": "./dist/button/esp-button-group.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/esp-checkbox.d.ts",
+      "import": "./dist/checkbox/esp-checkbox.js"
+    },
+    "./checkbox/group": {
+      "types": "./dist/checkbox/esp-checkbox-group.d.ts",
+      "import": "./dist/checkbox/esp-checkbox-group.js"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker/esp-color-picker.d.ts",
+      "import": "./dist/color-picker/esp-color-picker.js"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker/esp-date-picker.d.ts",
+      "import": "./dist/date-picker/esp-date-picker.js"
+    },
+    "./data-cell": {
+      "types": "./dist/data-cell/esp-data-cell.d.ts",
+      "import": "./dist/data-cell/esp-data-cell.js"
+    },
+    "./details": {
+      "types": "./dist/details/esp-details.d.ts",
+      "import": "./dist/details/esp-details.js"
+    },
+    "./details/group": {
+      "types": "./dist/details/esp-details-group.d.ts",
+      "import": "./dist/details/esp-details-group.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/esp-dialog.d.ts",
+      "import": "./dist/dialog/esp-dialog.js"
+    },
+    "./empty-state": {
+      "types": "./dist/empty-state/esp-empty-state.d.ts",
+      "import": "./dist/empty-state/esp-empty-state.js"
+    },
+    "./file-upload": {
+      "types": "./dist/file-upload/esp-file-upload.d.ts",
+      "import": "./dist/file-upload/esp-file-upload.js"
+    },
+    "./font-picker": {
+      "types": "./dist/font-picker/esp-font-picker.d.ts",
+      "import": "./dist/font-picker/esp-font-picker.js"
+    },
+    "./form": {
+      "types": "./dist/form/esp-form.d.ts",
+      "import": "./dist/form/esp-form.js"
+    },
+    "./form-item": {
+      "types": "./dist/form-item/esp-form-item.d.ts",
+      "import": "./dist/form-item/esp-form-item.js"
+    },
+    "./grid": {
+      "types": "./dist/grid/esp-grid.d.ts",
+      "import": "./dist/grid/esp-grid.js"
+    },
+    "./header": {
+      "types": "./dist/header/index.d.ts",
+      "import": "./dist/header/index.js"
+    },
+    "./image": {
+      "types": "./dist/image/esp-image.d.ts",
+      "import": "./dist/image/esp-image.js"
+    },
+    "./image-upload": {
+      "types": "./dist/image-upload/esp-image-upload.d.ts",
+      "import": "./dist/image-upload/esp-image-upload.js"
+    },
+    "./image-upload/helpers": {
+      "types": "./dist/image-upload/image-helpers.d.ts",
+      "import": "./dist/image-upload/image-helpers.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js"
+    },
+    "./menu/group": {
+      "types": "./dist/menu/esp-menu-group.d.ts",
+      "import": "./dist/menu/esp-menu-group.js"
+    },
+    "./menu/item": {
+      "types": "./dist/menu/esp-menu-item.d.ts",
+      "import": "./dist/menu/esp-menu-item.js"
+    },
+    "./info": {
+      "types": "./dist/info/esp-info.d.ts",
+      "import": "./dist/info/esp-info.js"
+    },
+    "./input": {
+      "types": "./dist/input/esp-input.d.ts",
+      "import": "./dist/input/esp-input.js"
+    },
+    "./lightbox": {
+      "types": "./dist/lightbox/esp-lightbox.d.ts",
+      "import": "./dist/lightbox/esp-lightbox.js"
+    },
+    "./page": {
+      "types": "./dist/page/esp-page.d.ts",
+      "import": "./dist/page/esp-page.js"
+    },
+    "./pickers/pick-one": {
+      "types": "./dist/pickers/esp-pick-one.d.ts",
+      "import": "./dist/pickers/esp-pick-one.js"
+    },
+    "./pickers/pick-some": {
+      "types": "./dist/pickers/esp-pick-some.d.ts",
+      "import": "./dist/pickers/esp-pick-some.js"
+    },
+    "./pickers/menu": {
+      "types": "./dist/pickers/esp-picker-menu.d.ts",
+      "import": "./dist/pickers/esp-picker-menu.js"
+    },
+    "./pickers/item": {
+      "types": "./dist/pickers/esp-picker-item.d.ts",
+      "import": "./dist/pickers/esp-picker-item.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/esp-popover.d.ts",
+      "import": "./dist/popover/esp-popover.js"
+    },
+    "./radio-button": {
+      "types": "./dist/radio-button/esp-radio-button.d.ts",
+      "import": "./dist/radio-button/esp-radio-button.js"
+    },
+    "./radio-button/group": {
+      "types": "./dist/radio-button/esp-radio-button-group.d.ts",
+      "import": "./dist/radio-button/esp-radio-button-group.js"
+    },
+    "./repeater": {
+      "types": "./dist/repeater/esp-repeater.d.ts",
+      "import": "./dist/repeater/esp-repeater.js"
+    },
+    "./root": {
+      "types": "./dist/root/esp-root.d.ts",
+      "import": "./dist/root/esp-root.js"
+    },
+    "./search": {
+      "types": "./dist/search/esp-search.d.ts",
+      "import": "./dist/search/esp-search.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/esp-slider.d.ts",
+      "import": "./dist/slider/esp-slider.js"
+    },
+    "./status-indicator": {
+      "types": "./dist/status-indicator/esp-status-indicator.d.ts",
+      "import": "./dist/status-indicator/esp-status-indicator.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/esp-tab-group.d.ts",
+      "import": "./dist/tabs/esp-tab-group.js"
+    },
+    "./tabs/tab": {
+      "types": "./dist/tabs/esp-tab.d.ts",
+      "import": "./dist/tabs/esp-tab.js"
+    },
+    "./textarea": {
+      "types": "./dist/textarea/esp-textarea.d.ts",
+      "import": "./dist/textarea/esp-textarea.js"
+    },
+    "./tree": {
+      "types": "./dist/tree/esp-tree.d.ts",
+      "import": "./dist/tree/esp-tree.js"
+    },
+    "./tree/item": {
+      "types": "./dist/tree/esp-tree-item.d.ts",
+      "import": "./dist/tree/esp-tree-item.js"
+    },
+    "./shared/intent-values": {
+      "types": "./dist/shared/intent-values.d.ts",
+      "import": "./dist/shared/intent-values.js"
+    },
+    "./shared/element-base": {
+      "types": "./dist/shared/esp-element-base.d.ts",
+      "import": "./dist/shared/esp-element-base.js"
+    },
+    "./shared/form-field-controller": {
+      "types": "./dist/shared/form-field-controller.d.ts",
+      "import": "./dist/shared/form-field-controller.js"
+    },
+    "./shared/validation": {
+      "types": "./dist/shared/validation.d.ts",
+      "import": "./dist/shared/validation.js"
+    },
+    "./shared/theme": {
+      "types": "./dist/shared/theme.d.ts",
+      "import": "./dist/shared/theme.js"
+    },
+    "./shared/font-helpers": {
+      "types": "./dist/shared/font-helpers.d.ts",
+      "import": "./dist/shared/font-helpers.js"
+    },
+    "./shared/utilities": {
+      "types": "./dist/shared/utilities.d.ts",
+      "import": "./dist/shared/utilities.js"
+    },
+    "./shared/justified-layout": {
+      "types": "./dist/shared/justified-layout.d.ts",
+      "import": "./dist/shared/justified-layout.js"
+    },
+    "./shared/esp-bus": {
+      "types": "./dist/shared/esp-bus.d.ts",
+      "import": "./dist/shared/esp-bus.js"
+    },
+    "./shared/bus-events": {
+      "types": "./dist/shared/bus-events.d.ts",
+      "import": "./dist/shared/bus-events.js"
+    },
+    "./espalier.token-manifest.json": "./espalier.token-manifest.json",
+    "./custom-elements.json": "./custom-elements.json",
+    "./espalier.css-data.json": "./espalier.css-data.json",
+    "./css/esp-reset.css": "./css/esp-reset.css",
+    "./css/fonts/font-definitions.json": "./css/fonts/font-definitions.json",
+    "./css/fonts/*.css": "./css/fonts/*.css"
+  },
+  "sideEffects": [
+    "dist/index.js",
+    "dist/*/esp-*.js",
+    "dist/header/index.js",
+    "dist/menu/index.js"
+  ],
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "css/esp-reset.css",
+    "css/fonts/**/*.css",
+    "css/fonts/font-definitions.json",
+    "custom-elements.json",
+    "espalier.css-data.json",
+    "espalier.token-manifest.json",
+    "licenses/ASSET_PROVENANCE.md",
+    "licenses/README.md",
+    "licenses/asset-provenance.json",
+    "licenses/GOOGLE_FONTS_NOTICES.md",
+    "licenses/THIRD_PARTY_NOTICES.md",
+    "licenses/open-source-audit/README.md",
+    "licenses/open-source-audit/2026-05-30-dependency-license-audit.md",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "notice.cjs"
+  ],
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "lit",
+    "design-system",
+    "ui-components",
+    "espalier",
+    "taproot",
+    "accessibility",
+    "wcag",
+    "apca",
+    "oklch",
+    "theming",
+    "form-controls",
+    "enterprise"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/taprootio/espalier.git"
   },
+  "author": "Jereme Evans",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/taprootio/espalier/issues"
   },
   "homepage": "https://github.com/taprootio/espalier#readme",
-  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "lit": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "@lit-labs/virtualizer": "^2.1.1"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
+  },
+  "scripts": {
+    "postinstall": "node ./notice.cjs"
   }
 }

@@ -1,0 +1,842 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--esp-scheme",
+      "description": "The active color scheme — \"light\" or \"dark\"."
+    },
+    {
+      "name": "--esp-seed-color",
+      "description": "The OKLCH seed color string that drives the entire palette."
+    },
+
+    {
+      "name": "--esp-color-primary",
+      "description": "The seed color, gamut-mapped to sRGB."
+    },
+    {
+      "name": "--esp-color-analogous-left",
+      "description": "Analogous variant (seed hue minus the analogous angle)."
+    },
+    {
+      "name": "--esp-color-analogous-right",
+      "description": "Analogous variant (seed hue plus the analogous angle)."
+    },
+    {
+      "name": "--esp-color-complementary",
+      "description": "Complementary variant (seed hue plus 180°)."
+    },
+    {
+      "name": "--esp-color-split-complementary-left",
+      "description": "Split-complementary variant (complement minus offset)."
+    },
+    {
+      "name": "--esp-color-split-complementary-right",
+      "description": "Split-complementary variant (complement plus offset)."
+    },
+    {
+      "name": "--esp-color-triadic-left",
+      "description": "Triadic variant (seed hue plus 120°)."
+    },
+    {
+      "name": "--esp-color-triadic-right",
+      "description": "Triadic variant (seed hue plus 240°)."
+    },
+    {
+      "name": "--esp-color-danger",
+      "description": "Fixed semantic hue for errors and destructive actions (red-orange, hue 27)."
+    },
+    {
+      "name": "--esp-color-success",
+      "description": "Fixed semantic hue for success states (green, hue 150)."
+    },
+    {
+      "name": "--esp-color-warning",
+      "description": "Fixed semantic hue for warnings (yellow-green, hue 90)."
+    },
+
+    {
+      "name": "--esp-color-background",
+      "description": "Main page background surface."
+    },
+    {
+      "name": "--esp-color-layer-1",
+      "description": "First raised layer (slightly elevated surfaces)."
+    },
+    {
+      "name": "--esp-color-layer-2",
+      "description": "Second raised layer (form fields, input backgrounds)."
+    },
+    {
+      "name": "--esp-color-layer-3",
+      "description": "Third raised layer (cards, raised buttons)."
+    },
+    {
+      "name": "--esp-color-layer-4",
+      "description": "Fourth raised layer (hover states, elevated controls)."
+    },
+
+    {
+      "name": "--esp-color-text",
+      "description": "Standard body text. APCA Lc ≥ 75 against background."
+    },
+    {
+      "name": "--esp-color-headings",
+      "description": "Heading text (muted contrast). APCA Lc ≥ 60 against background."
+    },
+    {
+      "name": "--esp-color-headings-hover",
+      "description": "Heading text with emphasis. APCA Lc ≥ 60 against background."
+    },
+    {
+      "name": "--esp-color-danger-text",
+      "description": "Error and danger message text. APCA Lc ≥ 75 against background."
+    },
+
+    {
+      "name": "--esp-color-link",
+      "description": "Link text in normal state (accent color). APCA Lc ≥ 75 against background."
+    },
+    {
+      "name": "--esp-color-link-hover",
+      "description": "Link text on hover (high contrast). APCA Lc ≥ 75 against background."
+    },
+    {
+      "name": "--esp-color-link-hover-bg",
+      "description": "Link hover background highlight."
+    },
+
+    {
+      "name": "--esp-color-action-background",
+      "description": "Action button background (typically layer-3)."
+    },
+    {
+      "name": "--esp-color-action-text",
+      "description": "Action button text (high-contrast ink). APCA Lc ≥ 75 against action background."
+    },
+    {
+      "name": "--esp-color-input-caret",
+      "description": "Text cursor / caret color. APCA Lc ≥ 60 against layer-2."
+    },
+    {
+      "name": "--esp-color-input-selection",
+      "description": "Selected text color. APCA Lc ≥ 60 against selection background."
+    },
+    {
+      "name": "--esp-color-input-selection-bg",
+      "description": "Selected text background color."
+    },
+
+    {
+      "name": "--esp-color-border",
+      "description": "Border lines and dividers."
+    },
+    {
+      "name": "--esp-color-shadow",
+      "description": "Drop shadow color."
+    },
+
+    {
+      "name": "--esp-l-surface",
+      "description": "Lightness (percentage) for the main background surface."
+    },
+    {
+      "name": "--esp-l-raised-1",
+      "description": "Lightness (percentage) for the first elevation level."
+    },
+    {
+      "name": "--esp-l-raised-2",
+      "description": "Lightness (percentage) for the second elevation level."
+    },
+    {
+      "name": "--esp-l-raised-3",
+      "description": "Lightness (percentage) for the third elevation level."
+    },
+    {
+      "name": "--esp-l-raised-4",
+      "description": "Lightness (percentage) for the fourth elevation level."
+    },
+    {
+      "name": "--esp-l-accent",
+      "description": "Lightness (percentage) for accent and link colors."
+    },
+    {
+      "name": "--esp-l-muted",
+      "description": "Lightness (percentage) for muted / heading text."
+    },
+    {
+      "name": "--esp-l-text",
+      "description": "Lightness (percentage) for body text."
+    },
+    {
+      "name": "--esp-l-border",
+      "description": "Lightness (percentage) for border lines."
+    },
+    {
+      "name": "--esp-l-ink",
+      "description": "Lightness (percentage) for high-contrast ink (action text)."
+    },
+    {
+      "name": "--esp-l-shadow",
+      "description": "Lightness (percentage) for shadows."
+    },
+
+    {
+      "name": "--esp-type-tiny",
+      "description": "Type scale: smallest text size (captions, subscripts). Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-small",
+      "description": "Type scale: small text size. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-normal",
+      "description": "Type scale: body text size (base step, 1.125rem at 16px root). Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-medium",
+      "description": "Type scale: medium text size. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-big",
+      "description": "Type scale: large text size. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-large",
+      "description": "Type scale: extra-large text size. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-type-huge",
+      "description": "Type scale: largest text size (hero headings). Fluid clamp() value."
+    },
+
+    {
+      "name": "--esp-size-tiny",
+      "description": "Spacing scale: smallest spacing unit. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-small",
+      "description": "Spacing scale: small spacing. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-normal",
+      "description": "Spacing scale: standard spacing unit. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-medium",
+      "description": "Spacing scale: medium spacing. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-big",
+      "description": "Spacing scale: large spacing. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-large",
+      "description": "Spacing scale: extra-large spacing. Fluid clamp() value."
+    },
+    {
+      "name": "--esp-size-huge",
+      "description": "Spacing scale: largest spacing unit. Fluid clamp() value."
+    },
+
+    {
+      "name": "--esp-size-tiny-to-small",
+      "description": "Cross-step fluid size: tiny (min) to small (max)."
+    },
+    {
+      "name": "--esp-size-small-to-normal",
+      "description": "Cross-step fluid size: small (min) to normal (max)."
+    },
+    {
+      "name": "--esp-size-normal-to-medium",
+      "description": "Cross-step fluid size: normal (min) to medium (max)."
+    },
+    {
+      "name": "--esp-size-medium-to-big",
+      "description": "Cross-step fluid size: medium (min) to big (max)."
+    },
+    {
+      "name": "--esp-size-big-to-large",
+      "description": "Cross-step fluid size: big (min) to large (max)."
+    },
+    {
+      "name": "--esp-size-large-to-huge",
+      "description": "Cross-step fluid size: large (min) to huge (max)."
+    },
+
+    {
+      "name": "--esp-size-font",
+      "description": "Alias for --esp-type-normal. Standard font size."
+    },
+    {
+      "name": "--esp-size-padding",
+      "description": "Alias for --esp-size-tiny-to-small. Default component internal padding."
+    },
+    {
+      "name": "--esp-size-padding-page",
+      "description": "Alias for --esp-size-small-to-normal. Page-level section padding."
+    },
+    {
+      "name": "--esp-size-border-radius",
+      "description": "Global border radius. Static rem value."
+    },
+
+    {
+      "name": "--esp-font-body",
+      "description": "Font family for body and UI text."
+    },
+    {
+      "name": "--esp-font-headings",
+      "description": "Font family for headings."
+    },
+    {
+      "name": "--esp-font-monospace",
+      "description": "Font family for code and monospace text."
+    },
+
+    {
+      "name": "--esp-page-background-image",
+      "description": "CSS background-image value for the page surface. Defaults to none."
+    },
+    {
+      "name": "--esp-page-background-image-opacity",
+      "description": "Opacity of the page background image (0–1). Defaults to 1."
+    },
+    {
+      "name": "--esp-box-background-image",
+      "description": "CSS background-image value for esp-box surfaces."
+    },
+    {
+      "name": "--esp-box-background-image-opacity",
+      "description": "Opacity of the box background image (0–1)."
+    },
+
+    {
+      "name": "--esp-avatar-border-radius",
+      "description": "[esp-avatar] Border radius of the image and initials fallback."
+    },
+    {
+      "name": "--esp-avatar-size",
+      "description": "[esp-avatar] Width and height of the avatar."
+    },
+
+    {
+      "name": "--esp-color-box-background",
+      "description": "[esp-box] Background color of the box."
+    },
+    {
+      "name": "--esp-box-background",
+      "description": "[esp-box] Background layer for images or gradients."
+    },
+    {
+      "name": "--esp-box-background-opacity",
+      "description": "[esp-box] Opacity of the background layer."
+    },
+    {
+      "name": "--esp-size-box-padding",
+      "description": "[esp-box] Padding inside the box."
+    },
+
+    {
+      "name": "--esp-button-padding",
+      "description": "[esp-button] Padding inside the button label and icon areas."
+    },
+    {
+      "name": "--esp-button-incognito-padding",
+      "description": "[esp-button] Padding for the incognito (borderless) button style."
+    },
+
+    {
+      "name": "--esp-page-background",
+      "description": "[esp-page] Background color of the page. Defaults to var(--esp-color-background)."
+    },
+    {
+      "name": "--esp-page-max-width",
+      "description": "[esp-page] Maximum width of the main content area. Set automatically by the kind attribute: 1536px (wide), 768px (narrow), or none (full)."
+    },
+    {
+      "name": "--esp-header-height",
+      "description": "[esp-header] Height of the header bar. Defaults to calc(4.5 * var(--esp-size-small)). Consumed by esp-page, esp-header-button, and esp-burger via use-site fallbacks."
+    },
+
+    {
+      "name": "--esp-header-background",
+      "description": "[esp-header] Background color of the header bar. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-header-border-width",
+      "description": "[esp-header] Border width of the header. Defaults to 0 0 1px 0."
+    },
+    {
+      "name": "--esp-header-border",
+      "description": "[esp-header] Border style of the header. Defaults to solid var(--esp-color-border)."
+    },
+    {
+      "name": "--esp-header-shadow",
+      "description": "[esp-header] Box shadow of the header. Defaults to 0 0 2px var(--esp-color-shadow)."
+    },
+    {
+      "name": "--esp-header-brand-placement",
+      "description": "[esp-header] CSS place-content value for the brand container. Defaults to center."
+    },
+    {
+      "name": "--esp-header-button-closed-color",
+      "description": "[esp-header] Burger button color when menu is closed. Defaults to var(--esp-color-headings)."
+    },
+    {
+      "name": "--esp-header-button-closed-hover-color",
+      "description": "[esp-header] Burger button hover color when menu is closed. Defaults to var(--esp-color-headings-hover)."
+    },
+    {
+      "name": "--esp-header-button-open-color",
+      "description": "[esp-header] Burger button color when menu is open. Defaults to var(--esp-color-text)."
+    },
+    {
+      "name": "--esp-header-button-open-hover-color",
+      "description": "[esp-header] Burger button hover color when menu is open. Defaults to var(--esp-color-headings-hover)."
+    },
+    {
+      "name": "--esp-header-button-stroke-width",
+      "description": "[esp-header] Stroke width of the burger button lines. Defaults to 0.45rem."
+    },
+
+    {
+      "name": "--esp-header-button-background",
+      "description": "[esp-header-button] Background color. Defaults to var(--esp-color-layer-3)."
+    },
+    {
+      "name": "--esp-header-button-background-hover",
+      "description": "[esp-header-button] Hover background color. Defaults to var(--esp-color-layer-4)."
+    },
+    {
+      "name": "--esp-header-button-box-shadow",
+      "description": "[esp-header-button] Box shadow. Defaults to 0px 0px 3px 0px var(--esp-color-shadow)."
+    },
+    {
+      "name": "--esp-header-button-border-left",
+      "description": "[esp-header-button] Left border. Defaults to 1px dotted var(--esp-color-border)."
+    },
+    {
+      "name": "--esp-header-button-color",
+      "description": "[esp-header-button] Text and icon color. Defaults to var(--esp-color-text)."
+    },
+
+    {
+      "name": "--esp-menu-background",
+      "description": "[esp-menu] Background color of vertical and drawer menus. Defaults to var(--esp-color-layer-1)."
+    },
+    {
+      "name": "--esp-menu-border-color",
+      "description": "[esp-menu] Border color of menu rails and drawers. Defaults to var(--esp-color-border)."
+    },
+    {
+      "name": "--esp-menu-scrim-color",
+      "description": "[esp-menu] Scrim color when the drawer is open."
+    },
+    {
+      "name": "--esp-menu-drawer-shadow",
+      "description": "[esp-menu] Box shadow for the drawer overlay. Defaults to 2px 0 8px var(--esp-color-shadow)."
+    },
+    {
+      "name": "--esp-menu-drawer-width",
+      "description": "[esp-menu] Drawer width. Defaults to min(22rem, 86vw)."
+    },
+    {
+      "name": "--esp-menu-top-offset",
+      "description": "[esp-menu] Top offset for drawers below fixed headers. Defaults to 0px."
+    },
+
+    {
+      "name": "--esp-menu-group-color",
+      "description": "[esp-menu-group] Text color of the group header. Defaults to var(--esp-color-headings)."
+    },
+    {
+      "name": "--esp-menu-group-background",
+      "description": "[esp-menu-group] Background color of the group header. Defaults to var(--esp-color-layer-1)."
+    },
+    {
+      "name": "--esp-menu-group-hover-background",
+      "description": "[esp-menu-group] Hover background color of the group header. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-menu-group-indicator-color",
+      "description": "[esp-menu-group] Color of the expand/collapse indicator. Defaults to var(--esp-color-headings)."
+    },
+    {
+      "name": "--esp-menu-group-border-color",
+      "description": "[esp-menu-group] Border color of the group. Defaults to var(--esp-color-border)."
+    },
+    {
+      "name": "--esp-menu-group-panel-background",
+      "description": "[esp-menu-group] Background color of horizontal disclosure panels. Defaults to var(--esp-color-layer-1)."
+    },
+    {
+      "name": "--esp-menu-group-panel-shadow",
+      "description": "[esp-menu-group] Box shadow of horizontal disclosure panels. Defaults to 0 4px 12px var(--esp-color-shadow)."
+    },
+    {
+      "name": "--esp-menu-group-icon-min-width",
+      "description": "[esp-menu-group] Minimum width of the icon rail. Defaults to calc(1 * var(--esp-size-font))."
+    },
+    {
+      "name": "--esp-menu-group-icon-padding",
+      "description": "[esp-menu-group] Padding inside the icon rail. Defaults to var(--esp-size-padding)."
+    },
+    {
+      "name": "--esp-menu-group-icon-background",
+      "description": "[esp-menu-group] Background color of the icon rail. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-menu-group-icon-size",
+      "description": "[esp-menu-group] Size of generated and slotted group icons. Defaults to calc(1 * var(--esp-size-font))."
+    },
+
+    {
+      "name": "--esp-menu-item-color",
+      "description": "[esp-menu-item] Text color. Defaults to var(--esp-color-text)."
+    },
+    {
+      "name": "--esp-menu-item-background",
+      "description": "[esp-menu-item] Background color."
+    },
+    {
+      "name": "--esp-menu-item-border-color",
+      "description": "[esp-menu-item] Border color. Defaults to var(--esp-color-border)."
+    },
+    {
+      "name": "--esp-menu-item-hover-color",
+      "description": "[esp-menu-item] Hover text color. Defaults to var(--esp-color-headings-hover)."
+    },
+    {
+      "name": "--esp-menu-item-hover-background",
+      "description": "[esp-menu-item] Hover background color. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-menu-item-icon-background",
+      "description": "[esp-menu-item] Icon area background color. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-menu-item-active-color",
+      "description": "[esp-menu-item] Text color of the active item. Defaults to var(--esp-color-link)."
+    },
+    {
+      "name": "--esp-menu-item-active-background",
+      "description": "[esp-menu-item] Background color of the active item. Defaults to var(--esp-color-layer-2)."
+    },
+    {
+      "name": "--esp-menu-item-padding",
+      "description": "[esp-menu-item] Padding around the item label. Defaults to var(--esp-size-small) var(--esp-size-padding)."
+    },
+    {
+      "name": "--esp-menu-item-icon-min-width",
+      "description": "[esp-menu-item] Minimum width of the icon rail. Defaults to calc(1 * var(--esp-size-font))."
+    },
+    {
+      "name": "--esp-menu-item-icon-padding",
+      "description": "[esp-menu-item] Padding inside the icon rail. Defaults to var(--esp-size-padding)."
+    },
+    {
+      "name": "--esp-menu-item-icon-size",
+      "description": "[esp-menu-item] Size of generated and slotted item icons. Defaults to calc(1 * var(--esp-size-font))."
+    },
+
+    {
+      "name": "--esp-color-burger",
+      "description": "[esp-burger] Line color when closed."
+    },
+    {
+      "name": "--esp-color-burger-hover",
+      "description": "[esp-burger] Hover line color when closed."
+    },
+    {
+      "name": "--esp-color-burger-opened",
+      "description": "[esp-burger] Line color when open."
+    },
+    {
+      "name": "--esp-color-burger-opened-hover",
+      "description": "[esp-burger] Hover line color when open."
+    },
+    {
+      "name": "--esp-size-burger-stroke",
+      "description": "[esp-burger] Stroke width of the burger lines."
+    },
+
+    {
+      "name": "--esp-tab-color-border",
+      "description": "[esp-tab-group] Border color of the tab group container."
+    },
+    {
+      "name": "--esp-tab-color-background",
+      "description": "[esp-tab-group] Background color of the tab group."
+    },
+    {
+      "name": "--esp-tab-color-strip-background",
+      "description": "[esp-tab-group] Background color of the active tab indicator strip."
+    },
+    {
+      "name": "--esp-tab-color-button-hover",
+      "description": "[esp-tab-group] Tab button hover color."
+    },
+    {
+      "name": "--esp-tab-color-button-active",
+      "description": "[esp-tab-group] Active tab button color."
+    },
+    {
+      "name": "--esp-tab-color-text",
+      "description": "[esp-tab-group] Text color for tab buttons."
+    },
+    {
+      "name": "--esp-tab-size-padding",
+      "description": "[esp-tab-group, esp-tab] Padding inside tab panels."
+    },
+
+    {
+      "name": "--esp-checkbox-size",
+      "description": "[esp-checkbox] Width and height of the checkbox."
+    },
+    {
+      "name": "--esp-checkbox-icon-color",
+      "description": "[esp-checkbox] Stroke color of the checkmark icon."
+    },
+    {
+      "name": "--esp-checkbox-focus-shadow",
+      "description": "[esp-checkbox] Color of the focus ring shadow."
+    },
+
+    {
+      "name": "--esp-radio-button-size",
+      "description": "[esp-radio-button] Width and height of the radio button."
+    },
+    {
+      "name": "--esp-radio-button-icon-color",
+      "description": "[esp-radio-button] Stroke color of the radio indicator."
+    },
+    {
+      "name": "--esp-radio-button-focus-shadow",
+      "description": "[esp-radio-button] Color of the focus ring shadow."
+    },
+
+    {
+      "name": "--esp-switch-width",
+      "description": "[esp-switch] Width of the switch track."
+    },
+    {
+      "name": "--esp-switch-height",
+      "description": "[esp-switch] Height of the switch track."
+    },
+    {
+      "name": "--esp-switch-thumb-size",
+      "description": "[esp-switch] Diameter of the thumb."
+    },
+    {
+      "name": "--esp-switch-track-color",
+      "description": "[esp-switch] Track background color when off."
+    },
+    {
+      "name": "--esp-switch-track-color-on",
+      "description": "[esp-switch] Track background color when on."
+    },
+    {
+      "name": "--esp-switch-thumb-color",
+      "description": "[esp-switch] Thumb color."
+    },
+    {
+      "name": "--esp-switch-focus-shadow",
+      "description": "[esp-switch] Color of the focus ring shadow."
+    },
+
+    {
+      "name": "--esp-toaster-z-index",
+      "description": "[esp-toaster] Stack order of the toaster container."
+    },
+    {
+      "name": "--esp-toaster-gap",
+      "description": "[esp-toaster] Gap between stacked toasts."
+    },
+    {
+      "name": "--esp-toaster-padding",
+      "description": "[esp-toaster] Padding around the toaster container."
+    },
+
+    {
+      "name": "--esp-tooltip-background",
+      "description": "[esp-tooltip] Background color of the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-border",
+      "description": "[esp-tooltip] Border of the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-border-radius",
+      "description": "[esp-tooltip] Border radius of the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-color",
+      "description": "[esp-tooltip] Text color inside the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-font-size",
+      "description": "[esp-tooltip] Font size of tooltip text."
+    },
+    {
+      "name": "--esp-tooltip-max-width",
+      "description": "[esp-tooltip] Maximum width of the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-padding",
+      "description": "[esp-tooltip] Padding inside the tooltip."
+    },
+    {
+      "name": "--esp-tooltip-shadow",
+      "description": "[esp-tooltip] Box shadow for the tooltip."
+    },
+
+    {
+      "name": "--esp-progress-border-radius",
+      "description": "[esp-progress] Border radius of the track and fill."
+    },
+    {
+      "name": "--esp-progress-circle-size",
+      "description": "[esp-progress] Diameter of the circular progress ring in circle mode."
+    },
+    {
+      "name": "--esp-progress-fill-color",
+      "description": "[esp-progress] Color of the progress fill."
+    },
+    {
+      "name": "--esp-progress-font-size",
+      "description": "[esp-progress] Font size for the value text."
+    },
+    {
+      "name": "--esp-progress-height",
+      "description": "[esp-progress] Height of the progress bar track."
+    },
+    {
+      "name": "--esp-progress-border-color",
+      "description": "[esp-progress] Border color of the track outline."
+    },
+
+    {
+      "name": "--esp-color-dialog-bg",
+      "description": "[esp-dialog] Background color of the dialog overlay."
+    },
+    {
+      "name": "--esp-dialog-bg-opacity",
+      "description": "[esp-dialog] Opacity of the dialog overlay background."
+    },
+
+    {
+      "name": "--esp-form-item-label-color",
+      "description": "[esp-form-item] Color of the label text."
+    },
+    {
+      "name": "--esp-form-item-error-color",
+      "description": "[esp-form-item] Color of the error message text."
+    },
+    {
+      "name": "--esp-form-item-font",
+      "description": "[esp-form-item] Font family for the form item."
+    },
+    {
+      "name": "--esp-form-item-font-size",
+      "description": "[esp-form-item] Font size for the form item."
+    },
+
+    {
+      "name": "--esp-details-color-border",
+      "description": "[esp-details] Border color."
+    },
+    {
+      "name": "--esp-details-color-background",
+      "description": "[esp-details] Background color."
+    },
+    {
+      "name": "--esp-details-color-summary-background",
+      "description": "[esp-details] Summary section background."
+    },
+    {
+      "name": "--esp-details-color-summary-hover-background",
+      "description": "[esp-details] Summary section hover background."
+    },
+    {
+      "name": "--esp-details-color-summary-background-active",
+      "description": "[esp-details] Summary section background when open."
+    },
+    {
+      "name": "--esp-details-color-indicator",
+      "description": "[esp-details] Color of the expand / collapse indicator."
+    },
+    {
+      "name": "--esp-details-size-padding",
+      "description": "[esp-details] Padding inside the details panel."
+    },
+
+    {
+      "name": "--esp-details-group-color-border",
+      "description": "[esp-details-group] Border color for the group container."
+    },
+
+    {
+      "name": "--esp-info-color-border",
+      "description": "[esp-info] Border color."
+    },
+    {
+      "name": "--esp-info-color-background",
+      "description": "[esp-info] Background color."
+    },
+    {
+      "name": "--esp-info-color-text",
+      "description": "[esp-info] Text color."
+    },
+
+    {
+      "name": "--esp-breadcrumb-separator-color",
+      "description": "[esp-breadcrumbs] Color of the separator between breadcrumbs."
+    },
+    {
+      "name": "--esp-breadcrumb-color",
+      "description": "[esp-breadcrumb] Link text color."
+    },
+    {
+      "name": "--esp-breadcrumb-hover-color",
+      "description": "[esp-breadcrumb] Link hover text color."
+    },
+
+    {
+      "name": "--esp-image-border",
+      "description": "[esp-image] Border property of the image."
+    },
+
+    {
+      "name": "--esp-image-upload-preview-background",
+      "description": "[esp-image-upload] Background color of the image preview area."
+    },
+    {
+      "name": "--esp-image-preview-border-color",
+      "description": "[esp-image-preview] Border color of the preview."
+    },
+    {
+      "name": "--esp-image-preview-remove-color",
+      "description": "[esp-image-preview] Text color of the remove button."
+    },
+
+    {
+      "name": "--esp-color-picker-bg",
+      "description": "[esp-picker-menu] Background color of picker menu items."
+    },
+    {
+      "name": "--esp-color-picker-bg-alt",
+      "description": "[esp-picker-menu] Alternate background color for picker menu items."
+    },
+
+    {
+      "name": "--esp-size-color-picker-border-width",
+      "description": "[esp-color-picker] Border width of the color picker."
+    },
+
+    {
+      "name": "--esp-grid-border",
+      "description": "[esp-grid] Border style of the grid."
+    }
+  ]
+}

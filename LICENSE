@@ -1,0 +1,405 @@
+# Espalier Proprietary Binary License
+
+Effective date: 2026-06-30
+
+This Espalier Proprietary Binary License ("Agreement") governs access to and use
+of Espalier by any person or entity that downloads, installs, copies, evaluates,
+or uses Espalier without a separately signed written agreement with Licensor.
+
+By clicking to accept this Agreement, signing or accepting an Order Form,
+accessing Espalier through Licensor's approved purchase flow, or downloading,
+installing, copying, importing, evaluating, or using Espalier after receiving
+notice of this Agreement, Licensee accepts and agrees to be bound by this
+Agreement. If Licensee does not agree, or if the individual acting for Licensee
+does not have authority to bind Licensee, Licensee must not access or use
+Espalier and must delete all copies in its possession or control.
+
+Access through an automated package manager, registry, repository, CDN, archive,
+build system, or other distribution channel is access by Licensee. Public
+package access grants only the Evaluation Use rights stated below unless
+Licensee has an active Order Form granting Production Use.
+
+## 1. Parties
+
+"Licensor" means Taproot IO, LLC, with offices in Washington State.
+
+"Licensee" means the individual or legal entity accessing or using Espalier.
+If an individual accesses or uses Espalier on behalf of an employer, client, or
+other organization, that organization is the Licensee and the individual
+represents that they have authority to bind it.
+
+## 2. Definitions
+
+"Espalier" means the Espalier design system, including compiled JavaScript,
+CSS, type declarations, custom element manifests, token manifests,
+documentation, examples, icons, fonts, and related materials distributed by or
+on behalf of Licensor.
+
+"Compiled Code" means Espalier in its distributed, non-source form, including
+object code, minified code, obfuscated code, generated type declarations,
+generated manifests, compiled and generated CSS and CSS data files, and the
+bundled icon and font assets distributed in non-source form, but excluding
+Source Code.
+
+"Source Code" means the preferred human-readable form of Espalier for making
+modifications, including TypeScript source, tests, build scripts, internal
+architecture records, source documentation, and related unpublished materials.
+
+"Application" means a software application, website, internal tool, product, or
+service developed by or for Licensee that incorporates or depends on Espalier.
+
+"Developer" means an individual who directly or indirectly writes, modifies,
+builds, tests, integrates, configures, or deploys an Application using Espalier.
+
+"Order Form" means a written ordering document signed by Licensor, or accepted
+through Licensor's approved purchase flow, that grants production rights and
+specifies fees, term, support, scope, and any additional commercial terms.
+
+"Evaluation Use" means internal, non-production testing, prototyping,
+technical evaluation, proof-of-concept work, and procurement review.
+
+"Production Use" means use in any Application or environment made available to
+customers, employees outside the evaluation team, contractors outside the
+evaluation team, partners, end users, or any revenue-generating, mission
+critical, or operational workflow.
+
+## 3. Ownership and Reservation of Rights
+
+Espalier is licensed, not sold. Licensor and its licensors retain all right,
+title, and interest in and to Licensor's proprietary components of Espalier,
+including all copyrights, trade secrets, trademarks, know-how, inventions,
+documentation, derivative works, and other intellectual property rights.
+Third-party materials included in or distributed with Espalier are governed
+solely by their own license terms as described in Section 14.
+
+No rights are granted except those expressly stated in this Agreement or an
+applicable Order Form. All rights not expressly granted are reserved by
+Licensor.
+
+## 4. Evaluation License
+
+Subject to this Agreement, Licensor grants Licensee a limited, revocable,
+non-exclusive, non-transferable, non-sublicensable license to use the Compiled
+Code solely for Evaluation Use for thirty (30) days from first access.
+
+During Evaluation Use, Licensee may make ordinary internal technical copies and
+perform ordinary installation, bundling, transpilation, minification,
+tree-shaking, caching, deployment to non-production environments, and testing
+steps necessary to evaluate Espalier, provided those steps remain internal, do
+not expose Espalier as a standalone asset, and do not create Source Code rights.
+
+Evaluation Use does not permit Production Use, redistribution, resale,
+white-labeling, benchmarking publication, competitive analysis for building or
+improving a competing product, or use to provide services to third parties.
+
+Any Evaluation Use after the thirty (30) day evaluation period requires
+Licensor's written extension or an active Order Form. Licensor may extend the
+evaluation period in writing.
+
+## 5. Production License
+
+Production Use requires an active Order Form and payment of all applicable fees.
+
+Subject to this Agreement and the Order Form, Licensor grants Licensee a
+limited, non-exclusive, non-transferable, non-sublicensable license during the
+Order Form term to:
+
+1. install and use the Compiled Code internally by the number of Developers,
+   teams, domains, products, or other units stated in the Order Form;
+2. incorporate the Compiled Code into Licensee's Applications; and
+3. distribute the Compiled Code only as embedded within Licensee's Applications
+   to Licensee's own end users, provided the Compiled Code is not exposed as a
+   standalone library, SDK, framework, component suite, design system, template
+   system, app builder, code generator, low-code/no-code tool, or development
+   tool.
+
+Within the licensed scope, Licensee may make ordinary technical copies and
+perform ordinary build, bundling, transpilation, minification, tree-shaking,
+caching, hosting, deployment, backup, and disaster-recovery steps necessary to
+exercise the rights above, provided those steps do not expose Espalier as a
+standalone asset, create Source Code rights, remove required notices, or exceed
+the Order Form scope.
+
+Unless the Order Form states otherwise, Production Use is limited to Licensee's
+internal business applications and Licensee-branded products. Any OEM,
+reseller, private-label, marketplace, template, app-builder, or developer-tool
+use requires a separate written agreement.
+
+## 6. Restrictions
+
+Licensee must not, and must not permit any third party to:
+
+1. copy, modify, translate, adapt, or create derivative works of Espalier except
+   as expressly allowed for Evaluation Use, Application integration, or
+   permitted technical operations under Sections 4 and 5;
+2. reverse engineer, decompile, disassemble, unobfuscate, unminify, or attempt
+   to derive Source Code, underlying structure, algorithms, design methods, or
+   trade secrets from Espalier, except to the limited extent such restriction is
+   prohibited by applicable law;
+3. remove, alter, or obscure proprietary notices, license files, or attribution
+   files;
+4. publish, sell, rent, lease, lend, sublicense, host, distribute, or otherwise
+   make Espalier available as a standalone product or service;
+5. use Espalier to develop, train, benchmark, or improve a competing UI
+   component suite, design system, front-end framework, app builder, low-code
+   platform, MCP server, AI coding-assistant knowledge base, or substantially
+   similar developer tool;
+6. use automated tools to scrape, reconstruct, index, extract, or model the
+   implementation details of Espalier except as expressly permitted by Licensor;
+7. use Espalier in violation of export controls, sanctions, privacy laws, or
+   applicable law;
+8. exceed the licensed Developer, seat, product, domain, environment, or
+   revenue limits in an Order Form; or
+9. allow contractors or affiliates to use Espalier except on Licensee's behalf,
+   under confidentiality obligations at least as protective as this Agreement,
+   and within the licensed scope.
+
+## 7. No Source Code Rights
+
+This Agreement grants no rights to Source Code. No Source Code is delivered
+under this Agreement. Source Code access, source escrow, source snapshot
+transactions, maintenance rights, or source modification rights require a
+separate written agreement signed by Licensor.
+
+## 8. Documentation, Manifests, and Generated Metadata
+
+Licensee may use Espalier documentation, custom element manifests, token
+manifests, and type declarations solely to evaluate, integrate, test, and use
+Espalier within the licensed scope.
+
+Licensee may not use those materials to create a competing product, generate a
+substitute component suite, train a commercial coding model, or provide a
+commercial knowledge service unless expressly authorized in an Order Form.
+
+## 9. Feedback
+
+If Licensee provides suggestions, ideas, bug reports, enhancement requests, or
+other feedback, Licensee grants Licensor a perpetual, irrevocable, worldwide,
+royalty-free license to use, copy, modify, distribute, commercialize, and
+otherwise exploit that feedback without restriction or compensation.
+
+## 10. Support and Updates
+
+Support, service levels, maintenance, updates, and upgrade rights are provided
+only as stated in an Order Form. Unless an Order Form states otherwise,
+Licensor may change, discontinue, or remove features, APIs, documentation,
+manifests, and distribution channels at any time.
+
+## 11. Fees, Taxes, and Payment
+
+Fees are stated in the applicable Order Form. Fees are non-cancelable and
+non-refundable except as expressly stated in the Order Form. Licensee is
+responsible for all taxes, duties, withholding, bank fees, and similar charges,
+excluding taxes based on Licensor's net income.
+
+## 12. Audit and Compliance
+
+During the term and for two (2) years after expiration or termination, Licensee
+must maintain accurate records sufficient to verify compliance.
+
+Upon reasonable notice, no more than once per year unless a material breach is
+suspected, Licensor may audit Licensee's use of Espalier. If an audit reveals
+underpayment or overuse, Licensee must promptly pay the shortfall at Licensor's
+then-current rates, plus reasonable audit costs if the shortfall exceeds five
+percent (5%) of fees paid for the audited period.
+
+## 13. Confidentiality
+
+"Confidential Information" means non-public Espalier materials, including Source
+Code, pricing, security information, roadmap information, benchmark results, and
+any other information Licensor identifies as confidential or that Licensee
+reasonably understands to be confidential.
+
+Licensee must protect Confidential Information using at least reasonable care
+and may use it only to exercise rights under this Agreement.
+
+Confidential Information does not include information that Licensee can
+document: (1) is or becomes public through no breach of this Agreement; (2) was
+known to Licensee without confidentiality restriction before disclosure by
+Licensor; (3) is independently developed without use of or reference to
+Licensor's Confidential Information; or (4) is lawfully received from a third
+party without confidentiality restriction.
+
+Licensee may disclose Confidential Information to the limited extent required by
+law, regulation, subpoena, or court order, provided Licensee gives Licensor
+prompt written notice when legally permitted, reasonably cooperates with
+Licensor's efforts to limit disclosure, and discloses only the minimum
+information legally required.
+
+## 14. Third-Party Materials
+
+Espalier may include or depend on third-party open-source or commercial
+materials. Such materials are licensed under their own terms. Licensor will
+provide applicable notices required for distributed third-party materials.
+
+Licensee is responsible for reviewing third-party notices and ensuring that its
+use of Espalier and its Applications complies with applicable third-party terms.
+
+The proprietary grant, ownership reservation, and restrictions in this Agreement,
+including Sections 3, 5, and 6, apply only to Licensor's proprietary components
+of Espalier and not to third-party materials. To the extent any term of this
+Agreement conflicts with the license governing third-party materials, that
+third-party license controls with respect to those materials, and nothing in
+this Agreement limits or restricts rights Licensee has under it.
+
+## 15. Trademarks
+
+No trademark rights are granted except as expressly stated in an Order Form.
+Licensee may not use the names "Taproot" or "Espalier" or any related marks in
+marketing, press releases, product names, domain names, or endorsements without
+Licensor's prior written consent.
+
+## 16. Term and Termination
+
+This Agreement begins when Licensee first accesses or uses Espalier and
+continues until terminated.
+
+Licensor may terminate this Agreement immediately if Licensee breaches Sections
+6, 7, 8, 13, or 15, fails to pay fees, infringes Licensor's intellectual
+property rights, or exceeds the licensed scope.
+
+Upon expiration or termination, all rights granted to Licensee end. Unless an
+Order Form expressly provides a written wind-down right, Licensee must
+immediately stop installing, using, building with, hosting, distributing, or
+making available Espalier or any Application that contains Espalier, and must
+destroy or delete all copies of Espalier in its possession or control and
+certify destruction upon request.
+
+Termination does not require Licensee to recall copies of Applications lawfully
+distributed to end users before termination unless termination resulted from
+Licensee's breach of Sections 6, 7, 8, 13, or 15 or an Order Form states
+otherwise. However, after expiration or termination, Licensee may not provide
+new downloads, hosted access, updates, patches, support releases, or further
+distributions containing Espalier except as expressly allowed in a written
+wind-down provision.
+
+Sections 3, 6, 7, 8, 9, 11, 12, 13, 15, 16, 17, 19, 20, 21, 22, 24, 25, 27, and
+28 survive expiration or termination of this Agreement, together with any other
+provision that by its nature is intended to survive.
+
+## 17. Equitable Relief
+
+Licensee acknowledges that breach of the license restrictions, no-source-code
+terms, confidentiality obligations, trademark restrictions, or intellectual
+property rights may cause irreparable harm for which monetary damages would be
+an inadequate remedy. Licensor may seek temporary, preliminary, and permanent
+injunctive relief, specific performance, and other equitable relief without
+posting bond or proving actual damages, in addition to any other remedies
+available at law or in equity.
+
+## 18. Warranties
+
+Any warranty is only as stated in an Order Form. Otherwise, Espalier is provided
+"as is" and "as available."
+
+## 19. Warranty Disclaimer
+
+To the maximum extent permitted by law, Licensor disclaims all warranties,
+whether express, implied, statutory, or otherwise, including warranties of
+merchantability, fitness for a particular purpose, title, non-infringement,
+accuracy, availability, security, and error-free operation.
+
+## 20. Limitation of Liability
+
+To the maximum extent permitted by law, Licensor will not be liable for
+indirect, incidental, special, consequential, exemplary, punitive, or enhanced
+damages, lost profits, lost revenue, lost data, business interruption, or cost
+of substitute goods or services.
+
+Except for Licensee's payment obligations, Licensee's breach of confidentiality
+obligations, Licensee's violation of license restrictions, Licensee's
+infringement or misappropriation of Licensor's IP, either party's indemnity
+obligations, enforcement costs awarded under this Agreement, or equitable
+relief, each party's total liability arising out of this Agreement will not
+exceed the amounts paid or payable to Licensor under the applicable Order Form
+in the twelve (12) months before the event giving rise to liability.
+
+For any liability arising during a period in which no Order Form is in effect,
+including Evaluation Use, Licensor's total aggregate liability will not exceed
+one hundred U.S. dollars (US$100).
+
+## 21. Indemnity
+
+Licensee will defend, indemnify, and hold harmless Licensor from claims,
+damages, liabilities, costs, and expenses arising from Licensee's Applications,
+Licensee's breach of this Agreement, unauthorized use of Espalier, or
+combination of Espalier with materials not provided by Licensor.
+
+Licensor will provide any IP infringement indemnity only if expressly stated in
+an Order Form, and only for unmodified Espalier used within the licensed scope.
+
+## 22. Export and Sanctions
+
+Licensee may not export, re-export, transfer, or use Espalier in violation of
+U.S. export controls, sanctions, or similar laws. Licensee represents that it is
+not located in, organized under the laws of, or ordinarily resident in a
+sanctioned jurisdiction and is not a sanctioned party.
+
+## 23. Government Use
+
+Espalier is commercial computer software. Any U.S. government use is subject to
+the restrictions applicable to commercial computer software and commercial
+computer software documentation.
+
+## 24. Assignment
+
+Licensee may not assign or transfer this Agreement without Licensor's prior
+written consent, whether by operation of law, merger, change of control, asset
+sale, or otherwise. Any attempted assignment without consent is void. Licensor
+may assign this Agreement to an affiliate or successor.
+
+## 25. Governing Law and Venue
+
+This Agreement is governed by the laws of the State of Washington, USA, excluding
+conflict of law rules. The courts located in Pierce County, Washington will have
+exclusive jurisdiction unless an Order Form requires arbitration. Licensee
+consents to personal jurisdiction and venue in those courts and waives any
+objection based on inconvenient forum.
+
+To the maximum extent permitted by law, each party knowingly and voluntarily
+waives any right to a trial by jury in any action or proceeding arising out of
+or relating to this Agreement.
+
+## 26. Notices
+
+Formal notices to Licensor must be sent to legal@taproot.io and to any
+additional notice address stated in the applicable Order Form. Licensor may send
+notices to Licensee by email to the account, billing, technical, or legal
+contact associated with Licensee; through Licensor's approved purchase flow or
+account portal; in an Order Form; or through the repository, registry, package,
+or distribution channel through which Licensee receives Espalier.
+
+Notices are effective when sent, posted, or delivered, unless applicable law
+requires a later effective date.
+
+## 27. Severability, Waiver, and Enforcement Costs
+
+If any provision of this Agreement is held invalid, illegal, or unenforceable,
+that provision will be modified to the minimum extent necessary to make it
+valid and enforceable while preserving the parties' intent, and the remaining
+provisions will remain in effect.
+
+A waiver must be in writing and signed by the waiving party. Failure or delay in
+enforcing any provision is not a waiver of that provision or any other
+provision.
+
+In any action or proceeding to enforce this Agreement, the prevailing party may
+recover its reasonable attorneys' fees, expert fees, and costs, in addition to
+any other available remedy.
+
+## 28. Entire Agreement; Amendments; Order of Precedence
+
+This Agreement, together with any applicable Order Form, is the entire agreement
+between the parties regarding Espalier and supersedes prior or contemporaneous
+understandings. This Agreement may be amended only by a writing signed by both
+parties or by terms accepted through Licensor's approved purchase flow.
+
+If there is a conflict, the Order Form controls for that Order Form only. Any
+purchase order, vendor portal term, or other Licensee-provided term is rejected
+and has no effect unless expressly signed by Licensor.
+
+## 29. Contact
+
+Questions about licensing should be sent to:
+
+legal@taproot.io

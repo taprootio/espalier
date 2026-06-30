@@ -1,15 +1,64 @@
 # Espalier
 
-This repository is the public artifact repository for Espalier, Taproot's web
-component design system.
+Espalier is Taproot's enterprise-grade web component design system. It ships as
+standard ES modules built on Lit, custom elements, Shadow DOM, CSS custom
+properties, and native form participation.
 
-Espalier source code is private. This repository is not a source mirror and must
-not contain source files, tests, build scripts, architecture records, internal
-documentation, private git history, or source maps.
+This npm package contains compiled Espalier artifacts only. Source code, tests,
+architecture records, build tooling, and private development materials are not
+included in this package or in the public artifact repository.
 
-Release commits in this repository are generated from the private
-`taproot-controls` release pipeline and contain only the compiled package files
-needed to publish `@taprootio/espalier` to the public npm registry.
+> **License:** Espalier is proprietary software, not open source. A public npm
+> install grants a **30-day Evaluation** license only; production use requires a
+> paid Order Form. See [`LICENSE`](./LICENSE) for the full terms and `licenses/`
+> for third-party notices. Licensing questions: legal@taproot.io
 
-No public release has been staged yet. Do not publish this placeholder scaffold
-directly; the release pipeline replaces it with an audited package artifact.
+## Installation
+
+```bash
+npm install @taprootio/espalier
+```
+
+## Basic Usage
+
+Import the root element and the components you use:
+
+```js
+import "@taprootio/espalier/root";
+import "@taprootio/espalier/button";
+```
+
+Then render Espalier components inside `<esp-root>`:
+
+```html
+<esp-root>
+  <esp-button label="Save" collapsed></esp-button>
+</esp-root>
+```
+
+You can also import the full component bundle:
+
+```js
+import "@taprootio/espalier";
+```
+
+## Public Metadata
+
+The package includes machine-readable public API metadata:
+
+- `custom-elements.json` for custom element APIs
+- `espalier.token-manifest.json` for public CSS custom properties
+- `espalier.css-data.json` for CSS language tooling
+
+## License
+
+Espalier is proprietary software. See `LICENSE` for the package license and
+`licenses/` for third-party notices and asset provenance.
+
+Production use requires a paid order form or another written agreement with
+Taproot unless the license expressly allows the use case.
+
+## Source Access
+
+No source code rights are granted by this package. Source access, source escrow,
+or source snapshot transactions require a separate written agreement.
