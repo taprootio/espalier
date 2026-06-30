@@ -1,0 +1,24 @@
+# The public espalier repository is an artifact repository.
+# Ignore everything by default, then admit only generated release artifacts and
+# safe repository scaffold files.
+
+*
+
+!.gitignore
+!README.md
+!RELEASE_ARTIFACTS.md
+!package.json
+!LICENSE
+!CHANGELOG.md
+!custom-elements.json
+!espalier.css-data.json
+!espalier.token-manifest.json
+
+!dist/
+!dist/**
+
+!css/
+!css/**
+
+!license/
+!license/**
