@@ -1,7 +1,6 @@
 {
   "name": "@taprootio/espalier",
   "version": "0.0.0",
-  "private": true,
   "description": "Scaffold placeholder for the public Espalier artifact repository. The taproot-controls release pipeline replaces this file before publishing.",
   "type": "module",
   "repository": {
@@ -12,5 +11,9 @@
     "url": "https://github.com/taprootio/espalier/issues"
   },
   "homepage": "https://github.com/taprootio/espalier#readme",
-  "license": "SEE LICENSE IN LICENSE"
+  "license": "SEE LICENSE IN LICENSE",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }
