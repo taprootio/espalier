@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "Scaffold placeholder for the public Espalier artifact repository. The taproot-controls release pipeline replaces this file before publishing.",
   "type": "module",
   "repository": {
