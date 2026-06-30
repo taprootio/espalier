@@ -9,6 +9,6 @@ documentation, private git history, or source maps.
 
 Release commits in this repository are generated from the private
 `taproot-controls` release pipeline and contain only the compiled package files
-needed to publish `@taproot/espalier` to the public npm registry.
+needed to publish `@taprootio/espalier` to the public npm registry.
 
 No public release has been staged yet.
