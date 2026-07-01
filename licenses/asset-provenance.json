@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-17",
+  "updatedAt": "2026-06-30",
   "entries": [
     {
       "id": "google-font-preview-assets",
@@ -108,6 +108,29 @@
       "docsInclusion": "copied to public docs assets by Eleventy and used by the docs shell",
       "noticeRequirement": "none",
       "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "vendored-lit-virtualizer",
+      "paths": [
+        "dist/shared/virtualizer/**"
+      ],
+      "assetType": "vendored runtime source",
+      "classification": "third-party vendored source",
+      "owner": "Google LLC and Lit contributors",
+      "source": "@lit-labs/virtualizer 2.1.1, published from git head 43c6168acc4a30d70091ee30c307f692a02387d5",
+      "license": "BSD-3-Clause",
+      "transformations": [
+        "Extracted upstream TypeScript sources from the published package source maps",
+        "Compiled into Espalier distribution JavaScript",
+        "Registered through an Espalier-owned guarded custom-element wrapper"
+      ],
+      "packageInclusion": "compiled into npm package JavaScript",
+      "docsInclusion": "used by picker, repeater, and grid examples when those components virtualize items",
+      "noticeRequirement": "required",
+      "noticePaths": [
+        "licenses/THIRD_PARTY_NOTICES.md"
+      ],
       "reviewStatus": "documented"
     },
     {

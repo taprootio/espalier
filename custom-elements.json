@@ -5200,6 +5200,670 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/box/esp-box.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Used as a base to group context visually. `esp-box`\nhas a css part of `box` that can be styled to create cards,\nforms, and other UI elements.\n\n```html\n<esp-box>\n  <h2>Box things</h2>\n  <p>Things grouped visually.</p>\n</esp-box>\n```",
+          "name": "EspalierBox",
+          "cssProperties": [
+            {
+              "description": "The background color of the box.",
+              "name": "--esp-color-box-background"
+            },
+            {
+              "description": "Adds a layer in the background of the box. Intended for background images or gradients.",
+              "name": "--esp-box-background"
+            },
+            {
+              "description": "The opacity of the background layer.",
+              "name": "--esp-box-background-opacity"
+            },
+            {
+              "description": "The padding inside the box. ```html <style> esp-root[scheme=\"light\"] { esp-box.box-with-bg { --esp-box-background: url(/assets/espalier-paper-texture.png) repeat; --esp-box-background-opacity: .5; } } esp-root[scheme=\"dark\"] { esp-box.box-with-bg { --esp-box-background: url(/assets/espalier-geometric-texture.png) repeat; --esp-box-background-opacity: .5; } } </style> <esp-box class=\"box-with-bg\" variant=\"analogous-right\"> <h2>Box with background image</h2> <p>I have a different generated background texture in dark mode than light mode.</p> </esp-box> ```",
+              "name": "--esp-size-box-padding"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The box element. The default style is a padded element displayed as a box. Style the CSS part to create cards, forms, and other UI elements. Here is a card style: ```html <style> esp-box.card-box::part(box) { display: grid; grid-template-rows: min-content min-content; gap: var(--esp-size-padding); padding: 0; } esp-box.card-box header { background: oklch(from var(--esp-color-complementary) var(--esp-l-text) c h); color: oklch(from var(--esp-color-complementary) var(--esp-l-surface) c h); font-size: var(--esp-size-big-to-large); padding: var(--esp-size-padding); line-height: 1.1; font-family: var(--esp-font-headings); } esp-box.card-box div { padding: var(--esp-size-padding); } </style> <esp-box class=\"card-box\" variant=\"analogous-right\"> <header>Box as a card</header> <div> <p>Card content.</p> </div> </esp-box> ```",
+              "name": "box"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The default slot holds elements to display in the box. ```html <esp-box> <h2>Slotted Content</h2> <p>Goes in the box</p> </esp-box> ```",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fullScreen",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Whether the box should take up the full screen. Useful when\ndisplaying a dialog in full-screen mode.\n\n```html\n<esp-box variant=\"triadic-right\">\n  <h2>Box things</h2>\n  <esp-box variant=\"complementary\">\n    <h2>Box in box</h2>\n    <esp-button label=\"Toggle full screen\" variant=\"complementary\"></esp-button>\n  </esp-box>\n</esp-box>\n<script>\n  let fullScreen = false;\n  const theBox = findByTagName(\"esp-box\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    fullScreen = !fullScreen;\n\n    if(fullScreen) {\n      theBox.setAttribute(\"full-screen\", true);\n    } else {\n      theBox.removeAttribute(\"full-screen\");\n    }\n  });\n</script>\n```",
+              "attribute": "full-screen"
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "type": {
+                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
+              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ColorSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "ColorSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "full-screen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the box should take up the full screen. Useful when\ndisplaying a dialog in full-screen mode.\n\n```html\n<esp-box variant=\"triadic-right\">\n  <h2>Box things</h2>\n  <esp-box variant=\"complementary\">\n    <h2>Box in box</h2>\n    <esp-button label=\"Toggle full screen\" variant=\"complementary\"></esp-button>\n  </esp-box>\n</esp-box>\n<script>\n  let fullScreen = false;\n  const theBox = findByTagName(\"esp-box\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    fullScreen = !fullScreen;\n\n    if(fullScreen) {\n      theBox.setAttribute(\"full-screen\", true);\n    } else {\n      theBox.removeAttribute(\"full-screen\");\n    }\n  });\n</script>\n```",
+              "fieldName": "fullScreen"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "tagName": "esp-box",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Box",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/box",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Structure",
+            "description": ""
+          },
+          "menuOrder": {
+            "name": "3",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Box",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "box",
+            "description": ""
+          },
+          "events": [
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierBox",
+          "declaration": {
+            "name": "EspalierBox",
+            "module": "dist/box/esp-box.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-box",
+          "declaration": {
+            "name": "EspalierBox",
+            "module": "dist/box/esp-box.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/breadcrumbs/esp-breadcrumb.js",
       "declarations": [
         {
@@ -6116,670 +6780,6 @@
           "declaration": {
             "name": "EspalierBurger",
             "module": "dist/burger/esp-burger.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/box/esp-box.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Used as a base to group context visually. `esp-box`\nhas a css part of `box` that can be styled to create cards,\nforms, and other UI elements.\n\n```html\n<esp-box>\n  <h2>Box things</h2>\n  <p>Things grouped visually.</p>\n</esp-box>\n```",
-          "name": "EspalierBox",
-          "cssProperties": [
-            {
-              "description": "The background color of the box.",
-              "name": "--esp-color-box-background"
-            },
-            {
-              "description": "Adds a layer in the background of the box. Intended for background images or gradients.",
-              "name": "--esp-box-background"
-            },
-            {
-              "description": "The opacity of the background layer.",
-              "name": "--esp-box-background-opacity"
-            },
-            {
-              "description": "The padding inside the box. ```html <style> esp-root[scheme=\"light\"] { esp-box.box-with-bg { --esp-box-background: url(/assets/espalier-paper-texture.png) repeat; --esp-box-background-opacity: .5; } } esp-root[scheme=\"dark\"] { esp-box.box-with-bg { --esp-box-background: url(/assets/espalier-geometric-texture.png) repeat; --esp-box-background-opacity: .5; } } </style> <esp-box class=\"box-with-bg\" variant=\"analogous-right\"> <h2>Box with background image</h2> <p>I have a different generated background texture in dark mode than light mode.</p> </esp-box> ```",
-              "name": "--esp-size-box-padding"
-            },
-            {
-              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The box element. The default style is a padded element displayed as a box. Style the CSS part to create cards, forms, and other UI elements. Here is a card style: ```html <style> esp-box.card-box::part(box) { display: grid; grid-template-rows: min-content min-content; gap: var(--esp-size-padding); padding: 0; } esp-box.card-box header { background: oklch(from var(--esp-color-complementary) var(--esp-l-text) c h); color: oklch(from var(--esp-color-complementary) var(--esp-l-surface) c h); font-size: var(--esp-size-big-to-large); padding: var(--esp-size-padding); line-height: 1.1; font-family: var(--esp-font-headings); } esp-box.card-box div { padding: var(--esp-size-padding); } </style> <esp-box class=\"card-box\" variant=\"analogous-right\"> <header>Box as a card</header> <div> <p>Card content.</p> </div> </esp-box> ```",
-              "name": "box"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The default slot holds elements to display in the box. ```html <esp-box> <h2>Slotted Content</h2> <p>Goes in the box</p> </esp-box> ```",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "fullScreen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "Whether the box should take up the full screen. Useful when\ndisplaying a dialog in full-screen mode.\n\n```html\n<esp-box variant=\"triadic-right\">\n  <h2>Box things</h2>\n  <esp-box variant=\"complementary\">\n    <h2>Box in box</h2>\n    <esp-button label=\"Toggle full screen\" variant=\"complementary\"></esp-button>\n  </esp-box>\n</esp-box>\n<script>\n  let fullScreen = false;\n  const theBox = findByTagName(\"esp-box\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    fullScreen = !fullScreen;\n\n    if(fullScreen) {\n      theBox.setAttribute(\"full-screen\", true);\n    } else {\n      theBox.removeAttribute(\"full-screen\");\n    }\n  });\n</script>\n```",
-              "attribute": "full-screen"
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantBacker",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "protected",
-              "default": "\"primary\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "public",
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "attribute": "variant",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textContrast",
-              "type": {
-                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
-              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "statusVariantSources",
-              "type": {
-                "text": "ReadonlySet<ColorSource>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
-              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyVariantTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "effectiveVariantTokenSource",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "ColorSource"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "SemanticColorName"
-                  }
-                },
-                {
-                  "name": "mappedSource",
-                  "type": {
-                    "text": "ColorSource"
-                  }
-                },
-                {
-                  "name": "isStatusVariant",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getVariantColorSource",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "ColorSource | \"\""
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setVariantTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearVariantTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "full-screen",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the box should take up the full screen. Useful when\ndisplaying a dialog in full-screen mode.\n\n```html\n<esp-box variant=\"triadic-right\">\n  <h2>Box things</h2>\n  <esp-box variant=\"complementary\">\n    <h2>Box in box</h2>\n    <esp-button label=\"Toggle full screen\" variant=\"complementary\"></esp-button>\n  </esp-box>\n</esp-box>\n<script>\n  let fullScreen = false;\n  const theBox = findByTagName(\"esp-box\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    fullScreen = !fullScreen;\n\n    if(fullScreen) {\n      theBox.setAttribute(\"full-screen\", true);\n    } else {\n      theBox.removeAttribute(\"full-screen\");\n    }\n  });\n</script>\n```",
-              "fieldName": "fullScreen"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "fieldName": "variant",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "tagName": "esp-box",
-          "customElement": true,
-          "docPageTitle": {
-            "name": "Box",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/box",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Structure",
-            "description": ""
-          },
-          "menuOrder": {
-            "name": "3",
-            "description": ""
-          },
-          "menuLabel": {
-            "name": "Box",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "box",
-            "description": ""
-          },
-          "events": [
-            {
-              "name": "value-changed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierBox",
-          "declaration": {
-            "name": "EspalierBox",
-            "module": "dist/box/esp-box.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-box",
-          "declaration": {
-            "name": "EspalierBox",
-            "module": "dist/box/esp-box.js"
           }
         }
       ]
@@ -53184,462 +53184,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/date-picker/helpers/calendar-grid.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "parseDateBound",
-          "return": {
-            "type": {
-              "text": "Temporal.PlainDate | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "iso",
-              "type": {
-                "text": "string"
-              }
-            }
-          ],
-          "description": "Safely parse an ISO date string, returning `null` on failure."
-        },
-        {
-          "kind": "function",
-          "name": "isDateDisabled",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "date",
-              "type": {
-                "text": "Temporal.PlainDate"
-              }
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            }
-          ],
-          "description": "Return `true` if the date falls outside the min/max range."
-        },
-        {
-          "kind": "function",
-          "name": "getSelectedDate",
-          "return": {
-            "type": {
-              "text": "Temporal.PlainDate | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "parsed",
-              "type": {
-                "text": "ParsedValue"
-              }
-            }
-          ],
-          "description": "Extract the single selected date from a parsed value (date / datetime only)."
-        },
-        {
-          "kind": "function",
-          "name": "getEffectiveRange",
-          "return": {
-            "type": {
-              "text": "{ start: Temporal.PlainDate | null; end: Temporal.PlainDate | null }"
-            }
-          },
-          "parameters": [
-            {
-              "name": "mode",
-              "type": {
-                "text": "DatePickerMode"
-              }
-            },
-            {
-              "name": "parsed",
-              "type": {
-                "text": "ParsedValue"
-              }
-            },
-            {
-              "name": "rangeAnchor",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "rangePreview",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            }
-          ],
-          "description": "Compute the effective start/end for range grid highlighting.\n\nDuring the `start` phase (anchor set, waiting for second click),\nthe preview hover date is used as the tentative end. The pair\nis always normalised so start <= end."
-        },
-        {
-          "kind": "function",
-          "name": "generateCalendarGrid",
-          "return": {
-            "type": {
-              "text": "CalendarDay[]"
-            }
-          },
-          "parameters": [
-            {
-              "name": "month",
-              "type": {
-                "text": "Temporal.PlainYearMonth"
-              }
-            },
-            {
-              "name": "selectedDate",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "rangeStart",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "rangeEnd",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "minDate",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            },
-            {
-              "name": "maxDate",
-              "type": {
-                "text": "Temporal.PlainDate | null"
-              }
-            }
-          ],
-          "description": "Generate a 6x7 calendar grid for the given month. Each cell\ncarries flags for rendering (today, selected, range, disabled,\noutside-month, etc.)."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "parseDateBound",
-          "declaration": {
-            "name": "parseDateBound",
-            "module": "dist/date-picker/helpers/calendar-grid.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "isDateDisabled",
-          "declaration": {
-            "name": "isDateDisabled",
-            "module": "dist/date-picker/helpers/calendar-grid.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getSelectedDate",
-          "declaration": {
-            "name": "getSelectedDate",
-            "module": "dist/date-picker/helpers/calendar-grid.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getEffectiveRange",
-          "declaration": {
-            "name": "getEffectiveRange",
-            "module": "dist/date-picker/helpers/calendar-grid.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "generateCalendarGrid",
-          "declaration": {
-            "name": "generateCalendarGrid",
-            "module": "dist/date-picker/helpers/calendar-grid.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/date-picker/helpers/constants.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "GRID_ROWS",
-          "type": {
-            "text": "number"
-          },
-          "default": "6"
-        },
-        {
-          "kind": "variable",
-          "name": "GRID_COLS",
-          "type": {
-            "text": "number"
-          },
-          "default": "7"
-        },
-        {
-          "kind": "variable",
-          "name": "GRID_SIZE"
-        },
-        {
-          "kind": "variable",
-          "name": "WEEKDAY_LABELS",
-          "type": {
-            "text": "array"
-          },
-          "default": "[\"Mo\", \"Tu\", \"We\", \"Th\", \"Fr\", \"Sa\", \"Su\"]",
-          "description": "Monday-start day-of-week headers."
-        },
-        {
-          "kind": "variable",
-          "name": "MONTH_NAMES",
-          "type": {
-            "text": "array"
-          },
-          "default": "[ \"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\", ]",
-          "description": "Month names for the header."
-        },
-        {
-          "kind": "variable",
-          "name": "HOURS_12",
-          "description": "Hours 1–12 for the 12-hour clock picker."
-        },
-        {
-          "kind": "variable",
-          "name": "MINUTES_60",
-          "description": "Minutes 0–59 for the minute picker."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "GRID_ROWS",
-          "declaration": {
-            "name": "GRID_ROWS",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GRID_COLS",
-          "declaration": {
-            "name": "GRID_COLS",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GRID_SIZE",
-          "declaration": {
-            "name": "GRID_SIZE",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "WEEKDAY_LABELS",
-          "declaration": {
-            "name": "WEEKDAY_LABELS",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "MONTH_NAMES",
-          "declaration": {
-            "name": "MONTH_NAMES",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "HOURS_12",
-          "declaration": {
-            "name": "HOURS_12",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "MINUTES_60",
-          "declaration": {
-            "name": "MINUTES_60",
-            "module": "dist/date-picker/helpers/constants.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/date-picker/helpers/parsing.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "parseValue",
-          "return": {
-            "type": {
-              "text": "ParsedValue"
-            }
-          },
-          "parameters": [
-            {
-              "name": "raw",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "mode",
-              "type": {
-                "text": "DatePickerMode"
-              }
-            }
-          ],
-          "description": "Parse a raw ISO 8601 value string into a structured `ParsedValue`\nbased on the picker mode. Returns `{ kind: \"none\" }` for empty or\nunparseable input."
-        },
-        {
-          "kind": "function",
-          "name": "formatDate",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "d",
-              "type": {
-                "text": "Temporal.PlainDate"
-              }
-            }
-          ],
-          "description": "Format a `PlainDate` as \"Month Day, Year\"."
-        },
-        {
-          "kind": "function",
-          "name": "formatTime",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "t",
-              "type": {
-                "text": "Temporal.PlainTime"
-              }
-            }
-          ],
-          "description": "Format a `PlainTime` as \"H:MM AM/PM\"."
-        },
-        {
-          "kind": "function",
-          "name": "displayValue",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "parsed",
-              "type": {
-                "text": "ParsedValue"
-              }
-            }
-          ],
-          "description": "Build the human-readable display string for the input field\nfrom a parsed value."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "parseValue",
-          "declaration": {
-            "name": "parseValue",
-            "module": "dist/date-picker/helpers/parsing.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "formatDate",
-          "declaration": {
-            "name": "formatDate",
-            "module": "dist/date-picker/helpers/parsing.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "formatTime",
-          "declaration": {
-            "name": "formatTime",
-            "module": "dist/date-picker/helpers/parsing.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "displayValue",
-          "declaration": {
-            "name": "displayValue",
-            "module": "dist/date-picker/helpers/parsing.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/date-picker/helpers/styles.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "datePickerStyles",
-          "default": "css` /* ── Error state ─────────────────────────────────── */ .temporal-error { font-family: var(--esp-font-body); font-size: var(--esp-type-small); color: var(--esp-color-danger-text); padding: var(--esp-size-padding); } /* ── Trigger field ───────────────────────────────── */ .esp-field { display: grid; grid-template-columns: 1fr min-content; cursor: pointer; > input.esp-input { cursor: pointer; width: auto; } > .field-icon { display: grid; place-content: center; cursor: pointer; > svg { height: calc(1.2 * var(--esp-size-font)); width: calc(1.2 * var(--esp-size-font)); margin: 0 var(--esp-size-tiny); } } } /* ── Popover shell (native top-layer) ────────────── */ .picker-popover { position: fixed; inset: unset; margin: 0; padding: var(--esp-size-small); border-radius: var(--esp-size-border-radius); border: 1px solid var(--esp-color-border); background: var(--esp-color-layer-1); box-shadow: 0 4px 16px var(--esp-color-shadow); color: var(--esp-color-text); font-family: var(--esp-font-body); font-size: var(--esp-size-font); opacity: 0; transition: opacity 150ms ease-in; overflow: visible; } .picker-popover.visible { opacity: 1; } /* ── Calendar ────────────────────────────────────── */ .calendar { display: flex; flex-direction: column; gap: var(--esp-size-tiny); user-select: none; overflow: hidden; } .cal-body { will-change: transform; } .cal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--esp-size-tiny); } .cal-title { font-weight: bold; font-size: var(--esp-type-normal); color: var(--esp-color-headings); } .nav-btn { display: grid; place-content: center; background: none; border: none; cursor: pointer; padding: var(--esp-size-tiny); border-radius: var(--esp-size-border-radius); color: var(--esp-color-text); transition: background-color 120ms ease; > svg { height: var(--esp-size-normal); width: var(--esp-size-normal); } &:hover { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; } } /* ── Weekday labels ──────────────────────────────── */ .weekday-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; } .weekday-label { font-size: var(--esp-type-tiny); font-weight: 600; color: var(--esp-color-headings); text-decoration: none; padding: var(--esp-size-tiny) 0; } /* ── Day grid ────────────────────────────────────── */ .day-grid { display: flex; flex-direction: column; } /* Show the focused-day ring only when the grid itself contains focus, so it disappears when the user tabs to the nav arrows or time picker. */ .day-grid:focus-within .day-cell.focused { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } .day-row { display: grid; grid-template-columns: repeat(7, 1fr); } /* ── Day cell ────────────────────────────────────── */ .day-cell { --_cell-size: 2.4em; position: relative; display: grid; place-content: center; width: var(--_cell-size); height: var(--_cell-size); border: none; border-radius: var(--esp-size-border-radius); background: none; cursor: pointer; font-family: inherit; font-size: inherit; color: var(--esp-color-text); transition: background-color 100ms ease, color 100ms ease; &:hover:not(.disabled):not(.selected) { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } /* Outside month — dim */ &.outside-month { opacity: 0.38; } /* Today ring */ &.today { font-weight: bold; box-shadow: inset 0 0 0 1px var(--esp-color-border); border-radius: var(--esp-size-border-radius); } /* Selected / range endpoints */ &.selected { background-color: var(--esp-color-layer-3); color: var(--esp-color-action-text); font-weight: bold; } /* Range span highlight — washed-out brand colour */ &.in-range { background-color: oklch(from var(--esp-color-layer-3) calc(l + 0.15) calc(c * 0.4) h); border-radius: 0; } &.range-start { border-radius: var(--esp-size-border-radius) 0 0 var(--esp-size-border-radius); } &.range-end { border-radius: 0 var(--esp-size-border-radius) var(--esp-size-border-radius) 0; } /* Disabled */ &.disabled { opacity: 0.3; cursor: not-allowed; } } /* ── Time picker ─────────────────────────────────── */ .time-picker { display: flex; align-items: center; flex-wrap: nowrap; gap: var(--esp-size-tiny); padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); white-space: nowrap; /* Push the action buttons to the right edge */ > esp-button:first-of-type { margin-left: auto; } } /* Only-time mode: no top border */ :host([mode=\"time\"]) .time-picker { border-top: none; margin-top: 0; padding-top: 0; } .popover-actions { display: flex; gap: var(--esp-size-tiny); align-items: center; justify-content: flex-end; padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); } .time-sep { font-size: var(--esp-type-medium); font-weight: bold; color: var(--esp-color-headings); padding: 0 2px; } `",
-          "description": "Component-specific styles for `esp-date-picker`."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "datePickerStyles",
-          "declaration": {
-            "name": "datePickerStyles",
-            "module": "dist/date-picker/helpers/styles.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/date-picker/helpers/types.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/tree/esp-tree-item.js",
       "declarations": [
         {
@@ -57505,6 +57049,462 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/date-picker/helpers/calendar-grid.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "parseDateBound",
+          "return": {
+            "type": {
+              "text": "Temporal.PlainDate | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "iso",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Safely parse an ISO date string, returning `null` on failure."
+        },
+        {
+          "kind": "function",
+          "name": "isDateDisabled",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "date",
+              "type": {
+                "text": "Temporal.PlainDate"
+              }
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            }
+          ],
+          "description": "Return `true` if the date falls outside the min/max range."
+        },
+        {
+          "kind": "function",
+          "name": "getSelectedDate",
+          "return": {
+            "type": {
+              "text": "Temporal.PlainDate | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "parsed",
+              "type": {
+                "text": "ParsedValue"
+              }
+            }
+          ],
+          "description": "Extract the single selected date from a parsed value (date / datetime only)."
+        },
+        {
+          "kind": "function",
+          "name": "getEffectiveRange",
+          "return": {
+            "type": {
+              "text": "{ start: Temporal.PlainDate | null; end: Temporal.PlainDate | null }"
+            }
+          },
+          "parameters": [
+            {
+              "name": "mode",
+              "type": {
+                "text": "DatePickerMode"
+              }
+            },
+            {
+              "name": "parsed",
+              "type": {
+                "text": "ParsedValue"
+              }
+            },
+            {
+              "name": "rangeAnchor",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "rangePreview",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            }
+          ],
+          "description": "Compute the effective start/end for range grid highlighting.\n\nDuring the `start` phase (anchor set, waiting for second click),\nthe preview hover date is used as the tentative end. The pair\nis always normalised so start <= end."
+        },
+        {
+          "kind": "function",
+          "name": "generateCalendarGrid",
+          "return": {
+            "type": {
+              "text": "CalendarDay[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "month",
+              "type": {
+                "text": "Temporal.PlainYearMonth"
+              }
+            },
+            {
+              "name": "selectedDate",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "rangeStart",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "rangeEnd",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "minDate",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "maxDate",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            }
+          ],
+          "description": "Generate a 6x7 calendar grid for the given month. Each cell\ncarries flags for rendering (today, selected, range, disabled,\noutside-month, etc.)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parseDateBound",
+          "declaration": {
+            "name": "parseDateBound",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDateDisabled",
+          "declaration": {
+            "name": "isDateDisabled",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSelectedDate",
+          "declaration": {
+            "name": "getSelectedDate",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getEffectiveRange",
+          "declaration": {
+            "name": "getEffectiveRange",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateCalendarGrid",
+          "declaration": {
+            "name": "generateCalendarGrid",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/date-picker/helpers/constants.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "GRID_ROWS",
+          "type": {
+            "text": "number"
+          },
+          "default": "6"
+        },
+        {
+          "kind": "variable",
+          "name": "GRID_COLS",
+          "type": {
+            "text": "number"
+          },
+          "default": "7"
+        },
+        {
+          "kind": "variable",
+          "name": "GRID_SIZE"
+        },
+        {
+          "kind": "variable",
+          "name": "WEEKDAY_LABELS",
+          "type": {
+            "text": "array"
+          },
+          "default": "[\"Mo\", \"Tu\", \"We\", \"Th\", \"Fr\", \"Sa\", \"Su\"]",
+          "description": "Monday-start day-of-week headers."
+        },
+        {
+          "kind": "variable",
+          "name": "MONTH_NAMES",
+          "type": {
+            "text": "array"
+          },
+          "default": "[ \"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\", ]",
+          "description": "Month names for the header."
+        },
+        {
+          "kind": "variable",
+          "name": "HOURS_12",
+          "description": "Hours 1–12 for the 12-hour clock picker."
+        },
+        {
+          "kind": "variable",
+          "name": "MINUTES_60",
+          "description": "Minutes 0–59 for the minute picker."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GRID_ROWS",
+          "declaration": {
+            "name": "GRID_ROWS",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GRID_COLS",
+          "declaration": {
+            "name": "GRID_COLS",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GRID_SIZE",
+          "declaration": {
+            "name": "GRID_SIZE",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "WEEKDAY_LABELS",
+          "declaration": {
+            "name": "WEEKDAY_LABELS",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MONTH_NAMES",
+          "declaration": {
+            "name": "MONTH_NAMES",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HOURS_12",
+          "declaration": {
+            "name": "HOURS_12",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MINUTES_60",
+          "declaration": {
+            "name": "MINUTES_60",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/date-picker/helpers/parsing.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "parseValue",
+          "return": {
+            "type": {
+              "text": "ParsedValue"
+            }
+          },
+          "parameters": [
+            {
+              "name": "raw",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "mode",
+              "type": {
+                "text": "DatePickerMode"
+              }
+            }
+          ],
+          "description": "Parse a raw ISO 8601 value string into a structured `ParsedValue`\nbased on the picker mode. Returns `{ kind: \"none\" }` for empty or\nunparseable input."
+        },
+        {
+          "kind": "function",
+          "name": "formatDate",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "d",
+              "type": {
+                "text": "Temporal.PlainDate"
+              }
+            }
+          ],
+          "description": "Format a `PlainDate` as \"Month Day, Year\"."
+        },
+        {
+          "kind": "function",
+          "name": "formatTime",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "t",
+              "type": {
+                "text": "Temporal.PlainTime"
+              }
+            }
+          ],
+          "description": "Format a `PlainTime` as \"H:MM AM/PM\"."
+        },
+        {
+          "kind": "function",
+          "name": "displayValue",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "parsed",
+              "type": {
+                "text": "ParsedValue"
+              }
+            }
+          ],
+          "description": "Build the human-readable display string for the input field\nfrom a parsed value."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parseValue",
+          "declaration": {
+            "name": "parseValue",
+            "module": "dist/date-picker/helpers/parsing.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "formatDate",
+          "declaration": {
+            "name": "formatDate",
+            "module": "dist/date-picker/helpers/parsing.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "formatTime",
+          "declaration": {
+            "name": "formatTime",
+            "module": "dist/date-picker/helpers/parsing.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "displayValue",
+          "declaration": {
+            "name": "displayValue",
+            "module": "dist/date-picker/helpers/parsing.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/date-picker/helpers/styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "datePickerStyles",
+          "default": "css` /* ── Error state ─────────────────────────────────── */ .temporal-error { font-family: var(--esp-font-body); font-size: var(--esp-type-small); color: var(--esp-color-danger-text); padding: var(--esp-size-padding); } /* ── Trigger field ───────────────────────────────── */ .esp-field { display: grid; grid-template-columns: 1fr min-content; cursor: pointer; > input.esp-input { cursor: pointer; width: auto; } > .field-icon { display: grid; place-content: center; cursor: pointer; > svg { height: calc(1.2 * var(--esp-size-font)); width: calc(1.2 * var(--esp-size-font)); margin: 0 var(--esp-size-tiny); } } } /* ── Popover shell (native top-layer) ────────────── */ .picker-popover { position: fixed; inset: unset; margin: 0; padding: var(--esp-size-small); border-radius: var(--esp-size-border-radius); border: 1px solid var(--esp-color-border); background: var(--esp-color-layer-1); box-shadow: 0 4px 16px var(--esp-color-shadow); color: var(--esp-color-text); font-family: var(--esp-font-body); font-size: var(--esp-size-font); opacity: 0; transition: opacity 150ms ease-in; overflow: visible; } .picker-popover.visible { opacity: 1; } /* ── Calendar ────────────────────────────────────── */ .calendar { display: flex; flex-direction: column; gap: var(--esp-size-tiny); user-select: none; overflow: hidden; } .cal-body { will-change: transform; } .cal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--esp-size-tiny); } .cal-title { font-weight: bold; font-size: var(--esp-type-normal); color: var(--esp-color-headings); } .nav-btn { display: grid; place-content: center; background: none; border: none; cursor: pointer; padding: var(--esp-size-tiny); border-radius: var(--esp-size-border-radius); color: var(--esp-color-text); transition: background-color 120ms ease; > svg { height: var(--esp-size-normal); width: var(--esp-size-normal); } &:hover { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; } } /* ── Weekday labels ──────────────────────────────── */ .weekday-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; } .weekday-label { font-size: var(--esp-type-tiny); font-weight: 600; color: var(--esp-color-headings); text-decoration: none; padding: var(--esp-size-tiny) 0; } /* ── Day grid ────────────────────────────────────── */ .day-grid { display: flex; flex-direction: column; } /* Show the focused-day ring only when the grid itself contains focus, so it disappears when the user tabs to the nav arrows or time picker. */ .day-grid:focus-within .day-cell.focused { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } .day-row { display: grid; grid-template-columns: repeat(7, 1fr); } /* ── Day cell ────────────────────────────────────── */ .day-cell { --_cell-size: 2.4em; position: relative; display: grid; place-content: center; width: var(--_cell-size); height: var(--_cell-size); border: none; border-radius: var(--esp-size-border-radius); background: none; cursor: pointer; font-family: inherit; font-size: inherit; color: var(--esp-color-text); transition: background-color 100ms ease, color 100ms ease; &:hover:not(.disabled):not(.selected) { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } /* Outside month — dim */ &.outside-month { opacity: 0.38; } /* Today ring */ &.today { font-weight: bold; box-shadow: inset 0 0 0 1px var(--esp-color-border); border-radius: var(--esp-size-border-radius); } /* Selected / range endpoints */ &.selected { background-color: var(--esp-color-layer-3); color: var(--esp-color-action-text); font-weight: bold; } /* Range span highlight — washed-out brand colour */ &.in-range { background-color: oklch(from var(--esp-color-layer-3) calc(l + 0.15) calc(c * 0.4) h); border-radius: 0; } &.range-start { border-radius: var(--esp-size-border-radius) 0 0 var(--esp-size-border-radius); } &.range-end { border-radius: 0 var(--esp-size-border-radius) var(--esp-size-border-radius) 0; } /* Disabled */ &.disabled { opacity: 0.3; cursor: not-allowed; } } /* ── Time picker ─────────────────────────────────── */ .time-picker { display: flex; align-items: center; flex-wrap: nowrap; gap: var(--esp-size-tiny); padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); white-space: nowrap; /* Push the action buttons to the right edge */ > esp-button:first-of-type { margin-left: auto; } } /* Only-time mode: no top border */ :host([mode=\"time\"]) .time-picker { border-top: none; margin-top: 0; padding-top: 0; } .popover-actions { display: flex; gap: var(--esp-size-tiny); align-items: center; justify-content: flex-end; padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); } .time-sep { font-size: var(--esp-type-medium); font-weight: bold; color: var(--esp-color-headings); padding: 0 2px; } `",
+          "description": "Component-specific styles for `esp-date-picker`."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "datePickerStyles",
+          "declaration": {
+            "name": "datePickerStyles",
+            "module": "dist/date-picker/helpers/styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/date-picker/helpers/types.js",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",

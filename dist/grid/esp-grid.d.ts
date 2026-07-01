@@ -4,7 +4,7 @@ import "../button/esp-button.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type GridRow } from "./esp-grid-column.js";
 import "./esp-grid-column.js";
-import "@lit-labs/virtualizer";
+import "../shared/virtualizer/lit-virtualizer.js";
 export type { GridRow };
 export type GridClickedEvent = {
     grid: EspalierGrid;

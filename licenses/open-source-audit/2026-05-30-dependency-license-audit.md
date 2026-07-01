@@ -10,14 +10,16 @@ commercial licensing work. It is not legal advice.
 
 ## Executive Summary
 
-Espalier has an unusually small runtime dependency footprint for an enterprise
-front-end framework:
+Espalier has a zero-runtime-dependency package footprint for an enterprise
+front-end framework, with one required peer supplied by consumers:
 
-- 1 direct runtime dependency: `@lit-labs/virtualizer`
+- 0 direct runtime dependencies
 - 1 required peer dependency: `lit`
-- Runtime/peer dependency graph licenses found: BSD-3-Clause, MIT, and 0BSD
+- Runtime/peer dependency graph licenses found: BSD-3-Clause and MIT
 - No GPL, LGPL, AGPL, SSPL, source-available, noncommercial, or unknown
   licenses were found in the runtime/peer graph
+- Espalier vendors BSD-3-Clause source from `@lit-labs/virtualizer@2.1.1`;
+  the required notice is preserved in `licenses/THIRD_PARTY_NOTICES.md`
 - Direct dev dependencies are also permissively licensed
 - Espalier also includes SVG icon paths adapted from Tabler Icons, which is MIT
   licensed; the required notice is preserved in `licenses/THIRD_PARTY_NOTICES.md`
@@ -67,37 +69,37 @@ external delivery.
 
 ## Copied Asset Notices
 
-Espalier includes SVG icon paths copied or adapted from Tabler Icons in
-`assets/icons.svg` and related inline SVG modules.
+Espalier includes source and asset material copied or adapted from permissively
+licensed third-party projects.
 
 | Material | Upstream | License | Notice file |
 |----------|----------|---------|-------------|
+| Lit Virtualizer source | https://github.com/lit/lit/tree/main/packages/labs/virtualizer | BSD-3-Clause | `licenses/THIRD_PARTY_NOTICES.md` |
 | Tabler Icons SVG paths | https://github.com/tabler/tabler-icons | MIT | `licenses/THIRD_PARTY_NOTICES.md` |
 
-MIT does not require visible in-product attribution, but it does require
-preserving the upstream copyright notice and permission notice in copies or
-substantial portions of the licensed material. Because Espalier redistributes
-copied SVG path data, the notice file should ship with the package.
+BSD-3-Clause and MIT do not require visible in-product attribution, but they do
+require preserving the upstream copyright notice and permission/license notice
+in source copies or binary redistribution materials. Because Espalier
+redistributes vendored source-derived JavaScript and copied SVG path data, the
+notice file should ship with the package.
 
 ## Published Package Dependency Surface
 
 | Role | Package | Version observed | License | Notes |
 |------|---------|------------------|---------|-------|
 | Peer dependency | `lit` | `3.3.2` | BSD-3-Clause | Required framework peer for consumers. |
-| Runtime dependency | `@lit-labs/virtualizer` | `2.1.1` | BSD-3-Clause | Used for virtualized list/grid behavior. |
+| Vendored source | `@lit-labs/virtualizer` | `2.1.1` | BSD-3-Clause | Compiled into Espalier for virtualized picker/repeater/grid behavior; not an npm dependency. |
 
 ## Runtime / Peer Dependency Graph
 
 | Package | Version observed | License | Source in graph |
 |---------|------------------|---------|-----------------|
-| `@lit-labs/virtualizer` | `2.1.1` | BSD-3-Clause | Direct dependency |
-| `lit` | `3.3.2` | BSD-3-Clause | Peer dependency and transitive dependency of virtualizer |
+| `lit` | `3.3.2` | BSD-3-Clause | Peer dependency |
 | `@lit/reactive-element` | `2.1.2` | BSD-3-Clause | Transitive via `lit` |
 | `lit-element` | `4.2.2` | BSD-3-Clause | Transitive via `lit` |
 | `lit-html` | `3.3.2` | BSD-3-Clause | Transitive via `lit` / `lit-element` |
 | `@lit-labs/ssr-dom-shim` | `1.5.1` | BSD-3-Clause | Transitive via Lit packages |
 | `@types/trusted-types` | `2.0.7` | MIT | Transitive type support via `lit-html` |
-| `tslib` | `2.8.1` | 0BSD | Transitive via `@lit-labs/virtualizer` |
 
 Runtime finding: no copyleft or unknown licenses found.
 
@@ -163,10 +165,9 @@ Installed snapshot finding: no unknown licenses found.
   `esbuild` platform packages. These are not declared in `package.json`; run
   the final audit/SBOM from a clean install before publishing diligence
   materials.
-- The public package currently declares `lit` as a peer dependency while
-  `@lit-labs/virtualizer` also depends on `lit`. This is not a license issue,
-  but release packaging should confirm the dependency tree consumers actually
-  receive.
+- The public package declares `lit` as a peer dependency and vendors the
+  virtualizer source. Release packaging should confirm the staged public
+  package has an empty `dependencies` object and retains the `lit` peer.
 
 ## Recommended Follow-Ups
 

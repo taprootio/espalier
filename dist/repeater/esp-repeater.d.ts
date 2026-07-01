@@ -1,6 +1,6 @@
-import "@lit-labs/virtualizer";
 import { nothing, type PropertyValues, type TemplateResult } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+import "../shared/virtualizer/lit-virtualizer.js";
 export interface RepeaterFetchParams {
     cursor: string | null;
     limit: number;

@@ -1,7 +1,7 @@
 {
   "name": "@taprootio/espalier",
-  "version": "2.0.0",
-  "description": "Espalier — an enterprise-grade web component design system built on Lit and browser standards. Provides accessible, themeable UI primitives with OKLCH perceptual color, APCA contrast, fluid typography, and native form participation via ElementInternals.",
+  "version": "2.0.1",
+  "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
   "type": "module",
   "main": "dist/index.js",
@@ -272,7 +272,8 @@
     "dist/index.js",
     "dist/*/esp-*.js",
     "dist/header/index.js",
-    "dist/menu/index.js"
+    "dist/menu/index.js",
+    "dist/shared/virtualizer/lit-virtualizer.js"
   ],
   "files": [
     "dist/**/*.js",
@@ -332,9 +333,7 @@
       "optional": false
     }
   },
-  "dependencies": {
-    "@lit-labs/virtualizer": "^2.1.1"
-  },
+  "dependencies": {},
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

@@ -11,6 +11,7 @@ removing, or replacing non-code assets.
 | `css/fonts/**` | Generated Google Fonts preview CSS with per-family notices generated from upstream Google Fonts metadata links. | `licenses/GOOGLE_FONTS_NOTICES.md` |
 | `assets/icons.svg` | Tabler-derived SVG symbols plus Taproot-owned logo symbol. | `licenses/THIRD_PARTY_NOTICES.md` |
 | `*.ts` | Inline Tabler-style SVG templates and Taproot rendering helpers. | `licenses/THIRD_PARTY_NOTICES.md` |
+| `dist/shared/virtualizer/**` | Vendored Lit Virtualizer runtime source compiled into Espalier's package. | `licenses/THIRD_PARTY_NOTICES.md` |
 | Brand favicons/logos | Taproot-owned Espalier brand assets. | None |
 | Demo textures | Taproot-owned generated PNG textures created for this repository. | None |
 | Demo JSON data | Taproot-authored fictitious samples or standards-derived factual color data. | None |

@@ -1,6 +1,6 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type EspalierPickerItem, type PickerItem } from "./esp-picker-item.js";
-import "@lit-labs/virtualizer";
+import "../shared/virtualizer/lit-virtualizer.js";
 /**
  * A menu used by Espalier pickers when choosing option(s).
  *
