@@ -394,6 +394,13 @@ export declare class EspalierGrid extends EspalierElementBase {
      * If using a `data-url`, the items retrieved are available
      * in the items property. An items array can be assigned
      * instead of using a `data-url`.
+     *
+     * Assigning a new items array preserves the grid's current
+     * intrinsic state: an active search term is re-applied to the
+     * new items, the active sort column re-sorts them, and the
+     * current page is kept when it still exists (clamping to the
+     * nearest valid page otherwise). Infinite grids delegate search
+     * and sort to the server through `fetchPage` instead.
      */
     get items(): GridRow[];
     set items(newItems: GridRow[]);
