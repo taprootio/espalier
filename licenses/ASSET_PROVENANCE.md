@@ -14,6 +14,8 @@ removing, or replacing non-code assets.
 | `dist/shared/virtualizer/**` | Vendored Lit Virtualizer runtime source compiled into Espalier's package. | `licenses/THIRD_PARTY_NOTICES.md` |
 | Brand favicons/logos | Taproot-owned Espalier brand assets. | None |
 | Demo textures | Taproot-owned generated PNG textures created for this repository. | None |
+| `assets/canvas-bg.jpg` | Docs-only light canvas texture — Envato Elements item "Seamless Pattern Design With Colorful Flowers" by yusufdemirci; certificate `licenses/license_certificate_A2BVZ6Y9DN.pdf`; attribution not required; kept out of the published `@taprootio/espalier` package. | None |
+| `assets/canvas-bg-dark.jpg` | Docs-only dark canvas texture — Envato Elements item "Nocturnal Garden Pattern" by Webvilla; certificate `licenses/license_certificate_HF5ZVPRNC2.pdf`; attribution not required; kept out of the published package. | None |
 | Demo JSON data | Taproot-authored fictitious samples or standards-derived factual color data. | None |
 
 ## Texture Replacement

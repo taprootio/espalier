@@ -843,6 +843,18 @@
       "description": "The height of compact scroll-reactive headers. Defaults to `max(44px, calc(3.5 * var(--esp-size-small)))`."
     },
     {
+      "name": "--esp-header-content-lead",
+      "category": "component",
+      "component": "esp-header",
+      "description": "Surface-alignment contract set by `esp-page`: the fraction of the leftover width placed before the content, aligning it (`0` = start, `0.5` = center, `1` = end). Defaults to `0`."
+    },
+    {
+      "name": "--esp-header-content-max-width",
+      "category": "component",
+      "component": "esp-header",
+      "description": "Surface-alignment contract set by `esp-page`: the maximum width the bar content is constrained to (the bar background stays full-bleed). Defaults to `100%` (no constraint). `esp-page` sets this to its resolved content cap."
+    },
+    {
       "name": "--esp-header-extended-menu-border",
       "category": "component",
       "component": "esp-header",
@@ -1219,7 +1231,7 @@
       "name": "--esp-page-background",
       "category": "component",
       "component": "esp-page",
-      "description": "The background color of the page. Defaults to `var(--esp-color-background)`."
+      "description": "The background color of the page. Fills both the surface and the canvas gutters; the canvas tokens paint over it in the gutters only. Defaults to `var(--esp-color-background)`."
     },
     {
       "name": "--esp-page-background-image",
@@ -1230,6 +1242,24 @@
       "name": "--esp-page-background-image-opacity",
       "category": "root-theme",
       "description": "The opacity of the background image layer. Defaults to `1`."
+    },
+    {
+      "name": "--esp-page-canvas-background",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The background color of the canvas gutters (the outer regions revealed when the viewport exceeds the cap). Defaults to `transparent`, so gutters match the page until styled and narrow viewports are unaffected."
+    },
+    {
+      "name": "--esp-page-canvas-background-image",
+      "category": "component",
+      "component": "esp-page",
+      "description": "A background image for the canvas gutters, mirroring the page background-image knob. Defaults to `none`."
+    },
+    {
+      "name": "--esp-page-canvas-background-image-opacity",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The opacity of the canvas gutter image layer. Defaults to `1`."
     },
     {
       "name": "--esp-page-fixed-header-offset",
@@ -1247,13 +1277,25 @@
       "name": "--esp-page-max-width",
       "category": "component",
       "component": "esp-page",
-      "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full)."
+      "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full). This cap now sizes the main grid track; surplus width beyond it becomes the canvas gutters."
     },
     {
       "name": "--esp-page-sticky-header-top",
       "category": "component",
       "component": "esp-page",
       "description": "Top inset for sticky headers. Defaults to `0`."
+    },
+    {
+      "name": "--esp-page-surface-border",
+      "category": "component",
+      "component": "esp-page",
+      "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`)."
+    },
+    {
+      "name": "--esp-page-surface-shadow",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The box shadow drawn on the left and right edges of the content surface. On by default; casts into the gutters and is clipped away when the surface fills the viewport, so it only shows above the cap. Set to `none` to remove it."
     },
     {
       "name": "--esp-progress-border-color",

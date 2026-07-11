@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-30",
+  "updatedAt": "2026-07-11",
   "entries": [
     {
       "id": "google-font-preview-assets",
@@ -208,6 +208,44 @@
       ],
       "packageInclusion": "not included in npm package",
       "docsInclusion": "copied to public docs assets by Eleventy and loaded by color guide examples",
+      "noticeRequirement": "none",
+      "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "envato-canvas-background-texture",
+      "paths": [
+        "assets/canvas-bg.jpg"
+      ],
+      "assetType": "decorative floral background texture (JPEG, 400x400 seamless tile)",
+      "classification": "third-party licensed",
+      "owner": "Envato Elements author \"yusufdemirci\" retains ownership; licensed to Jereme Evans / Taproot under an Envato Elements subscription",
+      "source": "Envato Elements item \"Seamless Pattern Design With Colorful Flowers\" (item id ab0dc3dd-7d36-44be-9898-d148173189da, https://app.envato.com/item/ab0dc3dd-7d36-44be-9898-d148173189da), downloaded 2026-07-11 under an active subscription. License certificate A2BVZ6Y9DN on file at licenses/license_certificate_A2BVZ6Y9DN.pdf.",
+      "license": "Envato Elements subscription license (certificate A2BVZ6Y9DN): broad commercial use permitted and attribution is not required for this use. The author retains ownership; the item (or any product using it) may not be trademarked or claimed as Taproot-owned, and it must not be redistributed so that others can extract it. Valid only while the Envato subscription remains active.",
+      "transformations": [
+        "None; used as-is as a repeating docs-site canvas gutter background at 50% image-layer opacity"
+      ],
+      "packageInclusion": "not included in npm package",
+      "docsInclusion": "docs-site only — referenced as --esp-page-canvas-background-image in css/docs.css (which the public @taprootio/espalier package excludes) and served from the Eleventy /assets passthrough",
+      "noticeRequirement": "none",
+      "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "envato-canvas-background-texture-dark",
+      "paths": [
+        "assets/canvas-bg-dark.jpg"
+      ],
+      "assetType": "decorative dark botanical background texture (JPEG, 500x500 seamless tile)",
+      "classification": "third-party licensed",
+      "owner": "Envato Elements author \"Webvilla\" retains ownership; licensed to Jereme Evans / Taproot under an Envato Elements subscription",
+      "source": "Envato Elements item \"Nocturnal Garden Pattern\" (item id df520f04-5dfb-41c3-aa87-2ce3c03c8c34, https://app.envato.com/item/df520f04-5dfb-41c3-aa87-2ce3c03c8c34), downloaded 2026-07-11 under an active subscription as the dark-mode counterpart to canvas-bg.jpg. License certificate HF5ZVPRNC2 on file at licenses/license_certificate_HF5ZVPRNC2.pdf.",
+      "license": "Envato Elements subscription license (certificate HF5ZVPRNC2), same terms as canvas-bg.jpg: broad commercial use permitted and attribution not required; author retains ownership, no trademark/ownership claims, no redistribution for extraction, valid only while the subscription is active.",
+      "transformations": [
+        "None; used as-is as a repeating docs-site dark-mode canvas gutter background at 50% image-layer opacity"
+      ],
+      "packageInclusion": "not included in npm package",
+      "docsInclusion": "docs-site only — referenced as --esp-page-canvas-background-image under esp-root[scheme=\"dark\"] in css/docs.css (excluded from the public @taprootio/espalier package) and served from the Eleventy /assets passthrough",
       "noticeRequirement": "none",
       "noticePaths": [],
       "reviewStatus": "documented"

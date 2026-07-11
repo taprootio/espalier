@@ -144,6 +144,8 @@ type HeaderThemeToggle = "hidden" | "visible";
  * @cssprop --esp-header-height - The height of the header bar. Defaults to `calc(4.5 * var(--esp-size-small))`.
  * @cssprop --esp-header-color - The text/icon color inherited by header controls. Defaults to `var(--esp-color-text)`.
  * @cssprop --esp-header-z-index - The z-index of the header host. Defaults to `20`.
+ * @cssprop --esp-header-content-max-width - Surface-alignment contract set by `esp-page`: the maximum width the bar content is constrained to (the bar background stays full-bleed). Defaults to `100%` (no constraint). `esp-page` sets this to its resolved content cap.
+ * @cssprop --esp-header-content-lead - Surface-alignment contract set by `esp-page`: the fraction of the leftover width placed before the content, aligning it (`0` = start, `0.5` = center, `1` = end). Defaults to `0`.
  * @cssprop --esp-header-compact-height - The height of compact scroll-reactive headers. Defaults to `max(44px, calc(3.5 * var(--esp-size-small)))`.
  * @cssprop --esp-header-extended-menu-height - The second-row menu height for extended layouts. Defaults to `calc(3.5 * var(--esp-size-small))`.
  * @cssprop --esp-header-extended-menu-border - The border between the primary row and second-row menu in extended layouts. Defaults to `1px solid var(--esp-color-border)`.
@@ -306,6 +308,15 @@ export declare class EspalierHeader extends EspalierElementBase {
      * menu slotted into the header.
      */
     drawerTarget: string;
+    /**
+     * Opt out of surface alignment. When an `esp-header` is slotted into an
+     * `esp-page`, it constrains its bar content to the page's content
+     * surface by default (the bar background stays full-bleed). Set this to
+     * let the content span the full width instead, as it did before the
+     * page grew alignment modes. Standalone headers (outside `esp-page`) are
+     * already full-bleed and unaffected.
+     */
+    fullBleedContent: boolean;
     /**
      * The burger element inside the header. External code can use
      * this to programmatically reset the burger's visual state

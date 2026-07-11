@@ -96,21 +96,42 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * </esp-page>
  * ```
  *
- * @cssprop --esp-page-background - The background color of the page.
- * Defaults to `var(--esp-color-background)`.
+ * @cssprop --esp-page-background - The background color of the page. Fills
+ * both the surface and the canvas gutters; the canvas tokens paint over it
+ * in the gutters only. Defaults to `var(--esp-color-background)`.
  * @cssprop --esp-page-max-width - The maximum width of the main content
  * well. Set automatically by the `kind` attribute: `1536px` (wide),
- * `768px` (narrow), or `none` (full).
+ * `768px` (narrow), or `none` (full). This cap now sizes the main grid
+ * track; surplus width beyond it becomes the canvas gutters.
  * @cssprop --esp-page-background-image - The background image to
  * display behind page content. Defaults to `none`.
  * @cssprop --esp-page-background-image-opacity - The opacity of the
  * background image layer. Defaults to `1`.
+ * @cssprop --esp-page-canvas-background - The background color of the
+ * canvas gutters (the outer regions revealed when the viewport exceeds
+ * the cap). Defaults to `transparent`, so gutters match the page until
+ * styled and narrow viewports are unaffected.
+ * @cssprop --esp-page-canvas-background-image - A background image for the
+ * canvas gutters, mirroring the page background-image knob. Defaults to
+ * `none`.
+ * @cssprop --esp-page-canvas-background-image-opacity - The opacity of the
+ * canvas gutter image layer. Defaults to `1`.
+ * @cssprop --esp-page-surface-shadow - The box shadow drawn on the left
+ * and right edges of the content surface. On by default; casts into the
+ * gutters and is clipped away when the surface fills the viewport, so it
+ * only shows above the cap. Set to `none` to remove it.
+ * @cssprop --esp-page-surface-border - An optional border on the inline
+ * edges of the surface, for themes preferring a hairline over a shadow.
+ * Defaults to `none` (e.g. `1px solid var(--esp-color-border)`).
  * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
  * headers. Defaults to `var(--esp-header-height)`.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
  * Defaults to `0`.
  * @cssprop --esp-page-header-z-index - Z-index for fixed/sticky header
  * regions. Defaults to `20`.
+ *
+ * @csspart canvas - The two canvas gutter regions flanking the surface.
+ * @csspart surface - The surface backdrop carrying the edge shadow/border.
  *
  * ```html
  * <style>
@@ -126,6 +147,29 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   <div slot="footer" style="background-color: blue;">footer</div>
  *   <div style="overflow: hidden;">
  *     <h2>With background image</h2>
+ *   </div>
+ * </esp-page>
+ * ```
+ *
+ * Use `align` to place the surface within the page once it hits its cap,
+ * and the canvas tokens to style the gutters. A low `--esp-page-max-width`
+ * is set here only so the gutters are visible inside the narrow demo
+ * frame; the surface edge shadow is on by default.
+ *
+ * ```html
+ * <style>
+ * esp-page.align-demo {
+ *   --esp-page-max-width: 520px;
+ *   --esp-page-canvas-background: var(--esp-color-layer-1);
+ * }
+ * </style>
+ * <esp-page class="docs align-demo" align="center">
+ *   <div slot="header" style="background-color: red;">header</div>
+ *   <div slot="sidebar" style="background-color: green;">sidebar</div>
+ *   <div slot="right" style="background-color: purple;">right</div>
+ *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <div style="background-color: black; overflow: hidden;">
+ *     content
  *   </div>
  * </esp-page>
  * ```
@@ -153,6 +197,38 @@ export declare class EspalierPage extends EspalierElementBase {
      *   maps or design tools.
      */
     kind: "wide" | "narrow" | "full";
+    /**
+     * Horizontal alignment of the content **surface** (left aside + main
+     * well + right aside) within the page once the viewport is wider than
+     * the content cap. The surplus width becomes styleable **canvas**
+     * gutters on the outer edges, weighted by this attribute.
+     *
+     * - `start` (default) — the surface hugs the leading edge; all spare
+     *   width collects in the trailing gutter. This reproduces today's
+     *   layout.
+     * - `center` — spare width is split evenly into both gutters, centering
+     *   the surface.
+     * - `end` — the surface hugs the trailing edge; spare width collects in
+     *   the leading gutter.
+     *
+     * Has no effect when `kind="full"` (no cap means no gutters) or on
+     * viewports narrower than the cap (the surface already fills the width).
+     */
+    align: "start" | "center" | "end";
+    /**
+     * When set, the header and footer sit **on** the content surface —
+     * the same width as the left aside + main well + right aside — instead
+     * of spanning the full viewport. Combined with a styled canvas this
+     * frames the whole page as one contained band floating on the canvas,
+     * with a single continuous surface edge shadow running from the header
+     * through the content to the footer.
+     *
+     * Below the cap there are no gutters, so a contained page renders
+     * identically to the default full-bleed chrome. Designed for
+     * `header-position="normal"` or `"sticky"`; a fixed header cannot be
+     * banded to the surface.
+     */
+    contained: boolean;
     /**
      * Header positioning behavior for the `header` slot.
      *

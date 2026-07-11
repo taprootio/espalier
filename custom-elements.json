@@ -19242,6 +19242,14 @@
               "name": "--esp-header-z-index"
             },
             {
+              "description": "Surface-alignment contract set by `esp-page`: the maximum width the bar content is constrained to (the bar background stays full-bleed). Defaults to `100%` (no constraint). `esp-page` sets this to its resolved content cap.",
+              "name": "--esp-header-content-max-width"
+            },
+            {
+              "description": "Surface-alignment contract set by `esp-page`: the fraction of the leftover width placed before the content, aligning it (`0` = start, `0.5` = center, `1` = end). Defaults to `0`.",
+              "name": "--esp-header-content-lead"
+            },
+            {
               "description": "The height of compact scroll-reactive headers. Defaults to `max(44px, calc(3.5 * var(--esp-size-small)))`.",
               "name": "--esp-header-compact-height"
             },
@@ -19656,6 +19664,18 @@
               "default": "\"\"",
               "description": "Optional ID of an external drawer-capable menu controlled by the\nheader burger. When set, burger open/close events call\n`openDrawer()` / `closeDrawer()` on that element instead of the\nmenu slotted into the header.",
               "attribute": "drawer-target"
+            },
+            {
+              "kind": "field",
+              "name": "fullBleedContent",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Opt out of surface alignment. When an `esp-header` is slotted into an\n`esp-page`, it constrains its bar content to the page's content\nsurface by default (the bar background stays full-bleed). Set this to\nlet the content span the full width instead, as it did before the\npage grew alignment modes. Standalone headers (outside `esp-page`) are\nalready full-bleed and unaffected.",
+              "attribute": "full-bleed-content",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -20573,6 +20593,15 @@
               "default": "\"\"",
               "description": "Optional ID of an external drawer-capable menu controlled by the\nheader burger. When set, burger open/close events call\n`openDrawer()` / `closeDrawer()` on that element instead of the\nmenu slotted into the header.",
               "fieldName": "drawerTarget"
+            },
+            {
+              "name": "full-bleed-content",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Opt out of surface alignment. When an `esp-header` is slotted into an\n`esp-page`, it constrains its bar content to the page's content\nsurface by default (the bar background stays full-bleed). Set this to\nlet the content span the full width instead, as it did before the\npage grew alignment modes. Standalone headers (outside `esp-page`) are\nalready full-bleed and unaffected.",
+              "fieldName": "fullBleedContent"
             },
             {
               "name": "scheme",
@@ -30515,11 +30544,11 @@
           "name": "EspalierPage",
           "cssProperties": [
             {
-              "description": "The background color of the page. Defaults to `var(--esp-color-background)`.",
+              "description": "The background color of the page. Fills both the surface and the canvas gutters; the canvas tokens paint over it in the gutters only. Defaults to `var(--esp-color-background)`.",
               "name": "--esp-page-background"
             },
             {
-              "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full).",
+              "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full). This cap now sizes the main grid track; surplus width beyond it becomes the canvas gutters.",
               "name": "--esp-page-max-width"
             },
             {
@@ -30531,6 +30560,26 @@
               "name": "--esp-page-background-image-opacity"
             },
             {
+              "description": "The background color of the canvas gutters (the outer regions revealed when the viewport exceeds the cap). Defaults to `transparent`, so gutters match the page until styled and narrow viewports are unaffected.",
+              "name": "--esp-page-canvas-background"
+            },
+            {
+              "description": "A background image for the canvas gutters, mirroring the page background-image knob. Defaults to `none`.",
+              "name": "--esp-page-canvas-background-image"
+            },
+            {
+              "description": "The opacity of the canvas gutter image layer. Defaults to `1`.",
+              "name": "--esp-page-canvas-background-image-opacity"
+            },
+            {
+              "description": "The box shadow drawn on the left and right edges of the content surface. On by default; casts into the gutters and is clipped away when the surface fills the viewport, so it only shows above the cap. Set to `none` to remove it.",
+              "name": "--esp-page-surface-shadow"
+            },
+            {
+              "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`).",
+              "name": "--esp-page-surface-border"
+            },
+            {
               "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`.",
               "name": "--esp-page-fixed-header-offset"
             },
@@ -30539,7 +30588,7 @@
               "name": "--esp-page-sticky-header-top"
             },
             {
-              "description": "Z-index for fixed/sticky header regions. Defaults to `20`. ```html <style> esp-page.with-background { --esp-page-background-image: url(/assets/espalier-paper-texture.png); --esp-page-background-image-opacity: .5; } </style> <esp-page class=\"docs with-background\"> <div slot=\"header\" style=\"background-color: red;\">header</div> <div slot=\"sidebar\" style=\"background-color: green;\">sidebar</div> <div slot=\"right\" style=\"background-color: purple;\">right</div> <div slot=\"footer\" style=\"background-color: blue;\">footer</div> <div style=\"overflow: hidden;\"> <h2>With background image</h2> </div> </esp-page> ```",
+              "description": "Z-index for fixed/sticky header regions. Defaults to `20`.",
               "name": "--esp-page-header-z-index"
             },
             {
@@ -30603,6 +30652,14 @@
             {
               "description": "The page wrapper. It defaults to a grid with a height of 100vh. For the demo page, the height is set to 400px by styling the CSS part: ```html <style> esp-page.docs { &::part(wrapper) { min-height: 400px; height: 400px; } > div { height: 100%; color: yellow; padding: var(--esp-size-padding); } } .demo-wrapper { border: 2px solid var(--esp-color-border); } </style> <esp-page class=\"docs\"> <div slot=\"header\" style=\"background-color: red;\">header</div> <div slot=\"sidebar\" style=\"background-color: green;\">sidebar</div> <div slot=\"right\" style=\"background-color: purple;\">right</div> <div slot=\"footer\" style=\"background-color: blue;\">footer</div> <div style=\"background-color: black; overflow: hidden;\"> content </div> </esp-page> ```",
               "name": "wrapper"
+            },
+            {
+              "description": "The two canvas gutter regions flanking the surface.",
+              "name": "canvas"
+            },
+            {
+              "description": "The surface backdrop carrying the edge shadow/border. ```html <style> esp-page.with-background { --esp-page-background-image: url(/assets/espalier-paper-texture.png); --esp-page-background-image-opacity: .5; } </style> <esp-page class=\"docs with-background\"> <div slot=\"header\" style=\"background-color: red;\">header</div> <div slot=\"sidebar\" style=\"background-color: green;\">sidebar</div> <div slot=\"right\" style=\"background-color: purple;\">right</div> <div slot=\"footer\" style=\"background-color: blue;\">footer</div> <div style=\"overflow: hidden;\"> <h2>With background image</h2> </div> </esp-page> ``` Use `align` to place the surface within the page once it hits its cap, and the canvas tokens to style the gutters. A low `--esp-page-max-width` is set here only so the gutters are visible inside the narrow demo frame; the surface edge shadow is on by default. ```html <style> esp-page.align-demo { --esp-page-max-width: 520px; --esp-page-canvas-background: var(--esp-color-layer-1); } </style> <esp-page class=\"docs align-demo\" align=\"center\"> <div slot=\"header\" style=\"background-color: red;\">header</div> <div slot=\"sidebar\" style=\"background-color: green;\">sidebar</div> <div slot=\"right\" style=\"background-color: purple;\">right</div> <div slot=\"footer\" style=\"background-color: blue;\">footer</div> <div style=\"background-color: black; overflow: hidden;\"> content </div> </esp-page> ```",
+              "name": "surface"
             }
           ],
           "slots": [
@@ -30643,6 +30700,30 @@
               "default": "\"wide\"",
               "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint; the content well spans the\n  full available space. Optimized for immersive canvases like\n  maps or design tools.",
               "attribute": "kind",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "\"start\" | \"center\" | \"end\""
+              },
+              "privacy": "public",
+              "default": "\"start\"",
+              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when `kind=\"full\"` (no cap means no gutters) or on\nviewports narrower than the cap (the surface already fills the width).",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "contained",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When set, the header and footer sit **on** the content surface —\nthe same width as the left aside + main well + right aside — instead\nof spanning the full viewport. Combined with a styled canvas this\nframes the whole page as one contained band floating on the canvas,\nwith a single continuous surface edge shadow running from the header\nthrough the content to the footer.\n\nBelow the cap there are no gutters, so a contained page renders\nidentically to the default full-bleed chrome. Designed for\n`header-position=\"normal\"` or `\"sticky\"`; a fixed header cannot be\nbanded to the surface.",
+              "attribute": "contained",
               "reflects": true
             },
             {
@@ -31152,6 +31233,24 @@
               "default": "\"wide\"",
               "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint; the content well spans the\n  full available space. Optimized for immersive canvases like\n  maps or design tools.",
               "fieldName": "kind"
+            },
+            {
+              "name": "align",
+              "type": {
+                "text": "\"start\" | \"center\" | \"end\""
+              },
+              "default": "\"start\"",
+              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when `kind=\"full\"` (no cap means no gutters) or on\nviewports narrower than the cap (the surface already fills the width).",
+              "fieldName": "align"
+            },
+            {
+              "name": "contained",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set, the header and footer sit **on** the content surface —\nthe same width as the left aside + main well + right aside — instead\nof spanning the full viewport. Combined with a styled canvas this\nframes the whole page as one contained band floating on the canvas,\nwith a single continuous surface edge shadow running from the header\nthrough the content to the footer.\n\nBelow the cap there are no gutters, so a contained page renders\nidentically to the default full-bleed chrome. Designed for\n`header-position=\"normal\"` or `\"sticky\"`; a fixed header cannot be\nbanded to the surface.",
+              "fieldName": "contained"
             },
             {
               "name": "header-position",
@@ -42091,1212 +42190,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/slider/esp-slider.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A range slider for selecting numeric values. Built entirely from\ncustom elements with ARIA `role=\"slider\"` — no native\n`<input type=\"range\">` — for consistent cross-browser styling and\nintentional touch interaction.\n\nOn touch devices, only dragging the thumb changes the value.\nTapping the track is ignored so the user can scroll the page\nwithout accidentally adjusting the slider. On desktop, clicking\nanywhere on the track jumps to that value and begins a drag.\n\nThe slider accepts an accessible name from two sources, checked\nin priority order:\n\n1. Slot content — `<esp-slider>Volume</esp-slider>` renders a\n   visible label and names the slider via `aria-labelledby`.\n2. The `label` attribute — `<esp-slider label=\"Volume\">` applies\n   an invisible `aria-label` when no slot content is present.\n\n```html\n<esp-box>\n  <esp-slider min=\"0\" max=\"10\" step=\"0.5\" value=\"5\">\n    Rating\n  </esp-slider>\n  <esp-slider disabled min=\"0\" max=\"100\" value=\"30\"\n    label=\"Disabled slider\">\n  </esp-slider>\n</esp-box>\n```",
-          "name": "EspalierSlider",
-          "cssProperties": [
-            {
-              "description": "Height of the slider track. Defaults to `6px`.",
-              "name": "--esp-slider-track-height"
-            },
-            {
-              "description": "Background color of the unfilled portion of the track. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-slider-track-color"
-            },
-            {
-              "description": "Background color of the filled portion of the track. Defaults to `var(--esp-color-action-background)`.",
-              "name": "--esp-slider-track-fill-color"
-            },
-            {
-              "description": "Border radius of the track. Defaults to `calc(var(--esp-slider-track-height, 6px) / 2)`.",
-              "name": "--esp-slider-track-border-radius"
-            },
-            {
-              "description": "Diameter of the thumb. Defaults to `var(--esp-size-normal-to-medium)`.",
-              "name": "--esp-slider-thumb-size"
-            },
-            {
-              "description": "Fill color of the thumb. Defaults to `var(--esp-color-layer-1)`.",
-              "name": "--esp-slider-thumb-color"
-            },
-            {
-              "description": "Border color of the thumb. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-slider-thumb-border-color"
-            },
-            {
-              "description": "Box shadow of the thumb. Defaults to `0 1px 3px oklch(0 0 0 / 0.2)`.",
-              "name": "--esp-slider-thumb-shadow"
-            },
-            {
-              "description": "Color of the focus ring shadow. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-slider-focus-shadow"
-            },
-            {
-              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "slots": [
-            {
-              "description": "Label content displayed alongside the slider. When present, it provides the accessible name via `aria-labelledby`.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "formCtrl",
-              "privacy": "private",
-              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, // A range slider always has a normalized numeric value (clamped // to [min, max] and snapped to step), so there is no // representable \"empty\" state that could trigger valueMissing. // Validity is always satisfied. getValidity: () => null, onReset: () => { this.value = String(this._low); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Minimum slider value.",
-              "attribute": "min"
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "100",
-              "description": "Maximum slider value.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "1",
-              "description": "Step increment. Values snap to the nearest step.",
-              "attribute": "step"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"0\"",
-              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The name used when the slider participates in a `<form>`.",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "Controls whether the slider is disabled.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "_dragging",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_hasSlotContent",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_trackRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_thumbRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_slotRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_nextId",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "static": true,
-              "default": "0",
-              "description": "Module-level counter for generating unique label ids."
-            },
-            {
-              "kind": "field",
-              "name": "_labelId",
-              "privacy": "private",
-              "default": "`esp-slider-label-${EspalierSlider._nextId++}`",
-              "description": "Stable id for the label element, used by `aria-labelledby`."
-            },
-            {
-              "kind": "field",
-              "name": "_safeStep",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "The effective step, guaranteed to be a finite positive number.\nFalls back to `1` when the `step` property is zero, negative,\n`NaN`, or `Infinity`.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_safeMin",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective minimum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_safeMax",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective maximum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_stepPrecision",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Number of decimal digits implied by the effective step. Used\nto round away floating-point noise so the public value stays\nclean (e.g. `\"0.3\"` instead of `\"0.30000000000000004\"`).\n\nHandles scientific notation: `0.0000001` stringifies as\n`\"1e-7\"` (7 digits), and `0.00000012` stringifies as\n`\"1.2e-7\"` (8 digits = 1 mantissa fractional digit + 7\nexponent).",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_low",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective lower bound, safe when `min > max`.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_high",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective upper bound, safe when `min > max`.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "_snapToStep",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "raw",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ],
-              "description": "Snap `raw` to the nearest step relative to `_low`, clamp\nto `[_low, _high]`, and round to the step's decimal precision."
-            },
-            {
-              "kind": "field",
-              "name": "numericValue",
-              "type": {
-                "text": "number"
-              },
-              "description": "The value parsed, clamped, and snapped to step.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "percentage",
-              "type": {
-                "text": "number"
-              },
-              "description": "Fill/thumb position as a percentage of the track width.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "_normalizeValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Normalize `this.value` so it always reflects the\nclamped-and-stepped numeric value, and push the result into\n`ElementInternals` without firing `value-changed`.\n\nCalled from `willUpdate` whenever `value`, `min`, `max`, or\n`step` change."
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "description": "Focus the slider thumb."
-            },
-            {
-              "kind": "method",
-              "name": "validate",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Re-run constraint validation and dispatch `validity-changed`."
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Check whether the current state is valid (delegates to ElementInternals)."
-            },
-            {
-              "kind": "method",
-              "name": "_setValueAndNotify",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "newNumeric",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handleKeyDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerMove",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerUp",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_handleLostPointerCapture",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Handles `lostpointercapture`, which fires when the browser\nrevokes capture due to an OS gesture, modal interrupt, or\nthe pointer leaving the document. This prevents the slider\nfrom getting stuck in the dragging state."
-            },
-            {
-              "kind": "method",
-              "name": "_endDrag",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_updateValueFromPointer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handleSlotChange",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_syncSlotContent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Inspect the default slot's assigned nodes and update\n`_hasSlotContent`. Called from both `firstUpdated` (to catch\ninitial light-DOM content before `slotchange` fires) and the\n`slotchange` handler (for dynamic changes)."
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Called by the browser when the owning `<form>` is reset."
-            },
-            {
-              "kind": "method",
-              "name": "formStateRestoreCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "state",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Called by the browser to restore form state (bfcache, etc.)."
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "isDisabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantBacker",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "protected",
-              "default": "\"primary\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "public",
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "attribute": "variant",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textContrast",
-              "type": {
-                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
-              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "statusVariantSources",
-              "type": {
-                "text": "ReadonlySet<ColorSource>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
-              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyVariantTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "effectiveVariantTokenSource",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "ColorSource"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "SemanticColorName"
-                  }
-                },
-                {
-                  "name": "mappedSource",
-                  "type": {
-                    "text": "ColorSource"
-                  }
-                },
-                {
-                  "name": "isStatusVariant",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getVariantColorSource",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "ColorSource | \"\""
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setVariantTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearVariantTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "value-changed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the slider value changes. The detail is the new value as a string.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "min",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Minimum slider value.",
-              "fieldName": "min"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "number"
-              },
-              "default": "100",
-              "description": "Maximum slider value.",
-              "fieldName": "max"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "description": "Step increment. Values snap to the nearest step.",
-              "fieldName": "step"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"0\"",
-              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
-              "fieldName": "value"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The name used when the slider participates in a `<form>`.",
-              "fieldName": "name"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Controls whether the slider is disabled.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
-              "fieldName": "label"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "fieldName": "variant",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "docPageTitle": {
-            "name": "Slider",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/slider",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Form",
-            "description": "Controls"
-          },
-          "menuLabel": {
-            "name": "Slider",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "sliders",
-            "description": ""
-          },
-          "tagName": "esp-slider",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierSlider",
-          "declaration": {
-            "name": "EspalierSlider",
-            "module": "dist/slider/esp-slider.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-slider",
-          "declaration": {
-            "name": "EspalierSlider",
-            "module": "dist/slider/esp-slider.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/shared/attribute-helpers.js",
       "declarations": [
         {
@@ -47236,6 +46129,1212 @@
           "declaration": {
             "name": "VALIDITY_CHANGED_EVENT",
             "module": "dist/shared/validation.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/slider/esp-slider.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A range slider for selecting numeric values. Built entirely from\ncustom elements with ARIA `role=\"slider\"` — no native\n`<input type=\"range\">` — for consistent cross-browser styling and\nintentional touch interaction.\n\nOn touch devices, only dragging the thumb changes the value.\nTapping the track is ignored so the user can scroll the page\nwithout accidentally adjusting the slider. On desktop, clicking\nanywhere on the track jumps to that value and begins a drag.\n\nThe slider accepts an accessible name from two sources, checked\nin priority order:\n\n1. Slot content — `<esp-slider>Volume</esp-slider>` renders a\n   visible label and names the slider via `aria-labelledby`.\n2. The `label` attribute — `<esp-slider label=\"Volume\">` applies\n   an invisible `aria-label` when no slot content is present.\n\n```html\n<esp-box>\n  <esp-slider min=\"0\" max=\"10\" step=\"0.5\" value=\"5\">\n    Rating\n  </esp-slider>\n  <esp-slider disabled min=\"0\" max=\"100\" value=\"30\"\n    label=\"Disabled slider\">\n  </esp-slider>\n</esp-box>\n```",
+          "name": "EspalierSlider",
+          "cssProperties": [
+            {
+              "description": "Height of the slider track. Defaults to `6px`.",
+              "name": "--esp-slider-track-height"
+            },
+            {
+              "description": "Background color of the unfilled portion of the track. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-slider-track-color"
+            },
+            {
+              "description": "Background color of the filled portion of the track. Defaults to `var(--esp-color-action-background)`.",
+              "name": "--esp-slider-track-fill-color"
+            },
+            {
+              "description": "Border radius of the track. Defaults to `calc(var(--esp-slider-track-height, 6px) / 2)`.",
+              "name": "--esp-slider-track-border-radius"
+            },
+            {
+              "description": "Diameter of the thumb. Defaults to `var(--esp-size-normal-to-medium)`.",
+              "name": "--esp-slider-thumb-size"
+            },
+            {
+              "description": "Fill color of the thumb. Defaults to `var(--esp-color-layer-1)`.",
+              "name": "--esp-slider-thumb-color"
+            },
+            {
+              "description": "Border color of the thumb. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-slider-thumb-border-color"
+            },
+            {
+              "description": "Box shadow of the thumb. Defaults to `0 1px 3px oklch(0 0 0 / 0.2)`.",
+              "name": "--esp-slider-thumb-shadow"
+            },
+            {
+              "description": "Color of the focus ring shadow. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-slider-focus-shadow"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "description": "Label content displayed alongside the slider. When present, it provides the accessible name via `aria-labelledby`.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formCtrl",
+              "privacy": "private",
+              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, // A range slider always has a normalized numeric value (clamped // to [min, max] and snapped to step), so there is no // representable \"empty\" state that could trigger valueMissing. // Validity is always satisfied. getValidity: () => null, onReset: () => { this.value = String(this._low); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Minimum slider value.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "100",
+              "description": "Maximum slider value.",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "1",
+              "description": "Step increment. Values snap to the nearest step.",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"0\"",
+              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The name used when the slider participates in a `<form>`.",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Controls whether the slider is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "_dragging",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_hasSlotContent",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_trackRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_thumbRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_slotRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_nextId",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0",
+              "description": "Module-level counter for generating unique label ids."
+            },
+            {
+              "kind": "field",
+              "name": "_labelId",
+              "privacy": "private",
+              "default": "`esp-slider-label-${EspalierSlider._nextId++}`",
+              "description": "Stable id for the label element, used by `aria-labelledby`."
+            },
+            {
+              "kind": "field",
+              "name": "_safeStep",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "The effective step, guaranteed to be a finite positive number.\nFalls back to `1` when the `step` property is zero, negative,\n`NaN`, or `Infinity`.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_safeMin",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective minimum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_safeMax",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective maximum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_stepPrecision",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Number of decimal digits implied by the effective step. Used\nto round away floating-point noise so the public value stays\nclean (e.g. `\"0.3\"` instead of `\"0.30000000000000004\"`).\n\nHandles scientific notation: `0.0000001` stringifies as\n`\"1e-7\"` (7 digits), and `0.00000012` stringifies as\n`\"1.2e-7\"` (8 digits = 1 mantissa fractional digit + 7\nexponent).",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_low",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective lower bound, safe when `min > max`.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_high",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective upper bound, safe when `min > max`.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_snapToStep",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "raw",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Snap `raw` to the nearest step relative to `_low`, clamp\nto `[_low, _high]`, and round to the step's decimal precision."
+            },
+            {
+              "kind": "field",
+              "name": "numericValue",
+              "type": {
+                "text": "number"
+              },
+              "description": "The value parsed, clamped, and snapped to step.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "percentage",
+              "type": {
+                "text": "number"
+              },
+              "description": "Fill/thumb position as a percentage of the track width.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_normalizeValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Normalize `this.value` so it always reflects the\nclamped-and-stepped numeric value, and push the result into\n`ElementInternals` without firing `value-changed`.\n\nCalled from `willUpdate` whenever `value`, `min`, `max`, or\n`step` change."
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "Focus the slider thumb."
+            },
+            {
+              "kind": "method",
+              "name": "validate",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Re-run constraint validation and dispatch `validity-changed`."
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Check whether the current state is valid (delegates to ElementInternals)."
+            },
+            {
+              "kind": "method",
+              "name": "_setValueAndNotify",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "newNumeric",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerMove",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerUp",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_handleLostPointerCapture",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Handles `lostpointercapture`, which fires when the browser\nrevokes capture due to an OS gesture, modal interrupt, or\nthe pointer leaving the document. This prevents the slider\nfrom getting stuck in the dragging state."
+            },
+            {
+              "kind": "method",
+              "name": "_endDrag",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_updateValueFromPointer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleSlotChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_syncSlotContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Inspect the default slot's assigned nodes and update\n`_hasSlotContent`. Called from both `firstUpdated` (to catch\ninitial light-DOM content before `slotchange` fires) and the\n`slotchange` handler (for dynamic changes)."
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Called by the browser when the owning `<form>` is reset."
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Called by the browser to restore form state (bfcache, etc.)."
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "isDisabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "type": {
+                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
+              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ColorSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "ColorSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the slider value changes. The detail is the new value as a string.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Minimum slider value.",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "description": "Maximum slider value.",
+              "fieldName": "max"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Step increment. Values snap to the nearest step.",
+              "fieldName": "step"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"0\"",
+              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
+              "fieldName": "value"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The name used when the slider participates in a `<form>`.",
+              "fieldName": "name"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls whether the slider is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
+              "fieldName": "label"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "docPageTitle": {
+            "name": "Slider",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/slider",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Form",
+            "description": "Controls"
+          },
+          "menuLabel": {
+            "name": "Slider",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "sliders",
+            "description": ""
+          },
+          "tagName": "esp-slider",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierSlider",
+          "declaration": {
+            "name": "EspalierSlider",
+            "module": "dist/slider/esp-slider.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-slider",
+          "declaration": {
+            "name": "EspalierSlider",
+            "module": "dist/slider/esp-slider.js"
           }
         }
       ]
