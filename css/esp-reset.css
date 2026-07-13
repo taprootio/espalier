@@ -30,7 +30,10 @@ dd {
 
 /* Set core body defaults */
 body {
+  /* dvh tracks the visible viewport on mobile; 100vh fallback declared
+     first for browsers without dvh (dvh === vh on desktop). */
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
 }
 

@@ -1,10 +1,10 @@
-var n=function(t,e,r,i){var l=arguments.length,o=l<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(t,e,r,i);else for(var a=t.length-1;a>=0;a--)(p=t[a])&&(o=(l<3?p(o):l>3?p(e,r,o):p(e,r))||o);return l>3&&o&&Object.defineProperty(e,r,o),o};import{css as d,html as b}from"lit";import{customElement as f,property as u}from"lit/decorators.js";import{classMap as v}from"lit/directives/class-map.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";let s=class extends c{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return b`
-      <div class=${v({"esp-box":!0,"full-screen":e})}>
+var n=function(s,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(s,e,r,i);else for(var p=s.length-1;p>=0;p--)(l=s[p])&&(o=(a<3?l(o):a>3?l(e,r,o):l(e,r))||o);return a>3&&o&&Object.defineProperty(e,r,o),o};import{css as c,html as b}from"lit";import{customElement as v,property as h}from"lit/decorators.js";import{classMap as f}from"lit/directives/class-map.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";let t=class extends d{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return b`
+      <div class=${f({"esp-box":!0,"full-screen":e})}>
         <div part="box">
           <slot></slot>
         </div>
       </div>
-    `}};s.styles=[...c.styles,d`
+    `}};t.styles=[...d.styles,c`
       :host {
         display: block;
       }
@@ -43,7 +43,9 @@ var n=function(t,e,r,i){var l=arguments.length,o=l<3?e:i===null?i=Object.getOwnP
 
         &.full-screen {
           width: 100vw;
+          
           height: 100vh;
+          height: 100dvh;
           position: fixed;
           top: 0;
           left: 0;
@@ -51,7 +53,12 @@ var n=function(t,e,r,i){var l=arguments.length,o=l<3?e:i===null?i=Object.getOwnP
 
           > div {
             overflow-y: auto;
+            
+            padding-bottom: max(
+              var(--esp-size-box-padding, var(--esp-size-padding)),
+              env(safe-area-inset-bottom)
+            );
           }
         }
       }
-    `],n([u({attribute:"full-screen",type:Boolean})],s.prototype,"fullScreen",void 0),s=n([f("esp-box")],s);export{s as EspalierBox};
+    `],n([h({attribute:"full-screen",type:Boolean})],t.prototype,"fullScreen",void 0),t=n([v("esp-box")],t);export{t as EspalierBox};

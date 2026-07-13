@@ -1,4 +1,4 @@
-var o=function(i,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,s):r,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(i,e,s,r);else for(var l=i.length-1;l>=0;l--)(p=i[l])&&(a=(d<3?p(a):d>3?p(e,s,a):p(e,s))||a);return d>3&&a&&Object.defineProperty(e,s,a),a};import{css as g,html as f}from"lit";import{customElement as u,property as n}from"lit/decorators.js";import{classMap as m}from"lit/directives/class-map.js";import{createRef as v,ref as w}from"lit/directives/ref.js";import{EspalierElementBase as h}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as c}from"./bi-directional-sticky-controller.js";import{getEspBus as b}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";let t=class extends h{constructor(){super(),this.dialogZone=v(),this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new c(this,".esp-page-left > .sticky-wrapper"),new c(this,".esp-page-right > .sticky-wrapper")}AddDialog(e){this.dialogZone.value?.appendChild(e)}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&b().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",s=!e&&this.headerPosition==="sticky";return f`
+var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,s):r,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(n,e,s,r);else for(var l=n.length-1;l>=0;l--)(p=n[l])&&(a=(d<3?p(a):d>3?p(e,s,a):p(e,s))||a);return d>3&&a&&Object.defineProperty(e,s,a),a};import{css as g,html as f}from"lit";import{customElement as u,property as i}from"lit/decorators.js";import{classMap as m}from"lit/directives/class-map.js";import{createRef as v,ref as w}from"lit/directives/ref.js";import{EspalierElementBase as h}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as c}from"./bi-directional-sticky-controller.js";import{getEspBus as b}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";let t=class extends h{constructor(){super(),this.dialogZone=v(),this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new c(this,".esp-page-left > .sticky-wrapper"),new c(this,".esp-page-right > .sticky-wrapper")}AddDialog(e){this.dialogZone.value?.appendChild(e)}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&b().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",s=!e&&this.headerPosition==="sticky";return f`
       <div part="wrapper" class="esp-page ${m({"fixed-menus":e,"fixed-header":e,"sticky-header":s})}">
         <div part="canvas" class="esp-page-canvas esp-page-canvas--left" aria-hidden="true"></div>
         <div part="canvas" class="esp-page-canvas esp-page-canvas--right" aria-hidden="true"></div>
@@ -107,7 +107,9 @@ var o=function(i,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
       }
 
       .esp-page {
+        
         min-height: 100vh;
+        min-height: 100dvh;
         display: grid;
         grid-template-columns:
           [full-start canvas-left-start] var(--_esp-page-gutter-left)
@@ -297,4 +299,4 @@ var o=function(i,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
       .esp-page:has(esp-dialog[is-open="true"]) {
         overflow: hidden;
       }
-    `],o([n({reflect:!0})],t.prototype,"kind",void 0),o([n({reflect:!0})],t.prototype,"align",void 0),o([n({type:Boolean,reflect:!0})],t.prototype,"contained",void 0),o([n({attribute:"header-position",reflect:!0})],t.prototype,"headerPosition",void 0),o([n({attribute:"fixed-menus",type:Boolean,reflect:!0})],t.prototype,"fixedMenus",void 0),t=o([u("esp-page")],t);export{t as EspalierPage};
+    `],o([i({reflect:!0})],t.prototype,"kind",void 0),o([i({reflect:!0})],t.prototype,"align",void 0),o([i({type:Boolean,reflect:!0})],t.prototype,"contained",void 0),o([i({attribute:"header-position",reflect:!0})],t.prototype,"headerPosition",void 0),o([i({attribute:"fixed-menus",type:Boolean,reflect:!0})],t.prototype,"fixedMenus",void 0),t=o([u("esp-page")],t);export{t as EspalierPage};
