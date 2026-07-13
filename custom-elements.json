@@ -19775,6 +19775,15 @@
               "default": "new ResizeObserver(() => this.syncMenuLayout())"
             },
             {
+              "kind": "field",
+              "name": "menuChildObserver",
+              "type": {
+                "text": "MutationObserver | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
               "kind": "method",
               "name": "syncMenuLayout",
               "privacy": "private",
@@ -19783,6 +19792,28 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "menuHasContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Whether the header carries a menu with navigable content. Read from\nlight DOM rather than the resolved `this.menu` (which is populated\nonly after the menu slot assigns) so burger visibility does not hang\non slot-resolution timing — otherwise a real menu whose slot has not\nassigned yet would look empty and hide its burger. An empty or\nabsent `<esp-menu>` has nothing to reveal."
+            },
+            {
+              "kind": "method",
+              "name": "hasDrawerableContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Whether the burger has something to open: real menu items, an\nexternal drawer target, or an explicit `show-burger` request. The\ncompact-width media query alone must not force the burger on when\nthere is nothing behind it."
             },
             {
               "kind": "method",
@@ -19921,6 +19952,16 @@
             },
             {
               "kind": "method",
+              "name": "observeMenuChildren",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "syncMobileMenuQuery",
               "privacy": "private",
               "return": {
@@ -19958,6 +19999,28 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "burgerVisibleForTarget",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Whether the header is currently rendering a burger for its external\ndrawer target — the same predicate as the `too-wide` class (the target\nalready satisfies `hasDrawerableContent`). A vertical target may only\ncollapse while this holds, so a collapsed rail always has a visible,\naccessible opener. Notably `menu-display=\"drawer\"`/`show-burger` force\nit, and the compact (36rem) query or an overflowing inline menu trip it\n— a width band where the menu's own 50em collapse query matches but no\nburger shows must NOT grant control."
+            },
+            {
+              "kind": "method",
+              "name": "syncExternalDrawerControl",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Grant/revoke a vertical drawer-target menu's permission to collapse,\ntracking whether the burger is actually visible. Re-run whenever the\ntarget, menu-display, compact-width, or fit state changes."
             },
             {
               "kind": "field",
@@ -28477,6 +28540,30 @@
             },
             {
               "kind": "field",
+              "name": "_mobileCollapsed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "True while the viewport is narrow enough to collapse a vertical rail."
+            },
+            {
+              "kind": "field",
+              "name": "verticalDrawerQuery",
+              "type": {
+                "text": "MediaQueryList | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "onVerticalDrawerChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "mode",
               "type": {
                 "text": "EspalierMenuMode"
@@ -28605,6 +28692,36 @@
               },
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "setMobileCollapsed",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "collapsed",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "React to the vertical-rail collapse breakpoint. Only a vertical menu\nchanges presentation, so non-vertical menus just record the state\nwithout a re-render."
+            },
+            {
+              "kind": "method",
+              "name": "applyMobileCollapse",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Re-sync swipe/rendering after a change to the vertical-collapse\ninputs. When the menu un-collapses back to a rail, any open drawer is\nclosed."
             },
             {
               "kind": "method",
@@ -29615,7 +29732,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A Lit ReactiveController that adds swipe-to-reveal drawer behavior.\n\nOn coarse-pointer (touch) devices, the user can swipe horizontally\nanywhere on the screen to open or close a drawer overlay. On\nfine-pointer (mouse) devices, the controller still listens for\nclicks outside the drawer to close it.\n\nOnce the user swipes past 10vw the gesture commits and the drawer\nanimates to its final state — the drawer is never left partially open.\n\nTouch events that originate inside the drawer element are completely\nignored — no listeners are attached for those touches — so the\nbrowser's native touch scrolling works normally inside the drawer.\nTaps outside the drawer (on the scrim or anywhere else) close it.",
+          "description": "A Lit ReactiveController that adds swipe-to-reveal drawer behavior.\n\nOn coarse-pointer (touch) devices, an edge-originated horizontal\nswipe opens the drawer, and a swipe in the closing direction — from\nthe scrim or the drawer panel itself — closes it. On fine-pointer\n(mouse) devices, the controller still listens for clicks outside the\ndrawer to close it.\n\nOnce the user swipes past `COMMIT_THRESHOLD_VW` the gesture commits\nand the drawer animates to its final state — it is never left\npartially open.\n\nWhile the drawer is open, a touch that starts inside it is tracked\nonly far enough to detect a horizontal close swipe; vertical motion\nis left to the browser so the drawer scrolls normally. Taps outside\nthe drawer (on the scrim or anywhere else) close it.",
           "name": "SwipeRevealController",
           "members": [
             {
@@ -29707,6 +29824,16 @@
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "gestureStartedInDrawer",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "Whether the current gesture began inside the open drawer. Such a\ngesture is a candidate close swipe: it is tracked so pushing the\ndrawer panel shut works, but default touch behavior is left alone\nuntil the swipe is confirmed horizontal, so vertical scrolling\ninside the drawer is preserved."
             },
             {
               "kind": "field",
@@ -30151,6 +30278,25 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "isWithinOpenEdge",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "clientX",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Whether a touch at `clientX` began close enough to the drawer's\nleading edge to be allowed to *open* it. For a left drawer that is\nthe left edge; for a right drawer, the right edge."
             },
             {
               "kind": "method",
@@ -31355,6 +31501,403 @@
           "declaration": {
             "name": "EspalierPage",
             "module": "dist/page/esp-page.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/popover/esp-popover.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Display a contextual UI overlay that appears when a\nuser interacts with an element, providing a temporary space\nfor additional information, options, or actions without blocking\nthe underlying content. Uses the native Popover API to render\nin the browser's top layer, escaping all ancestor `overflow`\nand `z-index` contexts.\n\n```html\n<esp-popover>\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>It can have anything in it.</p>\n    <esp-popover>\n      <esp-button label=\"Show nested popover\" slot=\"target\"></esp-button>\n      <esp-box slot=\"popover\">\n        <h2>I'm a nested popover!</h2>\n        <p>I will not cause my parent popover to close.</p>\n        <esp-popover>\n          <esp-button label=\"Show another popover\" slot=\"target\"></esp-button>\n          <esp-box slot=\"popover\">\n            <h2>I'm a very nested popover!</h2>\n            <p>I will not cause my parent popovers to close.</p>\n          </esp-box>\n        </esp-popover>\n      </esp-box>\n    </esp-popover>\n  </esp-box>\n</esp-popover>\n```",
+          "name": "EspalierPopover",
+          "slots": [
+            {
+              "description": "The target listens for events to show the popover.",
+              "name": "target"
+            },
+            {
+              "description": "The content to be shown in a popover.",
+              "name": "popover"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "popoverOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "thePopover",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "popoverSlot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "targetSlot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "attachTo",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "showDelayTimer",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "hideDelayTimer",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "isHovered",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "isFocused",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "popoverId",
+              "privacy": "public",
+              "readonly": true,
+              "default": "`esp-popover-${++popoverIdCounter}`",
+              "description": "A stable unique ID for the popover content element.\nUseful for wiring `aria-describedby` or `aria-controls`\non the trigger."
+            },
+            {
+              "kind": "field",
+              "name": "popoverCtrl",
+              "privacy": "private",
+              "default": "new PopoverController({ host: this, closeStrategy: \"skip-list\", isOpen: () => this.popoverOpen, onShouldClose: () => this.closePopover(), onPositionUpdate: () => this.positionPopover(), })"
+            },
+            {
+              "kind": "field",
+              "name": "attach",
+              "type": {
+                "text": "\"left\" | \"right\" | \"above\" | \"below\""
+              },
+              "privacy": "public",
+              "default": "\"below\"",
+              "description": "Attach determines which side of the target the\npopover will appear on. The popover will try to fit itself\non the specified side, but if there is not enough space,\nit may appear on the other side. It can be one of the following:\n\n#### Place above\n\n```html\n<esp-popover attach=\"above\">\n  <esp-button label=\"Show above\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below (default)\n\n```html\n<esp-popover attach=\"below\">\n  <esp-button label=\"Show below\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to left\n\n```html\n<esp-popover attach=\"left\">\n  <esp-button label=\"Show to left\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to right\n\n```html\n<esp-popover attach=\"right\">\n  <esp-button label=\"Show to right\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
+              "attribute": "attach"
+            },
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "\"start\" | \"center\" | \"end\""
+              },
+              "privacy": "public",
+              "default": "\"start\"",
+              "description": "Align determines how the popover is aligned relative\nto the target. For example, if attach is \"below\" and align\nis \"start\", the popover will appear below the target,\naligned to the left edge of the target.\n\n#### Place below, align start\n\n```html\n<esp-popover align=\"start\">\n  <esp-button label=\"Show below start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align center\n\n```html\n<esp-popover align=\"center\">\n  <esp-button label=\"Show below center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align end\n\n```html\n<esp-popover align=\"end\">\n  <esp-button label=\"Show below end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align start\n\n```html\n<esp-popover attach=\"right\" align=\"start\">\n  <esp-button label=\"Show right start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align center\n\n```html\n<esp-popover attach=\"right\" align=\"center\">\n  <esp-button label=\"Show right center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align end\n\n```html\n<esp-popover attach=\"right\" align=\"end\">\n  <esp-button label=\"Show right end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
+              "attribute": "align"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The offset value determines the distance between the\npopover and the target when the popover is shown.\n\n```html\n<esp-popover offset=\"50px\">\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>I am offset 50px from the target.</p>\n  </esp-box>\n</esp-popover>\n```",
+              "attribute": "offset"
+            },
+            {
+              "kind": "field",
+              "name": "offsetX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Additional horizontal pixel offset applied after the\npopover is positioned. Positive moves right, negative left.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
+              "attribute": "offset-x"
+            },
+            {
+              "kind": "field",
+              "name": "offsetY",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Additional vertical pixel offset applied after the\npopover is positioned. Positive moves down, negative up.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
+              "attribute": "offset-y"
+            },
+            {
+              "kind": "field",
+              "name": "trigger",
+              "type": {
+                "text": "\"none\" | \"click\" | \"hover\" | \"focus\" | \"focus-hover\""
+              },
+              "privacy": "public",
+              "default": "\"click\"",
+              "description": "The event to listen for on the target to open the popover.\n\n- `\"click\"` — toggle on click (default).\n- `\"hover\"` — open on mouseenter, close on mouseleave.\n- `\"focus\"` — open on focusin, close on focusout.\n- `\"focus-hover\"` — open on hover *or* focus; close only\n  when both hover and focus are lost. Ideal for tooltips.\n- `\"none\"` — no automatic trigger; open/close programmatically.",
+              "attribute": "trigger"
+            },
+            {
+              "kind": "field",
+              "name": "showDelay",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Delay in milliseconds before showing the popover after\nthe trigger event fires. Useful for tooltips so they don't\nflash on quick mouse-overs.",
+              "attribute": "show-delay"
+            },
+            {
+              "kind": "field",
+              "name": "hideDelay",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Delay in milliseconds before hiding the popover after the\ntrigger condition is lost. Gives the user time to move the\ncursor from the trigger into the popover content.",
+              "attribute": "hide-delay"
+            },
+            {
+              "kind": "field",
+              "name": "closePopover",
+              "privacy": "public",
+              "description": "Close the popover."
+            },
+            {
+              "kind": "field",
+              "name": "openPopover",
+              "privacy": "public",
+              "description": "Open the popover programmatically (without going through a\ntrigger event). Respects `show-delay`."
+            },
+            {
+              "kind": "field",
+              "name": "updatePosition",
+              "privacy": "public",
+              "description": "Re-position the popover without closing/reopening it.\nUseful after changing `offset-x` / `offset-y` while the\npopover is already visible."
+            },
+            {
+              "kind": "method",
+              "name": "cancelDelays",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleOpen",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleClose",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "doOpen",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "positionPopover",
+              "privacy": "private",
+              "description": "Position the popover relative to the target element using\nfixed viewport coordinates. The popover renders in the\nbrowser's top layer via the native Popover API."
+            },
+            {
+              "kind": "field",
+              "name": "toggleOpen",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleHoverEnter",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleHoverLeave",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleFocusIn",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleFocusOut",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "popover-opened",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Emitted when the popover is opened."
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Emitted when the popover is closed.",
+              "name": "popover-closed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "attach",
+              "type": {
+                "text": "\"left\" | \"right\" | \"above\" | \"below\""
+              },
+              "default": "\"below\"",
+              "description": "Attach determines which side of the target the\npopover will appear on. The popover will try to fit itself\non the specified side, but if there is not enough space,\nit may appear on the other side. It can be one of the following:\n\n#### Place above\n\n```html\n<esp-popover attach=\"above\">\n  <esp-button label=\"Show above\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below (default)\n\n```html\n<esp-popover attach=\"below\">\n  <esp-button label=\"Show below\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to left\n\n```html\n<esp-popover attach=\"left\">\n  <esp-button label=\"Show to left\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to right\n\n```html\n<esp-popover attach=\"right\">\n  <esp-button label=\"Show to right\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
+              "fieldName": "attach"
+            },
+            {
+              "name": "align",
+              "type": {
+                "text": "\"start\" | \"center\" | \"end\""
+              },
+              "default": "\"start\"",
+              "description": "Align determines how the popover is aligned relative\nto the target. For example, if attach is \"below\" and align\nis \"start\", the popover will appear below the target,\naligned to the left edge of the target.\n\n#### Place below, align start\n\n```html\n<esp-popover align=\"start\">\n  <esp-button label=\"Show below start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align center\n\n```html\n<esp-popover align=\"center\">\n  <esp-button label=\"Show below center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align end\n\n```html\n<esp-popover align=\"end\">\n  <esp-button label=\"Show below end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align start\n\n```html\n<esp-popover attach=\"right\" align=\"start\">\n  <esp-button label=\"Show right start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align center\n\n```html\n<esp-popover attach=\"right\" align=\"center\">\n  <esp-button label=\"Show right center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align end\n\n```html\n<esp-popover attach=\"right\" align=\"end\">\n  <esp-button label=\"Show right end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
+              "fieldName": "align"
+            },
+            {
+              "name": "offset",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The offset value determines the distance between the\npopover and the target when the popover is shown.\n\n```html\n<esp-popover offset=\"50px\">\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>I am offset 50px from the target.</p>\n  </esp-box>\n</esp-popover>\n```",
+              "fieldName": "offset"
+            },
+            {
+              "name": "offset-x",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Additional horizontal pixel offset applied after the\npopover is positioned. Positive moves right, negative left.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
+              "fieldName": "offsetX"
+            },
+            {
+              "name": "offset-y",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Additional vertical pixel offset applied after the\npopover is positioned. Positive moves down, negative up.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
+              "fieldName": "offsetY"
+            },
+            {
+              "name": "trigger",
+              "type": {
+                "text": "\"none\" | \"click\" | \"hover\" | \"focus\" | \"focus-hover\""
+              },
+              "default": "\"click\"",
+              "description": "The event to listen for on the target to open the popover.\n\n- `\"click\"` — toggle on click (default).\n- `\"hover\"` — open on mouseenter, close on mouseleave.\n- `\"focus\"` — open on focusin, close on focusout.\n- `\"focus-hover\"` — open on hover *or* focus; close only\n  when both hover and focus are lost. Ideal for tooltips.\n- `\"none\"` — no automatic trigger; open/close programmatically.",
+              "fieldName": "trigger"
+            },
+            {
+              "name": "show-delay",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Delay in milliseconds before showing the popover after\nthe trigger event fires. Useful for tooltips so they don't\nflash on quick mouse-overs.",
+              "fieldName": "showDelay"
+            },
+            {
+              "name": "hide-delay",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Delay in milliseconds before hiding the popover after the\ntrigger condition is lost. Gives the user time to move the\ncursor from the trigger into the popover content.",
+              "fieldName": "hideDelay"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "docPageTitle": {
+            "name": "Popover",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/popover",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Feedback",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Popover",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "box-multiple",
+            "description": ""
+          },
+          "tagName": "esp-popover",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierPopover",
+          "declaration": {
+            "name": "EspalierPopover",
+            "module": "dist/popover/esp-popover.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-popover",
+          "declaration": {
+            "name": "EspalierPopover",
+            "module": "dist/popover/esp-popover.js"
           }
         }
       ]
@@ -36190,403 +36733,6 @@
       "path": "dist/pickers/types.js",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/popover/esp-popover.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Display a contextual UI overlay that appears when a\nuser interacts with an element, providing a temporary space\nfor additional information, options, or actions without blocking\nthe underlying content. Uses the native Popover API to render\nin the browser's top layer, escaping all ancestor `overflow`\nand `z-index` contexts.\n\n```html\n<esp-popover>\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>It can have anything in it.</p>\n    <esp-popover>\n      <esp-button label=\"Show nested popover\" slot=\"target\"></esp-button>\n      <esp-box slot=\"popover\">\n        <h2>I'm a nested popover!</h2>\n        <p>I will not cause my parent popover to close.</p>\n        <esp-popover>\n          <esp-button label=\"Show another popover\" slot=\"target\"></esp-button>\n          <esp-box slot=\"popover\">\n            <h2>I'm a very nested popover!</h2>\n            <p>I will not cause my parent popovers to close.</p>\n          </esp-box>\n        </esp-popover>\n      </esp-box>\n    </esp-popover>\n  </esp-box>\n</esp-popover>\n```",
-          "name": "EspalierPopover",
-          "slots": [
-            {
-              "description": "The target listens for events to show the popover.",
-              "name": "target"
-            },
-            {
-              "description": "The content to be shown in a popover.",
-              "name": "popover"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "popoverOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "thePopover",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "popoverSlot",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "targetSlot",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "attachTo",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "showDelayTimer",
-              "type": {
-                "text": "ReturnType<typeof setTimeout> | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "hideDelayTimer",
-              "type": {
-                "text": "ReturnType<typeof setTimeout> | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "isHovered",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "isFocused",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "popoverId",
-              "privacy": "public",
-              "readonly": true,
-              "default": "`esp-popover-${++popoverIdCounter}`",
-              "description": "A stable unique ID for the popover content element.\nUseful for wiring `aria-describedby` or `aria-controls`\non the trigger."
-            },
-            {
-              "kind": "field",
-              "name": "popoverCtrl",
-              "privacy": "private",
-              "default": "new PopoverController({ host: this, closeStrategy: \"skip-list\", isOpen: () => this.popoverOpen, onShouldClose: () => this.closePopover(), onPositionUpdate: () => this.positionPopover(), })"
-            },
-            {
-              "kind": "field",
-              "name": "attach",
-              "type": {
-                "text": "\"left\" | \"right\" | \"above\" | \"below\""
-              },
-              "privacy": "public",
-              "default": "\"below\"",
-              "description": "Attach determines which side of the target the\npopover will appear on. The popover will try to fit itself\non the specified side, but if there is not enough space,\nit may appear on the other side. It can be one of the following:\n\n#### Place above\n\n```html\n<esp-popover attach=\"above\">\n  <esp-button label=\"Show above\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below (default)\n\n```html\n<esp-popover attach=\"below\">\n  <esp-button label=\"Show below\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to left\n\n```html\n<esp-popover attach=\"left\">\n  <esp-button label=\"Show to left\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to right\n\n```html\n<esp-popover attach=\"right\">\n  <esp-button label=\"Show to right\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
-              "attribute": "attach"
-            },
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "\"start\" | \"center\" | \"end\""
-              },
-              "privacy": "public",
-              "default": "\"start\"",
-              "description": "Align determines how the popover is aligned relative\nto the target. For example, if attach is \"below\" and align\nis \"start\", the popover will appear below the target,\naligned to the left edge of the target.\n\n#### Place below, align start\n\n```html\n<esp-popover align=\"start\">\n  <esp-button label=\"Show below start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align center\n\n```html\n<esp-popover align=\"center\">\n  <esp-button label=\"Show below center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align end\n\n```html\n<esp-popover align=\"end\">\n  <esp-button label=\"Show below end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align start\n\n```html\n<esp-popover attach=\"right\" align=\"start\">\n  <esp-button label=\"Show right start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align center\n\n```html\n<esp-popover attach=\"right\" align=\"center\">\n  <esp-button label=\"Show right center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align end\n\n```html\n<esp-popover attach=\"right\" align=\"end\">\n  <esp-button label=\"Show right end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
-              "attribute": "align"
-            },
-            {
-              "kind": "field",
-              "name": "offset",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The offset value determines the distance between the\npopover and the target when the popover is shown.\n\n```html\n<esp-popover offset=\"50px\">\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>I am offset 50px from the target.</p>\n  </esp-box>\n</esp-popover>\n```",
-              "attribute": "offset"
-            },
-            {
-              "kind": "field",
-              "name": "offsetX",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Additional horizontal pixel offset applied after the\npopover is positioned. Positive moves right, negative left.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
-              "attribute": "offset-x"
-            },
-            {
-              "kind": "field",
-              "name": "offsetY",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Additional vertical pixel offset applied after the\npopover is positioned. Positive moves down, negative up.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
-              "attribute": "offset-y"
-            },
-            {
-              "kind": "field",
-              "name": "trigger",
-              "type": {
-                "text": "\"none\" | \"click\" | \"hover\" | \"focus\" | \"focus-hover\""
-              },
-              "privacy": "public",
-              "default": "\"click\"",
-              "description": "The event to listen for on the target to open the popover.\n\n- `\"click\"` — toggle on click (default).\n- `\"hover\"` — open on mouseenter, close on mouseleave.\n- `\"focus\"` — open on focusin, close on focusout.\n- `\"focus-hover\"` — open on hover *or* focus; close only\n  when both hover and focus are lost. Ideal for tooltips.\n- `\"none\"` — no automatic trigger; open/close programmatically.",
-              "attribute": "trigger"
-            },
-            {
-              "kind": "field",
-              "name": "showDelay",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Delay in milliseconds before showing the popover after\nthe trigger event fires. Useful for tooltips so they don't\nflash on quick mouse-overs.",
-              "attribute": "show-delay"
-            },
-            {
-              "kind": "field",
-              "name": "hideDelay",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Delay in milliseconds before hiding the popover after the\ntrigger condition is lost. Gives the user time to move the\ncursor from the trigger into the popover content.",
-              "attribute": "hide-delay"
-            },
-            {
-              "kind": "field",
-              "name": "closePopover",
-              "privacy": "public",
-              "description": "Close the popover."
-            },
-            {
-              "kind": "field",
-              "name": "openPopover",
-              "privacy": "public",
-              "description": "Open the popover programmatically (without going through a\ntrigger event). Respects `show-delay`."
-            },
-            {
-              "kind": "field",
-              "name": "updatePosition",
-              "privacy": "public",
-              "description": "Re-position the popover without closing/reopening it.\nUseful after changing `offset-x` / `offset-y` while the\npopover is already visible."
-            },
-            {
-              "kind": "method",
-              "name": "cancelDelays",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "scheduleOpen",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "scheduleClose",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "doOpen",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "positionPopover",
-              "privacy": "private",
-              "description": "Position the popover relative to the target element using\nfixed viewport coordinates. The popover renders in the\nbrowser's top layer via the native Popover API."
-            },
-            {
-              "kind": "field",
-              "name": "toggleOpen",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleHoverEnter",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleHoverLeave",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleFocusIn",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleFocusOut",
-              "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "name": "popover-opened",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Emitted when the popover is opened."
-            },
-            {
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Emitted when the popover is closed.",
-              "name": "popover-closed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "attach",
-              "type": {
-                "text": "\"left\" | \"right\" | \"above\" | \"below\""
-              },
-              "default": "\"below\"",
-              "description": "Attach determines which side of the target the\npopover will appear on. The popover will try to fit itself\non the specified side, but if there is not enough space,\nit may appear on the other side. It can be one of the following:\n\n#### Place above\n\n```html\n<esp-popover attach=\"above\">\n  <esp-button label=\"Show above\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below (default)\n\n```html\n<esp-popover attach=\"below\">\n  <esp-button label=\"Show below\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to left\n\n```html\n<esp-popover attach=\"left\">\n  <esp-button label=\"Show to left\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place to right\n\n```html\n<esp-popover attach=\"right\">\n  <esp-button label=\"Show to right\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
-              "fieldName": "attach"
-            },
-            {
-              "name": "align",
-              "type": {
-                "text": "\"start\" | \"center\" | \"end\""
-              },
-              "default": "\"start\"",
-              "description": "Align determines how the popover is aligned relative\nto the target. For example, if attach is \"below\" and align\nis \"start\", the popover will appear below the target,\naligned to the left edge of the target.\n\n#### Place below, align start\n\n```html\n<esp-popover align=\"start\">\n  <esp-button label=\"Show below start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align center\n\n```html\n<esp-popover align=\"center\">\n  <esp-button label=\"Show below center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place below, align end\n\n```html\n<esp-popover align=\"end\">\n  <esp-button label=\"Show below end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align start\n\n```html\n<esp-popover attach=\"right\" align=\"start\">\n  <esp-button label=\"Show right start\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align center\n\n```html\n<esp-popover attach=\"right\" align=\"center\">\n  <esp-button label=\"Show right center\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```\n\n#### Place right, align end\n\n```html\n<esp-popover attach=\"right\" align=\"end\">\n  <esp-button label=\"Show right end\" slot=\"target\" collapsed></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>POP!</h2>\n  </esp-box>\n</esp-popover>\n```",
-              "fieldName": "align"
-            },
-            {
-              "name": "offset",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The offset value determines the distance between the\npopover and the target when the popover is shown.\n\n```html\n<esp-popover offset=\"50px\">\n  <esp-button label=\"Show popover\" slot=\"target\"></esp-button>\n  <esp-box slot=\"popover\">\n    <h2>I'm a popover!</h2>\n    <p>I am offset 50px from the target.</p>\n  </esp-box>\n</esp-popover>\n```",
-              "fieldName": "offset"
-            },
-            {
-              "name": "offset-x",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Additional horizontal pixel offset applied after the\npopover is positioned. Positive moves right, negative left.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
-              "fieldName": "offsetX"
-            },
-            {
-              "name": "offset-y",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Additional vertical pixel offset applied after the\npopover is positioned. Positive moves down, negative up.\nUseful for anchoring a popover to a dynamic point within\na large target element.",
-              "fieldName": "offsetY"
-            },
-            {
-              "name": "trigger",
-              "type": {
-                "text": "\"none\" | \"click\" | \"hover\" | \"focus\" | \"focus-hover\""
-              },
-              "default": "\"click\"",
-              "description": "The event to listen for on the target to open the popover.\n\n- `\"click\"` — toggle on click (default).\n- `\"hover\"` — open on mouseenter, close on mouseleave.\n- `\"focus\"` — open on focusin, close on focusout.\n- `\"focus-hover\"` — open on hover *or* focus; close only\n  when both hover and focus are lost. Ideal for tooltips.\n- `\"none\"` — no automatic trigger; open/close programmatically.",
-              "fieldName": "trigger"
-            },
-            {
-              "name": "show-delay",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Delay in milliseconds before showing the popover after\nthe trigger event fires. Useful for tooltips so they don't\nflash on quick mouse-overs.",
-              "fieldName": "showDelay"
-            },
-            {
-              "name": "hide-delay",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Delay in milliseconds before hiding the popover after the\ntrigger condition is lost. Gives the user time to move the\ncursor from the trigger into the popover content.",
-              "fieldName": "hideDelay"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "docPageTitle": {
-            "name": "Popover",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/popover",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Feedback",
-            "description": ""
-          },
-          "menuLabel": {
-            "name": "Popover",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "box-multiple",
-            "description": ""
-          },
-          "tagName": "esp-popover",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierPopover",
-          "declaration": {
-            "name": "EspalierPopover",
-            "module": "dist/popover/esp-popover.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-popover",
-          "declaration": {
-            "name": "EspalierPopover",
-            "module": "dist/popover/esp-popover.js"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",

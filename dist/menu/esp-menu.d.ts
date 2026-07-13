@@ -75,6 +75,7 @@ export declare class EspalierMenu extends EspalierElementBase {
     get collapsed(): boolean;
     set collapsed(value: boolean);
     connectedCallback(): void;
+    disconnectedCallback(): void;
     protected firstUpdated(props: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     /**
