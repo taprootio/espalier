@@ -248,7 +248,7 @@ export declare class EspalierPopover extends LitElement {
     protected updated(changedProperties: PropertyValues): void;
     protected firstUpdated(_changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,4 +1,8 @@
-import{css as i,unsafeCSS as n}from"lit";const e=i`
+import{css as n,unsafeCSS as t}from"lit";const a=n`
+  :host([align]) {
+    text-align: inherit;
+  }
+`,d=n`
   .sr-only {
     position: absolute;
     width: 1px;
@@ -10,14 +14,14 @@ import{css as i,unsafeCSS as n}from"lit";const e=i`
     white-space: nowrap;
     border: 0;
   }
-`;function a(o){const r=o.includes(":host")||o.includes("[disabled]")?o:`:host([disabled]) ${o}`;return i`
-    ${n(r)} {
+`;function l(o){const i=o.includes(":host")||o.includes("[disabled]")?o:`:host([disabled]) ${o}`;return n`
+    ${t(i)} {
       opacity: 0.5;
       cursor: not-allowed;
     }
-  `}function p(o,r,s="0 0 3px",d=""){return i`
-    ${n(o)} {
-      box-shadow: ${n(d)} ${n(s)}
-        var(${n(r)}, var(--esp-color-shadow));
+  `}function p(o,i,e="0 0 3px",r=""){return n`
+    ${t(o)} {
+      box-shadow: ${t(r)} ${t(e)}
+        var(${t(i)}, var(--esp-color-shadow));
     }
-  `}export{a as disabledControl,p as focusRing,e as srOnly};
+  `}export{a as alignAttributeTextInheritance,l as disabledControl,p as focusRing,d as srOnly};

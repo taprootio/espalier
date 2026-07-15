@@ -5864,147 +5864,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/burger/esp-burger.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Animated burger button for showing and hiding navigation\ncomponents.\n\n```html\n<esp-burger></esp-burger>\n```",
-          "name": "EspalierBurger",
-          "cssProperties": [
-            {
-              "description": "The color of the burger lines when closed.",
-              "name": "--esp-color-burger"
-            },
-            {
-              "description": "The hover color of the burger lines when closed.",
-              "name": "--esp-color-burger-hover"
-            },
-            {
-              "description": "The color of the burger lines when open.",
-              "name": "--esp-color-burger-opened"
-            },
-            {
-              "description": "The hover color of the burger lines when open.",
-              "name": "--esp-color-burger-opened-hover"
-            },
-            {
-              "description": "The stroke width of the burger lines.",
-              "name": "--esp-size-burger-stroke"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "menuOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "Whether or not the burger indicates an open state.",
-              "attribute": "menu-open"
-            },
-            {
-              "kind": "field",
-              "name": "presentationOnly",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "Render only the animated burger graphic. Use this when an\nouter control owns activation, labeling, and expanded state.",
-              "attribute": "presentation-only"
-            },
-            {
-              "kind": "method",
-              "name": "toggleMenu"
-            }
-          ],
-          "events": [
-            {
-              "name": "opened",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Emitted when the button is clicked and the image changes from a burger to an X."
-            },
-            {
-              "name": "closed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Emitted when the button is clicked and the image changes from an X to a burger. ```html <esp-burger></esp-burger> <script> const theBurger = findByTagName(\"esp-burger\")[0]; theBurger.addEventListener(\"opened\", () => { showToast({ message: \"It would be a good time to show the menu. This message will self-destruct in 4 seconds...\", icon: \"info-i\", duration: 4 }); }); theBurger.addEventListener(\"closed\", () => { showToast({ message: \"It would be a good time to hide the menu. This message will self-destruct in 4 seconds...\", icon: \"info-i\", duration: 4 }); }); </script> ```"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "menu-open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether or not the burger indicates an open state.",
-              "fieldName": "menuOpen"
-            },
-            {
-              "name": "presentation-only",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Render only the animated burger graphic. Use this when an\nouter control owns activation, labeling, and expanded state.",
-              "fieldName": "presentationOnly"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "docPageTitle": {
-            "name": "Burger",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/burger",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Interaction",
-            "description": ""
-          },
-          "menuLabel": {
-            "name": "Burger",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "burger",
-            "description": ""
-          },
-          "tagName": "esp-burger",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierBurger",
-          "declaration": {
-            "name": "EspalierBurger",
-            "module": "dist/burger/esp-burger.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-burger",
-          "declaration": {
-            "name": "EspalierBurger",
-            "module": "dist/burger/esp-burger.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/breadcrumbs/esp-breadcrumb.js",
       "declarations": [
         {
@@ -6780,6 +6639,147 @@
           "declaration": {
             "name": "EspalierBreadcrumbs",
             "module": "dist/breadcrumbs/esp-breadcrumbs.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/burger/esp-burger.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Animated burger button for showing and hiding navigation\ncomponents.\n\n```html\n<esp-burger></esp-burger>\n```",
+          "name": "EspalierBurger",
+          "cssProperties": [
+            {
+              "description": "The color of the burger lines when closed.",
+              "name": "--esp-color-burger"
+            },
+            {
+              "description": "The hover color of the burger lines when closed.",
+              "name": "--esp-color-burger-hover"
+            },
+            {
+              "description": "The color of the burger lines when open.",
+              "name": "--esp-color-burger-opened"
+            },
+            {
+              "description": "The hover color of the burger lines when open.",
+              "name": "--esp-color-burger-opened-hover"
+            },
+            {
+              "description": "The stroke width of the burger lines.",
+              "name": "--esp-size-burger-stroke"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "menuOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Whether or not the burger indicates an open state.",
+              "attribute": "menu-open"
+            },
+            {
+              "kind": "field",
+              "name": "presentationOnly",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Render only the animated burger graphic. Use this when an\nouter control owns activation, labeling, and expanded state.",
+              "attribute": "presentation-only"
+            },
+            {
+              "kind": "method",
+              "name": "toggleMenu"
+            }
+          ],
+          "events": [
+            {
+              "name": "opened",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Emitted when the button is clicked and the image changes from a burger to an X."
+            },
+            {
+              "name": "closed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Emitted when the button is clicked and the image changes from an X to a burger. ```html <esp-burger></esp-burger> <script> const theBurger = findByTagName(\"esp-burger\")[0]; theBurger.addEventListener(\"opened\", () => { showToast({ message: \"It would be a good time to show the menu. This message will self-destruct in 4 seconds...\", icon: \"info-i\", duration: 4 }); }); theBurger.addEventListener(\"closed\", () => { showToast({ message: \"It would be a good time to hide the menu. This message will self-destruct in 4 seconds...\", icon: \"info-i\", duration: 4 }); }); </script> ```"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "menu-open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether or not the burger indicates an open state.",
+              "fieldName": "menuOpen"
+            },
+            {
+              "name": "presentation-only",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Render only the animated burger graphic. Use this when an\nouter control owns activation, labeling, and expanded state.",
+              "fieldName": "presentationOnly"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "docPageTitle": {
+            "name": "Burger",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/burger",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Interaction",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Burger",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "burger",
+            "description": ""
+          },
+          "tagName": "esp-burger",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierBurger",
+          "declaration": {
+            "name": "EspalierBurger",
+            "module": "dist/burger/esp-burger.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-burger",
+          "declaration": {
+            "name": "EspalierBurger",
+            "module": "dist/burger/esp-burger.js"
           }
         }
       ]
@@ -45506,6 +45506,12 @@
       "declarations": [
         {
           "kind": "variable",
+          "name": "alignAttributeTextInheritance",
+          "default": "css` :host([align]) { text-align: inherit; } `",
+          "description": "Chromium maps `align` on autonomous custom elements to the obsolete HTML\npresentational hint `text-align`. Espalier uses the attribute for geometric\nplacement, so restore normal text-alignment inheritance on affected hosts."
+        },
+        {
+          "kind": "variable",
           "name": "srOnly",
           "default": "css` .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } `"
         },
@@ -45559,6 +45565,14 @@
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "alignAttributeTextInheritance",
+          "declaration": {
+            "name": "alignAttributeTextInheritance",
+            "module": "dist/shared/style-fragments.js"
+          }
+        },
         {
           "kind": "js",
           "name": "srOnly",
