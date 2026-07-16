@@ -140,6 +140,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "module": "dist/flyout/esp-flyout.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "module": "dist/form/esp-form.js"
           }
         },
@@ -569,6 +577,38 @@
         },
         {
           "kind": "js",
+          "name": "showFlyout",
+          "declaration": {
+            "name": "showFlyout",
+            "module": "./shared/flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "closeFlyout",
+          "declaration": {
+            "name": "closeFlyout",
+            "module": "./shared/flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FlyoutConfig",
+          "declaration": {
+            "name": "FlyoutConfig",
+            "module": "./shared/flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FlyoutCloseReason",
+          "declaration": {
+            "name": "FlyoutCloseReason",
+            "module": "./shared/flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "getEspBus",
           "declaration": {
             "name": "getEspBus",
@@ -596,6 +636,14 @@
           "name": "ToastEvents",
           "declaration": {
             "name": "ToastEvents",
+            "module": "./shared/bus-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FlyoutEvents",
+          "declaration": {
+            "name": "FlyoutEvents",
             "module": "./shared/bus-events.js"
           }
         },
@@ -16403,6 +16451,1184 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/flyout/esp-flyout.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A transient panel for help, more-info, and preview content that\nclaims designed spare width before ever covering the page.\n\nPlace one `esp-flyout` in an `esp-page`'s `flyout` slot. The panel\nlives on the canvas, outside the content surface. The page decides\nwhere it goes, from widest viewport to narrowest:\n\n1. **Gutter** — the panel occupies the right canvas gutter. When the\n   gutter already has room, it claims existing spare canvas and the\n   main content does not move at all, on any alignment.\n2. **Shift** — when the gutter is not quite wide enough, the surface\n   slides toward `start` by exactly the shortfall (no more) to free\n   the difference.\n3. **Docked sidebar** — once the gutter is gone, the panel competes\n   for width with the main well; content narrows but is never\n   covered.\n4. **Overlay drawer** — below the mobile threshold (`50em`, the\n   same one the `esp-menu` drawer uses) the panel becomes a fixed\n   drawer over a vellum backdrop. Set `mode=\"overlay\"` to get this\n   presentation at every width.\n\nThe panel is styled as a tear-off piece: a dotted perforation on\nits leading edge, rounded trailing corners, and no shadow — all\noverridable through the `--esp-flyout-*` tokens below.\n\nA11y follows the presentation. In the in-grid modes (1–3) the\nflyout is a non-modal `complementary` landmark named by its\n`heading`, and opening it never steals focus. In the overlay-drawer\nmode (4) it is a true modal: `role=\"dialog\"` + `aria-modal`, the\nbackground goes inert, scroll is locked, focus moves into the drawer\nand is trapped, and focus is restored on close. `Escape` closes it\nin every mode.\n\n```html\n<style>\nesp-page.flyout-demo {\n  --esp-page-max-width: 420px;\n  --esp-page-canvas-background: var(--esp-color-layer-1);\n  &::part(wrapper) {\n    min-height: 320px;\n    height: 320px;\n  }\n  > div {\n    padding: var(--esp-size-padding);\n  }\n}\n</style>\n<esp-page class=\"flyout-demo\" align=\"center\">\n  <esp-flyout slot=\"flyout\" heading=\"More info\" id=\"demo-flyout\" standalone>\n    <p>Spare width claimed; the well shifted only enough to make room.</p>\n  </esp-flyout>\n  <div>\n    <esp-button id=\"toggle-flyout\" label=\"Toggle flyout\" collapsed></esp-button>\n  </div>\n</esp-page>\n<script>\n  const flyout = findById(\"demo-flyout\");\n  findById(\"toggle-flyout\").addEventListener(\"clicked\", () => flyout.toggle());\n</script>\n```\n\nBy default the panel is a tear-off — a dotted perforation on its\nleading edge, rounded trailing corners, no shadow. Add\n`match-surface` to lift the trailing edge with the page's surface\nedge shadow, so the flyout reads as a raised peer of the content it\nflies out from while staying attached at the leading perforation:\n\n```html\n<style>\nesp-page.flyout-match-demo {\n  --esp-page-max-width: 420px;\n  &::part(wrapper) {\n    min-height: 320px;\n    height: 320px;\n  }\n  > div {\n    padding: var(--esp-size-padding);\n  }\n}\n</style>\n<esp-page class=\"flyout-match-demo\" align=\"center\">\n  <esp-flyout slot=\"flyout\" heading=\"More info\" id=\"match-flyout\" match-surface standalone>\n    <p>Attached at the perforation, trailing edge raised like the surface.</p>\n  </esp-flyout>\n  <div>\n    <esp-button id=\"toggle-match\" label=\"Toggle flyout\" collapsed></esp-button>\n  </div>\n</esp-page>\n<script>\n  const matchFlyout = findById(\"match-flyout\");\n  findById(\"toggle-match\").addEventListener(\"clicked\", () => matchFlyout.toggle());\n</script>\n```\n\nWhen the page has no spare width to claim — a `kind=\"full\"` page,\nor a capped page on a viewport at the cap — the open flyout docks\nas a right sidebar and the content makes room:\n\n```html\n<style>\nesp-page.flyout-docked-demo {\n  &::part(wrapper) {\n    min-height: 320px;\n    height: 320px;\n  }\n  > div {\n    padding: var(--esp-size-padding);\n  }\n}\n</style>\n<esp-page class=\"flyout-docked-demo\" kind=\"full\">\n  <esp-flyout slot=\"flyout\" heading=\"Docked\" id=\"docked-flyout\" standalone>\n    <p>No gutter to claim, so the content narrows instead.</p>\n  </esp-flyout>\n  <div>\n    <p>A <code>kind=\"full\"</code> page has no canvas gutters at any\n    width — the flyout squeezes the main well and never covers it.</p>\n    <esp-button id=\"toggle-docked\" label=\"Toggle flyout\" collapsed></esp-button>\n  </div>\n</esp-page>\n<script>\n  const dockedFlyout = findById(\"docked-flyout\");\n  findById(\"toggle-docked\").addEventListener(\"clicked\", () => dockedFlyout.toggle());\n</script>\n```\n\nBelow the `50em` viewport threshold every flyout becomes a fixed\noverlay drawer over a vellum — there is no room for a side-by-side\nsplit on a phone. `mode=\"overlay\"` forces that presentation at any\nwidth (try it here; `Escape` or the vellum closes it):\n\n```html\n<style>\nesp-page.flyout-overlay-demo {\n  &::part(wrapper) {\n    min-height: 160px;\n    height: 160px;\n  }\n  > div {\n    padding: var(--esp-size-padding);\n  }\n}\n</style>\n<esp-page class=\"flyout-overlay-demo\">\n  <esp-flyout slot=\"flyout\" heading=\"Overlay drawer\" mode=\"overlay\" id=\"overlay-flyout\" standalone>\n    <p>A fixed drawer over a vellum — what every flyout becomes on\n    small viewports.</p>\n  </esp-flyout>\n  <div>\n    <esp-button id=\"open-overlay\" label=\"Open overlay flyout\" collapsed></esp-button>\n  </div>\n</esp-page>\n<script>\n  const overlayFlyout = findById(\"overlay-flyout\");\n  findById(\"open-overlay\").addEventListener(\"clicked\", () => overlayFlyout.toggle());\n</script>\n```\n\nComponents that cannot know where the flyout lives can request it\nover the bus with `showFlyout()` — the same pattern `showToast()`\nuses. A second request swaps the content in place; it never\nstacks. Content passed as a string renders as plain text; pass a\n`Node` for rich content. Pass the triggering element as `anchor` to\nalign the in-grid panel with that control and keep both in the same\nscroll flow. If the panel would cross the visible viewport's bottom,\nit shifts up only far enough to fit and returns to its natural trigger\nalignment as the page scrolls. Content taller than the viewport\nscrolls inside the panel. Overlay drawers stay viewport-fixed.\n\nThe bus is a global broadcast, so every listening flyout on the\npage answers a `showFlyout()` call. The demos above are each driven\nby their own toggle button, so they are marked `standalone` to opt\nout of the bus — leaving this one flyout as the page's shared\nsurface. In a real app you typically have a single flyout and need\nno attribute at all.\n\n```html\n<style>\nesp-page.flyout-bus-demo {\n  --esp-page-max-width: 420px;\n  &::part(wrapper) {\n    min-height: 320px;\n  }\n  > div {\n    padding: var(--esp-size-padding);\n  }\n  .flyout-demo-copy {\n    max-inline-size: 42ch;\n  }\n}\n</style>\n<esp-page class=\"flyout-bus-demo\">\n  <esp-flyout slot=\"flyout\"></esp-flyout>\n  <div>\n    <esp-button id=\"show-apples\" label=\"Apples\" collapsed></esp-button>\n    <div class=\"flyout-demo-copy\">\n      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod\n      tempor incididunt ut labore et dolore magna aliqua.</p>\n      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi\n      ut aliquip ex ea commodo consequat.</p>\n      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum\n      dolore eu fugiat nulla pariatur.</p>\n    </div>\n    <esp-button id=\"show-pears\" label=\"Pears\" collapsed></esp-button>\n    <template id=\"pears-description\">\n      <p>Ripen pears at room temperature until the neck yields gently to\n      pressure, then refrigerate them to slow further ripening.</p>\n      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer\n      nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>\n      <p>Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis\n      sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper\n      porta.</p>\n      <p>Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent\n      taciti sociosqu ad litora torquent per conubia nostra.</p>\n      <p>Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.\n      Curabitur tortor. Pellentesque nibh. Aenean quam.</p>\n      <p>In scelerisque sem at dolor. Maecenas mattis. Sed convallis\n      tristique sem. Proin ut ligula vel nunc egestas porttitor.</p>\n      <p>Morbi lectus risus, iaculis vel, suscipit quis, luctus non,\n      massa. Fusce ac turpis quis ligula lacinia aliquet.</p>\n      <p>Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed,\n      euismod in, nibh. Quisque volutpat condimentum velit.</p>\n    </template>\n    <div class=\"flyout-demo-copy\">\n      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia\n      deserunt mollit anim id est laborum.</p>\n      <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio, nullam\n      varius, turpis et commodo pharetra.</p>\n    </div>\n  </div>\n</esp-page>\n<script>\n  const applesButton = findById(\"show-apples\");\n  applesButton.addEventListener(\"clicked\", () => {\n    showFlyout({ heading: \"Apples\", content: \"Crisp. Store cold.\", anchor: applesButton });\n  });\n  const pearsButton = findById(\"show-pears\");\n  const pearsDescription = findById(\"pears-description\");\n  pearsButton.addEventListener(\"clicked\", () => {\n    showFlyout({\n      heading: \"Pears\",\n      content: pearsDescription.content.cloneNode(true),\n      anchor: pearsButton,\n    });\n  });\n</script>\n```",
+          "name": "EspalierFlyout",
+          "cssProperties": [
+            {
+              "description": "The background color of the panel. Defaults to `var(--esp-color-background)`.",
+              "name": "--esp-flyout-background"
+            },
+            {
+              "description": "The border on the panel's leading edge. Defaults to the tear-off perforation, `1px dotted var(--esp-color-border)`.",
+              "name": "--esp-flyout-border"
+            },
+            {
+              "description": "The radius of the panel's trailing corners. Defaults to `var(--esp-size-border-radius)`; the overlay drawer squares them.",
+              "name": "--esp-flyout-radius"
+            },
+            {
+              "description": "The panel's shadow. Defaults to `none` in the gutter/docked modes (the perforation does the separating) and to a drawer shadow in overlay mode.",
+              "name": "--esp-flyout-shadow"
+            },
+            {
+              "description": "Padding inside the panel's header and content regions. Defaults to `var(--esp-size-padding)`.",
+              "name": "--esp-flyout-padding"
+            },
+            {
+              "description": "Stack order of the overlay-drawer mode. Defaults to `3000` — above page chrome, below the dialog drop zone (4000). Set it on the `esp-page` (or an ancestor), not on the flyout itself: the page reads the same token to hoist the drawer's aside above its header.",
+              "name": "--esp-flyout-z-index"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The panel surface.",
+              "name": "panel"
+            },
+            {
+              "description": "The heading/close-button row.",
+              "name": "header"
+            },
+            {
+              "description": "The scrollable content region wrapping the slot.",
+              "name": "content"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The flyout's content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Whether the flyout is open. Reflected so the initial state can\nbe declared in markup; `esp-page` mirrors it (via the lifecycle\nevents and the slot) onto its own `flyout-open` attribute to\ndrive the grid.",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Heading text for the panel's header row. Also becomes the\nflyout's accessible name unless the author set an `aria-label`.\nAn open overlay without either uses the fallback name \"Flyout\" so\nits dialog is never exposed without an accessible name.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "type": {
+                "text": "\"auto\" | \"overlay\""
+              },
+              "privacy": "public",
+              "default": "\"auto\"",
+              "description": "Placement behavior.\n\n- `\"auto\"` (default) — the page's placement ladder: gutter,\n  docked sidebar, then overlay drawer below the `50em` viewport\n  threshold.\n- `\"overlay\"` — always the fixed overlay drawer, at any width.\n  The page never reserves a grid track for an overlay-mode\n  flyout.",
+              "attribute": "mode",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "anchor",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "public",
+              "description": "Triggering element whose block-start edge the in-grid panel should\nalign with. Anchored panels stay in normal page flow, shift upward\nonly while needed to fit the visible scrollport, and return to their\nnatural alignment as the page scrolls. Oversized content scrolls\ninside the panel. Overlay drawers ignore this geometry and remain\nfixed to the viewport."
+            },
+            {
+              "kind": "field",
+              "name": "matchSurface",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When set on a flyout slotted into an `esp-page`, the panel lifts\nits **trailing** edge with the page's surface edge shadow, so it\nreads as a raised peer of the content surface it flies out from\nrather than the shadowless tear-off. The **leading** edge keeps\nits dotted perforation and casts no shadow, so the panel stays\nattached at the tear line instead of floating over the content.\nThe trailing-corner radius is still `--esp-flyout-radius`. No\neffect on a standalone flyout — there is no page surface to match.",
+              "attribute": "match-surface",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "standalone",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Whether this flyout ignores the shared `showFlyout()` /\n`closeFlyout()` bus and is driven only through its own\n`show()` / `close()` / `toggle()` API.\n\nBy default a flyout services the bus, so a single flyout in a\npage \"just works\" as the target of `showFlyout()` — the same\nzero-config model as `<esp-toaster>` and `showToast()`. Because\nthe bus is a global broadcast, **every** listening flyout on the\npage answers a `showFlyout()` call; set `standalone` on any\nflyout you drive directly so only your one designated help\nsurface responds.",
+              "attribute": "standalone",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "returnFocusTo",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "public",
+              "description": "Element to return focus to when the flyout closes. In the in-grid\nmodes it is focused only if focus is inside the flyout at close;\nin the overlay-drawer mode it overrides the modal treatment's\nautomatic restore-to-opener. Usually supplied through\n`showFlyout({ returnFocusTo })`."
+            },
+            {
+              "kind": "field",
+              "name": "overlayReturnFocusTo",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "private",
+              "description": "`returnFocusTo` captured at close time for the overlay teardown,\nwhich runs after `close()` (in `updated()`): the modal treatment\nrestores focus to the pre-open element, and this explicit target\nmust win over that."
+            },
+            {
+              "kind": "field",
+              "name": "lastGeneratedAriaLabel",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "description": "The last `aria-label` this component generated from `heading` or\nthe overlay fallback, or `null` if none. The flyout only rewrites\n`aria-label` when the current value is absent or still equals what\nit last generated, so a label the author sets at any time — in\nmarkup or later — wins."
+            },
+            {
+              "kind": "field",
+              "name": "boundKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boundShowRequest",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boundCloseRequest",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boundOverlayMediaChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boundAnchorViewportChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "anchorPositionRaf",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "trackingAnchorPosition",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "anchorResizeObserver",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "observedAnchorPanel",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "busSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "Whether the bus handlers are currently registered. EspBus does\nnot dedupe subscriptions, so this guards against double-adds."
+            },
+            {
+              "kind": "field",
+              "name": "panelRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "overlay",
+              "privacy": "private",
+              "default": "new OverlayController({ host: this, getFocusTrapContainer: () => this.panelRef.value ?? null, getFocusFallback: () => this.panelRef.value ?? null, promote: false, })",
+              "description": "Modal treatment for the overlay-drawer presentation only. It does\nnot promote out of the page slot, so the flyout keeps its grid\nplacement and `flyout-state-changed` sync; inert anchors on the\nflyout's own position, making its page siblings inert."
+            },
+            {
+              "kind": "field",
+              "name": "overlayMediaQuery",
+              "type": {
+                "text": "MediaQueryList | undefined"
+              },
+              "privacy": "private",
+              "description": "Media query matching the overlay-drawer viewport range."
+            },
+            {
+              "kind": "field",
+              "name": "overlayActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "Whether the modal (overlay) treatment is currently applied."
+            },
+            {
+              "kind": "field",
+              "name": "baseRole",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"complementary\"",
+              "description": "The landmark role to restore when leaving the overlay treatment\n(the author's role, or the default `complementary`)."
+            },
+            {
+              "kind": "field",
+              "name": "effectiveOverlay",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "description": "Whether the flyout is presenting as an overlay drawer — either\nforced via `mode=\"overlay\"` or below the mobile threshold. The\nmodal a11y treatment applies exactly in this state; the in-grid\nmodes stay a non-modal `complementary` landmark.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "syncBusSubscription",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Subscribe to the shared bus unless `standalone`; idempotent so\nit is safe to call from both connect and a `standalone` change."
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeBus",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Open the flyout with its current content. In the in-grid modes it\ndoes not move focus; in the overlay-drawer mode it moves focus\ninto the drawer as a modal."
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "reason",
+                  "default": "\"programmatic\"",
+                  "type": {
+                    "text": "FlyoutCloseReason"
+                  }
+                }
+              ],
+              "description": "Close the flyout. In the in-grid modes, if focus is inside the\nflyout it is returned to `returnFocusTo` when one was provided; in\nthe overlay-drawer mode the modal treatment restores focus to\nwherever it was when the drawer opened, unless `returnFocusTo`\nnames an explicit target — the explicit target wins."
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Toggle the flyout between open and closed."
+            },
+            {
+              "kind": "method",
+              "name": "handleShowRequest",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "FlyoutConfig"
+                  }
+                }
+              ],
+              "description": "Service a `\"show-flyout\"` bus request: swap in the requested\nheading/content (never stacking) and open."
+            },
+            {
+              "kind": "method",
+              "name": "handleKeydown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusIsInside",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncAnchorGeometry",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Position an anchored in-grid flyout at the trigger's natural\nblock-start, then shift it upward only enough to keep its bottom in\nthe visible scrollport. The shift is recalculated during scrolling,\nso it returns to zero when the panel fits at its natural top."
+            },
+            {
+              "kind": "method",
+              "name": "getVisibleBlockBounds",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "{ top: number; bottom: number }"
+                }
+              },
+              "description": "Intersect the visual viewport with every scrolling ancestor. This\nkeeps the flyout usable both on the document and inside a bounded\nlive-example pane such as WTFM's demo container."
+            },
+            {
+              "kind": "method",
+              "name": "composedParent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setGeometryProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "clearAnchorGeometry",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scheduleAnchorGeometrySync",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncAnchorTracking",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stopAnchorTracking",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncOverlayModal",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply modal a11y exactly when the flyout is open **and** presenting\nas an overlay drawer, and remove it otherwise. Called on open/mode\nchanges and when the viewport crosses the overlay threshold.\n\nModal treatment = background inert, scroll lock, `role=\"dialog\"` +\n`aria-modal`, focus moved into the drawer and trapped, and focus\nrestored on teardown — all via the (non-promoting) Overlay\ncontroller, so the flyout never leaves its page slot. The in-grid\nmodes stay a non-modal `complementary` landmark with no focus\nmanagement."
+            },
+            {
+              "kind": "method",
+              "name": "updateGeneratedAriaLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Mirror `heading` into `aria-label`, or apply a stable fallback\nwhile this is an overlay dialog, without clobbering a label the\nauthor controls (see lastGeneratedAriaLabel)."
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "type": {
+                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
+              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ColorSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "ColorSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "flyout-opened",
+              "type": {
+                "text": "CustomEvent<{}>"
+              },
+              "description": "Fired by `show()` when the flyout opens."
+            },
+            {
+              "name": "flyout-closed",
+              "type": {
+                "text": "CustomEvent<{reason: FlyoutCloseReason}>"
+              },
+              "description": "Fired by `close()` when the flyout closes. `reason` is `\"escape\"`, `\"vellum\"`, `\"button\"`, or `\"programmatic\"`."
+            },
+            {
+              "name": "flyout-state-changed",
+              "type": {
+                "text": "CustomEvent<{}>"
+              },
+              "description": "Fired on every `open`, `mode`, or `anchor` change, including direct property assignment (not just `show()`/`close()`). `esp-page` uses it to keep its layout in sync; most consumers want `flyout-opened`/`flyout-closed` instead."
+            },
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the flyout is open. Reflected so the initial state can\nbe declared in markup; `esp-page` mirrors it (via the lifecycle\nevents and the slot) onto its own `flyout-open` attribute to\ndrive the grid.",
+              "fieldName": "open"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Heading text for the panel's header row. Also becomes the\nflyout's accessible name unless the author set an `aria-label`.\nAn open overlay without either uses the fallback name \"Flyout\" so\nits dialog is never exposed without an accessible name.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "mode",
+              "type": {
+                "text": "\"auto\" | \"overlay\""
+              },
+              "default": "\"auto\"",
+              "description": "Placement behavior.\n\n- `\"auto\"` (default) — the page's placement ladder: gutter,\n  docked sidebar, then overlay drawer below the `50em` viewport\n  threshold.\n- `\"overlay\"` — always the fixed overlay drawer, at any width.\n  The page never reserves a grid track for an overlay-mode\n  flyout.",
+              "fieldName": "mode"
+            },
+            {
+              "name": "match-surface",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set on a flyout slotted into an `esp-page`, the panel lifts\nits **trailing** edge with the page's surface edge shadow, so it\nreads as a raised peer of the content surface it flies out from\nrather than the shadowless tear-off. The **leading** edge keeps\nits dotted perforation and casts no shadow, so the panel stays\nattached at the tear line instead of floating over the content.\nThe trailing-corner radius is still `--esp-flyout-radius`. No\neffect on a standalone flyout — there is no page surface to match.",
+              "fieldName": "matchSurface"
+            },
+            {
+              "name": "standalone",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this flyout ignores the shared `showFlyout()` /\n`closeFlyout()` bus and is driven only through its own\n`show()` / `close()` / `toggle()` API.\n\nBy default a flyout services the bus, so a single flyout in a\npage \"just works\" as the target of `showFlyout()` — the same\nzero-config model as `<esp-toaster>` and `showToast()`. Because\nthe bus is a global broadcast, **every** listening flyout on the\npage answers a `showFlyout()` call; set `standalone` on any\nflyout you drive directly so only your one designated help\nsurface responds.",
+              "fieldName": "standalone"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "docPageTitle": {
+            "name": "Flyout",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/flyout",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Structure",
+            "description": ""
+          },
+          "menuOrder": {
+            "name": "3",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Flyout",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "layout",
+            "description": ""
+          },
+          "tagName": "esp-flyout",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierFlyout",
+          "declaration": {
+            "name": "EspalierFlyout",
+            "module": "dist/flyout/esp-flyout.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-flyout",
+          "declaration": {
+            "name": "EspalierFlyout",
+            "module": "dist/flyout/esp-flyout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/form/esp-form.js",
       "declarations": [
         {
@@ -30722,8 +31948,16 @@
               "name": "--esp-page-surface-shadow"
             },
             {
-              "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`).",
+              "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`). Combine with `--esp-page-surface-shadow: none` to switch the content frame from a drop shadow to a hairline, or turn both off for no frame.",
               "name": "--esp-page-surface-border"
+            },
+            {
+              "description": "The background of the main content well. Defaults to `transparent` (the well shows the page background). Set it to give the content well its own card color, or pair the transparent default with `--esp-page-surface-shadow: none` for content that floats directly on the page with no frame.",
+              "name": "--esp-page-main-background"
+            },
+            {
+              "description": "The width of the open flyout track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`.",
+              "name": "--esp-page-flyout-width"
             },
             {
               "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`.",
@@ -30822,6 +32056,10 @@
               "name": "right"
             },
             {
+              "description": "A transient `esp-flyout` panel that lives on the canvas, outside the content surface. Closed it costs no width; open it claims the right canvas gutter first — the surface keeps its alignment weighting and shifts only as far as the flyout's width requires — then docks as a width-competing right sidebar when no gutter exists, and becomes an overlay drawer on small viewports. The persistent `right` aside and the transient flyout are complementary, not alternatives. A flyout opened with an `anchor` aligns to that trigger and stays in the same document scroll flow.",
+              "name": "flyout"
+            },
+            {
               "description": "Content to place in the footer.",
               "name": "footer"
             },
@@ -30835,6 +32073,31 @@
               "kind": "field",
               "name": "dialogZone",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "flyoutSlot",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFlyoutState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "optional": true,
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ],
+              "description": "Mirror the slotted flyout's open, overlay, and anchor state onto\nhost attributes read by the grid CSS. State is recomputed from the\nslot so multiple flyouts and slot changes stay correct."
             },
             {
               "kind": "field",
@@ -44028,9 +45291,9 @@
           "kind": "variable",
           "name": "ESP_EVENTS",
           "type": {
-            "text": "{\n  // ── Form value events ───────────────────────────────────────\n  VALUE_CHANGED: \"value-changed\",\n  VALIDITY_CHANGED: \"validity-changed\",\n\n  // ── Click events ────────────────────────────────────────────\n  CLICKED: \"clicked\",\n\n  // ── Form submission events ──────────────────────────────────\n  ESP_SUBMIT: \"esp-submit\",\n  ESP_SUBMIT_RESPONSE: \"esp-submit-response\",\n  ESP_SUBMIT_ERROR: \"esp-submit-error\",\n\n  // ── Navigation / layout events ──────────────────────────────\n  ESP_TAB_CHANGED: \"esp-tab-changed\",\n  ESP_TAB_UPDATED: \"esp-tab-updated\",\n  ESP_TOGGLE: \"esp-toggle\",\n  ESP_ACCORDION_CHANGE: \"esp-accordion-change\",\n  DRAWER_OPENED: \"drawer-opened\",\n  DRAWER_CLOSED: \"drawer-closed\",\n\n  // ── Popover DOM events ──────────────────────────────────────\n  POPOVER_OPENED: \"popover-opened\",\n  POPOVER_CLOSED: \"popover-closed\",\n\n  // ── Grid events ─────────────────────────────────────────────\n  GRID_EVENT: \"grid-event\",\n  GRID_LOAD_START: \"esp-grid-load-start\",\n  GRID_LOAD_SUCCESS: \"esp-grid-load-success\",\n  GRID_LOAD_ERROR: \"esp-grid-load-error\",\n  GRID_ITEMS_CHANGED: \"esp-grid-items-changed\",\n\n  // ── Info events ─────────────────────────────────────────────\n  DESTROY: \"destroy\",\n\n  // ── Upload events ───────────────────────────────────────────\n  FILE_SELECTED: \"file-selected\",\n  FILE_REMOVED: \"file-removed\",\n  FILES_SELECTED: \"files-selected\",\n  FILES_REJECTED: \"files-rejected\",\n  UPLOAD_RETRY: \"upload-retry\",\n  RETRY_UPLOAD: \"retry-upload\",\n  IMAGES_REORDERED: \"images-reordered\",\n\n  // ── Search events ───────────────────────────────────────────\n  SEARCH_REQUESTED: \"search-requested\",\n  RESULT_SELECTED: \"result-selected\",\n  SEARCH_CLOSED: \"search-closed\",\n\n  // ── Picker internal events ──────────────────────────────────\n  SELECTION_CHANGED: \"selection-changed\",\n  CLOSE_MENU: \"close-menu\",\n  REMOVE_IMAGE: \"remove-image\",\n}"
+            "text": "{\n  // ── Form value events ───────────────────────────────────────\n  VALUE_CHANGED: \"value-changed\",\n  VALIDITY_CHANGED: \"validity-changed\",\n\n  // ── Click events ────────────────────────────────────────────\n  CLICKED: \"clicked\",\n\n  // ── Form submission events ──────────────────────────────────\n  ESP_SUBMIT: \"esp-submit\",\n  ESP_SUBMIT_RESPONSE: \"esp-submit-response\",\n  ESP_SUBMIT_ERROR: \"esp-submit-error\",\n\n  // ── Navigation / layout events ──────────────────────────────\n  ESP_TAB_CHANGED: \"esp-tab-changed\",\n  ESP_TAB_UPDATED: \"esp-tab-updated\",\n  ESP_TOGGLE: \"esp-toggle\",\n  ESP_ACCORDION_CHANGE: \"esp-accordion-change\",\n  DRAWER_OPENED: \"drawer-opened\",\n  DRAWER_CLOSED: \"drawer-closed\",\n  FLYOUT_OPENED: \"flyout-opened\",\n  FLYOUT_CLOSED: \"flyout-closed\",\n  FLYOUT_STATE_CHANGED: \"flyout-state-changed\",\n\n  // ── Popover DOM events ──────────────────────────────────────\n  POPOVER_OPENED: \"popover-opened\",\n  POPOVER_CLOSED: \"popover-closed\",\n\n  // ── Grid events ─────────────────────────────────────────────\n  GRID_EVENT: \"grid-event\",\n  GRID_LOAD_START: \"esp-grid-load-start\",\n  GRID_LOAD_SUCCESS: \"esp-grid-load-success\",\n  GRID_LOAD_ERROR: \"esp-grid-load-error\",\n  GRID_ITEMS_CHANGED: \"esp-grid-items-changed\",\n\n  // ── Info events ─────────────────────────────────────────────\n  DESTROY: \"destroy\",\n\n  // ── Upload events ───────────────────────────────────────────\n  FILE_SELECTED: \"file-selected\",\n  FILE_REMOVED: \"file-removed\",\n  FILES_SELECTED: \"files-selected\",\n  FILES_REJECTED: \"files-rejected\",\n  UPLOAD_RETRY: \"upload-retry\",\n  RETRY_UPLOAD: \"retry-upload\",\n  IMAGES_REORDERED: \"images-reordered\",\n\n  // ── Search events ───────────────────────────────────────────\n  SEARCH_REQUESTED: \"search-requested\",\n  RESULT_SELECTED: \"result-selected\",\n  SEARCH_CLOSED: \"search-closed\",\n\n  // ── Picker internal events ──────────────────────────────────\n  SELECTION_CHANGED: \"selection-changed\",\n  CLOSE_MENU: \"close-menu\",\n  REMOVE_IMAGE: \"remove-image\",\n}"
           },
-          "default": "{ // ── Form value events ─────────────────────────────────────── VALUE_CHANGED: \"value-changed\", VALIDITY_CHANGED: \"validity-changed\", // ── Click events ──────────────────────────────────────────── CLICKED: \"clicked\", // ── Form submission events ────────────────────────────────── ESP_SUBMIT: \"esp-submit\", ESP_SUBMIT_RESPONSE: \"esp-submit-response\", ESP_SUBMIT_ERROR: \"esp-submit-error\", // ── Navigation / layout events ────────────────────────────── ESP_TAB_CHANGED: \"esp-tab-changed\", ESP_TAB_UPDATED: \"esp-tab-updated\", ESP_TOGGLE: \"esp-toggle\", ESP_ACCORDION_CHANGE: \"esp-accordion-change\", DRAWER_OPENED: \"drawer-opened\", DRAWER_CLOSED: \"drawer-closed\", // ── Popover DOM events ────────────────────────────────────── POPOVER_OPENED: \"popover-opened\", POPOVER_CLOSED: \"popover-closed\", // ── Grid events ───────────────────────────────────────────── GRID_EVENT: \"grid-event\", GRID_LOAD_START: \"esp-grid-load-start\", GRID_LOAD_SUCCESS: \"esp-grid-load-success\", GRID_LOAD_ERROR: \"esp-grid-load-error\", GRID_ITEMS_CHANGED: \"esp-grid-items-changed\", // ── Info events ───────────────────────────────────────────── DESTROY: \"destroy\", // ── Upload events ─────────────────────────────────────────── FILE_SELECTED: \"file-selected\", FILE_REMOVED: \"file-removed\", FILES_SELECTED: \"files-selected\", FILES_REJECTED: \"files-rejected\", UPLOAD_RETRY: \"upload-retry\", RETRY_UPLOAD: \"retry-upload\", IMAGES_REORDERED: \"images-reordered\", // ── Search events ─────────────────────────────────────────── SEARCH_REQUESTED: \"search-requested\", RESULT_SELECTED: \"result-selected\", SEARCH_CLOSED: \"search-closed\", // ── Picker internal events ────────────────────────────────── SELECTION_CHANGED: \"selection-changed\", CLOSE_MENU: \"close-menu\", REMOVE_IMAGE: \"remove-image\", }",
+          "default": "{ // ── Form value events ─────────────────────────────────────── VALUE_CHANGED: \"value-changed\", VALIDITY_CHANGED: \"validity-changed\", // ── Click events ──────────────────────────────────────────── CLICKED: \"clicked\", // ── Form submission events ────────────────────────────────── ESP_SUBMIT: \"esp-submit\", ESP_SUBMIT_RESPONSE: \"esp-submit-response\", ESP_SUBMIT_ERROR: \"esp-submit-error\", // ── Navigation / layout events ────────────────────────────── ESP_TAB_CHANGED: \"esp-tab-changed\", ESP_TAB_UPDATED: \"esp-tab-updated\", ESP_TOGGLE: \"esp-toggle\", ESP_ACCORDION_CHANGE: \"esp-accordion-change\", DRAWER_OPENED: \"drawer-opened\", DRAWER_CLOSED: \"drawer-closed\", FLYOUT_OPENED: \"flyout-opened\", FLYOUT_CLOSED: \"flyout-closed\", FLYOUT_STATE_CHANGED: \"flyout-state-changed\", // ── Popover DOM events ────────────────────────────────────── POPOVER_OPENED: \"popover-opened\", POPOVER_CLOSED: \"popover-closed\", // ── Grid events ───────────────────────────────────────────── GRID_EVENT: \"grid-event\", GRID_LOAD_START: \"esp-grid-load-start\", GRID_LOAD_SUCCESS: \"esp-grid-load-success\", GRID_LOAD_ERROR: \"esp-grid-load-error\", GRID_ITEMS_CHANGED: \"esp-grid-items-changed\", // ── Info events ───────────────────────────────────────────── DESTROY: \"destroy\", // ── Upload events ─────────────────────────────────────────── FILE_SELECTED: \"file-selected\", FILE_REMOVED: \"file-removed\", FILES_SELECTED: \"files-selected\", FILES_REJECTED: \"files-rejected\", UPLOAD_RETRY: \"upload-retry\", RETRY_UPLOAD: \"retry-upload\", IMAGES_REORDERED: \"images-reordered\", // ── Search events ─────────────────────────────────────────── SEARCH_REQUESTED: \"search-requested\", RESULT_SELECTED: \"result-selected\", SEARCH_CLOSED: \"search-closed\", // ── Picker internal events ────────────────────────────────── SELECTION_CHANGED: \"selection-changed\", CLOSE_MENU: \"close-menu\", REMOVE_IMAGE: \"remove-image\", }",
           "description": "Canonical event name strings for every CustomEvent in the library.\n\nUse these instead of raw strings to catch typos at compile time:\n\n```ts\nel.addEventListener(ESP_EVENTS.VALUE_CHANGED, handler);\n```"
         }
       ],
@@ -44125,6 +45388,22 @@
         },
         {
           "kind": "js",
+          "name": "FlyoutConfig",
+          "declaration": {
+            "name": "FlyoutConfig",
+            "module": "./flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FlyoutCloseReason",
+          "declaration": {
+            "name": "FlyoutCloseReason",
+            "module": "./flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "PickerItem",
           "declaration": {
             "name": "PickerItem",
@@ -44177,6 +45456,60 @@
           "declaration": {
             "name": "ESP_EVENTS",
             "module": "dist/shared/events.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/flyout-events.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "showFlyout",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "config",
+              "default": "{}",
+              "type": {
+                "text": "FlyoutConfig"
+              },
+              "description": "Flyout configuration."
+            }
+          ],
+          "description": "Open the page's flyout surface. Publishes a `\"show-flyout\"`\nevent on `EspBus` which is picked up by `<esp-flyout>`.\n\n```ts\nimport { showFlyout } from \"@taprootio/espalier\";\n\nshowFlyout({ heading: \"Details\", content: detailsFragment });\n```\n\nIf no `<esp-flyout>` is connected, the event goes unserviced —\ncallers that need a fallback (e.g. opening a URL in a new tab)\nshould check for a connected flyout themselves."
+        },
+        {
+          "kind": "function",
+          "name": "closeFlyout",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "description": "Close the page's flyout surface. Publishes a `\"close-flyout\"`\nevent on `EspBus`."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "showFlyout",
+          "declaration": {
+            "name": "showFlyout",
+            "module": "dist/shared/flyout-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "closeFlyout",
+          "declaration": {
+            "name": "closeFlyout",
+            "module": "dist/shared/flyout-events.js"
           }
         }
       ]
@@ -44819,6 +46152,16 @@
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_pendingReactivation",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "Set by `hostDisconnected()` when it tears down a still-open\noverlay (a DOM move). The next `open()` is then a reactivation\nand preserves `_previouslyFocused` instead of recapturing; a\n`close()` in any state cancels it."
             },
             {
               "kind": "field",
@@ -51903,7 +53246,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A toast notification container that listens for `\"show-toast\"`\nevents on `EspBus` and renders them as stacked `esp-info`\ncomponents. Place one `<esp-toaster>` in your page layout\n(it is included automatically inside `<esp-page>`).\n\nToasts auto-dismiss after their `duration` (default 5 seconds).\nA duration of `0` creates a persistent toast that the user must\ndismiss manually.\n\n```ts\nimport { showToast } from \"@taprootio/espalier\";\n\nshowToast({ message: \"Saved!\", variant: \"success\" });\nshowToast({ message: \"Connection lost\", variant: \"danger\", duration: 0 });\n```\n\nTry it out — type a message and click a button to fire a toast:\n\n```html\n<esp-box>\n  <h3>Toast Playground</h3>\n  <div style=\"display: flex; flex-wrap: wrap; gap: var(--esp-size-small); align-items: end;\">\n    <esp-form-item label=\"Message\" style=\"flex: 1; min-width: 200px;\">\n      <esp-input id=\"toast-msg\" value=\"Hello from the toaster!\"></esp-input>\n    </esp-form-item>\n    <esp-form-item label=\"Duration (seconds)\" style=\"width: 160px;\">\n      <esp-input id=\"toast-dur\" value=\"5\" type=\"number\"></esp-input>\n    </esp-form-item>\n  </div>\n  <div style=\"display: flex; flex-wrap: wrap; gap: var(--esp-size-small); margin-top: var(--esp-size-small);\">\n    <esp-button id=\"fire-toast\" label=\"Show Toast\" variant=\"primary\" collapsed></esp-button>\n    <esp-button id=\"fire-persistent\" label=\"Show Persistent Toast\" variant=\"warning\" collapsed></esp-button>\n    <esp-button id=\"fire-success\" label=\"Success!\" variant=\"success\" collapsed></esp-button>\n    <esp-button id=\"fire-danger\" label=\"Error!\" variant=\"danger\" collapsed></esp-button>\n  </div>\n</esp-box>\n<script>\n  const msgInput = findById(\"toast-msg\");\n  const durInput = findById(\"toast-dur\");\n  findById(\"fire-toast\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: msgInput.value,\n      duration: Number(durInput.value) || 5,\n      icon: \"bread\"\n    });\n  });\n  findById(\"fire-persistent\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: msgInput.value,\n      duration: 0,\n      icon: \"bread\",\n      variant: \"warning\"\n    });\n  });\n  findById(\"fire-success\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: \"Operation completed successfully!\",\n      variant: \"success\",\n      icon: \"bread\"\n    });\n  });\n  findById(\"fire-danger\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: \"Something went wrong!\",\n      variant: \"danger\",\n      duration: 0,\n      icon: \"bread\"\n    });\n  });\n</script>\n```",
+          "description": "A toast notification container that listens for `\"show-toast\"`\nevents on `EspBus` and renders them as stacked `esp-info`\ncomponents. Place one `<esp-toaster>` in your page layout\n(it is included automatically inside `<esp-page>`).\n\nIf more than one toaster is connected — for example a page that\nnests several `<esp-page>`s, each of which injects its own — all\ntoasts live in one shared stack rendered by a single toaster, so\neach `showToast()` renders once, not once per toaster. The renderer\nis re-chosen whenever a toast arrives, a toaster connects or\ndisconnects, or a toaster's size collapses or expands, preferring a\n**visible** instance, and the whole live stack migrates with it —\na hidden toaster never swallows toasts, and the stack never\nfragments across instances. This needs no configuration.\n\nThe migration timing contract: routing always skips instances\nhidden by `display`, `visibility`, `opacity: 0`, or\n`content-visibility` at decision time, and a live stack re-routes\n**immediately** when its renderer is collapsed via `display` (the\ncollapse resizes the toaster, which is observed). A pure\n`visibility` or `opacity` flip produces no resize, so an\nalready-rendered stack under one re-routes on the **next** toast,\nconnect/disconnect, or resize instead. (The related `esp-flyout`\nuses an explicit `standalone` opt-out rather than routing, because\nits instances are distinct surfaces you target individually.)\n\nToasts auto-dismiss after their `duration` (default 5 seconds).\nA duration of `0` creates a persistent toast that the user must\ndismiss manually.\n\n```ts\nimport { showToast } from \"@taprootio/espalier\";\n\nshowToast({ message: \"Saved!\", variant: \"success\" });\nshowToast({ message: \"Connection lost\", variant: \"danger\", duration: 0 });\n```\n\nTry it out — type a message and click a button to fire a toast:\n\n```html\n<esp-box>\n  <h3>Toast Playground</h3>\n  <div style=\"display: flex; flex-wrap: wrap; gap: var(--esp-size-small); align-items: end;\">\n    <esp-form-item label=\"Message\" style=\"flex: 1; min-width: 200px;\">\n      <esp-input id=\"toast-msg\" value=\"Hello from the toaster!\"></esp-input>\n    </esp-form-item>\n    <esp-form-item label=\"Duration (seconds)\" style=\"width: 160px;\">\n      <esp-input id=\"toast-dur\" value=\"5\" type=\"number\"></esp-input>\n    </esp-form-item>\n  </div>\n  <div style=\"display: flex; flex-wrap: wrap; gap: var(--esp-size-small); margin-top: var(--esp-size-small);\">\n    <esp-button id=\"fire-toast\" label=\"Show Toast\" variant=\"primary\" collapsed></esp-button>\n    <esp-button id=\"fire-persistent\" label=\"Show Persistent Toast\" variant=\"warning\" collapsed></esp-button>\n    <esp-button id=\"fire-success\" label=\"Success!\" variant=\"success\" collapsed></esp-button>\n    <esp-button id=\"fire-danger\" label=\"Error!\" variant=\"danger\" collapsed></esp-button>\n  </div>\n</esp-box>\n<script>\n  const msgInput = findById(\"toast-msg\");\n  const durInput = findById(\"toast-dur\");\n  findById(\"fire-toast\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: msgInput.value,\n      duration: Number(durInput.value) || 5,\n      icon: \"bread\"\n    });\n  });\n  findById(\"fire-persistent\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: msgInput.value,\n      duration: 0,\n      icon: \"bread\",\n      variant: \"warning\"\n    });\n  });\n  findById(\"fire-success\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: \"Operation completed successfully!\",\n      variant: \"success\",\n      icon: \"bread\"\n    });\n  });\n  findById(\"fire-danger\").addEventListener(\"clicked\", () => {\n    showToast({\n      message: \"Something went wrong!\",\n      variant: \"danger\",\n      duration: 0,\n      icon: \"bread\"\n    });\n  });\n</script>\n```",
           "name": "EspalierToaster",
           "cssProperties": [
             {
@@ -51978,22 +53321,67 @@
           "members": [
             {
               "kind": "field",
+              "name": "connected",
+              "type": {
+                "text": "Array<EspalierToaster>"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "[]",
+              "description": "Every connected toaster, in connection order. `esp-page`\nauto-injects a toaster, so a page nesting several `esp-page`s has\nseveral toasters. One shared bus subscription feeds one shared\ntoast queue, and a single **renderer** — re-chosen whenever the\nroster or the queue changes, preferring a visible instance —\ndisplays the whole queue. Keeping the queue shared (rather than\nper-instance) means a routing change migrates the entire live\nstack to the new renderer instead of fragmenting it into\noverlapping per-toaster stacks."
+            },
+            {
+              "kind": "field",
+              "name": "busSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "queue",
+              "type": {
+                "text": "Array<ToastConfig>"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "[]",
+              "description": "All live toasts, shared across every instance."
+            },
+            {
+              "kind": "field",
+              "name": "boundDeliver",
+              "privacy": "private",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "toasts",
               "type": {
                 "text": "Array<ToastConfig>"
               },
               "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "description": "The shared queue slice this instance currently displays: the full\nqueue for the chosen renderer, empty for everyone else."
             },
             {
               "kind": "field",
-              "name": "boundHandler",
-              "privacy": "private"
+              "name": "resizeObserver",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private",
+              "description": "Re-routes live toasts when this toaster is collapsed or expanded\nwith no accompanying queue or roster change — e.g. a persistent\ntoast whose renderer's panel goes `display: none`. Collapsing an\nancestor resizes the host to zero, which fires this observer.\n(`visibility`/`opacity` flips produce no resize; those re-route on\nthe next queue or roster event.)"
             },
             {
               "kind": "method",
-              "name": "handleToast",
+              "name": "deliver",
               "privacy": "private",
+              "static": true,
               "return": {
                 "type": {
                   "text": "void"
@@ -52007,6 +53395,48 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "dismiss",
+              "privacy": "private",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "ToastConfig"
+                  }
+                }
+              ],
+              "description": "Remove a toast from the shared queue exactly once — the timer and\nthe manual destroy button can both race to dismiss it."
+            },
+            {
+              "kind": "method",
+              "name": "syncRenderer",
+              "privacy": "private",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Choose the renderer — the first connected instance that reports\nvisible, or the first connected one if none do — and hand it the\nwhole shared queue; every other instance renders nothing. Run on\nevery queue, roster, or renderer-size change, so the stack follows\nvisibility and never splits across toasters."
+            },
+            {
+              "kind": "method",
+              "name": "isVisible",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
             },
             {
               "kind": "method",

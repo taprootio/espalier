@@ -5,6 +5,27 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * components. Place one `<esp-toaster>` in your page layout
  * (it is included automatically inside `<esp-page>`).
  *
+ * If more than one toaster is connected — for example a page that
+ * nests several `<esp-page>`s, each of which injects its own — all
+ * toasts live in one shared stack rendered by a single toaster, so
+ * each `showToast()` renders once, not once per toaster. The renderer
+ * is re-chosen whenever a toast arrives, a toaster connects or
+ * disconnects, or a toaster's size collapses or expands, preferring a
+ * **visible** instance, and the whole live stack migrates with it —
+ * a hidden toaster never swallows toasts, and the stack never
+ * fragments across instances. This needs no configuration.
+ *
+ * The migration timing contract: routing always skips instances
+ * hidden by `display`, `visibility`, `opacity: 0`, or
+ * `content-visibility` at decision time, and a live stack re-routes
+ * **immediately** when its renderer is collapsed via `display` (the
+ * collapse resizes the toaster, which is observed). A pure
+ * `visibility` or `opacity` flip produces no resize, so an
+ * already-rendered stack under one re-routes on the **next** toast,
+ * connect/disconnect, or resize instead. (The related `esp-flyout`
+ * uses an explicit `standalone` opt-out rather than routing, because
+ * its instances are distinct surfaces you target individually.)
+ *
  * Toasts auto-dismiss after their `duration` (default 5 seconds).
  * A duration of `0` creates a persistent toast that the user must
  * dismiss manually.

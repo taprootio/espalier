@@ -24,6 +24,7 @@
  */
 import { EspBus } from "./esp-bus.js";
 import type { ToastConfig } from "./toast-events.js";
+import type { FlyoutConfig } from "./flyout-events.js";
 /**
  * Contract for elements that provide a seed color to their subtree.
  * Implemented by `EspalierRoot` (the global provider) and
@@ -92,6 +93,22 @@ export interface ToastEvents {
     "show-toast": ToastConfig;
 }
 /**
+ * Flyout surface events.
+ *
+ * Published by the `showFlyout()` / `closeFlyout()` helpers and
+ * subscribed to by `<esp-flyout>`. This is how components that
+ * cannot know where the flyout lives (form items, help buttons,
+ * dialog content) request the page's flyout surface.
+ *
+ * @docUrl /api/flyout-events
+ * @menuGroup Bus Events
+ * @menuLabel FlyoutEvents
+ */
+export interface FlyoutEvents {
+    "show-flyout": FlyoutConfig;
+    "close-flyout": Record<string, never>;
+}
+/**
  * Cross-popover coordination events.
  *
  * Every component that participates in cross-popover coordination
@@ -157,7 +174,7 @@ export interface PageEventMap {
  * @menuGroup Bus Events
  * @menuLabel EspBusEventMap
  */
-export type EspBusEventMap = SchemeEvents & ToastEvents & PopoverEvents & SizeEvents & PageEventMap;
+export type EspBusEventMap = SchemeEvents & ToastEvents & FlyoutEvents & PopoverEvents & SizeEvents & PageEventMap;
 /**
  * Typed accessor for the singleton bus.
  *

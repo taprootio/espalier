@@ -1,5 +1,5 @@
-var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,s):r,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(n,e,s,r);else for(var l=n.length-1;l>=0;l--)(p=n[l])&&(a=(d<3?p(a):d>3?p(e,s,a):p(e,s))||a);return d>3&&a&&Object.defineProperty(e,s,a),a};import{css as g,html as f}from"lit";import{customElement as u,property as i}from"lit/decorators.js";import{classMap as m}from"lit/directives/class-map.js";import{createRef as v,ref as w}from"lit/directives/ref.js";import{EspalierElementBase as h}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as c}from"./bi-directional-sticky-controller.js";import{getEspBus as b}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";let t=class extends h{constructor(){super(),this.dialogZone=v(),this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new c(this,".esp-page-left > .sticky-wrapper"),new c(this,".esp-page-right > .sticky-wrapper")}AddDialog(e){this.dialogZone.value?.appendChild(e)}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&b().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",s=!e&&this.headerPosition==="sticky";return f`
-      <div part="wrapper" class="esp-page ${m({"fixed-menus":e,"fixed-header":e,"sticky-header":s})}">
+var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,s):o,t;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(h,e,s,o);else for(var r=h.length-1;r>=0;r--)(t=h[r])&&(a=(n<3?t(a):n>3?t(e,s,a):t(e,s))||a);return n>3&&a&&Object.defineProperty(e,s,a),a};import{css as f,html as m}from"lit";import{customElement as v,property as l}from"lit/decorators.js";import{classMap as y}from"lit/directives/class-map.js";import{createRef as c,ref as u}from"lit/directives/ref.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as p}from"./bi-directional-sticky-controller.js";import{getEspBus as w}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";let i=class extends g{constructor(){super(),this.dialogZone=c(),this.flyoutSlot=c(),this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new p(this,".esp-page-left > .sticky-wrapper"),new p(this,".esp-page-right > .sticky-wrapper"),new p(this,".esp-page-flyout > .sticky-wrapper"),this.addEventListener("flyout-state-changed",e=>this.syncFlyoutState(e))}syncFlyoutState(e){if(e&&e.target?.closest?.("esp-page")!==this)return;const s=t=>{const r=t.mode;return(typeof r=="string"?r:t.getAttribute("mode"))==="overlay"},o=t=>{const r=t.open;return typeof r=="boolean"?r:t.hasAttribute("open")},n=t=>t.anchor!=null,a=(this.flyoutSlot.value?.assignedElements()??[]).filter(t=>t.tagName==="ESP-FLYOUT");this.toggleAttribute("flyout-open",a.some(t=>o(t)&&!s(t))),this.toggleAttribute("flyout-overlay-open",a.some(t=>o(t)&&s(t))),this.toggleAttribute("flyout-anchored",a.some(t=>o(t)&&n(t)))}AddDialog(e){this.dialogZone.value?.appendChild(e)}firstUpdated(e){super.firstUpdated(e),this.syncFlyoutState()}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&w().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",s=!e&&this.headerPosition==="sticky";return m`
+      <div part="wrapper" class="esp-page ${y({"fixed-menus":e,"fixed-header":e,"sticky-header":s})}">
         <div part="canvas" class="esp-page-canvas esp-page-canvas--left" aria-hidden="true"></div>
         <div part="canvas" class="esp-page-canvas esp-page-canvas--right" aria-hidden="true"></div>
         <div part="surface" class="esp-page-surface" aria-hidden="true"></div>
@@ -19,20 +19,40 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
             <slot name="right"></slot>
           </div>
         </aside>
+        <div class="esp-page-flyout">
+          <div class="sticky-wrapper">
+            <slot
+              name="flyout"
+              ${u(this.flyoutSlot)}
+              @slotchange=${()=>this.syncFlyoutState()}
+            ></slot>
+          </div>
+        </div>
         <footer>
           <slot name="footer"></slot>
         </footer>
-        <div id="dialog-drop-zone" ${w(this.dialogZone)}></div>
+        <div id="dialog-drop-zone" ${u(this.dialogZone)}></div>
         <esp-toaster></esp-toaster>
       </div>
-    `}};t.styles=[...h.styles,g`
+    `}};i.styles=[...g.styles,f`
       :host {
         --_esp-page-resolved-max-width: var(--esp-page-max-width, 1536px);
         
         --_esp-page-main-track: minmax(0, var(--_esp-page-resolved-max-width));
         
-        --_esp-page-gutter-left: 0;
+        --_esp-page-gutter-left: 0fr;
         --_esp-page-gutter-right: 1fr;
+        
+        --_esp-page-flyout-min: 0px;
+        
+        --_esp-page-surface-edge-shadow: 0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow);
+        
+        --_esp-page-surface-shadow: var(
+          --esp-page-surface-shadow,
+          -0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow),
+          var(--_esp-page-surface-edge-shadow)
+        );
+        --_esp-page-surface-border: var(--esp-page-surface-border, none);
         --_esp-page-fixed-header-offset: var(
           --esp-page-fixed-header-offset,
           var(--esp-header-height, calc(4.5 * var(--esp-size-small)))
@@ -52,15 +72,42 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
 
       :host([align="end"]) {
         --_esp-page-gutter-left: 1fr;
-        --_esp-page-gutter-right: 0;
+        --_esp-page-gutter-right: 0fr;
       }
 
       
       :host([kind="full"]) {
         --_esp-page-resolved-max-width: var(--esp-page-max-width, none);
         --_esp-page-main-track: 1fr;
-        --_esp-page-gutter-left: 0;
-        --_esp-page-gutter-right: 0;
+        --_esp-page-gutter-left: 0fr;
+        --_esp-page-gutter-right: 0fr;
+      }
+
+      
+      :host([flyout-open]) {
+        --_esp-page-flyout-min: var(--esp-page-flyout-width, 20rem);
+      }
+
+      
+      @media (max-width: 50em) {
+        :host([flyout-open]) {
+          --_esp-page-flyout-min: 0px;
+        }
+      }
+
+      
+      :host([flyout-overlay-open]) .esp-page > div.esp-page-flyout {
+        z-index: var(--esp-flyout-z-index, 3000);
+      }
+
+      
+      :host([flyout-anchored]) .esp-page > div.esp-page-flyout > .sticky-wrapper {
+        position: static;
+      }
+
+      
+      slot[name="flyout"]::slotted(esp-flyout[match-surface]) {
+        --esp-flyout-shadow: var(--_esp-page-surface-edge-shadow);
       }
 
       
@@ -116,8 +163,13 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
           [canvas-left-end surface-start left-start] min-content
           [left-end main-start] var(--_esp-page-main-track)
           [main-end right-start] min-content
-          [right-end surface-end canvas-right-start] var(--_esp-page-gutter-right)
-          [canvas-right-end full-end];
+          [right-end surface-end canvas-right-start flyout-start] minmax(
+            var(--_esp-page-flyout-min),
+            var(--_esp-page-gutter-right)
+          )
+          [flyout-end canvas-right-end full-end];
+        
+        transition: grid-template-columns 0.25s ease;
         grid-template-rows:
           [top-start] min-content
           [top-end content-start] 1fr
@@ -173,11 +225,28 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
           position: relative;
           overflow: hidden;
           
+          background: var(--esp-page-main-background, transparent);
+          
           contain: inline-size;
         }
 
         > aside.esp-page-right {
           grid-column: right;
+        }
+
+        
+        > div.esp-page-flyout {
+          
+          grid-column: flyout;
+          justify-self: start;
+          grid-row: content;
+          z-index: 5;
+          position: relative;
+
+          
+          @media (max-width: 50em) {
+            z-index: var(--esp-flyout-z-index, 3000);
+          }
         }
 
         
@@ -204,6 +273,7 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
         }
 
         > .esp-page-canvas--right {
+          
           grid-column: canvas-right;
         }
 
@@ -214,12 +284,8 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
           grid-row: top-start / footer-end;
           z-index: 2;
           pointer-events: none;
-          box-shadow: var(
-            --esp-page-surface-shadow,
-            -0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow),
-            0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow)
-          );
-          border-inline: var(--esp-page-surface-border, none);
+          box-shadow: var(--_esp-page-surface-shadow);
+          border-inline: var(--_esp-page-surface-border);
         }
 
         
@@ -270,6 +336,7 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
           > div.esp-page-main,
           > aside.esp-page-left,
           > aside.esp-page-right,
+          > div.esp-page-flyout,
           > .esp-page-surface,
           > .esp-page-canvas {
             margin-top: var(--_esp-page-fixed-header-offset);
@@ -299,4 +366,10 @@ var o=function(n,e,s,r){var d=arguments.length,a=d<3?e:r===null?r=Object.getOwnP
       .esp-page:has(esp-dialog[is-open="true"]) {
         overflow: hidden;
       }
-    `],o([i({reflect:!0})],t.prototype,"kind",void 0),o([i({reflect:!0})],t.prototype,"align",void 0),o([i({type:Boolean,reflect:!0})],t.prototype,"contained",void 0),o([i({attribute:"header-position",reflect:!0})],t.prototype,"headerPosition",void 0),o([i({attribute:"fixed-menus",type:Boolean,reflect:!0})],t.prototype,"fixedMenus",void 0),t=o([u("esp-page")],t);export{t as EspalierPage};
+
+      @media (prefers-reduced-motion: reduce) {
+        .esp-page {
+          transition: none;
+        }
+      }
+    `],d([l({reflect:!0})],i.prototype,"kind",void 0),d([l({reflect:!0})],i.prototype,"align",void 0),d([l({type:Boolean,reflect:!0})],i.prototype,"contained",void 0),d([l({attribute:"header-position",reflect:!0})],i.prototype,"headerPosition",void 0),d([l({attribute:"fixed-menus",type:Boolean,reflect:!0})],i.prototype,"fixedMenus",void 0),i=d([v("esp-page")],i);export{i as EspalierPage};

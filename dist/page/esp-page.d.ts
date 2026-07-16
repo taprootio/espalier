@@ -34,6 +34,15 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *
  * @slot sidebar - Contextual navigation placed in the left aside.
  * @slot right - Content to place in the right aside.
+ * @slot flyout - A transient `esp-flyout` panel that lives on the
+ * canvas, outside the content surface. Closed it costs no width; open
+ * it claims the right canvas gutter first — the surface keeps its
+ * alignment weighting and shifts only as far as the flyout's width
+ * requires — then docks as a width-competing right sidebar when no
+ * gutter exists, and becomes an overlay drawer on small viewports.
+ * The persistent `right` aside and the transient flyout are
+ * complementary, not alternatives. A flyout opened with an `anchor`
+ * aligns to that trigger and stays in the same document scroll flow.
  * @slot footer - Content to place in the footer.
  * @slot - The main page content. The main content region applies
  * `contain: inline-size` so child components cannot push the
@@ -122,7 +131,16 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * only shows above the cap. Set to `none` to remove it.
  * @cssprop --esp-page-surface-border - An optional border on the inline
  * edges of the surface, for themes preferring a hairline over a shadow.
- * Defaults to `none` (e.g. `1px solid var(--esp-color-border)`).
+ * Defaults to `none` (e.g. `1px solid var(--esp-color-border)`). Combine
+ * with `--esp-page-surface-shadow: none` to switch the content frame
+ * from a drop shadow to a hairline, or turn both off for no frame.
+ * @cssprop --esp-page-main-background - The background of the main
+ * content well. Defaults to `transparent` (the well shows the page
+ * background). Set it to give the content well its own card color, or
+ * pair the transparent default with `--esp-page-surface-shadow: none`
+ * for content that floats directly on the page with no frame.
+ * @cssprop --esp-page-flyout-width - The width of the open flyout
+ * track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`.
  * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
  * headers. Defaults to `var(--esp-header-height)`.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
@@ -251,6 +269,7 @@ export declare class EspalierPage extends EspalierElementBase {
      * @param dialog The EspalierDialog to show.
      */
     AddDialog(dialog: EspalierDialog | DocumentFragment | HTMLElement): void;
+    protected firstUpdated(changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

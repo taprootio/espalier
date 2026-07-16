@@ -26,10 +26,12 @@ export { type GridClickedEvent, type GridDataStateEventDetail, type GridItemsCha
 export { type DestroyEspalierInfo } from "../info/esp-info.js";
 export { type ValidityChangedDetail, type ValidationError, VALIDITY_CHANGED_EVENT, } from "./validation.js";
 export { type ToastConfig } from "./toast-events.js";
+export { type FlyoutConfig, type FlyoutCloseReason } from "./flyout-events.js";
 export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
 import type { EspalierDetails } from "../details/esp-details.js";
+import type { FlyoutCloseReason } from "./flyout-events.js";
 import type { ValidityChangedDetail } from "./validation.js";
 import type { GridClickedEvent, GridItemsChangedEventDetail, GridLoadErrorEventDetail, GridLoadStartEventDetail, GridLoadSuccessEventDetail } from "../grid/esp-grid.js";
 import type { DestroyEspalierInfo } from "../info/esp-info.js";
@@ -63,6 +65,9 @@ export declare const ESP_EVENTS: {
     readonly ESP_ACCORDION_CHANGE: "esp-accordion-change";
     readonly DRAWER_OPENED: "drawer-opened";
     readonly DRAWER_CLOSED: "drawer-closed";
+    readonly FLYOUT_OPENED: "flyout-opened";
+    readonly FLYOUT_CLOSED: "flyout-closed";
+    readonly FLYOUT_STATE_CHANGED: "flyout-state-changed";
     readonly POPOVER_OPENED: "popover-opened";
     readonly POPOVER_CLOSED: "popover-closed";
     readonly GRID_EVENT: "grid-event";
@@ -266,6 +271,14 @@ export interface EspalierPopoverEventMap {
 export interface EspalierMenuEventMap {
     [ESP_EVENTS.DRAWER_OPENED]: CustomEvent<void>;
     [ESP_EVENTS.DRAWER_CLOSED]: CustomEvent<void>;
+}
+/** Events fired by `<esp-flyout>`. */
+export interface EspalierFlyoutEventMap {
+    [ESP_EVENTS.FLYOUT_OPENED]: CustomEvent<Record<string, never>>;
+    [ESP_EVENTS.FLYOUT_CLOSED]: CustomEvent<{
+        reason: FlyoutCloseReason;
+    }>;
+    [ESP_EVENTS.FLYOUT_STATE_CHANGED]: CustomEvent<Record<string, never>>;
 }
 /** Events fired by `<esp-header-button>`. */
 export interface EspalierHeaderButtonEventMap {

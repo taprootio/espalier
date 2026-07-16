@@ -461,6 +461,42 @@
       "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`."
     },
     {
+      "name": "--esp-flyout-background",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "The background color of the panel. Defaults to `var(--esp-color-background)`."
+    },
+    {
+      "name": "--esp-flyout-border",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "The border on the panel's leading edge. Defaults to the tear-off perforation, `1px dotted var(--esp-color-border)`."
+    },
+    {
+      "name": "--esp-flyout-padding",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "Padding inside the panel's header and content regions. Defaults to `var(--esp-size-padding)`."
+    },
+    {
+      "name": "--esp-flyout-radius",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "The radius of the panel's trailing corners. Defaults to `var(--esp-size-border-radius)`; the overlay drawer squares them."
+    },
+    {
+      "name": "--esp-flyout-shadow",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "The panel's shadow. Defaults to `none` in the gutter/docked modes (the perforation does the separating) and to a drawer shadow in overlay mode."
+    },
+    {
+      "name": "--esp-flyout-z-index",
+      "category": "component",
+      "component": "esp-flyout",
+      "description": "Stack order of the overlay-drawer mode. Defaults to `3000` — above page chrome, below the dialog drop zone (4000). Set it on the `esp-page` (or an ancestor), not on the flyout itself: the page reads the same token to hoist the drawer's aside above its header."
+    },
+    {
       "name": "--esp-font-body",
       "category": "root-theme",
       "description": ""
@@ -1268,10 +1304,22 @@
       "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`."
     },
     {
+      "name": "--esp-page-flyout-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The width of the open flyout track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`."
+    },
+    {
       "name": "--esp-page-header-z-index",
       "category": "component",
       "component": "esp-page",
       "description": "Z-index for fixed/sticky header regions. Defaults to `20`."
+    },
+    {
+      "name": "--esp-page-main-background",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The background of the main content well. Defaults to `transparent` (the well shows the page background). Set it to give the content well its own card color, or pair the transparent default with `--esp-page-surface-shadow: none` for content that floats directly on the page with no frame."
     },
     {
       "name": "--esp-page-max-width",
@@ -1289,7 +1337,7 @@
       "name": "--esp-page-surface-border",
       "category": "component",
       "component": "esp-page",
-      "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`)."
+      "description": "An optional border on the inline edges of the surface, for themes preferring a hairline over a shadow. Defaults to `none` (e.g. `1px solid var(--esp-color-border)`). Combine with `--esp-page-surface-shadow: none` to switch the content frame from a drop shadow to a hairline, or turn both off for no frame."
     },
     {
       "name": "--esp-page-surface-shadow",
