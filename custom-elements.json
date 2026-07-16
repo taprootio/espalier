@@ -8130,6 +8130,21 @@
             },
             {
               "kind": "field",
+              "name": "formItemDescription",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "describedCheckboxes",
+              "privacy": "private",
+              "default": "new Set<EspalierCheckbox>()"
+            },
+            {
+              "kind": "field",
               "name": "name",
               "type": {
                 "text": "string"
@@ -8246,6 +8261,21 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "applyFormItemDescription",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleItemsSlotChange",
+              "privacy": "private"
             },
             {
               "kind": "method",
@@ -9047,6 +9077,12 @@
               "name": "formCtrl",
               "privacy": "private",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => (this.checked ? this.value || \"on\" : null), getValidity: () => { if (this.required && !this.checked) { return { flags: { valueMissing: true }, message: this.requiredMessage || \"Please check this box to continue.\", }; } return null; }, onReset: () => { this.checked = false; this.indeterminate = false; }, onRestore: (state: string) => { this.checked = state === \"on\" || state === this.value; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.shadowRoot?.querySelector<HTMLElement>(\".checkbox-control\"), })"
             },
             {
               "kind": "field",
@@ -10739,6 +10775,12 @@
               "name": "formCtrl",
               "privacy": "private",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this._value || null, getValidity: () => this._getValidityResult(), getValidationAnchor: (): HTMLElement => this.inputRef.value ?? this, onReset: () => { this._rangeAnchor = null; this._rangePreview = null; this._value = \"\"; this.requestUpdate(\"value\", \"\"); this._syncFromValue(); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.inputRef.value, })"
             },
             {
               "kind": "field",
@@ -15558,899 +15600,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/font-picker/esp-font-picker.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "WEB_SAFE_FONTS",
-          "type": {
-            "text": "Array<WebSafeFont>"
-          },
-          "default": "[ { family: \"Arial / Helvetica\", stack: \"Arial, Helvetica, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Georgia / Times New Roman\", stack: 'Georgia, \"Times New Roman\", Times, serif', category: \"serif\", kind: \"web-safe\", }, { family: \"Verdana / Geneva\", stack: \"Verdana, Geneva, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Tahoma / Geneva\", stack: \"Tahoma, Geneva, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Trebuchet MS\", stack: '\"Trebuchet MS\", Arial, sans-serif', category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Courier New\", stack: '\"Courier New\", Courier, monospace', category: \"monospace\", kind: \"web-safe\", }, { family: \"System Sans\", stack: '-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif', category: \"sans-serif\", kind: \"web-safe\", }, { family: \"System Serif\", stack: 'ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif', category: \"serif\", kind: \"web-safe\", }, { family: \"System Monospace\", stack: 'ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", \"Courier New\", monospace', category: \"monospace\", kind: \"web-safe\", }, ]"
-        },
-        {
-          "kind": "function",
-          "name": "getGoogleFonts",
-          "return": {
-            "type": {
-              "text": "Promise<Array<GoogleFont>>"
-            }
-          },
-          "description": "Load the font catalog from the build-generated `font-definitions.json`\nfile served alongside the font CSS files.  The JSON is fetched from\n`{fontCSSRoot}font-definitions.json` where `fontCSSRoot` comes from\nthe nearest `<esp-root>` element's `font-css-root` attribute.\n\nResults are cached at the module level so only one fetch occurs per page."
-        },
-        {
-          "kind": "function",
-          "name": "previewFontFamily",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "family",
-              "type": {
-                "text": "string"
-              }
-            }
-          ],
-          "description": "Build the CSS `font-family` value used by picker items.\nConsumers should reference this when setting `styles.fontFamily`\non picker items to match the preview `@font-face` name."
-        },
-        {
-          "kind": "class",
-          "description": "Font picker component backed by the Google Fonts catalog by default.\n\nThe font catalog is loaded at runtime from a build-generated\n`font-definitions.json` file served alongside the individual font CSS\nfiles.  Run `npm run build-fonts` to generate both assets.\n\nSet `font-source=\"web-safe\"` for email editors or other places where\nthe picker should offer only CSS font stacks that do not need font\ndownloads.\n\n**Required setup:**\n1. Serve the `css/fonts/` directory under a public path.\n2. Point `<esp-root font-css-root=\"/your/path/\">` at that path.\n\n```html\n<esp-root font-css-root=\"/css/fonts/\">\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker></esp-font-picker>\n  </esp-form-item>\n</esp-root>\n```\n\n```html\n<esp-form-item label=\"Email font\">\n  <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n</esp-form-item>\n```",
-          "name": "EspalierFontPicker",
-          "members": [
-            {
-              "kind": "field",
-              "name": "loadedFonts",
-              "privacy": "private",
-              "default": "new Set<string>()"
-            },
-            {
-              "kind": "field",
-              "name": "_rangeGeneration",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0",
-              "description": "Monotonically increasing counter used to detect stale\n`handleItemsInView` invocations.  Each call bumps the\ncounter; after the async font-load loop the handler checks\nwhether a newer call has started and, if so, skips the\nunload phase so it doesn't remove fonts that the newer call\njust loaded."
-            },
-            {
-              "kind": "field",
-              "name": "_initGeneration",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0",
-              "description": "Monotonically increasing counter used to detect stale `initFonts`\ninvocations when source/category changes while async catalog or\npreview-font work is in flight."
-            },
-            {
-              "kind": "field",
-              "name": "_fontsReady",
-              "type": {
-                "text": "Promise<void>"
-              },
-              "privacy": "private",
-              "description": "Promise that resolves once the async work kicked off in\n`firstUpdated` (font catalog fetch + initial CSS load)\nhas completed.  Surfaced through `getUpdateComplete()` so\nthat `await el.updateComplete` waits for the full init."
-            },
-            {
-              "kind": "field",
-              "name": "fonts",
-              "type": {
-                "text": "Array<FontPickerFont>"
-              },
-              "privacy": "private",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "category",
-              "type": {
-                "text": "FontCategory | null"
-              },
-              "default": "null",
-              "description": "Category of fonts to display in the picker.\n\nIf not set, all font categories are displayed.\n\n```html\n<esp-box>\n  <h2>Monospace Fonts</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker category=\"monospace\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "attribute": "category"
-            },
-            {
-              "kind": "field",
-              "name": "fontSource",
-              "type": {
-                "text": "FontSource"
-              },
-              "privacy": "public",
-              "default": "\"google\"",
-              "description": "Source of fonts to display. `google` preserves the default Google\nFonts catalog behavior. `web-safe` shows email-safe/system CSS\nfont stacks and does not load Google font assets.\n\n```html\n<esp-box>\n  <h2>Email-safe fonts</h2>\n  <esp-form-item label=\"Pick a font stack\">\n    <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "attribute": "font-source"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The selected font family or CSS font stack.\n\nIn the default Google Fonts mode this is the font family name, such\nas `\"Aclonica\"`. In `font-source=\"web-safe\"` mode this is the full CSS\nfont stack, such as `\"Arial, Helvetica, sans-serif\"`, so pre-selection\nvia the `value` attribute must use the stack value.\n\n```html\n<esp-box>\n  <h2>Have Aclonica pre-selected</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker value=\"Aclonica\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"Choose a font...\"",
-              "description": "The placeholder text for the picker input.",
-              "attribute": "placeholder"
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Focus the picker input."
-            },
-            {
-              "kind": "method",
-              "name": "getUpdateComplete",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "Promise<boolean>"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "ensureFontLoaded",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "family",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "previousFamily",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "initFonts",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "handleItemsInView",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "range",
-                  "type": {
-                    "text": "{\n    first: number;\n    last: number;\n    items: Array<{ value: string }>;\n  }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "handleItemsInViewEvent",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantBacker",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "protected",
-              "default": "\"primary\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "public",
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "attribute": "variant",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textContrast",
-              "type": {
-                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
-              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "statusVariantSources",
-              "type": {
-                "text": "ReadonlySet<ColorSource>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
-              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyVariantTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "effectiveVariantTokenSource",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "ColorSource"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "SemanticColorName"
-                  }
-                },
-                {
-                  "name": "mappedSource",
-                  "type": {
-                    "text": "ColorSource"
-                  }
-                },
-                {
-                  "name": "isStatusVariant",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getVariantColorSource",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "ColorSource | \"\""
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setVariantTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearVariantTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "value-changed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the user selects a font",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "category",
-              "type": {
-                "text": "FontCategory | null"
-              },
-              "default": "null",
-              "description": "Category of fonts to display in the picker.\n\nIf not set, all font categories are displayed.\n\n```html\n<esp-box>\n  <h2>Monospace Fonts</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker category=\"monospace\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "fieldName": "category"
-            },
-            {
-              "name": "font-source",
-              "type": {
-                "text": "FontSource"
-              },
-              "default": "\"google\"",
-              "description": "Source of fonts to display. `google` preserves the default Google\nFonts catalog behavior. `web-safe` shows email-safe/system CSS\nfont stacks and does not load Google font assets.\n\n```html\n<esp-box>\n  <h2>Email-safe fonts</h2>\n  <esp-form-item label=\"Pick a font stack\">\n    <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "fieldName": "fontSource"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The selected font family or CSS font stack.\n\nIn the default Google Fonts mode this is the font family name, such\nas `\"Aclonica\"`. In `font-source=\"web-safe\"` mode this is the full CSS\nfont stack, such as `\"Arial, Helvetica, sans-serif\"`, so pre-selection\nvia the `value` attribute must use the stack value.\n\n```html\n<esp-box>\n  <h2>Have Aclonica pre-selected</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker value=\"Aclonica\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
-              "fieldName": "value"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Choose a font...\"",
-              "description": "The placeholder text for the picker input.",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "description": "The [color variant](/guides/color/variants) of the element.",
-              "fieldName": "variant",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "tagName": "esp-font-picker",
-          "customElement": true,
-          "docPageTitle": {
-            "name": "Font",
-            "description": "Picker"
-          },
-          "docUrl": {
-            "name": "/components/font-picker",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Form",
-            "description": "Controls"
-          },
-          "menuLabel": {
-            "name": "Font",
-            "description": "Picker"
-          },
-          "menuIcon": {
-            "name": "typography",
-            "description": ""
-          },
-          "cssProperties": [
-            {
-              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "resetFontCache",
-          "return": {
-            "type": {
-              "text": "void"
-            }
-          },
-          "description": "Reset the module-level font cache.  Exposed for test cleanup so each\ntest starts with a fresh slate."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "WEB_SAFE_FONTS",
-          "declaration": {
-            "name": "WEB_SAFE_FONTS",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getGoogleFonts",
-          "declaration": {
-            "name": "getGoogleFonts",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "previewFontFamily",
-          "declaration": {
-            "name": "previewFontFamily",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EspalierFontPicker",
-          "declaration": {
-            "name": "EspalierFontPicker",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-font-picker",
-          "declaration": {
-            "name": "EspalierFontPicker",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "resetFontCache",
-          "declaration": {
-            "name": "resetFontCache",
-            "module": "dist/font-picker/esp-font-picker.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/flyout/esp-flyout.js",
       "declarations": [
         {
@@ -17629,6 +16778,918 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/font-picker/esp-font-picker.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "WEB_SAFE_FONTS",
+          "type": {
+            "text": "Array<WebSafeFont>"
+          },
+          "default": "[ { family: \"Arial / Helvetica\", stack: \"Arial, Helvetica, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Georgia / Times New Roman\", stack: 'Georgia, \"Times New Roman\", Times, serif', category: \"serif\", kind: \"web-safe\", }, { family: \"Verdana / Geneva\", stack: \"Verdana, Geneva, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Tahoma / Geneva\", stack: \"Tahoma, Geneva, sans-serif\", category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Trebuchet MS\", stack: '\"Trebuchet MS\", Arial, sans-serif', category: \"sans-serif\", kind: \"web-safe\", }, { family: \"Courier New\", stack: '\"Courier New\", Courier, monospace', category: \"monospace\", kind: \"web-safe\", }, { family: \"System Sans\", stack: '-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif', category: \"sans-serif\", kind: \"web-safe\", }, { family: \"System Serif\", stack: 'ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif', category: \"serif\", kind: \"web-safe\", }, { family: \"System Monospace\", stack: 'ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", \"Courier New\", monospace', category: \"monospace\", kind: \"web-safe\", }, ]"
+        },
+        {
+          "kind": "function",
+          "name": "getGoogleFonts",
+          "return": {
+            "type": {
+              "text": "Promise<Array<GoogleFont>>"
+            }
+          },
+          "description": "Load the font catalog from the build-generated `font-definitions.json`\nfile served alongside the font CSS files.  The JSON is fetched from\n`{fontCSSRoot}font-definitions.json` where `fontCSSRoot` comes from\nthe nearest `<esp-root>` element's `font-css-root` attribute.\n\nResults are cached at the module level so only one fetch occurs per page."
+        },
+        {
+          "kind": "function",
+          "name": "previewFontFamily",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "family",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Build the CSS `font-family` value used by picker items.\nConsumers should reference this when setting `styles.fontFamily`\non picker items to match the preview `@font-face` name."
+        },
+        {
+          "kind": "class",
+          "description": "Font picker component backed by the Google Fonts catalog by default.\n\nThe font catalog is loaded at runtime from a build-generated\n`font-definitions.json` file served alongside the individual font CSS\nfiles.  Run `npm run build-fonts` to generate both assets.\n\nSet `font-source=\"web-safe\"` for email editors or other places where\nthe picker should offer only CSS font stacks that do not need font\ndownloads.\n\n**Required setup:**\n1. Serve the `css/fonts/` directory under a public path.\n2. Point `<esp-root font-css-root=\"/your/path/\">` at that path.\n\n```html\n<esp-root font-css-root=\"/css/fonts/\">\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker></esp-font-picker>\n  </esp-form-item>\n</esp-root>\n```\n\n```html\n<esp-form-item label=\"Email font\">\n  <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n</esp-form-item>\n```",
+          "name": "EspalierFontPicker",
+          "members": [
+            {
+              "kind": "field",
+              "name": "loadedFonts",
+              "privacy": "private",
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_rangeGeneration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "Monotonically increasing counter used to detect stale\n`handleItemsInView` invocations.  Each call bumps the\ncounter; after the async font-load loop the handler checks\nwhether a newer call has started and, if so, skips the\nunload phase so it doesn't remove fonts that the newer call\njust loaded."
+            },
+            {
+              "kind": "field",
+              "name": "_initGeneration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "Monotonically increasing counter used to detect stale `initFonts`\ninvocations when source/category changes while async catalog or\npreview-font work is in flight."
+            },
+            {
+              "kind": "field",
+              "name": "_fontsReady",
+              "type": {
+                "text": "Promise<void>"
+              },
+              "privacy": "private",
+              "description": "Promise that resolves once the async work kicked off in\n`firstUpdated` (font catalog fetch + initial CSS load)\nhas completed.  Surfaced through `getUpdateComplete()` so\nthat `await el.updateComplete` waits for the full init."
+            },
+            {
+              "kind": "field",
+              "name": "fonts",
+              "type": {
+                "text": "Array<FontPickerFont>"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "category",
+              "type": {
+                "text": "FontCategory | null"
+              },
+              "default": "null",
+              "description": "Category of fonts to display in the picker.\n\nIf not set, all font categories are displayed.\n\n```html\n<esp-box>\n  <h2>Monospace Fonts</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker category=\"monospace\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "attribute": "category"
+            },
+            {
+              "kind": "field",
+              "name": "fontSource",
+              "type": {
+                "text": "FontSource"
+              },
+              "privacy": "public",
+              "default": "\"google\"",
+              "description": "Source of fonts to display. `google` preserves the default Google\nFonts catalog behavior. `web-safe` shows email-safe/system CSS\nfont stacks and does not load Google font assets.\n\n```html\n<esp-box>\n  <h2>Email-safe fonts</h2>\n  <esp-form-item label=\"Pick a font stack\">\n    <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "attribute": "font-source"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The selected font family or CSS font stack.\n\nIn the default Google Fonts mode this is the font family name, such\nas `\"Aclonica\"`. In `font-source=\"web-safe\"` mode this is the full CSS\nfont stack, such as `\"Arial, Helvetica, sans-serif\"`, so pre-selection\nvia the `value` attribute must use the stack value.\n\n```html\n<esp-box>\n  <h2>Have Aclonica pre-selected</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker value=\"Aclonica\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"Choose a font...\"",
+              "description": "The placeholder text for the picker input.",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Focus the picker input."
+            },
+            {
+              "kind": "method",
+              "name": "syncFormItemDescription",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getUpdateComplete",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "Promise<boolean>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "ensureFontLoaded",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "family",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "previousFamily",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "initFonts",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleItemsInView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "range",
+                  "type": {
+                    "text": "{\n    first: number;\n    last: number;\n    items: Array<{ value: string }>;\n  }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleItemsInViewEvent",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "type": {
+                "text": "Partial<\n    Record<SemanticColorName, { bg: SemanticColorName; targetLc: number }>\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ text: { bg: \"background\", targetLc: 75 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, linkHover: { bg: \"background\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }",
+              "description": "Text tokens that require APCA contrast enforcement.\n\nEach entry maps a text-bearing semantic token to:\n  - `bg`: the semantic token it sits on (reference color)\n  - `targetLc`: the minimum |Lc| the text must achieve",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ColorSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "ColorSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user selects a font",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "category",
+              "type": {
+                "text": "FontCategory | null"
+              },
+              "default": "null",
+              "description": "Category of fonts to display in the picker.\n\nIf not set, all font categories are displayed.\n\n```html\n<esp-box>\n  <h2>Monospace Fonts</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker category=\"monospace\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "fieldName": "category"
+            },
+            {
+              "name": "font-source",
+              "type": {
+                "text": "FontSource"
+              },
+              "default": "\"google\"",
+              "description": "Source of fonts to display. `google` preserves the default Google\nFonts catalog behavior. `web-safe` shows email-safe/system CSS\nfont stacks and does not load Google font assets.\n\n```html\n<esp-box>\n  <h2>Email-safe fonts</h2>\n  <esp-form-item label=\"Pick a font stack\">\n    <esp-font-picker font-source=\"web-safe\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "fieldName": "fontSource"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The selected font family or CSS font stack.\n\nIn the default Google Fonts mode this is the font family name, such\nas `\"Aclonica\"`. In `font-source=\"web-safe\"` mode this is the full CSS\nfont stack, such as `\"Arial, Helvetica, sans-serif\"`, so pre-selection\nvia the `value` attribute must use the stack value.\n\n```html\n<esp-box>\n  <h2>Have Aclonica pre-selected</h2>\n  <esp-form-item label=\"Pick a font\">\n    <esp-font-picker value=\"Aclonica\"></esp-font-picker>\n  </esp-form-item>\n</esp-box>\n```",
+              "fieldName": "value"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Choose a font...\"",
+              "description": "The placeholder text for the picker input.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/guides/color/variants) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "tagName": "esp-font-picker",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Font",
+            "description": "Picker"
+          },
+          "docUrl": {
+            "name": "/components/font-picker",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Form",
+            "description": "Controls"
+          },
+          "menuLabel": {
+            "name": "Font",
+            "description": "Picker"
+          },
+          "menuIcon": {
+            "name": "typography",
+            "description": ""
+          },
+          "cssProperties": [
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "resetFontCache",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "description": "Reset the module-level font cache.  Exposed for test cleanup so each\ntest starts with a fresh slate."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "WEB_SAFE_FONTS",
+          "declaration": {
+            "name": "WEB_SAFE_FONTS",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getGoogleFonts",
+          "declaration": {
+            "name": "getGoogleFonts",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "previewFontFamily",
+          "declaration": {
+            "name": "previewFontFamily",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EspalierFontPicker",
+          "declaration": {
+            "name": "EspalierFontPicker",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-font-picker",
+          "declaration": {
+            "name": "EspalierFontPicker",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resetFontCache",
+          "declaration": {
+            "name": "resetFontCache",
+            "module": "dist/font-picker/esp-font-picker.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/form/esp-form.js",
       "declarations": [
         {
@@ -18003,6 +18064,14 @@
               "name": "--esp-form-item-label-color"
             },
             {
+              "description": "The color of the hint text. Defaults to a muted variant of the body text color.",
+              "name": "--esp-form-item-hint-color"
+            },
+            {
+              "description": "The font size of the hint text. Defaults to `var(--esp-type-tiny)`.",
+              "name": "--esp-form-item-hint-font-size"
+            },
+            {
               "description": "The color of the visible error badge text.",
               "name": "--esp-form-item-error-color"
             },
@@ -18059,6 +18128,16 @@
               "name": "--esp-form-item-font-size"
             }
           ],
+          "slots": [
+            {
+              "description": "The single form control the item wraps.",
+              "name": ""
+            },
+            {
+              "description": "Rich hint content; replaces the `hint` attribute text when present.",
+              "name": "hint"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -18106,6 +18185,85 @@
               "description": "When true, the first control where autofocus is true has\nfocus captured.",
               "attribute": "autofocus",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Persistent helper text shown with the field — the bottom rung of\nthe help ladder. Hints are static authored guidance such as an\nexpected format; validation messaging belongs to `error` and\n`warning` and must not be routed through the hint. The hint stays\nvisible while an error or warning badge is showing, and is\nannounced to assistive technology as the field's description via\n`aria-describedby`.\n\n```html\n<esp-box class=\"demo-form\">\n  <esp-form-item\n    label=\"Employer ID\"\n    hint=\"Use the format XX-XXXXXXX.\">\n    <esp-input></esp-input>\n  </esp-form-item>\n  <esp-button label=\"Form Things\"></esp-button>\n</esp-box>\n```\n\nFor rich hint content, slot markup into the `hint` slot instead;\nit replaces the attribute text when present.",
+              "attribute": "hint"
+            },
+            {
+              "kind": "field",
+              "name": "hintPlacement",
+              "type": {
+                "text": "\"below\" | \"above\""
+              },
+              "privacy": "public",
+              "default": "\"below\"",
+              "description": "Where the hint renders. `below` (the default) places it directly\nunder the field, above the error/warning badge rows. `above`\nplaces it between the label text and the field. Any other value\nfalls back to `below`.\n\n```html\n<esp-box class=\"demo-form\">\n  <esp-form-item\n    label=\"Employer ID\"\n    hint=\"Use the format XX-XXXXXXX.\"\n    hint-placement=\"above\">\n    <esp-input></esp-input>\n  </esp-form-item>\n  <esp-button label=\"Form Things\"></esp-button>\n</esp-box>\n```",
+              "attribute": "hint-placement"
+            },
+            {
+              "kind": "field",
+              "name": "hintId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`esp-form-item-hint-${++hintIdCounter}`",
+              "description": "Stable id for the hint text element, referenced by the slotted\nfield's `aria-describedby`."
+            },
+            {
+              "kind": "field",
+              "name": "managedHintEl",
+              "type": {
+                "text": "HTMLSpanElement | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "description": "The light-DOM span this component creates to carry the `hint`\nattribute text. See `syncManagedHint` for why the text cannot\nstay in the shadow root."
+            },
+            {
+              "kind": "field",
+              "name": "appliedHintTokens",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "description": "The describedby tokens this component added on the last sync."
+            },
+            {
+              "kind": "field",
+              "name": "hintContentObserver",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new MutationObserver(() => { this.syncFieldDescribedBy(); })",
+              "description": "Keep a shadow-local mirror current when rich hint text changes."
+            },
+            {
+              "kind": "field",
+              "name": "hasHint",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "description": "A hint exists when either the attribute or the slot provides one.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "consumerHintElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              },
+              "description": "Consumer-provided `slot=\"hint\"` elements (excluding the managed span)."
             },
             {
               "kind": "field",
@@ -18201,6 +18359,67 @@
               "default": "[]"
             },
             {
+              "kind": "field",
+              "name": "handleHintSlotChange",
+              "privacy": "private",
+              "description": "Re-evaluate hint presence when `hint` slot content changes."
+            },
+            {
+              "kind": "method",
+              "name": "observeConsumerHintContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Watch rich hint text and ids without observing the managed fallback span."
+            },
+            {
+              "kind": "method",
+              "name": "syncManagedHint",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Keep the `hint` attribute text in the light DOM. An\n`aria-describedby` IDREF on the slotted field cannot reach into\nthis component's shadow root (nor can ARIA element reflection —\nbrowsers drop references that point down into a shadow root), so\nthe description text must live in the field's own tree. The\nattribute text is projected through the `hint` slot via a span\nthis component owns; consumer-slotted hint content replaces the\nattribute text entirely."
+            },
+            {
+              "kind": "method",
+              "name": "hintDescriptionIds",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "description": "Ids of the light-DOM elements carrying the hint text, assigning\ngenerated ids to consumer elements that lack one. Consumer ids are\nminted fresh from the module counter — never `hintId`, which is\nreserved for the managed span so a consumer element that keeps a\ngenerated id after it stops being a hint can never duplicate it."
+            },
+            {
+              "kind": "method",
+              "name": "hintDescriptionText",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string | null"
+                }
+              },
+              "description": "Plain text mirrored into an Espalier control's own shadow root."
+            },
+            {
+              "kind": "method",
+              "name": "syncFieldDescribedBy",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Mirror the hint onto the slotted field as its accessible\ndescription, preserving any consumer-set `aria-describedby`\ntokens (the same merge `esp-tooltip` performs on its trigger)."
+            },
+            {
               "kind": "method",
               "name": "focus",
               "privacy": "public",
@@ -18219,6 +18438,12 @@
                 }
               ],
               "description": "Focus the assigned slotted field."
+            },
+            {
+              "kind": "method",
+              "name": "renderHint",
+              "privacy": "private",
+              "description": "The hint renders inside the `<label>` when placed `above`, so it\nis wrapped in `aria-hidden` there to keep it out of the field's\naccessible-name computation — it stays announced as a description\nbecause nodes directly referenced by `aria-describedby` are\nincluded even when hidden."
             }
           ],
           "attributes": [
@@ -18239,6 +18464,24 @@
               "default": "false",
               "description": "When true, the first control where autofocus is true has\nfocus captured.",
               "fieldName": "autofocus"
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Persistent helper text shown with the field — the bottom rung of\nthe help ladder. Hints are static authored guidance such as an\nexpected format; validation messaging belongs to `error` and\n`warning` and must not be routed through the hint. The hint stays\nvisible while an error or warning badge is showing, and is\nannounced to assistive technology as the field's description via\n`aria-describedby`.\n\n```html\n<esp-box class=\"demo-form\">\n  <esp-form-item\n    label=\"Employer ID\"\n    hint=\"Use the format XX-XXXXXXX.\">\n    <esp-input></esp-input>\n  </esp-form-item>\n  <esp-button label=\"Form Things\"></esp-button>\n</esp-box>\n```\n\nFor rich hint content, slot markup into the `hint` slot instead;\nit replaces the attribute text when present.",
+              "fieldName": "hint"
+            },
+            {
+              "name": "hint-placement",
+              "type": {
+                "text": "\"below\" | \"above\""
+              },
+              "default": "\"below\"",
+              "description": "Where the hint renders. `below` (the default) places it directly\nunder the field, above the error/warning badge rows. `above`\nplaces it between the label text and the field. Any other value\nfalls back to `below`.\n\n```html\n<esp-box class=\"demo-form\">\n  <esp-form-item\n    label=\"Employer ID\"\n    hint=\"Use the format XX-XXXXXXX.\"\n    hint-placement=\"above\">\n    <esp-input></esp-input>\n  </esp-form-item>\n  <esp-button label=\"Form Things\"></esp-button>\n</esp-box>\n```",
+              "fieldName": "hintPlacement"
             },
             {
               "name": "error",
@@ -25791,6 +26034,12 @@
             },
             {
               "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theInput.value, })"
+            },
+            {
+              "kind": "field",
               "name": "_hasVisibleError",
               "type": {
                 "text": "boolean"
@@ -33056,6 +33305,16 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theInput.value, })",
+              "inheritedFrom": {
+                "name": "EspalierPickerBase",
+                "module": "dist/pickers/esp-picker-base.js"
+              }
+            },
+            {
               "kind": "method",
               "name": "formResetCallback",
               "return": {
@@ -34431,6 +34690,16 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theInput.value, })",
+              "inheritedFrom": {
+                "name": "EspalierPickerBase",
+                "module": "dist/pickers/esp-picker-base.js"
+              }
+            },
+            {
               "kind": "method",
               "name": "formResetCallback",
               "return": {
@@ -35544,6 +35813,12 @@
               "name": "formCtrl",
               "privacy": "protected",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.getPickerFormValue(), getValidity: () => this.getPickerValidity(), onReset: () => this.handlePickerReset(), onRestore: (state: string) => this.handlePickerRestore(state), onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theInput.value, })"
             },
             {
               "kind": "method",
@@ -38842,6 +39117,21 @@
             },
             {
               "kind": "field",
+              "name": "formItemDescription",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "describedRadios",
+              "privacy": "private",
+              "default": "new Set<EspalierRadioButton>()"
+            },
+            {
+              "kind": "field",
               "name": "name",
               "type": {
                 "text": "string"
@@ -38958,6 +39248,21 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "applyFormItemDescription",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleItemsSlotChange",
+              "privacy": "private"
             },
             {
               "kind": "method",
@@ -39758,6 +40063,12 @@
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.shadowRoot?.querySelector<HTMLElement>(\".radio-control\"), })"
+            },
             {
               "kind": "field",
               "name": "checked",
@@ -45853,6 +46164,172 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/shared/form-field-description-controller.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Mirrors an `esp-form-item` hint into the same shadow root as a form\ncontrol's real focus target. ARIA ID references do not cross shadow\nboundaries, so setting `aria-describedby` on the custom-element host\nalone cannot describe an inner input, textarea, or ARIA control.",
+          "name": "FormFieldDescriptionController",
+          "members": [
+            {
+              "kind": "field",
+              "name": "descriptionId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`esp-form-field-description-${++descriptionIdCounter}`"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "descriptionElement",
+              "type": {
+                "text": "HTMLSpanElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setDescription",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "description",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ],
+              "description": "Set or clear the description supplied by the wrapping form item."
+            },
+            {
+              "kind": "method",
+              "name": "sync",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addDescriptionToken",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeDescriptionToken",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "descriptionTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormFieldDescriptionController",
+          "declaration": {
+            "name": "FormFieldDescriptionController",
+            "module": "dist/shared/form-field-description-controller.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/shared/intent-values.js",
       "declarations": [
         {
@@ -47764,6 +48241,12 @@
               "name": "formCtrl",
               "privacy": "private",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, // A range slider always has a normalized numeric value (clamped // to [min, max] and snapped to step), so there is no // representable \"empty\" state that could trigger valueMissing. // Validity is always satisfied. getValidity: () => null, onReset: () => { this.value = String(this._low); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this._thumbRef.value, })"
             },
             {
               "kind": "field",
@@ -49847,6 +50330,12 @@
               "name": "formCtrl",
               "privacy": "private",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => (this.checked ? this.value || \"on\" : null), getValidity: () => { if (this.required && !this.checked) { return { flags: { valueMissing: true }, message: this.requiredMessage || \"Please toggle this switch to continue.\", }; } return null; }, onReset: () => { this.checked = false; }, onRestore: (state: string) => { this.checked = state === \"on\" || state === this.value; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.shadowRoot?.querySelector<HTMLElement>(\".switch-control\"), })"
             },
             {
               "kind": "field",
@@ -52243,6 +52732,12 @@
               "name": "formCtrl",
               "privacy": "private",
               "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, getValidity: () => this._getValidity(), getValidationAnchor: (): HTMLElement => this.theTextarea.value ?? this, onReset: () => { this.value = \"\"; this._hasVisibleError = false; }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theTextarea.value, })"
             },
             {
               "kind": "field",

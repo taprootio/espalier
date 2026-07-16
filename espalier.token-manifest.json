@@ -585,6 +585,18 @@
       "description": "The font size for the form item."
     },
     {
+      "name": "--esp-form-item-hint-color",
+      "category": "component",
+      "component": "esp-form-item",
+      "description": "The color of the hint text. Defaults to a muted variant of the body text color."
+    },
+    {
+      "name": "--esp-form-item-hint-font-size",
+      "category": "component",
+      "component": "esp-form-item",
+      "description": "The font size of the hint text. Defaults to `var(--esp-type-tiny)`."
+    },
+    {
       "name": "--esp-form-item-label-color",
       "category": "component",
       "component": "esp-form-item",

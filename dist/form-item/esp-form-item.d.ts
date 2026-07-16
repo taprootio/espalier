@@ -25,7 +25,12 @@ export type EspalierFormField = {
  * </esp-box>
  * ```
  *
+ * @slot - The single form control the item wraps.
+ * @slot hint - Rich hint content; replaces the `hint` attribute text when present.
+ *
  * @cssprop --esp-form-item-label-color - The color of the label text.
+ * @cssprop --esp-form-item-hint-color - The color of the hint text. Defaults to a muted variant of the body text color.
+ * @cssprop --esp-form-item-hint-font-size - The font size of the hint text. Defaults to `var(--esp-type-tiny)`.
  * @cssprop --esp-form-item-error-color - The color of the visible error badge text.
  * @cssprop --esp-form-item-error-background - The background color of the visible error badge.
  * @cssprop --esp-form-item-error-field-background - The background color applied to slotted fields while an error is shown.
@@ -55,6 +60,51 @@ export declare class EspalierFormItem extends LitElement {
      * focus captured.
      */
     autofocus: boolean;
+    /**
+     * Persistent helper text shown with the field — the bottom rung of
+     * the help ladder. Hints are static authored guidance such as an
+     * expected format; validation messaging belongs to `error` and
+     * `warning` and must not be routed through the hint. The hint stays
+     * visible while an error or warning badge is showing, and is
+     * announced to assistive technology as the field's description via
+     * `aria-describedby`.
+     *
+     * ```html
+     * <esp-box class="demo-form">
+     *   <esp-form-item
+     *     label="Employer ID"
+     *     hint="Use the format XX-XXXXXXX.">
+     *     <esp-input></esp-input>
+     *   </esp-form-item>
+     *   <esp-button label="Form Things"></esp-button>
+     * </esp-box>
+     * ```
+     *
+     * For rich hint content, slot markup into the `hint` slot instead;
+     * it replaces the attribute text when present.
+     *
+     * @type {string}
+     */
+    hint: string;
+    /**
+     * Where the hint renders. `below` (the default) places it directly
+     * under the field, above the error/warning badge rows. `above`
+     * places it between the label text and the field. Any other value
+     * falls back to `below`.
+     *
+     * ```html
+     * <esp-box class="demo-form">
+     *   <esp-form-item
+     *     label="Employer ID"
+     *     hint="Use the format XX-XXXXXXX."
+     *     hint-placement="above">
+     *     <esp-input></esp-input>
+     *   </esp-form-item>
+     *   <esp-button label="Form Things"></esp-button>
+     * </esp-box>
+     * ```
+     */
+    hintPlacement: "below" | "above";
     /**
      * An error message to show for the given form control.
      *
@@ -119,6 +169,8 @@ export declare class EspalierFormItem extends LitElement {
     set errorPool(errors: Array<ValidationError>);
     protected firstUpdated(): void;
     protected updated(changed: PropertyValues): void;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
     /**
      * Focus the assigned slotted field.
      */
