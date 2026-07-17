@@ -25,7 +25,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   </esp-header>
  *   <esp-menu slot="sidebar" mode="drawer"></esp-menu>
  *   <div slot="right" style="background-color: purple;">right</div>
- *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <esp-footer slot="footer" brand-text="Espalier"></esp-footer>
  *   <div style="background-color: black; overflow: hidden;">
  *     content
  *   </div>
@@ -43,7 +43,9 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * The persistent `right` aside and the transient flyout are
  * complementary, not alternatives. A flyout opened with an `anchor`
  * aligns to that trigger and stays in the same document scroll flow.
- * @slot footer - Content to place in the footer.
+ * @slot footer - Content to place in the footer. Slot `esp-footer` directly
+ * to receive the page's surface-alignment custom-property contract. A wrapper
+ * can preserve landmark semantics but does not receive that direct contract.
  * @slot - The main page content. The main content region applies
  * `contain: inline-size` so child components cannot push the
  * content well wider than its grid column. In `narrow` mode,
@@ -65,7 +67,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *     </esp-menu>
  *     <esp-header-button slot="buttons" icon="cog" aria-label="Settings"></esp-header-button>
  *   </esp-header>
- *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <esp-footer slot="footer" brand-text="Espalier"></esp-footer>
  *   <section style="overflow: hidden;">
  *     <h2>Long content</h2>
  *     <p populate-from="longParagraph"></p>
@@ -98,7 +100,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   <div slot="header" style="background-color: red;">header</div>
  *   <div slot="sidebar" style="background-color: green;">sidebar</div>
  *   <div slot="right" style="background-color: purple;">right</div>
- *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <esp-footer slot="footer" brand-text="Espalier"></esp-footer>
  *   <div style="background-color: black; overflow: hidden;">
  *     content
  *   </div>
@@ -162,7 +164,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   <div slot="header" style="background-color: red;">header</div>
  *   <div slot="sidebar" style="background-color: green;">sidebar</div>
  *   <div slot="right" style="background-color: purple;">right</div>
- *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <esp-footer slot="footer" brand-text="Espalier"></esp-footer>
  *   <div style="overflow: hidden;">
  *     <h2>With background image</h2>
  *   </div>
@@ -185,7 +187,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   <div slot="header" style="background-color: red;">header</div>
  *   <div slot="sidebar" style="background-color: green;">sidebar</div>
  *   <div slot="right" style="background-color: purple;">right</div>
- *   <div slot="footer" style="background-color: blue;">footer</div>
+ *   <esp-footer slot="footer" brand-text="Espalier"></esp-footer>
  *   <div style="background-color: black; overflow: hidden;">
  *     content
  *   </div>
@@ -202,6 +204,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  */
 export declare class EspalierPage extends EspalierElementBase {
     constructor();
+    connectedCallback(): void;
     /**
      * The layout mode of the page.
      *

@@ -25,6 +25,7 @@ export * from "./empty-state/esp-empty-state.js";
 export * from "./image-upload/esp-image-upload.js";
 export * from "./file-upload/esp-file-upload.js";
 export * from "./font-picker/esp-font-picker.js";
+export * from "./footer/index.js";
 export * from "./grid/esp-grid.js";
 export * from "./image/esp-image.js";
 export * from "./lightbox/esp-lightbox.js";

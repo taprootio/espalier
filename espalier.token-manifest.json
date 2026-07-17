@@ -537,6 +537,150 @@
       "description": ""
     },
     {
+      "name": "--esp-footer-background",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Base footer color. Defaults to `var(--esp-color-layer-2)`."
+    },
+    {
+      "name": "--esp-footer-background-blend-mode",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative layer blend mode. Defaults to `normal`."
+    },
+    {
+      "name": "--esp-footer-background-image",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative image or gradient layer. Defaults to `none`."
+    },
+    {
+      "name": "--esp-footer-background-image-opacity",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative layer opacity. Defaults to `1`."
+    },
+    {
+      "name": "--esp-footer-background-position",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative layer position. Defaults to `0 0`."
+    },
+    {
+      "name": "--esp-footer-background-repeat",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative layer repeat behavior. Defaults to `repeat`."
+    },
+    {
+      "name": "--esp-footer-background-size",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Decorative layer size. Defaults to `auto`."
+    },
+    {
+      "name": "--esp-footer-border",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Block-start footer border. Defaults to `1px solid var(--esp-color-border)`."
+    },
+    {
+      "name": "--esp-footer-brand-logo-max-width",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Configured logo maximum inline size. Defaults to `12rem`."
+    },
+    {
+      "name": "--esp-footer-brand-logo-size",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Configured logo block size. Defaults to `3rem`."
+    },
+    {
+      "name": "--esp-footer-color",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Body text color. Defaults to `var(--esp-color-text)`."
+    },
+    {
+      "name": "--esp-footer-column-gap",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Gap between link-group columns and major primary regions. Defaults to `var(--esp-size-padding-page)`."
+    },
+    {
+      "name": "--esp-footer-content-lead",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Fraction of surplus placed before content (`0`, `0.5`, or `1`). Defaults to `0`."
+    },
+    {
+      "name": "--esp-footer-content-max-width",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Surface-alignment cap published by `esp-page`. Defaults to `100%`."
+    },
+    {
+      "name": "--esp-footer-focus-outline",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Focus-visible outline. Defaults to `2px solid var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-footer-heading-color",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Heading and configured-brand color. Defaults to `var(--esp-color-headings)`."
+    },
+    {
+      "name": "--esp-footer-link-color",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Link color. Defaults to `var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-footer-link-group-gap",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Space between a link-group heading and its links. Defaults to `var(--esp-size-small)`."
+    },
+    {
+      "name": "--esp-footer-link-group-min-width",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Intrinsic minimum link-group column width. Defaults to `10rem`."
+    },
+    {
+      "name": "--esp-footer-link-hover-color",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Hovered link color. Defaults to `var(--esp-color-link-hover)`."
+    },
+    {
+      "name": "--esp-footer-padding-block",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Content block padding. Defaults to `var(--esp-size-padding-page)`."
+    },
+    {
+      "name": "--esp-footer-padding-inline",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Content inline padding. Defaults to `var(--esp-size-padding-page)`."
+    },
+    {
+      "name": "--esp-footer-row-gap",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Compact-layout row gap. Defaults to `var(--esp-size-big)`."
+    },
+    {
+      "name": "--esp-footer-section-gap",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Gap between media, primary, and bottom regions. Defaults to `var(--esp-size-big)`."
+    },
+    {
       "name": "--esp-form-item-error-background",
       "category": "component",
       "component": "esp-form-item",

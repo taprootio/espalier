@@ -5,6 +5,23 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.4.0 — Customizable footer and page-shell refinements
+
+- Add `esp-footer` and `esp-footer-link-group` with responsive brand, media,
+  link-group, aside, bottom, background-pattern, and large-image regions.
+- Align footer content to `esp-page` surfaces while keeping footer backgrounds
+  full-bleed, with an explicit full-bleed content opt-out.
+- Keep expanded inline sidebar navigation reachable through ordinary document
+  scrolling instead of requiring a separate pointer-hovered rail scroller.
+
+### Migration note
+
+Inline `esp-menu mode="vertical"` rails no longer cap themselves to the
+viewport or create an internal vertical scroller. This lets page shells move a
+tall rail naturally as the document scrolls. Standalone menus in fixed-height
+or overflow-hidden shells can retain the old bounded presentation by setting
+`max-height` and `overflow-y: auto` on the `esp-menu` host.
+
 ## 2.3.1 — Lightbox reliability and semantic contrast
 
 - Keep projected lightbox images constrained across repeated close and reopen

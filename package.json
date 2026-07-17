@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "packageManager": "bun@1.3.12",
   "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
@@ -97,6 +97,14 @@
     "./font-picker": {
       "types": "./dist/font-picker/esp-font-picker.d.ts",
       "import": "./dist/font-picker/esp-font-picker.js"
+    },
+    "./footer": {
+      "types": "./dist/footer/index.d.ts",
+      "import": "./dist/footer/index.js"
+    },
+    "./footer/link-group": {
+      "types": "./dist/footer/esp-footer-link-group.d.ts",
+      "import": "./dist/footer/esp-footer-link-group.js"
     },
     "./form": {
       "types": "./dist/form/esp-form.d.ts",
@@ -272,6 +280,7 @@
   "sideEffects": [
     "dist/index.js",
     "dist/*/esp-*.js",
+    "dist/footer/index.js",
     "dist/header/index.js",
     "dist/menu/index.js",
     "dist/shared/virtualizer/lit-virtualizer.js"

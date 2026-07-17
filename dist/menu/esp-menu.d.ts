@@ -12,7 +12,20 @@ export type EspalierMenuOverflow = "auto" | "wrap" | "scroll" | "left-drawer" | 
  * sidebar navigation, and `mode="drawer"` for drawer-only navigation.
  * The same tree of `esp-menu-item` and `esp-menu-group` children can
  * render inline and as a drawer so consumers do not need duplicate
- * navigation markup for desktop and mobile.
+ * navigation markup for desktop and mobile. An inline vertical rail keeps
+ * its intrinsic height so a page-level layout can move a tall sidebar with
+ * document scroll; the fixed drawer presentation supplies its own vertical
+ * scrolling instead.
+ *
+ * **2.4 migration:** inline vertical rails no longer create their own bounded
+ * scroller. A standalone menu inside a fixed-height or overflow-hidden shell
+ * can restore that presentation by bounding and scrolling the host:
+ *
+ * ```html
+ * <esp-menu mode="vertical" style="max-height: 100dvh; overflow-y: auto;">
+ *   ...
+ * </esp-menu>
+ * ```
  *
  * ```html
  * <esp-menu mode="horizontal" overflow="left-drawer">

@@ -1,5 +1,5 @@
-var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,s):o,t;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(h,e,s,o);else for(var r=h.length-1;r>=0;r--)(t=h[r])&&(a=(n<3?t(a):n>3?t(e,s,a):t(e,s))||a);return n>3&&a&&Object.defineProperty(e,s,a),a};import{css as f,html as m}from"lit";import{customElement as v,property as l}from"lit/decorators.js";import{classMap as y}from"lit/directives/class-map.js";import{createRef as c,ref as u}from"lit/directives/ref.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as p}from"./bi-directional-sticky-controller.js";import{getEspBus as w}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";let i=class extends g{constructor(){super(),this.dialogZone=c(),this.flyoutSlot=c(),this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new p(this,".esp-page-left > .sticky-wrapper"),new p(this,".esp-page-right > .sticky-wrapper"),new p(this,".esp-page-flyout > .sticky-wrapper"),this.addEventListener("flyout-state-changed",e=>this.syncFlyoutState(e))}syncFlyoutState(e){if(e&&e.target?.closest?.("esp-page")!==this)return;const s=t=>{const r=t.mode;return(typeof r=="string"?r:t.getAttribute("mode"))==="overlay"},o=t=>{const r=t.open;return typeof r=="boolean"?r:t.hasAttribute("open")},n=t=>t.anchor!=null,a=(this.flyoutSlot.value?.assignedElements()??[]).filter(t=>t.tagName==="ESP-FLYOUT");this.toggleAttribute("flyout-open",a.some(t=>o(t)&&!s(t))),this.toggleAttribute("flyout-overlay-open",a.some(t=>o(t)&&s(t))),this.toggleAttribute("flyout-anchored",a.some(t=>o(t)&&n(t)))}AddDialog(e){this.dialogZone.value?.appendChild(e)}firstUpdated(e){super.firstUpdated(e),this.syncFlyoutState()}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&w().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",s=!e&&this.headerPosition==="sticky";return m`
-      <div part="wrapper" class="esp-page ${y({"fixed-menus":e,"fixed-header":e,"sticky-header":s})}">
+var i=function(h,e,a,s){var d=arguments.length,o=d<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,a):s,t;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(h,e,a,s);else for(var n=h.length-1;n>=0;n--)(t=h[n])&&(o=(d<3?t(o):d>3?t(e,a,o):t(e,a))||o);return d>3&&o&&Object.defineProperty(e,a,o),o};import{css as m,html as v,nothing as y}from"lit";import{customElement as w,property as l,state as b}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{createRef as p,ref as c}from"lit/directives/ref.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{BiDirectionalStickyController as u}from"./bi-directional-sticky-controller.js";import{getEspBus as x}from"../shared/bus-events.js";import"../toaster/esp-toaster.js";const f='esp-footer, footer, [role~="contentinfo"]';let r=class extends g{constructor(){super(),this.dialogZone=p(),this.flyoutSlot=p(),this.footerSlot=p(),this.footerWrapperIsLandmark=!0,this.kind="wide",this.align="start",this.contained=!1,this.headerPosition="normal",this.fixedMenus=!1,new u(this,".esp-page-left > .sticky-wrapper"),new u(this,".esp-page-right > .sticky-wrapper"),new u(this,".esp-page-flyout > .sticky-wrapper"),this.addEventListener("flyout-state-changed",e=>this.syncFlyoutState(e))}connectedCallback(){const e=Array.from(this.children).filter(a=>a.getAttribute("slot")==="footer");this.footerWrapperIsLandmark=!e.some(a=>this.footerElementProvidesLandmark(a)),super.connectedCallback()}syncFlyoutState(e){if(e&&e.target?.closest?.("esp-page")!==this)return;const a=t=>{const n=t.mode;return(typeof n=="string"?n:t.getAttribute("mode"))==="overlay"},s=t=>{const n=t.open;return typeof n=="boolean"?n:t.hasAttribute("open")},d=t=>t.anchor!=null,o=(this.flyoutSlot.value?.assignedElements()??[]).filter(t=>t.tagName==="ESP-FLYOUT");this.toggleAttribute("flyout-open",o.some(t=>s(t)&&!a(t))),this.toggleAttribute("flyout-overlay-open",o.some(t=>s(t)&&a(t))),this.toggleAttribute("flyout-anchored",o.some(t=>s(t)&&d(t)))}footerElementProvidesLandmark(e){return e.matches(f)||e.querySelector(f)!==null}syncFooterLandmark(){const a=(this.footerSlot.value?.assignedElements({flatten:!0})??[]).some(s=>this.footerElementProvidesLandmark(s));this.footerWrapperIsLandmark=!a}AddDialog(e){this.dialogZone.value?.appendChild(e)}firstUpdated(e){super.firstUpdated(e),this.syncFlyoutState()}updated(e){super.updated(e),(e.has("fixedMenus")||e.has("headerPosition"))&&x().publish("fixed-menus-changed",{fixed:this.fixedMenus||this.headerPosition==="fixed"})}render(){const e=this.fixedMenus||this.headerPosition==="fixed",a=!e&&this.headerPosition==="sticky";return v`
+      <div part="wrapper" class="esp-page ${k({"fixed-menus":e,"fixed-header":e,"sticky-header":a})}">
         <div part="canvas" class="esp-page-canvas esp-page-canvas--left" aria-hidden="true"></div>
         <div part="canvas" class="esp-page-canvas esp-page-canvas--right" aria-hidden="true"></div>
         <div part="surface" class="esp-page-surface" aria-hidden="true"></div>
@@ -23,18 +23,18 @@ var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnP
           <div class="sticky-wrapper">
             <slot
               name="flyout"
-              ${u(this.flyoutSlot)}
+              ${c(this.flyoutSlot)}
               @slotchange=${()=>this.syncFlyoutState()}
             ></slot>
           </div>
         </div>
-        <footer>
-          <slot name="footer"></slot>
-        </footer>
-        <div id="dialog-drop-zone" ${u(this.dialogZone)}></div>
+        <div class="esp-page-footer" role=${this.footerWrapperIsLandmark?"contentinfo":y}>
+          <slot name="footer" ${c(this.footerSlot)} @slotchange=${this.syncFooterLandmark}></slot>
+        </div>
+        <div id="dialog-drop-zone" ${c(this.dialogZone)}></div>
         <esp-toaster></esp-toaster>
       </div>
-    `}};i.styles=[...g.styles,f`
+    `}};r.styles=[...g.styles,m`
       :host {
         --_esp-page-resolved-max-width: var(--esp-page-max-width, 1536px);
         
@@ -130,8 +130,26 @@ var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnP
       }
 
       
+      slot[name="footer"]::slotted(esp-footer) {
+        --esp-footer-content-max-width: var(--_esp-page-resolved-max-width);
+        --esp-footer-content-lead: 0;
+      }
+
+      :host([align="center"]) slot[name="footer"]::slotted(esp-footer) {
+        --esp-footer-content-lead: 0.5;
+      }
+
+      :host([align="end"]) slot[name="footer"]::slotted(esp-footer) {
+        --esp-footer-content-lead: 1;
+      }
+
+      :host([kind="full"]) slot[name="footer"]::slotted(esp-footer) {
+        --esp-footer-content-max-width: 100%;
+      }
+
+      
       :host([contained]) .esp-page > div.esp-page-top,
-      :host([contained]) .esp-page > footer {
+      :host([contained]) .esp-page > div.esp-page-footer {
         grid-column: surface;
       }
 
@@ -139,6 +157,10 @@ var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnP
       :host([contained]) slot[name="header"]::slotted(esp-header) {
         --esp-header-content-max-width: 100%;
         --esp-header-shadow: none;
+      }
+
+      :host([contained]) slot[name="footer"]::slotted(esp-footer) {
+        --esp-footer-content-max-width: 100%;
       }
 
       :host([kind="narrow"]) .esp-page > div.esp-page-main {
@@ -297,7 +319,7 @@ var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnP
           top: 0;
         }
 
-        > footer {
+        > div.esp-page-footer {
           grid-column: full;
           grid-row: footer;
           z-index: 10;
@@ -372,4 +394,4 @@ var d=function(h,e,s,o){var n=arguments.length,a=n<3?e:o===null?o=Object.getOwnP
           transition: none;
         }
       }
-    `],d([l({reflect:!0})],i.prototype,"kind",void 0),d([l({reflect:!0})],i.prototype,"align",void 0),d([l({type:Boolean,reflect:!0})],i.prototype,"contained",void 0),d([l({attribute:"header-position",reflect:!0})],i.prototype,"headerPosition",void 0),d([l({attribute:"fixed-menus",type:Boolean,reflect:!0})],i.prototype,"fixedMenus",void 0),i=d([v("esp-page")],i);export{i as EspalierPage};
+    `],i([b()],r.prototype,"footerWrapperIsLandmark",void 0),i([l({reflect:!0})],r.prototype,"kind",void 0),i([l({reflect:!0})],r.prototype,"align",void 0),i([l({type:Boolean,reflect:!0})],r.prototype,"contained",void 0),i([l({attribute:"header-position",reflect:!0})],r.prototype,"headerPosition",void 0),i([l({attribute:"fixed-menus",type:Boolean,reflect:!0})],r.prototype,"fixedMenus",void 0),r=i([w("esp-page")],r);export{r as EspalierPage};
