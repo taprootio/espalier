@@ -172,7 +172,8 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * progress ring in circle mode. Automatically set by the `size`
  * attribute.
  * @cssprop --esp-progress-fill-color - Color of the progress fill.
- * Defaults to `var(--esp-color-action-background)`.
+ * Defaults to the active action hue at the semantic muted lightness so the
+ * filled and unfilled portions remain distinguishable in light and dark themes.
  * @cssprop --esp-progress-font-size - Font size for the value
  * text. Defaults to `var(--esp-type-small)`.
  * @cssprop --esp-progress-height - Height of the progress bar track.

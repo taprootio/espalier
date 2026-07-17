@@ -5,6 +5,19 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.3.1 — Lightbox reliability and semantic contrast
+
+- Keep projected lightbox images constrained across repeated close and reopen
+  cycles, including projected `<picture>` and bare `<img>` sources.
+- Size portrait, landscape, square, and panoramic lightbox images explicitly to
+  their largest contained box and advertise the visible width to responsive
+  image selection across viewport changes.
+- Keep lightbox focus, scroll locking, observers, captions, and gallery
+  navigation synchronized across lifecycle and source-gallery changes.
+- Increase the default contrast of breadcrumb separators, image-upload drop
+  boundaries, and progress fills in light and dark themes while preserving
+  public CSS overrides.
+
 ## 2.0.0 — Initial public release
 
 The first public release of Espalier, Taproot's enterprise-grade web component

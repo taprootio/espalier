@@ -1,4 +1,5 @@
-import { LitElement, nothing, type PropertyValues } from "lit";
+import { nothing, type PropertyValues } from "lit";
+import { EspalierElementBase } from "../shared/esp-element-base.js";
 import "../image/esp-image.js";
 import "../image/esp-image-option.js";
 import "../button/esp-button.js";
@@ -52,7 +53,7 @@ import "../button/esp-button.js";
  * @menuLabel Lightbox
  * @menuIcon photo
  */
-export declare class EspalierLightbox extends LitElement {
+export declare class EspalierLightbox extends EspalierElementBase {
     /**
      * A CSS selector for the container element that holds the
      * `esp-image` elements to include in the lightbox.
@@ -72,7 +73,7 @@ export declare class EspalierLightbox extends LitElement {
     protected updated(changed: PropertyValues): void;
     disconnectedCallback(): void;
     protected render(): import("lit-html").TemplateResult<1> | typeof nothing;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

@@ -35,7 +35,7 @@ export * from "./esp-breadcrumb.js";
  * @customElement esp-breadcrumbs
  * @slot - `<esp-breadcrumb>` items to display.
  * @cssprop --esp-breadcrumb-separator-color - Set the color of the separator. It defaults
- * to a bright complementary color.
+ * to the semantic heading color so navigation structure stays visible in light and dark themes.
  *
  * ```html
  * <style>

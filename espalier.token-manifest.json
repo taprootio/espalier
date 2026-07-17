@@ -123,7 +123,7 @@
       "name": "--esp-breadcrumb-separator-color",
       "category": "component",
       "component": "esp-breadcrumbs",
-      "description": "Set the color of the separator. It defaults to a bright complementary color."
+      "description": "Set the color of the separator. It defaults to the semantic heading color so navigation structure stays visible in light and dark themes."
     },
     {
       "name": "--esp-button-group-divider",
@@ -1379,7 +1379,7 @@
       "name": "--esp-progress-fill-color",
       "category": "component",
       "component": "esp-progress",
-      "description": "Color of the progress fill. Defaults to `var(--esp-color-action-background)`."
+      "description": "Color of the progress fill. Defaults to the active action hue at the semantic muted lightness so the filled and unfilled portions remain distinguishable in light and dark themes."
     },
     {
       "name": "--esp-progress-font-size",
