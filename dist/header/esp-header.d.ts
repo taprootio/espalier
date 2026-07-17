@@ -2,11 +2,19 @@ import { type PropertyValues } from "lit";
 import "../burger/esp-burger.js";
 import { type EspalierBurger } from "../burger/esp-burger.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
-type HeaderLayout = "standard" | "centered-brand" | "extended" | "extended-centered" | "minimal";
-type HeaderBrandAlign = "start" | "center" | "end";
-type HeaderBrandWrap = "truncate" | "wrap" | "nowrap";
-type HeaderMenuDisplay = "auto" | "inline" | "drawer";
-type HeaderThemeToggle = "hidden" | "visible";
+declare const HEADER_LAYOUT_VALUES: readonly ["standard", "centered-brand", "extended", "extended-centered", "minimal"];
+declare const HEADER_BRAND_ALIGN_VALUES: readonly ["start", "center", "end"];
+declare const HEADER_BRAND_WRAP_VALUES: readonly ["truncate", "wrap", "nowrap"];
+declare const HEADER_MENU_DISPLAY_VALUES: readonly ["auto", "inline", "drawer"];
+declare const HEADER_THEME_TOGGLE_VALUES: readonly ["hidden", "visible"];
+export type HeaderLayout = (typeof HEADER_LAYOUT_VALUES)[number];
+export type HeaderBrandAlign = (typeof HEADER_BRAND_ALIGN_VALUES)[number];
+export type HeaderBrandWrap = (typeof HEADER_BRAND_WRAP_VALUES)[number];
+export type HeaderMenuDisplay = (typeof HEADER_MENU_DISPLAY_VALUES)[number];
+export type HeaderThemeToggle = (typeof HEADER_THEME_TOGGLE_VALUES)[number];
+export interface EspThemeToggleEventDetail {
+    scheme: "light" | "dark";
+}
 /**
  * Used to build the top navigation for a site. An empty header
  * displays a bar. It has three slots for populating header content:
@@ -104,10 +112,13 @@ type HeaderThemeToggle = "hidden" | "visible";
  *   <esp-header
  *     slot="header"
  *     layout="centered-brand"
- *     brand-logo="/assets/favicon.svg"
+ *     light-brand-logo="/assets/logo-light.svg"
+ *     dark-brand-logo="/assets/logo-dark.svg"
  *     brand-text="Espalier"
  *     brand-href="/"
  *     brand-alt="Espalier logo"
+ *     light-brand-color="oklch(0.35 0.12 216)"
+ *     dark-brand-color="oklch(0.9 0.08 216)"
  *     brand-align="center"
  *     menu-display="auto"
  *     theme-toggle="visible"
@@ -136,6 +147,19 @@ type HeaderThemeToggle = "hidden" | "visible";
  *   <esp-header-button slot="buttons" icon="user-circle" aria-label="Profile"></esp-header-button>
  * </esp-header>
  * ```
+ *
+ * The built-in theme toggle emits `esp-theme-toggle` only for a visitor
+ * activation, so a host can persist explicit choices without treating
+ * automatic scheme resolution as intent:
+ *
+ * ```js
+ * const root = document.querySelector("esp-root");
+ * root.addEventListener("esp-theme-toggle", (event) => {
+ *   localStorage.setItem("scheme", event.detail.scheme);
+ * });
+ * ```
+ *
+ * @event {CustomEvent<EspThemeToggleEventDetail>} esp-theme-toggle - Fired after the built-in theme toggle changes the nearest `esp-root`. Bubbles and crosses the shadow boundary.
  *
  * @cssprop --esp-header-background - The background color of the header bar. Defaults to `var(--esp-color-layer-2)`.
  * @cssprop --esp-header-border-width - The border width of the header. Defaults to `0 0 1px 0`.
@@ -240,6 +264,8 @@ export declare class EspalierHeader extends EspalierElementBase {
      *   picker.addEventListener("value-changed", applyLayout);
      * </script>
      * ```
+     *
+     * @default "standard"
      */
     layout: HeaderLayout;
     /**
@@ -250,6 +276,16 @@ export declare class EspalierHeader extends EspalierElementBase {
      * Configured brand logo URL used when the `brand` slot is empty.
      */
     brandLogo: string;
+    /**
+     * Configured brand logo URL used in light scheme. A non-empty value
+     * overrides `brand-logo`; an empty value falls back to it.
+     */
+    lightBrandLogo: string;
+    /**
+     * Configured brand logo URL used in dark scheme. A non-empty value
+     * overrides `brand-logo`; an empty value falls back to it.
+     */
+    darkBrandLogo: string;
     /**
      * Optional brand link used by configured logo/text branding.
      */
@@ -266,23 +302,39 @@ export declare class EspalierHeader extends EspalierElementBase {
      */
     brandColor: string;
     /**
+     * Configured brand color used in light scheme. A non-empty value
+     * overrides `brand-color`; an empty value falls back to it and then
+     * `--esp-header-brand-color`.
+     */
+    lightBrandColor: string;
+    /**
+     * Configured brand color used in dark scheme. A non-empty value
+     * overrides `brand-color`; an empty value falls back to it and then
+     * `--esp-header-brand-color`.
+     */
+    darkBrandColor: string;
+    /**
      * Horizontal placement of the brand content inside its grid area.
+     * @default "start"
      */
     brandAlign: HeaderBrandAlign;
     /**
      * Long-brand behavior for configured brand text.
+     * @default "truncate"
      */
     brandWrap: HeaderBrandWrap;
     /**
      * Navigation display intent. `auto` tries inline navigation before
      * using a drawer, `drawer` always uses the burger/drawer pattern,
      * and `inline` leaves overflow handling to the slotted menu.
+     * @default "auto"
      */
     menuDisplay: HeaderMenuDisplay;
     /**
      * Whether the header renders its built-in light/dark toggle.
      * Consumers can still provide their own control in the `buttons`
      * slot when this is `hidden`.
+     * @default "hidden"
      */
     themeToggle: HeaderThemeToggle;
     /**
@@ -323,6 +375,7 @@ export declare class EspalierHeader extends EspalierElementBase {
      * (e.g. when a drawer is closed via swipe).
      */
     get burger(): EspalierBurger | undefined;
+    protected willUpdate(changedProperties: PropertyValues): void;
     protected firstUpdated(props: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     connectedCallback(): void;

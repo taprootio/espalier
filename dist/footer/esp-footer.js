@@ -1,16 +1,20 @@
-var i=function(s,e,r,a){var o=arguments.length,n=o<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,r):a,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(s,e,r,a);else for(var l=s.length-1;l>=0;l--)(d=s[l])&&(n=(o<3?d(n):o>3?d(e,r,n):d(e,r))||n);return o>3&&n&&Object.defineProperty(e,r,n),n};import{css as b,html as f,nothing as v}from"lit";import{customElement as y,property as p,state as x}from"lit/decorators.js";import{classMap as _}from"lit/directives/class-map.js";import{renderConfiguredBrand as z}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as c}from"../shared/slot-content.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),u={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},k={fromAttribute(s){return s&&m.has(s)?s:"auto"},toAttribute(s){return m.has(s)?s:"auto"}};let t=class extends g{constructor(){super(...arguments),this.slotContent={...u},this.brandText="",this.brandLogo="",this.brandHref="",this.brandAlt="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const r=this.slotRegion(e.target);if(!r)return;const a=c(e.target);this.slotContent[r]!==a&&(this.slotContent={...this.slotContent,[r]:a})}}willUpdate(e){super.willUpdate(e),e.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const r={...u};for(const a of this.shadowRoot?.querySelectorAll("slot")??[]){const o=this.slotRegion(a);o&&(r[o]=c(a))}Object.entries(r).some(([a,o])=>this.slotContent[a]!==o)&&(this.slotContent=r)}render(){const{media:e,brand:r,groups:a,aside:o,bottom:n}=this.slotContent,d=r||!!(this.brandLogo||this.brandText),l=d||a||o,h={primary:!0,"has-brand":d,"has-groups":a,"has-aside":o};return f`
-      <footer part="footer" aria-label=${this.landmarkLabel||v}>
+var t=function(i,o,e,a){var s=arguments.length,d=s<3?o:a===null?a=Object.getOwnPropertyDescriptor(o,e):a,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,o,e,a);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(o,e,d):l(o,e))||d);return s>3&&d&&Object.defineProperty(o,e,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as C}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{styleMap as _}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},S={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let r=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=o=>{if(!(o.target instanceof HTMLSlotElement))return;const e=this.slotRegion(o.target);if(!e)return;const a=h(o.target);this.slotContent[e]!==a&&(this.slotContent={...this.slotContent,[e]:a})}}willUpdate(o){super.willUpdate(o),o.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(o){return o.name?["media","brand","aside","bottom"].includes(o.name)?o.name:null:"groups"}firstUpdated(o){super.firstUpdated(o);const e={...c};for(const a of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(a);s&&(e[s]=h(a))}Object.entries(e).some(([a,s])=>this.slotContent[a]!==s)&&(this.slotContent=e)}render(){const{media:o,brand:e,groups:a,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=e||!!(l.brandLogo||this.brandText),u=p||a||s,b={primary:!0,"has-brand":p,"has-groups":a,"has-aside":s};return v`
+      <footer
+        part="footer"
+        aria-label=${this.landmarkLabel||y}
+        style=${_({"--_esp-footer-brand-color":l.brandColor||null})}
+      >
         <div part="background" class="background" aria-hidden="true"></div>
         <div part="content" class="content-frame">
           <div class="content">
-            <div part="media" class="media" ?hidden=${!e}>
+            <div part="media" class="media" ?hidden=${!o}>
               <slot name="media" @slotchange=${this.handleSlotChange}></slot>
             </div>
 
-            <div part="primary" class=${_(h)} ?hidden=${!l}>
-              <div part="brand" class="brand" ?hidden=${!d}>
+            <div part="primary" class=${k(b)} ?hidden=${!u}>
+              <div part="brand" class="brand" ?hidden=${!p}>
                 <slot name="brand" @slotchange=${this.handleSlotChange}
-                  >${z({brandLogo:this.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
+                  >${z({brandLogo:l.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
                 >
               </div>
 
@@ -18,18 +22,18 @@ var i=function(s,e,r,a){var o=arguments.length,n=o<3?e:a===null?a=Object.getOwnP
                 <slot @slotchange=${this.handleSlotChange}></slot>
               </div>
 
-              <div part="aside" class="aside" ?hidden=${!o}>
+              <div part="aside" class="aside" ?hidden=${!s}>
                 <slot name="aside" @slotchange=${this.handleSlotChange}></slot>
               </div>
             </div>
 
-            <div part="bottom" class="bottom" ?hidden=${!n}>
+            <div part="bottom" class="bottom" ?hidden=${!d}>
               <slot name="bottom" @slotchange=${this.handleSlotChange}></slot>
             </div>
           </div>
         </div>
       </footer>
-    `}};t.styles=[...g.styles,b`
+    `}};r.styles=[...g.styles,f`
       :host {
         display: block;
         min-inline-size: 0;
@@ -216,7 +220,10 @@ var i=function(s,e,r,a){var o=arguments.length,n=o<3?e:a===null?a=Object.getOwnP
         align-items: center;
         gap: var(--esp-size-small);
         max-inline-size: 100%;
-        color: var(--esp-footer-heading-color, var(--esp-color-headings));
+        color: var(
+          --_esp-footer-brand-color,
+          var(--esp-footer-heading-color, var(--esp-color-headings))
+        );
         font-family: var(--esp-font-brand, var(--esp-font-headings));
         font-size: var(--esp-type-medium);
         font-weight: var(--esp-font-weight-brand, var(--esp-font-weight-headings));
@@ -297,4 +304,4 @@ var i=function(s,e,r,a){var o=arguments.length,n=o<3?e:a===null?a=Object.getOwnP
           grid-template-areas: "aside";
         }
       }
-    `],i([x()],t.prototype,"slotContent",void 0),i([p({attribute:"brand-text",type:String})],t.prototype,"brandText",void 0),i([p({attribute:"brand-logo",type:String})],t.prototype,"brandLogo",void 0),i([p({attribute:"brand-href",type:String})],t.prototype,"brandHref",void 0),i([p({attribute:"brand-alt",type:String})],t.prototype,"brandAlt",void 0),i([p({converter:k,reflect:!0})],t.prototype,"columns",void 0),i([p({attribute:"full-bleed-content",type:Boolean,reflect:!0})],t.prototype,"fullBleedContent",void 0),i([p({attribute:"landmark-label",type:String})],t.prototype,"landmarkLabel",void 0),t=i([y("esp-footer")],t);export{t as EspalierFooter};
+    `],t([C()],r.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],r.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],r.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],r.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],r.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],r.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],r.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],r.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],r.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],r.prototype,"darkBrandColor",void 0),t([n({converter:S,reflect:!0})],r.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],r.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],r.prototype,"landmarkLabel",void 0),r=t([x("esp-footer")],r);export{r as EspalierFooter};

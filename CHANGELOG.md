@@ -5,6 +5,15 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.5.0 — Published-site header and branding contracts
+
+- Export the `esp-header` option unions and normalize unsupported attribute or
+  property values to their documented reflected defaults.
+- Add light/dark configured logos and brand colors to `esp-header` and
+  `esp-footer`, with reactive scheme selection and generic fallbacks.
+- Emit `esp-theme-toggle` only when a visitor activates the header's built-in
+  theme control, allowing hosts to persist explicit choices safely.
+
 ## 2.4.0 — Customizable footer and page-shell refinements
 
 - Add `esp-footer` and `esp-footer-link-group` with responsive brand, media,

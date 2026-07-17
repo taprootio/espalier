@@ -14,10 +14,13 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  *
  * ```html
  * <esp-footer
- *   brand-logo="/assets/favicon.svg"
+ *   light-brand-logo="/assets/logo-light.svg"
+ *   dark-brand-logo="/assets/logo-dark.svg"
  *   brand-text="Espalier"
  *   brand-href="/"
  *   brand-alt="Espalier logo"
+ *   light-brand-color="oklch(0.35 0.12 216)"
+ *   dark-brand-color="oklch(0.9 0.08 216)"
  *   columns="3">
  *   <esp-footer-link-group heading="Explore">
  *     <a href="/components">Components</a>
@@ -158,10 +161,38 @@ export declare class EspalierFooter extends EspalierElementBase {
     brandText: string;
     /** Configured brand logo URL used when the `brand` slot is empty. */
     brandLogo: string;
+    /**
+     * Configured brand logo URL used in light scheme. A non-empty value
+     * overrides `brand-logo`; an empty value falls back to it.
+     */
+    lightBrandLogo: string;
+    /**
+     * Configured brand logo URL used in dark scheme. A non-empty value
+     * overrides `brand-logo`; an empty value falls back to it.
+     */
+    darkBrandLogo: string;
     /** Optional configured-brand link target. */
     brandHref: string;
     /** Accessible text for a configured logo. */
     brandAlt: string;
+    /**
+     * Optional configured brand color. Scheme-specific colors override it;
+     * when all configured colors are empty, `--esp-footer-heading-color`
+     * remains the fallback.
+     */
+    brandColor: string;
+    /**
+     * Configured brand color used in light scheme. A non-empty value
+     * overrides `brand-color`; an empty value falls back to it and then
+     * `--esp-footer-heading-color`.
+     */
+    lightBrandColor: string;
+    /**
+     * Configured brand color used in dark scheme. A non-empty value
+     * overrides `brand-color`; an empty value falls back to it and then
+     * `--esp-footer-heading-color`.
+     */
+    darkBrandColor: string;
     /**
      * Maximum number of link-group columns. Numeric values cap the wide layout;
      * the intrinsic grid still renders fewer columns when space is limited.

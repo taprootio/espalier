@@ -30,6 +30,7 @@ export { type FlyoutConfig, type FlyoutCloseReason } from "./flyout-events.js";
 export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
+export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
 import type { EspalierDetails } from "../details/esp-details.js";
 import type { FlyoutCloseReason } from "./flyout-events.js";
 import type { ValidityChangedDetail } from "./validation.js";
@@ -39,6 +40,7 @@ import type { PickerItem } from "../pickers/esp-picker-item.js";
 import type { EspalierUploadImage, UploadEventDetail } from "../image-upload/image-helpers.js";
 export type { UploadEventDetail } from "../image-upload/image-helpers.js";
 import type { FontPickerValueChangedDetail } from "../font-picker/esp-font-picker.js";
+import type { EspThemeToggleEventDetail } from "../header/esp-header.js";
 /**
  * Canonical event name strings for every CustomEvent in the library.
  *
@@ -65,6 +67,7 @@ export declare const ESP_EVENTS: {
     readonly ESP_ACCORDION_CHANGE: "esp-accordion-change";
     readonly DRAWER_OPENED: "drawer-opened";
     readonly DRAWER_CLOSED: "drawer-closed";
+    readonly ESP_THEME_TOGGLE: "esp-theme-toggle";
     readonly FLYOUT_OPENED: "flyout-opened";
     readonly FLYOUT_CLOSED: "flyout-closed";
     readonly FLYOUT_STATE_CHANGED: "flyout-state-changed";
@@ -283,6 +286,10 @@ export interface EspalierFlyoutEventMap {
 /** Events fired by `<esp-header-button>`. */
 export interface EspalierHeaderButtonEventMap {
     [ESP_EVENTS.CLICKED]: CustomEvent<Record<string, never>>;
+}
+/** Events fired by `<esp-header>`. */
+export interface EspalierHeaderEventMap {
+    [ESP_EVENTS.ESP_THEME_TOGGLE]: CustomEvent<EspThemeToggleEventDetail>;
 }
 /** Events fired by `<esp-grid>`. */
 export interface EspalierGridEventMap {
