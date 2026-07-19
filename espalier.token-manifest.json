@@ -672,7 +672,7 @@
       "name": "--esp-footer-row-gap",
       "category": "component",
       "component": "esp-footer",
-      "description": "Compact-layout row gap. Defaults to `var(--esp-size-big)`."
+      "description": "Vertical gap between footer grid rows and link groups stacked in `esp-footer-column`. Defaults to `var(--esp-size-big)`."
     },
     {
       "name": "--esp-footer-section-gap",

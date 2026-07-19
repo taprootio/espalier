@@ -1,5 +1,6 @@
 import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+import "./esp-footer-column.js";
 import "./esp-footer-link-group.js";
 export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
 /**
@@ -8,9 +9,9 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * Its background remains full-bleed while its content automatically aligns
  * to the surface of a containing [`<esp-page>`](/components/page/).
  *
- * Use [`<esp-footer-link-group>`](/components/footer/link-group/) children for
- * ordinary navigation columns. `columns` is a maximum: the grid always drops
- * columns when they no longer fit.
+ * Use bare [`<esp-footer-link-group>`](/components/footer/link-group/) children
+ * when navigation groups should auto-flow independently through the grid.
+ * `columns` is a maximum: the grid always drops columns when they no longer fit.
  *
  * ```html
  * <esp-footer
@@ -32,6 +33,33 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  *   </esp-footer-link-group>
  *   <p slot="aside">Themeable web components built on web standards.</p>
  *   <div slot="bottom">Copyright 2026 Example Organization</div>
+ * </esp-footer>
+ * ```
+ *
+ * For creator-controlled columns, wrap each ordered stack of groups in
+ * [`<esp-footer-column>`](/components/footer/column/). Each wrapper is one grid
+ * item at wide sizes; below the footer's compact container breakpoint, the
+ * columns become full-width rows in their slotted order. `columns` remains the
+ * maximum number of grid items per row:
+ *
+ * ```html
+ * <esp-footer columns="3">
+ *   <esp-footer-column>
+ *     <esp-footer-link-group heading="Product">
+ *       <a href="/features">Features</a>
+ *       <a href="/pricing">Pricing</a>
+ *     </esp-footer-link-group>
+ *     <esp-footer-link-group heading="Company">
+ *       <a href="/about">About</a>
+ *       <a href="/careers">Careers</a>
+ *     </esp-footer-link-group>
+ *   </esp-footer-column>
+ *   <esp-footer-column>
+ *     <esp-footer-link-group heading="Resources">
+ *       <a href="/docs">Documentation</a>
+ *       <a href="/support">Support</a>
+ *     </esp-footer-link-group>
+ *   </esp-footer-column>
  * </esp-footer>
  * ```
  *
@@ -112,7 +140,8 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * preferably responsive `<picture>` markup or an `esp-image` with appropriate
  * alternative text.
  * @slot brand - Custom brand identity. Overrides configured brand properties.
- * @slot - `esp-footer-link-group` navigation columns.
+ * @slot - Bare `esp-footer-link-group` children for automatic flow, or
+ * `esp-footer-column` children for creator-controlled group stacks.
  * @slot aside - Supporting content such as a newsletter, call to action,
  * contact details, social links, or locale controls.
  * @slot bottom - Copyright, legal/utility links, attribution, accessibility
@@ -137,7 +166,8 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * @cssprop --esp-footer-padding-inline - Content inline padding. Defaults to `var(--esp-size-padding-page)`.
  * @cssprop --esp-footer-section-gap - Gap between media, primary, and bottom regions. Defaults to `var(--esp-size-big)`.
  * @cssprop --esp-footer-column-gap - Gap between link-group columns and major primary regions. Defaults to `var(--esp-size-padding-page)`.
- * @cssprop --esp-footer-row-gap - Compact-layout row gap. Defaults to `var(--esp-size-big)`.
+ * @cssprop --esp-footer-row-gap - Vertical gap between footer grid rows and
+ * link groups stacked in `esp-footer-column`. Defaults to `var(--esp-size-big)`.
  * @cssprop --esp-footer-link-group-min-width - Intrinsic minimum link-group column width. Defaults to `10rem`.
  * @cssprop --esp-footer-link-group-gap - Space between a link-group heading and its links. Defaults to `var(--esp-size-small)`.
  * @cssprop --esp-footer-brand-logo-size - Configured logo block size. Defaults to `3rem`.

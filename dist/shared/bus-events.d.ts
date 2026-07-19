@@ -9,10 +9,14 @@
  * ```ts
  * import { getEspBus } from "@taprootio/espalier";
  *
- * // Use built-in Espalier events out of the box:
+ * // Use the global bus for application-global Espalier events:
  * const bus = getEspBus();
- * bus.subscribe("scheme-changed", (payload) => { … });
  * bus.publish("show-toast", { message: "Done!" });
+ *
+ * // Theme events are root-scoped. Subscribe through the owning root so
+ * // nested preview roots cannot trigger an application-level handler:
+ * const root = document.querySelector("esp-root")!;
+ * const unsubscribe = root.subscribeScoped("scheme-changed", ({ scheme }) => { … });
  *
  * // Or extend with your own application events:
  * type MyAppEvents = EspBusEventMap & {
@@ -41,9 +45,12 @@ export interface SeedColorRoot {
 /**
  * Theme coordination events.
  *
- * Published by `<esp-root>` and subscribed to by every
- * `EspalierElementBase` descendant so that scheme, seed,
- * and full-theme changes propagate to variant-aware children.
+ * Published by `<esp-root>` after initial mount and subscribed to by every
+ * `EspalierElementBase` descendant so that scheme, seed, and full-theme changes
+ * propagate to variant-aware children. All roots share one global bus, so
+ * consumers should use `EspalierRoot.subscribeScoped()` instead of subscribing
+ * to these events directly. Read initial values from the root; these events are
+ * change-only and are not replayed for late subscribers.
  *
  * @docUrl /api/scheme-events
  * @menuGroup Bus Events

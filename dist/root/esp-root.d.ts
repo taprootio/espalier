@@ -1,7 +1,8 @@
 import { LitElement, type PropertyValues } from "lit";
-import { type SeedColorRoot } from "../shared/bus-events.js";
+import { type SchemeEvents, type SeedColorRoot } from "../shared/bus-events.js";
 import { type EspalierTheme } from "../shared/theme.js";
 export type GoogleFontLoadingPolicy = "auto" | "none";
+export type { SchemeEvents } from "../shared/bus-events.js";
 /**
  * Root container for the Espalier design system.
  *
@@ -26,6 +27,31 @@ export type GoogleFontLoadingPolicy = "auto" | "none";
  * </esp-root>
  * ```
  *
+ * ### Nested theme previews and scoped events
+ *
+ * A nested root creates a scoped theme for its descendants. It does not create
+ * a separate event bus: every root publishes theme changes through the same
+ * Espalier singleton. Subscribe through the root whose changes you own so a
+ * nested preview cannot be mistaken for an application-level theme change.
+ *
+ * ```ts
+ * const applicationRoot = document.querySelector<EspalierRoot>("#application-theme")!;
+ *
+ * const unsubscribe = applicationRoot.subscribeScoped("scheme-changed", ({ scheme }) => {
+ *   localStorage.setItem("scheme", scheme);
+ * });
+ *
+ * // Initial state is read directly; scoped events report later changes only.
+ * renderScheme(applicationRoot.scheme);
+ *
+ * // Call when the owning integration is disposed.
+ * unsubscribe();
+ * ```
+ *
+ * This contract covers `scheme-changed`, `seed-color-changed`,
+ * `theme-changed`, and `icon-sprite-url-changed`. Components derived from
+ * `EspalierElementBase` use the same closest-root filter internally.
+ *
  * @customElement esp-root
  * @slot - Place Espalier components and content here.
  *
@@ -40,6 +66,17 @@ export type GoogleFontLoadingPolicy = "auto" | "none";
 export declare class EspalierRoot extends LitElement implements SeedColorRoot {
     /** Unique ID for correlating bus events across multiple roots. */
     correlationId: `${string}-${string}-${string}-${string}-${string}`;
+    /**
+     * Subscribe to a theme event published by this root only.
+     *
+     * All roots share Espalier's global bus. This method filters foreign and
+     * nested-root payloads by `correlationId` and returns a cleanup function.
+     * It reports changes after mount; read initial state from this root.
+     *
+     * @param event Root-scoped theme event to observe.
+     * @param handler Callback invoked with that event's typed payload.
+     */
+    subscribeScoped<K extends keyof SchemeEvents>(event: K, handler: (payload: SchemeEvents[K]) => void): () => void;
     /**
      * Base64-encoded JSON partial theme for the **light** scheme.
      *
@@ -178,6 +215,7 @@ export declare class EspalierRoot extends LitElement implements SeedColorRoot {
     get seedColor(): string;
     /** Returns the resolved theme for the active scheme. */
     get activeTheme(): EspalierTheme;
+    connectedCallback(): void;
     protected willUpdate(changed: PropertyValues): void;
     protected firstUpdated(): void;
     protected updated(changedProperties: PropertyValues): void;

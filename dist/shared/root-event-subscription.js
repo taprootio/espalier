@@ -1,0 +1,1 @@
+import{getEspBus as n}from"./bus-events.js";function u(c,o,e){const r=t=>{t.correlationId===c.correlationId&&e(t)},s=n();return s.subscribe(o,r),()=>s.unsubscribe(o,r)}export{u as subscribeToRootEvent};

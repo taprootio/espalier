@@ -5,6 +5,19 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.6.0 — Scoped root events and explicit footer columns
+
+- Add typed `esp-root.subscribeScoped()` subscriptions for scheme, seed color,
+  theme, and icon-sprite changes so nested preview roots cannot trigger handlers
+  owned by an outer application root.
+- Make root theme events change-only: mounting a root establishes initial state
+  without broadcasting global theme events.
+- Clean up the shared document-click bridge and correlation-owned runtime Google
+  Font links across root disconnect/reconnect cycles.
+- Add `esp-footer-column` for creator-controlled stacks of footer link groups,
+  including ordered compact-container stacking without changing bare-group
+  auto-flow.
+
 ## 2.5.0 — Published-site header and branding contracts
 
 - Export the `esp-header` option unions and normalize unsupported attribute or
