@@ -1,6 +1,8 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type SchemeEvents, type SeedColorRoot } from "../shared/bus-events.js";
 import { type EspalierTheme } from "../shared/theme.js";
+import { type ImageTextureDefinition } from "../shared/image-texture-registry.js";
+export { registerImageTexture, registeredImageTextures, BUILT_IN_IMAGE_TEXTURES, type ImageTextureDefinition, } from "../shared/image-texture-registry.js";
 export type GoogleFontLoadingPolicy = "auto" | "none";
 export type { SchemeEvents } from "../shared/bus-events.js";
 /**
@@ -52,6 +54,13 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  * `theme-changed`, and `icon-sprite-url-changed`. Components derived from
  * `EspalierElementBase` use the same closest-root filter internally.
  *
+ * The root also owns the application's banner-texture vocabulary:
+ * `EspalierRoot.registerTexture(name, definition)` registers an
+ * image-backed texture preset that any
+ * [esp-image](/components/image) banner in the application selects with
+ * `texture="<name>"`, and `EspalierRoot.registeredTextures()` enumerates
+ * the presets for building texture pickers.
+ *
  * @customElement esp-root
  * @slot - Place Espalier components and content here.
  *
@@ -64,6 +73,17 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  *
  */
 export declare class EspalierRoot extends LitElement implements SeedColorRoot {
+    /**
+     * Register (or replace) a named, image-backed banner-texture preset.
+     * Any `esp-image` banner under a root selects it with `texture="<name>"`;
+     * banners already pointing at the name re-render, so registration at
+     * mount and markup order never race. Static delegate to
+     * `registerImageTexture` so script-only contexts (docs demos, published
+     * sites) can reach it from the root element without module imports.
+     */
+    static registerTexture(name: string, definition: ImageTextureDefinition): void;
+    /** Snapshot of the registered texture presets, for building pickers. */
+    static registeredTextures(): Map<string, Readonly<ImageTextureDefinition>>;
     /** Unique ID for correlating bus events across multiple roots. */
     correlationId: `${string}-${string}-${string}-${string}-${string}`;
     /**

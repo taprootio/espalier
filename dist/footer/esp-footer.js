@@ -1,24 +1,24 @@
-var t=function(i,o,e,a){var s=arguments.length,d=s<3?o:a===null?a=Object.getOwnPropertyDescriptor(o,e):a,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,o,e,a);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(o,e,d):l(o,e))||d);return s>3&&d&&Object.defineProperty(o,e,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as C}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{styleMap as _}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as c}from"../shared/slot-content.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),h={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},S={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let r=class extends g{constructor(){super(...arguments),this.slotContent={...h},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=o=>{if(!(o.target instanceof HTMLSlotElement))return;const e=this.slotRegion(o.target);if(!e)return;const a=c(o.target);this.slotContent[e]!==a&&(this.slotContent={...this.slotContent,[e]:a})}}willUpdate(o){super.willUpdate(o),o.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(o){return o.name?["media","brand","aside","bottom"].includes(o.name)?o.name:null:"groups"}firstUpdated(o){super.firstUpdated(o);const e={...h};for(const a of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(a);s&&(e[s]=c(a))}Object.entries(e).some(([a,s])=>this.slotContent[a]!==s)&&(this.slotContent=e)}render(){const{media:o,brand:e,groups:a,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=e||!!(l.brandLogo||this.brandText),u=p||a||s,b={primary:!0,"has-brand":p,"has-groups":a,"has-aside":s};return v`
+var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnPropertyDescriptor(o,a):e,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,o,a,e);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(o,a,d):l(o,a))||d);return s>3&&d&&Object.defineProperty(o,a,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as _}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as k}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as S,visualOverlayStyles as L}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},w={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let r=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=o=>{if(!(o.target instanceof HTMLSlotElement))return;const a=this.slotRegion(o.target);if(!a)return;const e=h(o.target);this.slotContent[a]!==e&&(this.slotContent={...this.slotContent,[a]:e})}}willUpdate(o){super.willUpdate(o),o.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(o){return o.name?["media","brand","aside","bottom"].includes(o.name)?o.name:null:"groups"}firstUpdated(o){super.firstUpdated(o);const a={...c};for(const e of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(e);s&&(a[s]=h(e))}Object.entries(a).some(([e,s])=>this.slotContent[e]!==s)&&(this.slotContent=a)}render(){const{media:o,brand:a,groups:e,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||e||s,b={primary:!0,"has-brand":p,"has-groups":e,"has-aside":s};return v`
       <footer
         part="footer"
         aria-label=${this.landmarkLabel||y}
-        style=${_({"--_esp-footer-brand-color":l.brandColor||null})}
+        style=${k({"--_esp-footer-brand-color":l.brandColor||null})}
       >
-        <div part="background" class="background" aria-hidden="true"></div>
+        ${S({className:"background",rootPart:"background"})}
         <div part="content" class="content-frame">
           <div class="content">
             <div part="media" class="media" ?hidden=${!o}>
               <slot name="media" @slotchange=${this.handleSlotChange}></slot>
             </div>
 
-            <div part="primary" class=${k(b)} ?hidden=${!u}>
+            <div part="primary" class=${C(b)} ?hidden=${!u}>
               <div part="brand" class="brand" ?hidden=${!p}>
                 <slot name="brand" @slotchange=${this.handleSlotChange}
                   >${z({brandLogo:l.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
                 >
               </div>
 
-              <div part="groups" class="groups" ?hidden=${!a}>
+              <div part="groups" class="groups" ?hidden=${!e}>
                 <slot @slotchange=${this.handleSlotChange}></slot>
               </div>
 
@@ -44,26 +44,21 @@ var t=function(i,o,e,a){var s=arguments.length,d=s<3?o:a===null?a=Object.getOwnP
       }
 
       footer {
+        --_esp-overlay-base-color: var(--esp-footer-background, var(--esp-color-layer-2));
+        --_esp-overlay-image: var(--esp-footer-background-image, none);
+        --_esp-overlay-image-opacity: var(--esp-footer-background-image-opacity, 1);
+        --_esp-overlay-image-repeat: var(--esp-footer-background-repeat, repeat);
+        --_esp-overlay-image-position: var(--esp-footer-background-position, 0 0);
+        --_esp-overlay-image-size: var(--esp-footer-background-size, auto);
+        --_esp-overlay-image-blend-mode: var(--esp-footer-background-blend-mode, normal);
+        --_esp-overlay-z-index: -1;
+
         position: relative;
         isolation: isolate;
         min-inline-size: 0;
         overflow: hidden;
         color: var(--esp-footer-color, var(--esp-color-text));
-        background: var(--esp-footer-background, var(--esp-color-layer-2));
         border-block-start: var(--esp-footer-border, 1px solid var(--esp-color-border));
-      }
-
-      .background {
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        pointer-events: none;
-        background-image: var(--esp-footer-background-image, none);
-        background-repeat: var(--esp-footer-background-repeat, repeat);
-        background-position: var(--esp-footer-background-position, 0 0);
-        background-size: var(--esp-footer-background-size, auto);
-        opacity: var(--esp-footer-background-image-opacity, 1);
-        mix-blend-mode: var(--esp-footer-background-blend-mode, normal);
       }
 
       .content-frame {
@@ -308,4 +303,4 @@ var t=function(i,o,e,a){var s=arguments.length,d=s<3?o:a===null?a=Object.getOwnP
           grid-template-areas: "aside";
         }
       }
-    `],t([C()],r.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],r.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],r.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],r.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],r.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],r.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],r.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],r.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],r.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],r.prototype,"darkBrandColor",void 0),t([n({converter:S,reflect:!0})],r.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],r.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],r.prototype,"landmarkLabel",void 0),r=t([x("esp-footer")],r);export{r as EspalierFooter};
+    `,L],t([_()],r.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],r.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],r.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],r.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],r.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],r.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],r.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],r.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],r.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],r.prototype,"darkBrandColor",void 0),t([n({converter:w,reflect:!0})],r.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],r.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],r.prototype,"landmarkLabel",void 0),r=t([x("esp-footer")],r);export{r as EspalierFooter};

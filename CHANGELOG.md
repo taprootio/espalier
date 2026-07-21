@@ -5,6 +5,18 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.7.0 — Focal image banners and texture assets
+
+- Add focal-point-aware banner rendering to `esp-image`, with responsive
+  ratios, content-positioned scrims, static procedural textures, semantic
+  overlay content, and resilience fallbacks.
+- Add `esp-focus-picker` for pointer and keyboard focal authoring with live wide
+  and compact banner previews.
+- Ship three deterministic first-party banner texture tiles, their convenience
+  stylesheet, public package subpaths, and provenance/reproducibility checks.
+- Consolidate the footer decorative image and banner layers on one neutral
+  internal primitive without changing the footer's public styling contract.
+
 ## 2.6.0 — Scoped root events and explicit footer columns
 
 - Add typed `esp-root.subscribeScoped()` subscriptions for scheme, seed color,

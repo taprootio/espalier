@@ -14,6 +14,9 @@ removing, or replacing non-code assets.
 | `dist/shared/virtualizer/**` | Vendored Lit Virtualizer runtime source compiled into Espalier's package. | `licenses/THIRD_PARTY_NOTICES.md` |
 | Brand favicons/logos | Taproot-owned Espalier brand assets. | None |
 | Demo textures | Taproot-owned generated PNG textures created for this repository. | None |
+| `css/textures/*.png` | Deterministic 256×256 first-party tiles from `node scripts/generate-banner-textures.js`; byte-for-byte verification uses `--check`. | None |
+| Banner preset reference sheets | Taproot-authored browser captures of the locked visual recipes over the provenance-cleared bright and dark canvas images. | None |
+| `assets/focus-picker-unsplash.jpg` | Docs-only landscape photograph by Sasha Freemind, downloaded from Unsplash and used to make focal-point movement easy to see. | Attribution is included in the focus-picker demos. |
 | `assets/canvas-bg.jpg` | Docs-only light canvas texture — Envato Elements item "Seamless Pattern Design With Colorful Flowers" by yusufdemirci; certificate `licenses/license_certificate_A2BVZ6Y9DN.pdf`; attribution not required; kept out of the published `@taprootio/espalier` package. | None |
 | `assets/canvas-bg-dark.jpg` | Docs-only dark canvas texture — Envato Elements item "Nocturnal Garden Pattern" by Webvilla; certificate `licenses/license_certificate_HF5ZVPRNC2.pdf`; attribution not required; kept out of the published package. | None |
 | Demo JSON data | Taproot-authored fictitious samples or standards-derived factual color data. | None |

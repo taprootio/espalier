@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-11",
+  "updatedAt": "2026-07-21",
   "entries": [
     {
       "id": "google-font-preview-assets",
@@ -151,6 +151,73 @@
       ],
       "packageInclusion": "not included in npm package",
       "docsInclusion": "copied to public docs assets by Eleventy and referenced by component examples",
+      "noticeRequirement": "none",
+      "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "generated-banner-textures",
+      "paths": [
+        "css/textures/espalier-paper.png",
+        "css/textures/espalier-grain.png",
+        "css/textures/espalier-grunge.png"
+      ],
+      "assetType": "deterministic seamless banner texture tiles (PNG, 256x256)",
+      "classification": "generated Taproot-owned",
+      "owner": "Taproot",
+      "source": "First-party procedural generator committed at scripts/generate-banner-textures.js",
+      "license": "Taproot-owned generated assets distributed with Espalier",
+      "transformations": [
+        "Generate periodic paper fibers, deterministic film grain, and toroidal distressed marks",
+        "Encode RGBA pixels as reproducible PNG bytes with Node built-ins",
+        "Regenerate with: node scripts/generate-banner-textures.js",
+        "Verify byte-for-byte with: node scripts/generate-banner-textures.js --check"
+      ],
+      "dimensions": "256x256 each",
+      "packageInclusion": "included in private and public npm packages under css/textures/",
+      "docsInclusion": "available to esp-image examples through css/textures/banner-textures.css",
+      "noticeRequirement": "none",
+      "noticePaths": [],
+      "reviewStatus": "manifest-gated"
+    },
+    {
+      "id": "banner-preset-reference-sheets",
+      "paths": [
+        "assets/esp-image-banners/reference-bright.jpg",
+        "assets/esp-image-banners/reference-dark.jpg"
+      ],
+      "assetType": "browser-captured banner preset reference sheets (JPEG, 1120x1768)",
+      "classification": "Taproot-authored derived documentation assets",
+      "owner": "Taproot",
+      "source": "Captured from __tests__/image/esp-image-banner-reference.browser.html in the Codex in-app browser on 2026-07-20, using the provenance-cleared canvas-bg.jpg and canvas-bg-dark.jpg source images",
+      "license": "Taproot-owned reference composition; underlying source-image ownership and license remain recorded in their own manifest entries",
+      "transformations": [
+        "Rendered the locked procedural scrim and texture recipes over the bright and dark source images",
+        "Captured one 1120x1768 browser viewport per scheme"
+      ],
+      "packageInclusion": "not included in npm package",
+      "docsInclusion": "copied to public docs assets and embedded by docs/guides/esp-image-banners.md",
+      "noticeRequirement": "none",
+      "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "unsplash-focus-picker-demo",
+      "paths": [
+        "assets/focus-picker-unsplash.jpg"
+      ],
+      "assetType": "docs-only landscape photograph (JPEG, 1800x1200)",
+      "classification": "third-party licensed",
+      "owner": "Sasha Freemind",
+      "source": "https://unsplash.com/photos/woman-standing-on-grass-field-frq5Q6Ne9k4",
+      "license": "Unsplash License (https://unsplash.com/license)",
+      "transformations": [
+        "Downloaded through the Unsplash image CDN at 1800px width with JPEG quality 85",
+        "No local crop or retouching"
+      ],
+      "dimensions": "1800x1200",
+      "packageInclusion": "not included in npm package",
+      "docsInclusion": "copied to public docs assets and used by esp-focus-picker examples",
       "noticeRequirement": "none",
       "noticePaths": [],
       "reviewStatus": "documented"

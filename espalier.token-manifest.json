@@ -497,6 +497,48 @@
       "description": "Stack order of the overlay-drawer mode. Defaults to `3000` — above page chrome, below the dialog drop zone (4000). Set it on the `esp-page` (or an ancestor), not on the flyout itself: the page reads the same token to hoist the drawer's aside above its header."
     },
     {
+      "name": "--esp-focus-picker-focus-outline",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Marker focus-visible outline."
+    },
+    {
+      "name": "--esp-focus-picker-gap",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Gap between the stage and previews."
+    },
+    {
+      "name": "--esp-focus-picker-marker-border",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Focal marker border."
+    },
+    {
+      "name": "--esp-focus-picker-marker-color",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Focal marker fill."
+    },
+    {
+      "name": "--esp-focus-picker-marker-shadow",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Focal marker shadow."
+    },
+    {
+      "name": "--esp-focus-picker-marker-size",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Focal marker diameter."
+    },
+    {
+      "name": "--esp-focus-picker-stage-background",
+      "category": "component",
+      "component": "esp-focus-picker",
+      "description": "Empty/loading stage color."
+    },
+    {
       "name": "--esp-font-body",
       "category": "root-theme",
       "description": ""
@@ -1122,7 +1164,55 @@
       "name": "--esp-image-border",
       "category": "component",
       "component": "esp-image",
-      "description": "Set the border property of the image."
+      "description": "Border; defaults to `2px solid var(--esp-color-border)` or none in banner mode."
+    },
+    {
+      "name": "--esp-image-border-radius",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Corner radius; defaults to `var(--esp-size-border-radius)` or zero in banner mode."
+    },
+    {
+      "name": "--esp-image-compact-width",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Component-width threshold; defaults to `40rem`."
+    },
+    {
+      "name": "--esp-image-duotone-highlight-color",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Duotone highlight stop; defaults to a light stop derived from the theme complementary."
+    },
+    {
+      "name": "--esp-image-duotone-shadow-color",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Duotone shadow stop; defaults to a dark stop derived from the theme primary."
+    },
+    {
+      "name": "--esp-image-object-position",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Final object-position override."
+    },
+    {
+      "name": "--esp-image-overlay-color",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Overlay text color; defaults to the theme heading color when the banner polarity matches the scheme."
+    },
+    {
+      "name": "--esp-image-overlay-padding",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Overlay content padding."
+    },
+    {
+      "name": "--esp-image-overlay-text-shadow",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Overlay text shadow; defaults to a soft polarity-matched halo. Set to `none` to disable."
     },
     {
       "name": "--esp-image-preview-border-color",
@@ -1141,6 +1231,72 @@
       "category": "component",
       "component": "esp-image-preview",
       "description": "The text color of the remove button."
+    },
+    {
+      "name": "--esp-image-scrim-color",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Scrim ink; defaults to the theme background when the banner polarity matches the scheme, else a polarity-pinned derivation."
+    },
+    {
+      "name": "--esp-image-scrim-opacity",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Scrim-strength opacity override."
+    },
+    {
+      "name": "--esp-image-texture-blend-mode",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Texture blend-mode override."
+    },
+    {
+      "name": "--esp-image-texture-color",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Procedural texture ink; defaults to a theme-derived color following `banner-scheme`."
+    },
+    {
+      "name": "--esp-image-texture-image",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Consumer-supplied texture background image."
+    },
+    {
+      "name": "--esp-image-texture-image-opacity",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Consumer texture opacity."
+    },
+    {
+      "name": "--esp-image-texture-opacity",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Procedural texture opacity override."
+    },
+    {
+      "name": "--esp-image-texture-position",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Consumer texture position."
+    },
+    {
+      "name": "--esp-image-texture-repeat",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Consumer texture repeat."
+    },
+    {
+      "name": "--esp-image-texture-scale",
+      "category": "component",
+      "component": "esp-image",
+      "description": "CSS-gradient texture pitch override."
+    },
+    {
+      "name": "--esp-image-texture-size",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Consumer texture size."
     },
     {
       "name": "--esp-image-upload-preview-background",
