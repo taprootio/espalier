@@ -5,6 +5,14 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.7.2 — Popover outside-click dismissal
+
+- Close target-triggered and programmatically opened `esp-popover` surfaces
+  when the user clicks outside them.
+- Preserve interactions within top-layer content, nested popovers, and picker
+  menus while balancing dismissal, resize, and scroll listeners across the
+  complete popover lifecycle.
+
 ## 2.7.1 — Picker and popover composition
 
 - Keep every containing `esp-popover` open when an `esp-pick-one` or
