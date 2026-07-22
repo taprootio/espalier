@@ -5,6 +5,13 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.7.1 — Picker and popover composition
+
+- Keep every containing `esp-popover` open when an `esp-pick-one` or
+  `esp-pick-some` menu opens or accepts a selection.
+- Preserve normal close coordination for other pickers, unrelated popovers,
+  and clicks outside the composed popover hierarchy.
+
 ## 2.7.0 — Focal image banners and texture assets
 
 - Add focal-point-aware banner rendering to `esp-image`, with responsive

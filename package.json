@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "packageManager": "bun@1.3.12",
   "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
