@@ -5,6 +5,16 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.8.0 — Popover collision strategies
+
+- Add declarative `flip`, `shift`, and `none` collision strategies to
+  `esp-popover`, preserving the existing side-flipping behavior by default.
+- Allow placement-sensitive panels to remain on their requested side while
+  shifting into the viewport across scroll, resize, and target or content
+  geometry changes.
+- Keep alignment and string/pixel offsets composable with collision handling,
+  including valid negative `offset-x` and `offset-y` expressions.
+
 ## 2.7.2 — Popover outside-click dismissal
 
 - Close target-triggered and programmatically opened `esp-popover` surfaces

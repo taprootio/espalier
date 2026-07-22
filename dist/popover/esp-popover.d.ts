@@ -54,10 +54,12 @@ export declare class EspalierPopover extends LitElement {
      */
     readonly popoverId: string;
     /**
-     * Attach determines which side of the target the
-     * popover will appear on. The popover will try to fit itself
-     * on the specified side, but if there is not enough space,
-     * it may appear on the other side. It can be one of the following:
+     * Attach determines which side of the target the popover will appear on.
+     * With the default `collision="flip"`, the popover tries the specified side
+     * first but may use the opposite side when it has more room. Use
+     * `collision="shift"` to preserve this requested side while shifting the
+     * panel into the viewport, or `collision="none"` to disable adjustment.
+     * It can be one of the following:
      *
      * #### Place above
      *
@@ -104,6 +106,29 @@ export declare class EspalierPopover extends LitElement {
      * ```
      */
     attach: "left" | "right" | "above" | "below";
+    /**
+     * Determines how the popover responds when its natural placement would
+     * leave the viewport:
+     *
+     * - `"flip"` moves the popover to the opposite side when that side has
+     *   more room, then constrains it horizontally. This is the default and
+     *   preserves the existing behavior.
+     * - `"shift"` keeps the requested `attach` side and shifts the popover
+     *   within the viewport. Oversized panels are pinned to the viewport's
+     *   top or left edge and may overlap content beyond the trigger.
+     * - `"none"` keeps the requested side without viewport adjustment.
+     *
+     * Use `shift` when the attachment side conveys meaning and a partial
+     * overlap is preferable to flipping the panel:
+     *
+     * ```html
+     * <esp-popover attach="above" collision="shift">
+     *   <esp-button label="Banner settings" slot="target"></esp-button>
+     *   <esp-box slot="popover">Settings stay attached above.</esp-box>
+     * </esp-popover>
+     * ```
+     */
+    collision: "flip" | "shift" | "none";
     /**
      * Align determines how the popover is aligned relative
      * to the target. For example, if attach is "below" and align
