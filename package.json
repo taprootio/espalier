@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "packageManager": "bun@1.3.12",
   "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
@@ -129,6 +129,14 @@
     "./header": {
       "types": "./dist/header/index.d.ts",
       "import": "./dist/header/index.js"
+    },
+    "./help/button": {
+      "types": "./dist/help/esp-help-button.d.ts",
+      "import": "./dist/help/esp-help-button.js"
+    },
+    "./help/provider": {
+      "types": "./dist/help/esp-help-provider.d.ts",
+      "import": "./dist/help/esp-help-provider.js"
     },
     "./image": {
       "types": "./dist/image/esp-image.d.ts",

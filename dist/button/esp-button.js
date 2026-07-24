@@ -1,4 +1,4 @@
-var i=function(p,t,r,e){var s=arguments.length,n=s<3?t:e===null?e=Object.getOwnPropertyDescriptor(t,r):e,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(p,t,r,e);else for(var h=p.length-1;h>=0;h--)(l=p[h])&&(n=(s<3?l(n):s>3?l(t,r,n):l(t,r))||n);return s>3&&n&&Object.defineProperty(t,r,n),n};import{css as f,html as d,nothing as c}from"lit";import{customElement as m,eventOptions as v,property as a,state as y}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ref as k}from"lit/directives/ref.js";import{getIconHrefForHost as x}from"../shared/intent-values.js";import{SlottedIconController as T}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as w}from"../shared/svgs/render-sprite-icon.js";import{BUTTON_ICON_INTERACTION_LIGHTNESS_FACTOR as S,BUTTON_ICON_SPLIT_LIGHTNESS_FACTOR as g,BUTTON_INTERACTION_LIGHTNESS_FACTOR as $}from"./action-state-lightness.js";const N=d`<svg
+var n=function(h,t,i,e){var s=arguments.length,r=s<3?t:e===null?e=Object.getOwnPropertyDescriptor(t,i):e,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(h,t,i,e);else for(var d=h.length-1;d>=0;d--)(c=h[d])&&(r=(s<3?c(r):s>3?c(t,i,r):c(t,i))||r);return s>3&&r&&Object.defineProperty(t,i,r),r};import{css as f,html as p,nothing as l}from"lit";import{customElement as m,eventOptions as v,property as a,state as y}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ref as k}from"lit/directives/ref.js";import{getIconHrefForHost as x}from"../shared/intent-values.js";import{SlottedIconController as T}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as w}from"../shared/svgs/render-sprite-icon.js";import{BUTTON_ICON_INTERACTION_LIGHTNESS_FACTOR as S,BUTTON_ICON_SPLIT_LIGHTNESS_FACTOR as g,BUTTON_INTERACTION_LIGHTNESS_FACTOR as $}from"./action-state-lightness.js";const N=p`<svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   fill="none"
@@ -10,33 +10,34 @@ var i=function(p,t,r,e){var s=arguments.length,n=s<3?t:e===null?e=Object.getOwnP
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>`;let o=class extends b{constructor(){super(...arguments),this.iconSlot=new T(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.iconOnly=!1,this.incognito=!1,this.icon="",this.label="",this.loading=!1,this.target="",this.rel="",this.formNoValidate=!1,this.buildIcon=t=>this.loading?d` <span>${N}</span> `:d`
+</svg>`;let o=class extends b{constructor(){super(...arguments),this.iconSlot=new T(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.iconOnly=!1,this.incognito=!1,this.icon="",this.label="",this.loading=!1,this.target="",this.rel="",this.formNoValidate=!1,this.buildIcon=t=>this.loading?p` <span>${N}</span> `:p`
       <span>
         <slot ${k(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
-        ${!this.iconSlot.hasSlottedIcon(":scope > *")&&t?w(t):c}
+        ${!this.iconSlot.hasSlottedIcon(":scope > *")&&t?w(t):l}
       </span>
-    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex"]}attributeChangedCallback(t,r,e){if(super.attributeChangedCallback(t,r,e),t!=="tabindex"||this.neutralizingTabindex)return;const s=e===null?null:Number(e),n=s===null||Number.isNaN(s)?null:s;n!==null&&n>=0?(this.innerTabindex=n,this.writeHostTabindex(null)):n===null&&e!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=n}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent("clicked",{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const e=document.createElement("button");e.type="submit",e.hidden=!0,this.formNoValidate&&(e.formNoValidate=!0),r.appendChild(e),r.requestSubmit(e),e.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=x(this.icon,this),r=this.loading||this.iconSlot.hasSlottedIcon(":scope > *")||t.length>0,{collapsed:e,iconOnly:s}=this,n=s?this.getAttribute("aria-label")||this.label||c:c,l={"esp-field":!0,"icon-only":s,incognito:this.incognito,"is-collapsed":e,"has-icon":r};return this.href.length?d`
-          <div part="wrapper" class=${u(l)}>
+    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,i,e){if(super.attributeChangedCallback(t,i,e),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const s=e===null?null:Number(e),r=s===null||Number.isNaN(s)?null:s;r!==null&&r>=0?(this.innerTabindex=r,this.writeHostTabindex(null)):r===null&&e!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=r}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent("clicked",{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const i=this.closest("form");if(i){const e=document.createElement("button");e.type="submit",e.hidden=!0,this.formNoValidate&&(e.formNoValidate=!0),i.appendChild(e),i.requestSubmit(e),e.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=x(this.icon,this),i=this.loading||this.iconSlot.hasSlottedIcon(":scope > *")||t.length>0,{collapsed:e,iconOnly:s}=this,r=s?this.getAttribute("aria-label")||this.label||l:l,c=this.getAttribute("aria-pressed")||l,d={"esp-field":!0,"icon-only":s,incognito:this.incognito,"is-collapsed":e,"has-icon":i};return this.href.length?p`
+          <div part="wrapper" class=${u(d)}>
             <a
               ?disabled=${this.disabled}
               href=${this.href}
               target=${this.target}
-              rel=${this.rel||c}
-              tabindex=${this.innerTabindex??c}
-              aria-label=${n}
+              rel=${this.rel||l}
+              tabindex=${this.innerTabindex??l}
+              aria-label=${r}
             >
               <span>${this.label??""}</span>
               ${this.buildIcon(t)}
             </a>
           </div>
-        `:d`
-          <div part="wrapper" class=${u(l)}>
+        `:p`
+          <div part="wrapper" class=${u(d)}>
             <button
               ?disabled=${this.disabled||this.loading}
               @click=${this.handleClick}
               type=${this.buttonType}
-              tabindex=${this.innerTabindex??c}
-              aria-label=${n}
+              tabindex=${this.innerTabindex??l}
+              aria-label=${r}
+              aria-pressed=${c}
             >
               <span>${this.label??""}</span>
               ${this.buildIcon(t)}
@@ -222,4 +223,4 @@ var i=function(p,t,r,e){var s=arguments.length,n=s<3?t:e===null?e=Object.getOwnP
           transform: rotate(360deg);
         }
       }
-    `],i([y()],o.prototype,"innerTabindex",void 0),i([a({attribute:"button-type",type:String})],o.prototype,"buttonType",void 0),i([a({type:Boolean})],o.prototype,"collapsed",void 0),i([a({type:Boolean,reflect:!0})],o.prototype,"disabled",void 0),i([a({type:String})],o.prototype,"href",void 0),i([a({attribute:"icon-only",type:Boolean})],o.prototype,"iconOnly",void 0),i([a({type:Boolean,reflect:!0})],o.prototype,"incognito",void 0),i([a({type:String})],o.prototype,"icon",void 0),i([a({type:String})],o.prototype,"label",void 0),i([a({type:Boolean,reflect:!0})],o.prototype,"loading",void 0),i([a({type:String})],o.prototype,"target",void 0),i([a({type:String})],o.prototype,"rel",void 0),i([a({attribute:"formnovalidate",type:Boolean})],o.prototype,"formNoValidate",void 0),i([v({capture:!1,passive:!0})],o.prototype,"handleClick",null),o=i([m("esp-button")],o);export{o as EspalierButton};
+    `],n([y()],o.prototype,"innerTabindex",void 0),n([a({attribute:"button-type",type:String})],o.prototype,"buttonType",void 0),n([a({type:Boolean})],o.prototype,"collapsed",void 0),n([a({type:Boolean,reflect:!0})],o.prototype,"disabled",void 0),n([a({type:String})],o.prototype,"href",void 0),n([a({attribute:"icon-only",type:Boolean})],o.prototype,"iconOnly",void 0),n([a({type:Boolean,reflect:!0})],o.prototype,"incognito",void 0),n([a({type:String})],o.prototype,"icon",void 0),n([a({type:String})],o.prototype,"label",void 0),n([a({type:Boolean,reflect:!0})],o.prototype,"loading",void 0),n([a({type:String})],o.prototype,"target",void 0),n([a({type:String})],o.prototype,"rel",void 0),n([a({attribute:"formnovalidate",type:Boolean})],o.prototype,"formNoValidate",void 0),n([v({capture:!1,passive:!0})],o.prototype,"handleClick",null),o=n([m("esp-button")],o);export{o as EspalierButton};

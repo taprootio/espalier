@@ -17,6 +17,8 @@ export * from "./color-picker/esp-color-picker.js";
 export * from "./flyout/esp-flyout.js";
 export * from "./form/esp-form.js";
 export * from "./form-item/esp-form-item.js";
+export * from "./help/esp-help-button.js";
+export * from "./help/esp-help-provider.js";
 export * from "./header/index.js";
 export * from "./page/esp-page.js";
 export * from "./popover/esp-popover.js";
@@ -62,7 +64,8 @@ export { FormFieldController, type FormFieldControllerOptions, } from "./shared/
 export { traverseToClosest } from "./shared/utilities.js";
 export { showToast, type ToastConfig } from "./shared/toast-events.js";
 export { showFlyout, closeFlyout, type FlyoutConfig, type FlyoutCloseReason, } from "./shared/flyout-events.js";
-export { getEspBus, type EspBusEventMap, type SchemeEvents, type ToastEvents, type FlyoutEvents, type PopoverEvents, type SizeEvents, type PageEventMap, type SeedColorRoot, } from "./shared/bus-events.js";
+export { requestHelp, type HelpRequest, type HelpState } from "./shared/help-events.js";
+export { getEspBus, type EspBusEventMap, type SchemeEvents, type ToastEvents, type FlyoutEvents, type HelpEvents, type PopoverEvents, type SizeEvents, type PageEventMap, type SeedColorRoot, } from "./shared/bus-events.js";
 export * from "./shared/events.js";
 export { getImageDetails, releasePreviewUrl, type EspalierUploadImage, type ImageDetailsOptions, type SelectedUploadImage, type ExistingUploadImage, type ExistingImage, type ResponsiveImageUrl, type UploadCallbacks, type UploadEventDetail, } from "./image-upload/image-helpers.js";
 export { calculatePhotoLayout, type LayoutImage, type PhotoRow, } from "./shared/justified-layout.js";

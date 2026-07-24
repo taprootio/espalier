@@ -1,6 +1,6 @@
 import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
-import type { FlyoutCloseReason } from "../shared/flyout-events.js";
+import { type FlyoutCloseReason } from "../shared/flyout-events.js";
 /**
  * A transient panel for help, more-info, and preview content that
  * claims designed spare width before ever covering the page.
@@ -169,14 +169,18 @@ import type { FlyoutCloseReason } from "../shared/flyout-events.js";
  * scroll flow. If the panel would cross the visible viewport's bottom,
  * it shifts up only far enough to fit and returns to its natural trigger
  * alignment as the page scrolls. Content taller than the viewport
- * scrolls inside the panel. Overlay drawers stay viewport-fixed.
+ * scrolls inside the panel. Pass `fullHeight: true` (or set the
+ * `full-height` attribute) when a reading surface should fill the visible
+ * block-size even when its content is short. Overlay drawers stay
+ * viewport-fixed.
  *
- * The bus is a global broadcast, so every listening flyout on the
- * page answers a `showFlyout()` call. The demos above are each driven
- * by their own toggle button, so they are marked `standalone` to opt
- * out of the bus — leaving this one flyout as the page's shared
- * surface. In a real app you typically have a single flyout and need
- * no attribute at all.
+ * Bus requests anchored inside nested pages are presented by the
+ * outermost containing page's flyout by default. This keeps previews,
+ * embedded tools, and nested layouts from trapping application-level
+ * help or detail panels. Set `scope="nearest"` on a nested flyout when
+ * that page should explicitly own requests originating inside it.
+ * The demos above are each driven by their own toggle button, so they
+ * are marked `standalone` to opt out of the bus entirely.
  *
  * ```html
  * <style>
@@ -322,13 +326,17 @@ export declare class EspalierFlyout extends EspalierElementBase {
     mode: "auto" | "overlay";
     /**
      * Triggering element whose block-start edge the in-grid panel should
-     * align with. Anchored panels stay in normal page flow, shift upward
-     * only while needed to fit the visible scrollport, and return to their
-     * natural alignment as the page scrolls. Oversized content scrolls
-     * inside the panel. Overlay drawers ignore this geometry and remain
-     * fixed to the viewport.
+     * align with. Anchored panels size to their content when it fits, shift
+     * only enough to remain visible when it does not, and keep an edge
+     * marker aligned with the trigger. Overlay drawers ignore this geometry
+     * and remain fixed to the viewport.
      */
     anchor: HTMLElement | undefined;
+    /**
+     * Fill the visible block-size in gutter and docked modes. The content
+     * region scrolls independently. Overlay drawers already fill the viewport.
+     */
+    fullHeight: boolean;
     /**
      * When set on a flyout slotted into an `esp-page`, the panel lifts
      * its **trailing** edge with the page's surface edge shadow, so it
@@ -347,13 +355,27 @@ export declare class EspalierFlyout extends EspalierElementBase {
      *
      * By default a flyout services the bus, so a single flyout in a
      * page "just works" as the target of `showFlyout()` — the same
-     * zero-config model as `<esp-toaster>` and `showToast()`. Because
-     * the bus is a global broadcast, **every** listening flyout on the
-     * page answers a `showFlyout()` call; set `standalone` on any
-     * flyout you drive directly so only your one designated help
-     * surface responds.
+     * zero-config model as `<esp-toaster>` and `showToast()`. Anchored
+     * requests resolve to one page scope according to `scope`; set
+     * `standalone` on flyouts that should never answer the bus.
      */
     standalone: boolean;
+    /**
+     * Which containing page owns anchored bus requests.
+     *
+     * - `"outermost"` (default) routes to the flyout in the outermost
+     *   `esp-page` containing the request trigger.
+     * - `"nearest"` explicitly gives this flyout precedence for requests
+     *   originating in its own page or nested descendants.
+     *
+     * A `scope="nearest"` flyout must be a light-DOM descendant of the
+     * `esp-page` whose requests it owns so that page can discover it.
+     *
+     * Requests without an `anchor` or `returnFocusTo` have no local context,
+     * so only outermost page flyouts service them. Use the instance API for
+     * a directly controlled nested flyout.
+     */
+    scope: "outermost" | "nearest";
     /**
      * Element to return focus to when the flyout closes. In the in-grid
      * modes it is focused only if focus is inside the flyout at close;

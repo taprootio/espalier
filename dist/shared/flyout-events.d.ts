@@ -38,13 +38,20 @@ export type FlyoutConfig = {
      */
     content?: string | Node | undefined;
     /**
+     * Fill the visible block-size in gutter and docked modes instead of
+     * sizing the panel to its content. The content region scrolls
+     * independently. Overlay drawers already fill the viewport.
+     */
+    fullHeight?: boolean | undefined;
+    /**
      * Triggering element whose block-start edge the in-grid flyout
      * should align with. The flyout stays in the page's normal scroll
      * flow, shifting upward only while needed to fit the visible
      * scrollport. Content taller than that scrollport scrolls inside the
      * panel. Overlay drawers ignore this geometry and remain
-     * viewport-fixed. When omitted, the flyout starts at the top of the
-     * page's content row.
+     * viewport-fixed. Its outermost containing `esp-page` also supplies
+     * the default flyout scope. When omitted, the flyout starts at the
+     * top of the page's content row.
      */
     anchor?: HTMLElement | undefined;
     /**
@@ -66,9 +73,13 @@ export type FlyoutConfig = {
  * showFlyout({ heading: "Details", content: detailsFragment });
  * ```
  *
- * If no `<esp-flyout>` is connected, the event goes unserviced —
- * callers that need a fallback (e.g. opening a URL in a new tab)
- * should check for a connected flyout themselves.
+ * Anchored requests target the outermost containing `esp-page` by
+ * default; a nested flyout with `scope="nearest"` explicitly overrides
+ * that routing. The nearest-scope flyout must be a light-DOM descendant
+ * of the page whose requests it owns. If no eligible `<esp-flyout>` is
+ * connected, the event goes unserviced — callers that need a fallback
+ * (e.g. opening a URL in a new tab) should check for a connected flyout
+ * themselves.
  *
  * @param config - Flyout configuration.
  * @docUrl /api/show-flyout

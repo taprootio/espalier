@@ -29,6 +29,7 @@
 import { EspBus } from "./esp-bus.js";
 import type { ToastConfig } from "./toast-events.js";
 import type { FlyoutConfig } from "./flyout-events.js";
+import type { HelpRequest, HelpState } from "./help-events.js";
 /**
  * Contract for elements that provide a seed color to their subtree.
  * Implemented by `EspalierRoot` (the global provider) and
@@ -116,6 +117,24 @@ export interface FlyoutEvents {
     "close-flyout": Record<string, never>;
 }
 /**
+ * URL help-system coordination events.
+ *
+ * `request-help` is published by {@link requestHelp} and serviced by a
+ * connected `<esp-help-provider>`. `close-help` asks that provider to close
+ * only the flyout presenting the matching topic. The provider publishes
+ * `help-state-changed` whenever a topic opens, swaps, or closes so all
+ * matching trigger affordances can synchronize `aria-pressed`.
+ *
+ * @docUrl /api/help-events
+ * @menuGroup Bus Events
+ * @menuLabel HelpEvents
+ */
+export interface HelpEvents {
+    "request-help": HelpRequest;
+    "close-help": Pick<HelpRequest, "src" | "anchor">;
+    "help-state-changed": HelpState;
+}
+/**
  * Cross-popover coordination events.
  *
  * Every component that participates in cross-popover coordination
@@ -181,7 +200,7 @@ export interface PageEventMap {
  * @menuGroup Bus Events
  * @menuLabel EspBusEventMap
  */
-export type EspBusEventMap = SchemeEvents & ToastEvents & FlyoutEvents & PopoverEvents & SizeEvents & PageEventMap;
+export type EspBusEventMap = SchemeEvents & ToastEvents & FlyoutEvents & HelpEvents & PopoverEvents & SizeEvents & PageEventMap;
 /**
  * Typed accessor for the singleton bus.
  *

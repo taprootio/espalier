@@ -63,6 +63,9 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @cssprop --esp-button-incognito-padding - The padding for the incognito button style.
  * @attr incognito - Renders the button with a borderless, transparent treatment
  * for quiet icon or inline actions.
+ * @attr aria-pressed - Forwards a toggle's pressed state to the inner native
+ * button. Use `"true"` while the controlled content is active and `"false"`
+ * otherwise.
  * @docPageTitle Button
  * @docUrl /components/button
  * @menuGroup Interaction

@@ -1,1 +1,1 @@
-import{getEspBus as o}from"./bus-events.js";function l(t={}){o().publish("show-flyout",t)}function s(){o().publish("close-flyout",{})}export{s as closeFlyout,l as showFlyout};
+import{getEspBus as o}from"./bus-events.js";const u=new WeakSet,r="flyout-full-height-requested";function n(t={}){s(t)}function s(t={}){const e={...t};return o().publish("show-flyout",e),u.has(e)}function c(t){u.add(t)}function i(){o().publish("close-flyout",{})}export{r as FLYOUT_FULL_HEIGHT_REQUEST_EVENT,i as closeFlyout,c as markFlyoutRequestServiced,s as publishFlyoutRequest,n as showFlyout};

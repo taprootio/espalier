@@ -27,6 +27,7 @@ export { type DestroyEspalierInfo } from "../info/esp-info.js";
 export { type ValidityChangedDetail, type ValidationError, VALIDITY_CHANGED_EVENT, } from "./validation.js";
 export { type ToastConfig } from "./toast-events.js";
 export { type FlyoutConfig, type FlyoutCloseReason } from "./flyout-events.js";
+export { type HelpRequest, type HelpState } from "./help-events.js";
 export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";

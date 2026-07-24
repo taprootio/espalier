@@ -1,5 +1,6 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type ValidationError } from "../shared/validation.js";
+import "../help/esp-help-button.js";
 export type EspalierFormField = {
     focus: (options?: FocusOptions) => void;
     validate?: () => void;
@@ -150,6 +151,27 @@ export declare class EspalierFormItem extends LitElement {
      *    field, so there is no need to set `name` separately.
      */
     fieldName: string;
+    /**
+     * Per-field help document override. A URL fragment selects the topic;
+     * otherwise `field-name` supplies the anchor. When omitted, the nearest
+     * composed-tree ancestor's `help-src` is used.
+     *
+     * ```html
+     * <esp-form-item
+     *   label="Email address"
+     *   field-name="email"
+     *   help-url="/help/account.html#contact-email">
+     *   <esp-input type="email"></esp-input>
+     * </esp-form-item>
+     * ```
+     */
+    helpUrl: string;
+    /**
+     * Chooses the flyout title for form-context help. The default, `field`,
+     * uses this form item's visible `label`. Set `document` to adopt the text
+     * of the matched heading in the help document instead.
+     */
+    helpTitleSource: "field" | "document";
     /**
      * Bind to an array of `ValidationError` to automatically filter
      * and show errors whose `fieldName` matches this item's
