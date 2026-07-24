@@ -19,14 +19,14 @@ export interface SearchResult {
  * etc.) by listening for `search-requested` events and calling
  * `setResults()` with the matches.
  *
- * @fires search-requested — The user changed the query input. Fires on
+ * @fires search-requested - The user changed the query input. Fires on
  *   every keystroke (not debounced) so consumers can track the latest
  *   query and discard stale async results. Consumers that need debouncing
  *   should apply it themselves (e.g. Pagefind's `debouncedSearch()`).
  *   `detail: { query: string }`
- * @fires result-selected — The user chose a result.
+ * @fires result-selected - The user chose a result.
  *   `detail: { url: string }`
- * @fires search-closed — The overlay was closed (Escape, backdrop click,
+ * @fires search-closed - The overlay was closed (Escape, backdrop click,
  *   or result selection). Consumers should use this to cancel in-flight
  *   searches or discard pending results.
  *   `detail: {}`

@@ -86,8 +86,8 @@ import { LitElement } from "lit";
  * has moved in. Safe to initialize third-party widgets (e.g. Stripe
  * Elements) or measure layout at this point.
  *
- * @event {CustomEvent<{ reason: "escape" | "close-dialog" | "api" }>}
- * esp-dialog-closing - Fired before the dialog begins closing.
+ * @event {CustomEvent<{ reason: "escape" | "close-dialog" | "api" }>} esp-dialog-closing -
+ * Fired before the dialog begins closing.
  * Call `event.preventDefault()` to cancel the close (e.g. for
  * unsaved-changes confirmation). The `reason` indicates what
  * triggered the close: `"escape"` for the Escape key,
@@ -95,8 +95,8 @@ import { LitElement } from "lit";
  * (typically `<esp-form method="dialog">`), or `"api"` for a
  * direct `toggleOpen()` call.
  *
- * @event {CustomEvent<{ reason: "escape" | "close-dialog" | "api" }>}
- * esp-dialog-closed - Fired after the dialog has fully closed,
+ * @event {CustomEvent<{ reason: "escape" | "close-dialog" | "api" }>} esp-dialog-closed -
+ * Fired after the dialog has fully closed,
  * inert state has been restored, and focus has returned to the
  * previously focused element. Safe to tear down resources.
  *
