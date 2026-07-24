@@ -32,8 +32,29 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * </esp-page>
  * ```
  *
+ * A persistent preview uses spare trailing canvas first. Set a main-well
+ * floor to let it reclaim surface width, and opt into collapsing a directly
+ * paired header/sidebar navigation to its accessible burger/drawer mode:
+ *
+ * ```html
+ * <esp-page
+ *   preview-open
+ *   preview-collapse-sidebar
+ *   style="--esp-page-preview-width: 20rem; --esp-page-preview-min-main-width: 900px;"
+ * >
+ *   <esp-header slot="header" drawer-target="site-nav"></esp-header>
+ *   <esp-menu id="site-nav" slot="sidebar" mode="vertical"></esp-menu>
+ *   <article>Primary content</article>
+ *   <aside slot="preview">Preview content</aside>
+ * </esp-page>
+ * ```
+ *
  * @slot sidebar - Contextual navigation placed in the left aside.
  * @slot right - Content to place in the right aside.
+ * @slot preview - Persistent preview content that uses spare right canvas
+ * width first, then optionally reclaims navigation and main-well width down
+ * to `--esp-page-preview-min-main-width`. Unlike flyout content, preview
+ * content is never replaced by the flyout request bus.
  * @slot flyout - A transient `esp-flyout` panel that lives on the
  * canvas, outside the content surface. Closed it costs no width; open
  * it claims the right canvas gutter first — the surface keeps its
@@ -143,6 +164,12 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * for content that floats directly on the page with no frame.
  * @cssprop --esp-page-flyout-width - The width of the open flyout
  * track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`.
+ * @cssprop --esp-page-preview-width - Width of the persistent preview
+ * panel. Defaults to `20rem`.
+ * @cssprop --esp-page-preview-min-main-width - Optional minimum width of
+ * the main content well while preview is reclaiming canvas/surface space.
+ * Unset by default, so preview uses spare canvas only. Set a length such
+ * as `900px` to opt into reclaim behavior.
  * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
  * headers. Defaults to `var(--esp-header-height)`.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
@@ -152,6 +179,8 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *
  * @csspart canvas - The two canvas gutter regions flanking the surface.
  * @csspart surface - The surface backdrop carrying the edge shadow/border.
+ * @csspart preview - The persistent preview complementary landmark.
+ * @csspart preview-content - The sticky wrapper around preview content.
  *
  * ```html
  * <style>
@@ -205,6 +234,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
 export declare class EspalierPage extends EspalierElementBase {
     constructor();
     connectedCallback(): void;
+    disconnectedCallback(): void;
     /**
      * The layout mode of the page.
      *
@@ -265,6 +295,35 @@ export declare class EspalierPage extends EspalierElementBase {
      * Prefer `header-position="fixed"` for new code.
      */
     fixedMenus: boolean;
+    /**
+     * Whether the persistent preview is logically open. The page may keep the
+     * preview hidden while space is unavailable; `preview-visible` reflects its
+     * actual presentation and the preview restores automatically when room returns.
+     */
+    previewOpen: boolean;
+    /** Accessible name for the preview's complementary landmark. */
+    previewLabel: string;
+    /**
+     * Allow a directly slotted, safely linked vertical menu/header pair to
+     * collapse to its burger/drawer presentation when preview needs more room.
+     */
+    previewCollapseSidebar: boolean;
+    /**
+     * Whether preview content is currently rendered. Managed by the page's
+     * space negotiation; consumers should treat this reflected property as read-only.
+     */
+    previewVisible: boolean;
+    /**
+     * Whether preview is currently reserving width and allowing the main well
+     * to shrink toward `--esp-page-preview-min-main-width`. Managed by the page.
+     */
+    previewReclaiming: boolean;
+    /** Request the persistent preview without moving focus. */
+    showPreview(): void;
+    /** Close the persistent preview without moving focus. */
+    closePreview(): void;
+    /** Toggle the persistent preview without moving focus. */
+    togglePreview(): void;
     /**
      * Inject an element into a div with the highest z-index so dialogs are
      * rendered on top of everything else.

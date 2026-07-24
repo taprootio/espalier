@@ -1640,6 +1640,18 @@
       "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full). This cap now sizes the main grid track; surplus width beyond it becomes the canvas gutters."
     },
     {
+      "name": "--esp-page-preview-min-main-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Optional minimum width of the main content well while preview is reclaiming canvas/surface space. Unset by default, so preview uses spare canvas only. Set a length such as `900px` to opt into reclaim behavior."
+    },
+    {
+      "name": "--esp-page-preview-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Width of the persistent preview panel. Defaults to `20rem`."
+    },
+    {
       "name": "--esp-page-sticky-header-top",
       "category": "component",
       "component": "esp-page",
