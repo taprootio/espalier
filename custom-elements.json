@@ -27632,6 +27632,30 @@
             },
             {
               "kind": "method",
+              "name": "resetFlyoutScroll",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flyout",
+                  "type": {
+                    "text": "EspalierFlyout"
+                  }
+                },
+                {
+                  "name": "content",
+                  "type": {
+                    "text": "HTMLElement | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "publishState",
               "privacy": "private",
               "return": {

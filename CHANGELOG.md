@@ -5,6 +5,15 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.12.1 — URL help flyout fixes
+
+- Change contextual help flyouts to the normalized document title when “View
+  full document” expands the topic, while retaining the field anchor and
+  scrolling the requested section into view.
+- Avoid repeating a matching leading document `h1` inside embedded
+  full-document help, and start each new unanchored document request at the top
+  of the flyout's own scroll surface.
+
 ## 2.12.0 — Resizable page workspaces
 
 - Add opt-in `esp-page workspace-resizable` separators for Main → Preview and
