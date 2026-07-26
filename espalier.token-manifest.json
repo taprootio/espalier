@@ -1616,10 +1616,22 @@
       "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`."
     },
     {
+      "name": "--esp-page-flyout-max-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Maximum help width and overlay drawer cap before the `85vw` viewport cap. Defaults to `30rem`."
+    },
+    {
+      "name": "--esp-page-flyout-min-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Minimum in-grid help width. Defaults to `20rem`."
+    },
+    {
       "name": "--esp-page-flyout-width",
       "category": "component",
       "component": "esp-page",
-      "description": "The width of the open flyout track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`."
+      "description": "Legacy fixed-width alias that pins both help bounds."
     },
     {
       "name": "--esp-page-header-z-index",
@@ -1634,22 +1646,64 @@
       "description": "The background of the main content well. Defaults to `transparent` (the well shows the page background). Set it to give the content well its own card color, or pair the transparent default with `--esp-page-surface-shadow: none` for content that floats directly on the page with no frame."
     },
     {
+      "name": "--esp-page-main-max-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). Surplus width beyond it becomes canvas gutters."
+    },
+    {
+      "name": "--esp-page-main-min-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Minimum width of the main content well while preview or in-grid help competes for space. Defaults to `30rem`."
+    },
+    {
       "name": "--esp-page-max-width",
       "category": "component",
       "component": "esp-page",
-      "description": "The maximum width of the main content well. Set automatically by the `kind` attribute: `1536px` (wide), `768px` (narrow), or `none` (full). This cap now sizes the main grid track; surplus width beyond it becomes the canvas gutters."
+      "description": "Legacy fallback for `--esp-page-main-max-width`."
+    },
+    {
+      "name": "--esp-page-preview-background",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Background of the persistent preview surface. Defaults to the main background, then the page background."
+    },
+    {
+      "name": "--esp-page-preview-border",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Leading tear-off edge between main and preview. Defaults to `1px dotted var(--esp-color-border)`."
+    },
+    {
+      "name": "--esp-page-preview-max-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Maximum preview width. Defaults to `48rem`. Preview receives flexible trailing space before help grows."
     },
     {
       "name": "--esp-page-preview-min-main-width",
       "category": "component",
       "component": "esp-page",
-      "description": "Optional minimum width of the main content well while preview is reclaiming canvas/surface space. Unset by default, so preview uses spare canvas only. Set a length such as `900px` to opt into reclaim behavior."
+      "description": "Legacy fallback for `--esp-page-main-min-width`."
+    },
+    {
+      "name": "--esp-page-preview-min-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Minimum preview width. Defaults to `22.5rem` (360px, a reasonable mobile-device surface)."
+    },
+    {
+      "name": "--esp-page-preview-shadow",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Shadow cast from the preview's trailing edge. Defaults to the page surface edge shadow. Set to `none` for a flat additive surface."
     },
     {
       "name": "--esp-page-preview-width",
       "category": "component",
       "component": "esp-page",
-      "description": "Width of the persistent preview panel. Defaults to `20rem`."
+      "description": "Legacy fixed-width alias that pins both preview bounds."
     },
     {
       "name": "--esp-page-sticky-header-top",

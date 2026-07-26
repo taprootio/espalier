@@ -5,6 +5,60 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.11.0 — Flexible preview and help workspace
+
+- Arrange the `esp-page` authoring workspace as main, full-viewport preview,
+  then help, with independent preview and flyout controls.
+- Add min/max width contracts for main, preview, and help. Preview grows first,
+  help grows after preview reaches its maximum, and all three participate in
+  one spare-canvas, main-reclaim, and safe-navigation-collapse decision.
+- Retain a validated collapsed navigation rail whenever its saved width keeps
+  the complete workspace visible, restoring it only when all region minimums
+  fit with the rail present.
+- Bridge anchored help across a visible preview with a non-interactive,
+  40%-opacity dotted connector, caret at the main edge, and a short thick
+  terminus on the preview/help seam.
+- Present preview as a default secondary surface with the main/page background,
+  dotted tear-off edge, and outer shadow moved from main to preview.
+- Promote auto-mode help to the accessible overlay drawer whenever sidebar +
+  main + help minimums cannot fit, even above the mobile breakpoint, and restore
+  its in-grid complementary presentation when space returns.
+- Allocate preview and help widths from the visible page bounds, so a layout
+  box slightly wider than the visual viewport — such as a `100vw` page beside
+  a classic scrollbar — narrows help by the hidden sliver instead of promoting
+  the modal drawer.
+- Keep page-managed drawers stable across scroll-lock width changes, prevent
+  rejected preview measurements from flashing, keep candidate tracks mounted
+  until their geometry is stably valid or invalid, and raise nested drawers
+  above ancestor page headers.
+- Let preview and non-modal help scroll their own content first, then hand
+  wheel/trackpad motion back to the main document at either boundary or when
+  they have no intrinsic overflow.
+- Add a live Page example showing an editable field, persistent preview, and
+  anchored contextual help together, expanding main to full width when both
+  auxiliary surfaces are closed. Help starts closed so the documentation never
+  opens with an unsolicited modal drawer.
+
+## 2.10.1 — Full-viewport persistent preview
+
+- Correct `esp-page` persistent previews to begin at viewport top beside the
+  application header and remain visible while tall main content scrolls.
+- Give preview content an independent `100dvh` scroll surface with a zero sticky
+  offset, including pages with normal, sticky, or fixed headers.
+- Preserve spare-width negotiation, sidebar collapse, responsive hiding,
+  flyout precedence, and the existing `preview` slot and preview-control APIs;
+  consumers need no shadow-part styling or new compatibility attribute.
+
+## 2.10.0 — Persistent spare-width preview
+
+- Add a dedicated persistent `preview` slot to `esp-page`, separate from the
+  always-present `right` aside and transient `flyout` surface.
+- Use spare trailing canvas first, optionally reclaim main and linked navigation
+  width down to a configured floor, and automatically hide and restore the
+  preview as available space changes.
+- Preserve flyout precedence and expose labelled complementary-landmark,
+  visibility, toggle, width, and sidebar-collapse contracts for authoring tools.
+
 ## 2.8.0 — Popover collision strategies
 
 - Add declarative `flip`, `shift`, and `none` collision strategies to

@@ -32,38 +32,30 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * </esp-page>
  * ```
  *
- * A persistent preview uses spare trailing canvas first. Set a main-well
- * floor to let it reclaim surface width, and opt into collapsing a directly
- * paired header/sidebar navigation to its accessible burger/drawer mode:
- *
- * ```html
- * <esp-page
- *   preview-open
- *   preview-collapse-sidebar
- *   style="--esp-page-preview-width: 20rem; --esp-page-preview-min-main-width: 900px;"
- * >
- *   <esp-header slot="header" drawer-target="site-nav"></esp-header>
- *   <esp-menu id="site-nav" slot="sidebar" mode="vertical"></esp-menu>
- *   <article>Primary content</article>
- *   <aside slot="preview">Preview content</aside>
- * </esp-page>
- * ```
+ * The authoring workspace is ordered main, preview, then help. Each region
+ * negotiates between public minimum and maximum widths; preview grows first,
+ * then help. Opt into collapsing a directly paired header/sidebar navigation
+ * to its accessible burger/drawer mode when the combined workspace needs it.
  *
  * @slot sidebar - Contextual navigation placed in the left aside.
  * @slot right - Content to place in the right aside.
- * @slot preview - Persistent preview content that uses spare right canvas
- * width first, then optionally reclaims navigation and main-well width down
- * to `--esp-page-preview-min-main-width`. Unlike flyout content, preview
- * content is never replaced by the flyout request bus.
+ * @slot preview - Persistent preview content placed after the main surface and
+ * before help. It grows from `--esp-page-preview-min-width` to
+ * `--esp-page-preview-max-width`, starts at viewport top, and gives its content
+ * an independent `100dvh` vertical scroller. At either scroll boundary, wheel
+ * and trackpad motion chains back to the main document. Unlike flyout content,
+ * preview content is never replaced by the flyout request bus.
  * @slot flyout - A transient `esp-flyout` panel that lives on the
- * canvas, outside the content surface. Closed it costs no width; open
- * it claims the right canvas gutter first — the surface keeps its
- * alignment weighting and shifts only as far as the flyout's width
- * requires — then docks as a width-competing right sidebar when no
- * gutter exists, and becomes an overlay drawer on small viewports.
+ * canvas after preview. Closed it costs no width; open it grows from
+ * `--esp-page-flyout-min-width` to `--esp-page-flyout-max-width` after preview
+ * receives flexible space, then docks as a width-competing right sidebar when
+ * no gutter exists, and becomes an overlay drawer on small viewports.
  * The persistent `right` aside and the transient flyout are
  * complementary, not alternatives. A flyout opened with an `anchor`
- * aligns to that trigger and stays in the same document scroll flow.
+ * aligns to that trigger and stays in the same document scroll flow. When a
+ * preview is visible, its caret and non-interactive dotted bridge cross the
+ * preview back to the anchor, ending at a short thick marker on the
+ * preview/help seam.
  * @slot footer - Content to place in the footer. Slot `esp-footer` directly
  * to receive the page's surface-alignment custom-property contract. A wrapper
  * can preserve landmark semantics but does not receive that direct contract.
@@ -131,10 +123,13 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * @cssprop --esp-page-background - The background color of the page. Fills
  * both the surface and the canvas gutters; the canvas tokens paint over it
  * in the gutters only. Defaults to `var(--esp-color-background)`.
- * @cssprop --esp-page-max-width - The maximum width of the main content
- * well. Set automatically by the `kind` attribute: `1536px` (wide),
- * `768px` (narrow), or `none` (full). This cap now sizes the main grid
- * track; surplus width beyond it becomes the canvas gutters.
+ * @cssprop --esp-page-main-min-width - Minimum width of the main content well
+ * while preview or in-grid help competes for space. Defaults to `30rem`.
+ * @cssprop --esp-page-main-max-width - Maximum width of the main content well.
+ * Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full).
+ * Surplus width beyond it becomes canvas gutters.
+ * @cssprop --esp-page-max-width - Legacy fallback for
+ * `--esp-page-main-max-width`.
  * @cssprop --esp-page-background-image - The background image to
  * display behind page content. Defaults to `none`.
  * @cssprop --esp-page-background-image-opacity - The opacity of the
@@ -162,14 +157,27 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * background). Set it to give the content well its own card color, or
  * pair the transparent default with `--esp-page-surface-shadow: none`
  * for content that floats directly on the page with no frame.
- * @cssprop --esp-page-flyout-width - The width of the open flyout
- * track (and of the `esp-flyout` overlay drawer). Defaults to `20rem`.
- * @cssprop --esp-page-preview-width - Width of the persistent preview
- * panel. Defaults to `20rem`.
- * @cssprop --esp-page-preview-min-main-width - Optional minimum width of
- * the main content well while preview is reclaiming canvas/surface space.
- * Unset by default, so preview uses spare canvas only. Set a length such
- * as `900px` to opt into reclaim behavior.
+ * @cssprop --esp-page-preview-background - Background of the persistent
+ * preview surface. Defaults to the main background, then the page background.
+ * @cssprop --esp-page-preview-border - Leading tear-off edge between main and
+ * preview. Defaults to `1px dotted var(--esp-color-border)`.
+ * @cssprop --esp-page-preview-shadow - Shadow cast from the preview's trailing
+ * edge. Defaults to the page surface edge shadow. Set to `none` for a flat
+ * additive surface.
+ * @cssprop --esp-page-preview-min-width - Minimum preview width. Defaults to
+ * `22.5rem` (360px, a reasonable mobile-device surface).
+ * @cssprop --esp-page-preview-max-width - Maximum preview width. Defaults to
+ * `48rem`. Preview receives flexible trailing space before help grows.
+ * @cssprop --esp-page-flyout-min-width - Minimum in-grid help width. Defaults
+ * to `20rem`.
+ * @cssprop --esp-page-flyout-max-width - Maximum help width and overlay drawer
+ * cap before the `85vw` viewport cap. Defaults to `30rem`.
+ * @cssprop --esp-page-preview-width - Legacy fixed-width alias that pins both
+ * preview bounds.
+ * @cssprop --esp-page-flyout-width - Legacy fixed-width alias that pins both
+ * help bounds.
+ * @cssprop --esp-page-preview-min-main-width - Legacy fallback for
+ * `--esp-page-main-min-width`.
  * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
  * headers. Defaults to `var(--esp-header-height)`.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
@@ -230,6 +238,88 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * @menuLabel Page
  * @menuIcon layout
  *
+ *
+ * @example Main, preview, and contextual help
+ * ```html
+ * <style>
+ * .page-workspace-demo {
+ *   --esp-page-main-min-width: 26rem;
+ *   --esp-page-main-max-width: 48rem;
+ *   --esp-page-preview-min-width: 18rem;
+ *   --esp-page-preview-max-width: 26rem;
+ *   --esp-page-flyout-min-width: 18rem;
+ *   --esp-page-flyout-max-width: 22rem;
+ * }
+ *
+ * .page-workspace-demo > main,
+ * .page-workspace-demo > [slot="preview"] {
+ *   box-sizing: border-box;
+ *   padding: var(--esp-size-padding-page);
+ * }
+ *
+ * .page-workspace-demo > main {
+ *   min-block-size: 120vh;
+ * }
+ * </style>
+ *
+ * <esp-page
+ *   id="page-workspace-demo"
+ *   class="page-workspace-demo"
+ *   preview-open
+ *   preview-label="Rendered page preview"
+ * >
+ *   <main>
+ *     <h2>Page details</h2>
+ *     <esp-form-item label="Site title">
+ *       <esp-input id="page-workspace-title" name="title" value="Field notes"></esp-input>
+ *     </esp-form-item>
+ *     <p>
+ *       Help is anchored to the title field in this main editor. Its caret and
+ *       dotted connector cross the persistent preview without blocking it.
+ *     </p>
+ *     <esp-button id="page-workspace-preview-toggle" label="Toggle preview"></esp-button>
+ *     <esp-button id="page-workspace-help-toggle" label="Toggle title help"></esp-button>
+ *   </main>
+ *
+ *   <article slot="preview">
+ *     <h2>Field notes</h2>
+ *     <p>This preview is a full-viewport secondary surface with its own scroller.</p>
+ *   </article>
+ *
+ *   <esp-flyout
+ *     id="page-workspace-help"
+ *     slot="flyout"
+ *     heading="Site title help"
+ *     standalone
+ *   >
+ *     <p>Use a short, recognizable title. It appears in navigation and browser tabs.</p>
+ *   </esp-flyout>
+ * </esp-page>
+ *
+ * <script>
+ * const page = findById("page-workspace-demo");
+ * const title = findById("page-workspace-title");
+ * const help = findById("page-workspace-help");
+ * help.anchor = title;
+ *
+ * const syncMainWidth = () => {
+ *   page.kind = page.previewOpen || help.open ? "wide" : "full";
+ * };
+ *
+ * findById("page-workspace-preview-toggle").addEventListener("clicked", () => {
+ *   page.togglePreview();
+ *   syncMainWidth();
+ * });
+ * findById("page-workspace-help-toggle").addEventListener("clicked", () => {
+ *   help.anchor = title;
+ *   help.toggle();
+ *   syncMainWidth();
+ * });
+ * help.addEventListener("flyout-opened", syncMainWidth);
+ * help.addEventListener("flyout-closed", syncMainWidth);
+ * syncMainWidth();
+ * </script>
+ * ```
  */
 export declare class EspalierPage extends EspalierElementBase {
     constructor();
@@ -315,7 +405,7 @@ export declare class EspalierPage extends EspalierElementBase {
     previewVisible: boolean;
     /**
      * Whether preview is currently reserving width and allowing the main well
-     * to shrink toward `--esp-page-preview-min-main-width`. Managed by the page.
+     * to shrink toward `--esp-page-main-min-width`. Managed by the page.
      */
     previewReclaiming: boolean;
     /** Request the persistent preview without moving focus. */

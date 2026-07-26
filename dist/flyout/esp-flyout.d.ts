@@ -2,12 +2,14 @@ import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type FlyoutCloseReason } from "../shared/flyout-events.js";
 /**
- * A transient panel for help, more-info, and preview content that
- * claims designed spare width before ever covering the page.
+ * A transient panel for help and more-info content that claims designed spare
+ * width before ever covering the page.
  *
  * Place one `esp-flyout` in an `esp-page`'s `flyout` slot. The panel
- * lives on the canvas, outside the content surface. The page decides
- * where it goes, from widest viewport to narrowest:
+ * lives on the canvas after any persistent preview, outside the content
+ * surface. It negotiates between `--esp-page-flyout-min-width` and
+ * `--esp-page-flyout-max-width`; preview receives flexible room first. The page
+ * decides where help goes, from widest viewport to narrowest:
  *
  * 1. **Gutter** — the panel occupies the right canvas gutter. When the
  *    gutter already has room, it claims existing spare canvas and the
@@ -18,19 +20,25 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * 3. **Docked sidebar** — once the gutter is gone, the panel competes
  *    for width with the main well; content narrows but is never
  *    covered.
- * 4. **Overlay drawer** — below the mobile threshold (`50em`, the
- *    same one the `esp-menu` drawer uses) the panel becomes a fixed
+ * 4. **Overlay drawer** — when the complete sidebar + main + help
+ *    minimums do not fit, or below the mobile threshold (`50em`, the
+ *    same one the `esp-menu` drawer uses), the panel becomes a fixed
  *    drawer over a vellum backdrop. Set `mode="overlay"` to get this
  *    presentation at every width.
  *
  * The panel is styled as a tear-off piece: a dotted perforation on
  * its leading edge, rounded trailing corners, and no shadow — all
  * overridable through the `--esp-flyout-*` tokens below.
+ * An anchored panel shown with preview keeps its caret at the main/preview
+ * edge and receives a non-interactive dotted bridge across preview from the
+ * page. A short, thick terminus on the preview/help seam completes that
+ * connection; no consumer positioning is required.
  *
  * A11y follows the presentation. In the in-grid modes (1–3) the
  * flyout is a non-modal `complementary` landmark named by its
- * `heading`, and opening it never steals focus. In the overlay-drawer
- * mode (4) it is a true modal: `role="dialog"` + `aria-modal`, the
+ * `heading`, opening it never steals focus, and boundary scrolling chains
+ * back to the main document. In the overlay-drawer mode (4) it is a true
+ * modal: `role="dialog"` + `aria-modal`, the
  * background goes inert, scroll is locked, focus moves into the drawer
  * and is trapped, and focus is restored on close. `Escape` closes it
  * in every mode.
@@ -38,7 +46,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * ```html
  * <style>
  * esp-page.flyout-demo {
- *   --esp-page-max-width: 420px;
+ *   --esp-page-main-max-width: 420px;
  *   --esp-page-canvas-background: var(--esp-color-layer-1);
  *   &::part(wrapper) {
  *     min-height: 320px;
@@ -72,7 +80,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * ```html
  * <style>
  * esp-page.flyout-match-demo {
- *   --esp-page-max-width: 420px;
+ *   --esp-page-main-max-width: 420px;
  *   &::part(wrapper) {
  *     min-height: 320px;
  *     height: 320px;
@@ -317,8 +325,8 @@ export declare class EspalierFlyout extends EspalierElementBase {
      * Placement behavior.
      *
      * - `"auto"` (default) — the page's placement ladder: gutter,
-     *   docked sidebar, then overlay drawer below the `50em` viewport
-     *   threshold.
+     *   docked sidebar, then overlay drawer when the complete in-grid
+     *   minimums do not fit or below the `50em` viewport threshold.
      * - `"overlay"` — always the fixed overlay drawer, at any width.
      *   The page never reserves a grid track for an overlay-mode
      *   flyout.
