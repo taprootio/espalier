@@ -1706,6 +1706,36 @@
       "description": "Legacy fixed-width alias that pins both preview bounds."
     },
     {
+      "name": "--esp-page-resize-focus-outline",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Keyboard-focus line drawn along the focused seam, spanning the visible dotted edge up to one viewport height. Defaults to `2px dashed var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-page-resize-focus-shadow",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Glow cast by the focused seam line, in the line's color. Defaults to `0 0 0.75rem var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-page-resize-handle-hit-size",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Transparent inline hit target centered on each dotted seam. Defaults to `2.75rem`."
+    },
+    {
+      "name": "--esp-page-resize-large-step",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Shift+Arrow resize step. Defaults to `4rem`."
+    },
+    {
+      "name": "--esp-page-resize-step",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Arrow-key resize step. Defaults to `1rem`."
+    },
+    {
       "name": "--esp-page-sticky-header-top",
       "category": "component",
       "component": "esp-page",

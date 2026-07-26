@@ -5,6 +5,44 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.12.0 — Resizable page workspaces
+
+- Add opt-in `esp-page workspace-resizable` separators for Main → Preview and
+  Preview → in-grid Flyout/Help, supporting pointer drag, physical-direction
+  Arrow keys, larger Shift+Arrow steps, LTR, and RTL. Both seams press on
+  through preview's minimum — Main/Preview into open help, Preview/Help into
+  main — and resize sessions apply widths directly, with no mid-interaction
+  renegotiation and no track-transition glide, so pointer capture survives in
+  every engine, drags track the cursor, each drag lands its complete delta,
+  and a focused separator keeps keyboard focus across repeated Arrow steps
+  (settling when focus leaves it). Navigation collapse triggered by a resize
+  happens during the session, not after it. Separators announce pane widths
+  that keep changing across their complete travel — main's width, then
+  help's width — and without a visible preview the second seam becomes the
+  distinct `main-flyout` separator (own part and event identity) sizing help
+  directly against main.
+- Retain selected pane sizes for the mounted page instance and feed them back
+  through the existing allocator, preserving all main/preview/help min/max
+  bounds, navigation collapse, preview hiding, responsive re-clamping and
+  restoration, and help overlay promotion.
+- Expose both seams as labelled, focusable vertical ARIA separators with live
+  min/max/current values, a dashed keyboard-focus line drawn along the seam
+  itself (one viewport tall, glowing in the line's own color), comfortable
+  transparent hit targets, public parts and CSS interaction tokens, and the
+  typed bubbling `esp-page-workspace-resize` event, whose width fields report
+  the current allocated pane widths.
+- Bound keyboard resize suspension to a short idle window so container/media
+  changes resume allocator re-clamping while focus remains on a separator, and
+  clean up interrupted measurement/collapse session state across disable,
+  disconnect, and reconnect lifecycles.
+- Hide unavailable separators when preview is hidden or help becomes an overlay,
+  and suppress selection and touch-page scrolling while dragging.
+- Hide the thick anchored-help seam terminus when no visible preview separates
+  help from its field; the bridge and terminus now appear only for detached help.
+- Add Page examples and layout guidance for preview-only and preview-plus-help
+  resizing, plus pointer, keyboard, responsive, ordering, navigation, overlay,
+  and real-browser regression coverage.
+
 ## 2.11.0 — Flexible preview and help workspace
 
 - Arrange the `esp-page` authoring workspace as main, full-viewport preview,

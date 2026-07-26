@@ -32,6 +32,7 @@ export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
 export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
+export { type PageWorkspaceResizeDetail, type PageWorkspaceResizeSource, type PageWorkspaceSeparator, } from "../page/esp-page.js";
 import type { EspalierDetails } from "../details/esp-details.js";
 import type { FlyoutCloseReason } from "./flyout-events.js";
 import type { ValidityChangedDetail } from "./validation.js";
@@ -42,6 +43,7 @@ import type { EspalierUploadImage, UploadEventDetail } from "../image-upload/ima
 export type { UploadEventDetail } from "../image-upload/image-helpers.js";
 import type { FontPickerValueChangedDetail } from "../font-picker/esp-font-picker.js";
 import type { EspThemeToggleEventDetail } from "../header/esp-header.js";
+import type { PageWorkspaceResizeDetail } from "../page/esp-page.js";
 /**
  * Canonical event name strings for every CustomEvent in the library.
  *
@@ -72,6 +74,7 @@ export declare const ESP_EVENTS: {
     readonly FLYOUT_OPENED: "flyout-opened";
     readonly FLYOUT_CLOSED: "flyout-closed";
     readonly FLYOUT_STATE_CHANGED: "flyout-state-changed";
+    readonly ESP_PAGE_WORKSPACE_RESIZE: "esp-page-workspace-resize";
     readonly POPOVER_OPENED: "popover-opened";
     readonly POPOVER_CLOSED: "popover-closed";
     readonly GRID_EVENT: "grid-event";
@@ -283,6 +286,10 @@ export interface EspalierFlyoutEventMap {
         reason: FlyoutCloseReason;
     }>;
     [ESP_EVENTS.FLYOUT_STATE_CHANGED]: CustomEvent<Record<string, never>>;
+}
+/** Events fired by `<esp-page>`. */
+export interface EspalierPageEventMap {
+    [ESP_EVENTS.ESP_PAGE_WORKSPACE_RESIZE]: CustomEvent<PageWorkspaceResizeDetail>;
 }
 /** Events fired by `<esp-header-button>`. */
 export interface EspalierHeaderButtonEventMap {

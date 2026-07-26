@@ -3,6 +3,23 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierDialog } from "../dialog/esp-dialog.js";
 import "../toaster/esp-toaster.js";
 type HeaderPosition = "normal" | "sticky" | "fixed";
+export type PageWorkspaceSeparator = "main-preview" | "preview-flyout" | "main-flyout";
+export type PageWorkspaceResizeSource = "keyboard" | "pointer";
+/** Detail emitted while an `esp-page` workspace separator changes pane sizes. */
+export interface PageWorkspaceResizeDetail {
+    /**
+     * Separator that initiated the resize. The second physical seam reports
+     * `"preview-flyout"` while preview is visible and `"main-flyout"` when it
+     * sits directly between main and help because preview is hidden or closed.
+     */
+    separator: PageWorkspaceSeparator;
+    /** Input modality that initiated the resize. */
+    source: PageWorkspaceResizeSource;
+    /** Currently allocated preview width in CSS pixels, or zero while preview is hidden. */
+    previewWidth: number;
+    /** Currently allocated in-grid flyout/help width in CSS pixels, or zero when closed. */
+    flyoutWidth: number;
+}
 /**
  * Used to lay out standard page structure.
  *
@@ -34,8 +51,12 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *
  * The authoring workspace is ordered main, preview, then help. Each region
  * negotiates between public minimum and maximum widths; preview grows first,
- * then help. Opt into collapsing a directly paired header/sidebar navigation
- * to its accessible burger/drawer mode when the combined workspace needs it.
+ * then help. Set `workspace-resizable` to expose accessible drag and keyboard
+ * separators on the dotted seams. Preferred pane sizes remain attached to the
+ * mounted page instance and are re-clamped by the same allocator whenever the
+ * available inline size changes. Opt into collapsing a directly paired
+ * header/sidebar navigation to its accessible burger/drawer mode when the
+ * combined workspace needs it.
  *
  * @slot sidebar - Contextual navigation placed in the left aside.
  * @slot right - Content to place in the right aside.
@@ -64,6 +85,12 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * content well wider than its grid column. In `narrow` mode,
  * slotted children are constrained to `max-inline-size: 66ch`
  * for optimal reading measure.
+ *
+ * @event {CustomEvent<PageWorkspaceResizeDetail>} esp-page-workspace-resize -
+ * Fired while a pointer or keyboard interaction changes a preferred workspace
+ * allocation. `separator` is `"main-preview"`, `"preview-flyout"`, or
+ * `"main-flyout"` (the second seam without a visible preview). Bubbles and
+ * crosses the shadow boundary.
  *
  * ```html
  * <esp-page class="docs">
@@ -172,6 +199,16 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * to `20rem`.
  * @cssprop --esp-page-flyout-max-width - Maximum help width and overlay drawer
  * cap before the `85vw` viewport cap. Defaults to `30rem`.
+ * @cssprop --esp-page-resize-step - Arrow-key resize step. Defaults to `1rem`.
+ * @cssprop --esp-page-resize-large-step - Shift+Arrow resize step. Defaults to
+ * `4rem`.
+ * @cssprop --esp-page-resize-handle-hit-size - Transparent inline hit target
+ * centered on each dotted seam. Defaults to `2.75rem`.
+ * @cssprop --esp-page-resize-focus-outline - Keyboard-focus line drawn along
+ * the focused seam, spanning the visible dotted edge up to one viewport
+ * height. Defaults to `2px dashed var(--esp-color-link)`.
+ * @cssprop --esp-page-resize-focus-shadow - Glow cast by the focused seam
+ * line, in the line's color. Defaults to `0 0 0.75rem var(--esp-color-link)`.
  * @cssprop --esp-page-preview-width - Legacy fixed-width alias that pins both
  * preview bounds.
  * @cssprop --esp-page-flyout-width - Legacy fixed-width alias that pins both
@@ -189,6 +226,13 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * @csspart surface - The surface backdrop carrying the edge shadow/border.
  * @csspart preview - The persistent preview complementary landmark.
  * @csspart preview-content - The sticky wrapper around preview content.
+ * @csspart main-preview-resize-handle - Separator between main and preview.
+ * Announces main's width.
+ * @csspart preview-flyout-resize-handle - Separator between preview and
+ * in-grid flyout/help while preview is visible. Announces help's width.
+ * @csspart main-flyout-resize-handle - The same physical seam while preview
+ * is hidden or closed: it then sits between main and in-grid help, sizes
+ * help directly against main, and reports `separator: "main-flyout"`.
  *
  * ```html
  * <style>
@@ -239,16 +283,54 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  * @menuIcon layout
  *
  *
+ * @example Resizable preview
+ * ```html
+ * <style>
+ * .page-preview-resize-demo {
+ *   --esp-page-main-min-width: 100px;
+ *   --esp-page-main-max-width: 100vw;
+ *   --esp-page-preview-min-width: 100px;
+ *   --esp-page-preview-max-width: 100vw;
+ * }
+ *
+ * .page-preview-resize-demo > main,
+ * .page-preview-resize-demo > [slot="preview"] {
+ *   box-sizing: border-box;
+ *   padding: var(--esp-size-padding-page);
+ * }
+ * </style>
+ *
+ * <esp-page
+ *   class="page-preview-resize-demo"
+ *   preview-open
+ *   preview-label="Article preview"
+ *   workspace-resizable
+ * >
+ *   <main>
+ *     <h2>Article editor</h2>
+ *     <p>
+ *       Preview starts at its minimum width. Drag the dotted seam left to
+ *       enlarge it, then resize in either direction. You can also focus the
+ *       seam and use Left/Right Arrow.
+ *     </p>
+ *   </main>
+ *   <article slot="preview">
+ *     <h2>Article preview</h2>
+ *     <p>The selected width stays with this mounted page and adapts when its container changes.</p>
+ *   </article>
+ * </esp-page>
+ * ```
+ *
  * @example Main, preview, and contextual help
  * ```html
  * <style>
  * .page-workspace-demo {
- *   --esp-page-main-min-width: 26rem;
- *   --esp-page-main-max-width: 48rem;
- *   --esp-page-preview-min-width: 18rem;
- *   --esp-page-preview-max-width: 26rem;
- *   --esp-page-flyout-min-width: 18rem;
- *   --esp-page-flyout-max-width: 22rem;
+ *   --esp-page-main-min-width: 100px;
+ *   --esp-page-main-max-width: 100vw;
+ *   --esp-page-preview-min-width: 100px;
+ *   --esp-page-preview-max-width: 100vw;
+ *   --esp-page-flyout-min-width: 100px;
+ *   --esp-page-flyout-max-width: 100vw;
  * }
  *
  * .page-workspace-demo > main,
@@ -267,6 +349,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *   class="page-workspace-demo"
  *   preview-open
  *   preview-label="Rendered page preview"
+ *   workspace-resizable
  * >
  *   <main>
  *     <h2>Page details</h2>
@@ -276,6 +359,7 @@ type HeaderPosition = "normal" | "sticky" | "fixed";
  *     <p>
  *       Help is anchored to the title field in this main editor. Its caret and
  *       dotted connector cross the persistent preview without blocking it.
+ *       Both dotted pane seams are resize handles while their panes are in-grid.
  *     </p>
  *     <esp-button id="page-workspace-preview-toggle" label="Toggle preview"></esp-button>
  *     <esp-button id="page-workspace-help-toggle" label="Toggle title help"></esp-button>
@@ -398,6 +482,12 @@ export declare class EspalierPage extends EspalierElementBase {
      * collapse to its burger/drawer presentation when preview needs more room.
      */
     previewCollapseSidebar: boolean;
+    /**
+     * Expose accessible pointer and keyboard separators for the visible
+     * Main → Preview → Flyout/Help workspace seams. Preferred sizes remain on
+     * this mounted instance and are continuously re-clamped by page allocation.
+     */
+    workspaceResizable: boolean;
     /**
      * Whether preview content is currently rendered. Managed by the page's
      * space negotiation; consumers should treat this reflected property as read-only.
