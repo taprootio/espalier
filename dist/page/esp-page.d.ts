@@ -158,7 +158,8 @@ export interface PageWorkspaceResizeDetail {
  * while preview or in-grid help competes for space. Defaults to `30rem`.
  * @cssprop --esp-page-main-max-width - Maximum width of the main content well.
  * Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full).
- * Surplus width beyond it becomes canvas gutters.
+ * An explicit value overrides every kind default, including `full`. Surplus
+ * width beyond it becomes canvas gutters.
  * @cssprop --esp-page-max-width - Legacy fallback for
  * `--esp-page-main-max-width`.
  * @cssprop --esp-page-background-image - The background image to
@@ -429,9 +430,10 @@ export declare class EspalierPage extends EspalierElementBase {
      * - `narrow` — constrains the main content well to 768px and applies
      *   a `max-inline-size: 66ch` reading measure. Optimized for
      *   long-form reading content.
-     * - `full` — no max-width constraint; the content well spans the
-     *   full available space. Optimized for immersive canvases like
-     *   maps or design tools.
+     * - `full` — no max-width constraint unless
+     *   `--esp-page-main-max-width` is explicitly configured. Optimized for
+     *   immersive canvases like maps or design tools and finite authoring
+     *   workspaces that opt back into a cap.
      */
     kind: "wide" | "narrow" | "full";
     /**
@@ -448,8 +450,8 @@ export declare class EspalierPage extends EspalierElementBase {
      * - `end` — the surface hugs the trailing edge; spare width collects in
      *   the leading gutter.
      *
-     * Has no effect when `kind="full"` (no cap means no gutters) or on
-     * viewports narrower than the cap (the surface already fills the width).
+     * Has no effect when an unconfigured `kind="full"` leaves main unbounded,
+     * or on viewports narrower than the complete visible workspace cap.
      */
     align: "start" | "center" | "end";
     /**

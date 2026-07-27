@@ -40061,7 +40061,7 @@
               "name": "--esp-page-main-min-width"
             },
             {
-              "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). Surplus width beyond it becomes canvas gutters.",
+              "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). An explicit value overrides every kind default, including `full`. Surplus width beyond it becomes canvas gutters.",
               "name": "--esp-page-main-max-width"
             },
             {
@@ -40360,6 +40360,11 @@
             {
               "kind": "field",
               "name": "mainMinWidthProbe",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "mainConfiguredMaxWidthProbe",
               "privacy": "private"
             },
             {
@@ -40846,78 +40851,6 @@
             },
             {
               "kind": "method",
-              "name": "workspaceUsesPreference",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "previewRequested",
-                  "type": {
-                    "text": "boolean"
-                  }
-                },
-                {
-                  "name": "flyoutOpen",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "preferredWorkspaceWidth",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "previewRequested",
-                  "type": {
-                    "text": "boolean"
-                  }
-                },
-                {
-                  "name": "flyoutOpen",
-                  "type": {
-                    "text": "boolean"
-                  }
-                },
-                {
-                  "name": "previewMinWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "previewMaxWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "flyoutMinWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "flyoutMaxWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "visiblePageInlineBounds",
               "privacy": "private",
               "return": {
@@ -40925,17 +40858,6 @@
                   "text": "{ left: number; right: number; width: number }"
                 }
               }
-            },
-            {
-              "kind": "method",
-              "name": "visibleSpaceWidth",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "description": "The gutter's layout box can extend past the visible page bounds — most\ncommonly a page laid out wider than the visual viewport beside a classic\nscrollbar. Allocation must draw from the same visible geometry the fit\nchecks validate against, or a scrollbar-sized overhang makes the\nallocated widths permanently unfittable and help is promoted to a modal\ndrawer over a sliver of hidden canvas."
             },
             {
               "kind": "method",
@@ -40975,6 +40897,74 @@
                   "name": "probe",
                   "type": {
                     "text": "ReturnType<typeof createRef<HTMLDivElement>>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "syncMainMaximumConfiguration",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "workspaceWidthCapacity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "WorkspaceWidthCapacity"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "minMainWidth",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "maxMainWidth",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "reservedInlineWidth",
+                  "default": "0"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "workspaceTargetWidth",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "capacity",
+                  "type": {
+                    "text": "WorkspaceWidthCapacity"
+                  }
+                },
+                {
+                  "name": "minimumWorkspaceWidth",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "preferredWorkspaceTargetWidth",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -41395,36 +41385,6 @@
             },
             {
               "kind": "method",
-              "name": "preferredWorkspaceFitsWithNavigation",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "minMainWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "requestedWorkspaceWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "collapsedSidebarWidth",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "workspaceGeometrySample",
               "privacy": "private",
               "return": {
@@ -41645,7 +41605,7 @@
               },
               "privacy": "public",
               "default": "\"wide\"",
-              "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint; the content well spans the\n  full available space. Optimized for immersive canvases like\n  maps or design tools.",
+              "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint unless\n  `--esp-page-main-max-width` is explicitly configured. Optimized for\n  immersive canvases like maps or design tools and finite authoring\n  workspaces that opt back into a cap.",
               "attribute": "kind",
               "reflects": true
             },
@@ -41657,7 +41617,7 @@
               },
               "privacy": "public",
               "default": "\"start\"",
-              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when `kind=\"full\"` (no cap means no gutters) or on\nviewports narrower than the cap (the surface already fills the width).",
+              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when an unconfigured `kind=\"full\"` leaves main unbounded,\nor on viewports narrower than the complete visible workspace cap.",
               "attribute": "align",
               "reflects": true
             },
@@ -42336,7 +42296,7 @@
                 "text": "\"wide\" | \"narrow\" | \"full\""
               },
               "default": "\"wide\"",
-              "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint; the content well spans the\n  full available space. Optimized for immersive canvases like\n  maps or design tools.",
+              "description": "The layout mode of the page.\n\n- `wide` (default) — constrains the main content well to 1536px.\n  Optimized for high-density dashboards and complex data grids.\n- `narrow` — constrains the main content well to 768px and applies\n  a `max-inline-size: 66ch` reading measure. Optimized for\n  long-form reading content.\n- `full` — no max-width constraint unless\n  `--esp-page-main-max-width` is explicitly configured. Optimized for\n  immersive canvases like maps or design tools and finite authoring\n  workspaces that opt back into a cap.",
               "fieldName": "kind"
             },
             {
@@ -42345,7 +42305,7 @@
                 "text": "\"start\" | \"center\" | \"end\""
               },
               "default": "\"start\"",
-              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when `kind=\"full\"` (no cap means no gutters) or on\nviewports narrower than the cap (the surface already fills the width).",
+              "description": "Horizontal alignment of the content **surface** (left aside + main\nwell + right aside) within the page once the viewport is wider than\nthe content cap. The surplus width becomes styleable **canvas**\ngutters on the outer edges, weighted by this attribute.\n\n- `start` (default) — the surface hugs the leading edge; all spare\n  width collects in the trailing gutter. This reproduces today's\n  layout.\n- `center` — spare width is split evenly into both gutters, centering\n  the surface.\n- `end` — the surface hugs the trailing edge; spare width collects in\n  the leading gutter.\n\nHas no effect when an unconfigured `kind=\"full\"` leaves main unbounded,\nor on viewports narrower than the complete visible workspace cap.",
               "fieldName": "align"
             },
             {
@@ -52285,618 +52245,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/root/esp-root.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Root container for the Espalier design system.\n\nProvides the full design-token pipeline — colors, scales, and\nfonts — to every descendant component.  All tokens are\nJS-computed from a pair of Base64-encoded theme objects and\nemitted as CSS custom properties on the host element.\n\n### Theme API\n\nSupply a `light-theme` and/or `dark-theme` attribute containing\na **Base64-encoded JSON** partial theme.  Fields you omit fall\nback to built-in defaults.  Switch between them with `scheme`.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4yIDE1NSkifQ==\"\n  scheme=\"light\">\n  <esp-box>\n    <h2>Themed content</h2>\n  </esp-box>\n</esp-root>\n```\n\n### Nested theme previews and scoped events\n\nA nested root creates a scoped theme for its descendants. It does not create\na separate event bus: every root publishes theme changes through the same\nEspalier singleton. Subscribe through the root whose changes you own so a\nnested preview cannot be mistaken for an application-level theme change.\n\n```ts\nconst applicationRoot = document.querySelector<EspalierRoot>(\"#application-theme\")!;\n\nconst unsubscribe = applicationRoot.subscribeScoped(\"scheme-changed\", ({ scheme }) => {\n  localStorage.setItem(\"scheme\", scheme);\n});\n\n// Initial state is read directly; scoped events report later changes only.\nrenderScheme(applicationRoot.scheme);\n\n// Call when the owning integration is disposed.\nunsubscribe();\n```\n\nThis contract covers `scheme-changed`, `seed-color-changed`,\n`theme-changed`, and `icon-sprite-url-changed`. Components derived from\n`EspalierElementBase` use the same closest-root filter internally.\n\nThe root also owns the application's banner-texture vocabulary:\n`EspalierRoot.registerTexture(name, definition)` registers an\nimage-backed texture preset that any\n[esp-image](/components/image) banner in the application selects with\n`texture=\"<name>\"`, and `EspalierRoot.registeredTextures()` enumerates\nthe presets for building texture pickers.",
-          "name": "EspalierRoot",
-          "slots": [
-            {
-              "description": "Place Espalier components and content here.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "method",
-              "name": "registerTexture",
-              "privacy": "public",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "definition",
-                  "type": {
-                    "text": "ImageTextureDefinition"
-                  }
-                }
-              ],
-              "description": "Register (or replace) a named, image-backed banner-texture preset.\nAny `esp-image` banner under a root selects it with `texture=\"<name>\"`;\nbanners already pointing at the name re-render, so registration at\nmount and markup order never race. Static delegate to\n`registerImageTexture` so script-only contexts (docs demos, published\nsites) can reach it from the root element without module imports."
-            },
-            {
-              "kind": "method",
-              "name": "registeredTextures",
-              "privacy": "public",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Map<string, Readonly<ImageTextureDefinition>>"
-                }
-              },
-              "description": "Snapshot of the registered texture presets, for building pickers."
-            },
-            {
-              "kind": "field",
-              "name": "schemeBacker",
-              "type": {
-                "text": "\"light\" | \"dark\" | \"\""
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "schemeExplicitlySet",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "resolvingDefaultScheme",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "themeEventsReady",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "systemSchemeQuery",
-              "type": {
-                "text": "MediaQueryList | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "lastSeedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLightTheme",
-              "type": {
-                "text": "EspalierTheme"
-              },
-              "privacy": "private",
-              "default": "{ ...DEFAULT_LIGHT_THEME }"
-            },
-            {
-              "kind": "field",
-              "name": "resolvedDarkTheme",
-              "type": {
-                "text": "EspalierTheme"
-              },
-              "privacy": "private",
-              "default": "{ ...DEFAULT_DARK_THEME }"
-            },
-            {
-              "kind": "field",
-              "name": "documentClickRegistrationActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "connectedRootCount",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "static": true,
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentClick",
-              "privacy": "private",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "description": "Unique ID for correlating bus events across multiple roots."
-            },
-            {
-              "kind": "method",
-              "name": "subscribeScoped",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "K"
-                  },
-                  "description": "Root-scoped theme event to observe."
-                },
-                {
-                  "name": "handler",
-                  "type": {
-                    "text": "(payload: SchemeEvents[K]) => void"
-                  },
-                  "description": "Callback invoked with that event's typed payload."
-                }
-              ],
-              "description": "Subscribe to a theme event published by this root only.\n\nAll roots share Espalier's global bus. This method filters foreign and\nnested-root payloads by `correlationId` and returns a cleanup function.\nIt reports changes after mount; read initial state from this root."
-            },
-            {
-              "kind": "field",
-              "name": "lightThemeAttr",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "Base64-encoded JSON partial theme for the **light** scheme.\n\nOnly fields you wish to override need to be present — all\nothers inherit from the built-in light defaults.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"light\">\n  <esp-box><h2>Purple light theme</h2></esp-box>\n</esp-root>\n```",
-              "attribute": "light-theme"
-            },
-            {
-              "kind": "field",
-              "name": "darkThemeAttr",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "Base64-encoded JSON partial theme for the **dark** scheme.\n\n```html\n<esp-root\n  dark-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"dark\">\n  <esp-box><h2>Purple dark theme</h2></esp-box>\n</esp-root>\n```",
-              "attribute": "dark-theme"
-            },
-            {
-              "kind": "field",
-              "name": "fontCSSRoot",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"/css/fonts/\"",
-              "description": "Root path for locally-cached font CSS files used by\n`<esp-font-picker>` to load font previews.\n\nThe directory must contain the individual font CSS files\ngenerated by `npm run build-fonts`.  These files must be\nserved at stable, predictable paths (no filename hashing)\nbecause the picker constructs URLs by font family name.",
-              "attribute": "font-css-root"
-            },
-            {
-              "kind": "field",
-              "name": "fontDefinitionsUrl",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "Full URL to the `font-definitions.json` catalog used by\n`<esp-font-picker>`.\n\nWhen set, the picker fetches from this URL instead of\n`{fontCSSRoot}font-definitions.json`.  This allows the JSON\nto be served through a cache-busting asset pipeline while\nthe individual font CSS files remain at stable paths.",
-              "attribute": "font-definitions-url"
-            },
-            {
-              "kind": "field",
-              "name": "googleFontLoading",
-              "type": {
-                "text": "\"auto\" | \"none\""
-              },
-              "privacy": "public",
-              "default": "\"auto\"",
-              "description": "Controls whether Espalier may inject runtime Google Fonts CDN\nstylesheet links for selected Google Fonts.\n\n`auto` preserves the default behavior: theme font families and\nselected Google font-picker values may load full fonts from\n`fonts.googleapis.com`.  `none` prevents those runtime Google\nFonts links, leaving local preview CSS and web-safe font stacks\navailable for locked-down, offline, or strict-CSP environments.",
-              "attribute": "google-font-loading"
-            },
-            {
-              "kind": "field",
-              "name": "iconSpriteUrl",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"/assets/icons.svg\"",
-              "description": "Full URL to the SVG sprite used by component-owned `icon`\nattributes.\n\nComponents append the validated icon name as a fragment, so\nthis should point to the sprite file itself, without `#icon`.\nUse this when your application serves the sprite from a\nsubpath, CDN, or cache-busted asset pipeline. Set it to an\nempty string to disable generated sprite icon URLs for this root.\n\n```html\n<esp-root icon-sprite-url=\"/dist/icons.abc123.svg\">\n  <esp-button icon=\"save\" label=\"Save\"></esp-button>\n</esp-root>\n```",
-              "attribute": "icon-sprite-url"
-            },
-            {
-              "kind": "field",
-              "name": "defaultScheme",
-              "type": {
-                "text": "\"light\" | \"dark\" | \"system\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "Initial color scheme to apply when `scheme` is not set.\n\nUse `light` or `dark` for a fixed published-site default, or\n`system` to follow the visitor's `prefers-color-scheme` before\nthey toggle the active `scheme`.",
-              "attribute": "default-scheme",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "description": "The active color scheme.\n\nLight scheme\n\n```html\n<esp-root scheme=\"light\">\n  <esp-box>\n    <h2>Light Scheme</h2>\n    <esp-button label=\"I am light\"></esp-button>\n  </esp-box>\n</esp-root>\n```\n\nDark scheme\n\n```html\n<esp-root scheme=\"dark\">\n  <esp-box>\n    <h2>Dark Scheme</h2>\n    <esp-button label=\"I am dark\"></esp-button>\n  </esp-box>\n</esp-root>\n```",
-              "default": "\"light\"",
-              "attribute": "scheme",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "description": "The effective seed color from the active theme.\n\nRead-only — supply a theme attribute with a different\n`seedColor` value to change.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "extractFamily",
-              "privacy": "private",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "cssValue",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Extract the bare font family name from a CSS `font-family`\nvalue like `\"Roboto\", sans-serif` → `Roboto`."
-            },
-            {
-              "kind": "method",
-              "name": "injectGoogleFontLink",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "slot",
-                  "type": {
-                    "text": "\"body\" | \"headings\" | \"brand\" | \"monospace\""
-                  }
-                },
-                {
-                  "name": "family",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "weight",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Inject (or replace) a Google Fonts `<link>` for a given slot.\n\nEach slot (`body`, `headings`, `brand`, `monospace`) gets at most one\n`<link>` scoped to this root instance by its correlationId,\nidentified by `data-esp-font=\"<correlationId>-<slot>\"`.\nThis ensures multiple `<esp-root>` instances on the same page\ndo not overwrite each other's font links."
-            },
-            {
-              "kind": "method",
-              "name": "syncGoogleFontLinks",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Ensure Google Font `<link>` tags match the active theme's\nfont families.  Called from `willUpdate()` after theme\nresolution."
-            },
-            {
-              "kind": "method",
-              "name": "removeRuntimeGoogleFontLinks",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "activeTheme",
-              "type": {
-                "text": "EspalierTheme"
-              },
-              "privacy": "public",
-              "description": "Returns the resolved theme for the active scheme.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "resolveThemes",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Re-merge default → theme-attribute for both schemes.\nCalled in `willUpdate()` whenever any input property changes."
-            },
-            {
-              "kind": "field",
-              "name": "resizeObserver",
-              "privacy": "private",
-              "default": "new ResizeObserver(() => { getEspBus().publish(\"window-resized\", { emWidth: window.innerWidth / parseFloat(getComputedStyle(document.documentElement).fontSize), emHeight: window.innerHeight / parseFloat(getComputedStyle(document.documentElement).fontSize), pxWidth: window.innerWidth, pxHeight: window.innerHeight, }); })"
-            },
-            {
-              "kind": "method",
-              "name": "registerDocumentClickBridge",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unregisterDocumentClickBridge",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyDefaultScheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "resolveDefaultScheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "\"light\" | \"dark\""
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncSystemSchemeListener",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSystemSchemeChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "lightDomStyles",
-              "static": true,
-              "default": "` /* ── Base typography ──────────────────────────────────── */ esp-root { font-family: var(--esp-font-body); font-weight: var(--esp-font-weight-body); line-height: 1.5; font-size: var(--esp-type-normal); color: var(--esp-color-text); } /* ── Lists ────────────────────────────────────────────── */ esp-root ul[role=\"list\"], esp-root ol[role=\"list\"] { list-style: none; } esp-root ul li::marker, esp-root ol li::marker { font-weight: bold; } /* ── Form controls ────────────────────────────────────── */ esp-root input, esp-root select, esp-root button { font-family: var(--esp-font-body); } /* ── Links ────────────────────────────────────────────── */ esp-root a:not([class]) { text-decoration-skip-ink: auto; font-weight: bold; color: var(--esp-color-link); } esp-root a { text-decoration: underline; text-decoration-skip-ink: auto; color: var(--esp-color-link); } esp-root a:hover { background-color: var(--esp-color-link-hover-bg); color: var(--esp-color-link-hover); text-decoration: none; } /* ── Inherited text styles ────────────────────────────── */ esp-root input, esp-root button, esp-root textarea, esp-root select, esp-root p, esp-root ul, esp-root li { font-family: var(--esp-font-body); color: var(--esp-color-text); font-size: inherit; } esp-root textarea:not([rows]) { min-height: 10em; } /* ── Headings ─────────────────────────────────────────── */ esp-root h1, esp-root h2, esp-root h3, esp-root h4, esp-root h5 { font-family: var(--esp-font-headings); font-weight: var(--esp-font-weight-headings); color: var(--esp-color-headings); margin: var(--esp-size-small-to-normal) 0 var(--esp-size-tiny-to-small); } esp-root h5 { font-size: var(--esp-type-small); line-height: 1.4; } esp-root h4 { font-size: var(--esp-type-medium); line-height: 1.3; } esp-root h3 { font-size: var(--esp-type-big); line-height: 1.2; } esp-root h2 { font-size: var(--esp-type-large); line-height: 1.15; } esp-root h1 { font-size: var(--esp-type-huge); line-height: 1.1; } /* ── Code / Pre ───────────────────────────────────────── */ esp-root pre, esp-root code { font-family: var(--esp-font-monospace); font-weight: var(--esp-font-weight-monospace); } esp-root code { font-size: var(--esp-type-small); background: var(--esp-color-layer-1); border-radius: var(--esp-size-border-radius); padding: 0 0.35em; display: inline-block; border: 1px dotted var(--esp-color-border); } esp-root pre { background-color: var(--esp-color-layer-1); border-radius: var(--esp-size-border-radius); border: 1px dotted var(--esp-color-border); } esp-root pre > code { font-size: var(--esp-type-tiny); display: block; background: none; border: none; hyphens: none; tab-size: 2; white-space: pre; padding: var(--esp-size-padding); overflow: auto; line-height: 1.8; } /* ── Images ────────────────────────────────────────────── */ esp-root img, esp-root picture { max-width: 100%; display: block; } `",
-              "description": "Light-DOM styles injected into `document.head` so that\nslotted content (headings, links, code blocks, lists, etc.)\ninherits the design-system tokens defined on `:host`.\nSelectors are scoped to `esp-root` descendants to avoid\nleaking into content outside the root."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "light-theme",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Base64-encoded JSON partial theme for the **light** scheme.\n\nOnly fields you wish to override need to be present — all\nothers inherit from the built-in light defaults.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"light\">\n  <esp-box><h2>Purple light theme</h2></esp-box>\n</esp-root>\n```",
-              "fieldName": "lightThemeAttr"
-            },
-            {
-              "name": "dark-theme",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Base64-encoded JSON partial theme for the **dark** scheme.\n\n```html\n<esp-root\n  dark-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"dark\">\n  <esp-box><h2>Purple dark theme</h2></esp-box>\n</esp-root>\n```",
-              "fieldName": "darkThemeAttr"
-            },
-            {
-              "name": "font-css-root",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"/css/fonts/\"",
-              "description": "Root path for locally-cached font CSS files used by\n`<esp-font-picker>` to load font previews.\n\nThe directory must contain the individual font CSS files\ngenerated by `npm run build-fonts`.  These files must be\nserved at stable, predictable paths (no filename hashing)\nbecause the picker constructs URLs by font family name.",
-              "fieldName": "fontCSSRoot"
-            },
-            {
-              "name": "font-definitions-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Full URL to the `font-definitions.json` catalog used by\n`<esp-font-picker>`.\n\nWhen set, the picker fetches from this URL instead of\n`{fontCSSRoot}font-definitions.json`.  This allows the JSON\nto be served through a cache-busting asset pipeline while\nthe individual font CSS files remain at stable paths.",
-              "fieldName": "fontDefinitionsUrl"
-            },
-            {
-              "name": "google-font-loading",
-              "type": {
-                "text": "\"auto\" | \"none\""
-              },
-              "default": "\"auto\"",
-              "description": "Controls whether Espalier may inject runtime Google Fonts CDN\nstylesheet links for selected Google Fonts.\n\n`auto` preserves the default behavior: theme font families and\nselected Google font-picker values may load full fonts from\n`fonts.googleapis.com`.  `none` prevents those runtime Google\nFonts links, leaving local preview CSS and web-safe font stacks\navailable for locked-down, offline, or strict-CSP environments.",
-              "fieldName": "googleFontLoading"
-            },
-            {
-              "name": "icon-sprite-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"/assets/icons.svg\"",
-              "description": "Full URL to the SVG sprite used by component-owned `icon`\nattributes.\n\nComponents append the validated icon name as a fragment, so\nthis should point to the sprite file itself, without `#icon`.\nUse this when your application serves the sprite from a\nsubpath, CDN, or cache-busted asset pipeline. Set it to an\nempty string to disable generated sprite icon URLs for this root.\n\n```html\n<esp-root icon-sprite-url=\"/dist/icons.abc123.svg\">\n  <esp-button icon=\"save\" label=\"Save\"></esp-button>\n</esp-root>\n```",
-              "fieldName": "iconSpriteUrl"
-            },
-            {
-              "name": "default-scheme",
-              "type": {
-                "text": "\"light\" | \"dark\" | \"system\""
-              },
-              "default": "\"light\"",
-              "description": "Initial color scheme to apply when `scheme` is not set.\n\nUse `light` or `dark` for a fixed published-site default, or\n`system` to follow the visitor's `prefers-color-scheme` before\nthey toggle the active `scheme`.",
-              "fieldName": "defaultScheme"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "description": "The active color scheme.\n\nLight scheme\n\n```html\n<esp-root scheme=\"light\">\n  <esp-box>\n    <h2>Light Scheme</h2>\n    <esp-button label=\"I am light\"></esp-button>\n  </esp-box>\n</esp-root>\n```\n\nDark scheme\n\n```html\n<esp-root scheme=\"dark\">\n  <esp-box>\n    <h2>Dark Scheme</h2>\n    <esp-button label=\"I am dark\"></esp-button>\n  </esp-box>\n</esp-root>\n```",
-              "default": "\"light\"",
-              "fieldName": "scheme"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "esp-root",
-          "customElement": true,
-          "docPageTitle": {
-            "name": "Root",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/root",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Structure",
-            "description": ""
-          },
-          "menuOrder": {
-            "name": "1",
-            "description": ""
-          },
-          "menuLabel": {
-            "name": "Root",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "building",
-            "description": ""
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "registerImageTexture",
-          "declaration": {
-            "name": "registerImageTexture",
-            "module": "../shared/image-texture-registry.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "registeredImageTextures",
-          "declaration": {
-            "name": "registeredImageTextures",
-            "module": "../shared/image-texture-registry.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BUILT_IN_IMAGE_TEXTURES",
-          "declaration": {
-            "name": "BUILT_IN_IMAGE_TEXTURES",
-            "module": "../shared/image-texture-registry.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageTextureDefinition",
-          "declaration": {
-            "name": "ImageTextureDefinition",
-            "module": "../shared/image-texture-registry.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SchemeEvents",
-          "declaration": {
-            "name": "SchemeEvents",
-            "module": "../shared/bus-events.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EspalierRoot",
-          "declaration": {
-            "name": "EspalierRoot",
-            "module": "dist/root/esp-root.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-root",
-          "declaration": {
-            "name": "EspalierRoot",
-            "module": "dist/root/esp-root.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/search/esp-search.js",
       "declarations": [
         {
@@ -53888,6 +53236,618 @@
           "declaration": {
             "name": "EspalierSearch",
             "module": "dist/search/esp-search.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/root/esp-root.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Root container for the Espalier design system.\n\nProvides the full design-token pipeline — colors, scales, and\nfonts — to every descendant component.  All tokens are\nJS-computed from a pair of Base64-encoded theme objects and\nemitted as CSS custom properties on the host element.\n\n### Theme API\n\nSupply a `light-theme` and/or `dark-theme` attribute containing\na **Base64-encoded JSON** partial theme.  Fields you omit fall\nback to built-in defaults.  Switch between them with `scheme`.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4yIDE1NSkifQ==\"\n  scheme=\"light\">\n  <esp-box>\n    <h2>Themed content</h2>\n  </esp-box>\n</esp-root>\n```\n\n### Nested theme previews and scoped events\n\nA nested root creates a scoped theme for its descendants. It does not create\na separate event bus: every root publishes theme changes through the same\nEspalier singleton. Subscribe through the root whose changes you own so a\nnested preview cannot be mistaken for an application-level theme change.\n\n```ts\nconst applicationRoot = document.querySelector<EspalierRoot>(\"#application-theme\")!;\n\nconst unsubscribe = applicationRoot.subscribeScoped(\"scheme-changed\", ({ scheme }) => {\n  localStorage.setItem(\"scheme\", scheme);\n});\n\n// Initial state is read directly; scoped events report later changes only.\nrenderScheme(applicationRoot.scheme);\n\n// Call when the owning integration is disposed.\nunsubscribe();\n```\n\nThis contract covers `scheme-changed`, `seed-color-changed`,\n`theme-changed`, and `icon-sprite-url-changed`. Components derived from\n`EspalierElementBase` use the same closest-root filter internally.\n\nThe root also owns the application's banner-texture vocabulary:\n`EspalierRoot.registerTexture(name, definition)` registers an\nimage-backed texture preset that any\n[esp-image](/components/image) banner in the application selects with\n`texture=\"<name>\"`, and `EspalierRoot.registeredTextures()` enumerates\nthe presets for building texture pickers.",
+          "name": "EspalierRoot",
+          "slots": [
+            {
+              "description": "Place Espalier components and content here.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "registerTexture",
+              "privacy": "public",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "definition",
+                  "type": {
+                    "text": "ImageTextureDefinition"
+                  }
+                }
+              ],
+              "description": "Register (or replace) a named, image-backed banner-texture preset.\nAny `esp-image` banner under a root selects it with `texture=\"<name>\"`;\nbanners already pointing at the name re-render, so registration at\nmount and markup order never race. Static delegate to\n`registerImageTexture` so script-only contexts (docs demos, published\nsites) can reach it from the root element without module imports."
+            },
+            {
+              "kind": "method",
+              "name": "registeredTextures",
+              "privacy": "public",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Map<string, Readonly<ImageTextureDefinition>>"
+                }
+              },
+              "description": "Snapshot of the registered texture presets, for building pickers."
+            },
+            {
+              "kind": "field",
+              "name": "schemeBacker",
+              "type": {
+                "text": "\"light\" | \"dark\" | \"\""
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "schemeExplicitlySet",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "resolvingDefaultScheme",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "themeEventsReady",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "systemSchemeQuery",
+              "type": {
+                "text": "MediaQueryList | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "lastSeedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "resolvedLightTheme",
+              "type": {
+                "text": "EspalierTheme"
+              },
+              "privacy": "private",
+              "default": "{ ...DEFAULT_LIGHT_THEME }"
+            },
+            {
+              "kind": "field",
+              "name": "resolvedDarkTheme",
+              "type": {
+                "text": "EspalierTheme"
+              },
+              "privacy": "private",
+              "default": "{ ...DEFAULT_DARK_THEME }"
+            },
+            {
+              "kind": "field",
+              "name": "documentClickRegistrationActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "connectedRootCount",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentClick",
+              "privacy": "private",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "description": "Unique ID for correlating bus events across multiple roots."
+            },
+            {
+              "kind": "method",
+              "name": "subscribeScoped",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "K"
+                  },
+                  "description": "Root-scoped theme event to observe."
+                },
+                {
+                  "name": "handler",
+                  "type": {
+                    "text": "(payload: SchemeEvents[K]) => void"
+                  },
+                  "description": "Callback invoked with that event's typed payload."
+                }
+              ],
+              "description": "Subscribe to a theme event published by this root only.\n\nAll roots share Espalier's global bus. This method filters foreign and\nnested-root payloads by `correlationId` and returns a cleanup function.\nIt reports changes after mount; read initial state from this root."
+            },
+            {
+              "kind": "field",
+              "name": "lightThemeAttr",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Base64-encoded JSON partial theme for the **light** scheme.\n\nOnly fields you wish to override need to be present — all\nothers inherit from the built-in light defaults.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"light\">\n  <esp-box><h2>Purple light theme</h2></esp-box>\n</esp-root>\n```",
+              "attribute": "light-theme"
+            },
+            {
+              "kind": "field",
+              "name": "darkThemeAttr",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Base64-encoded JSON partial theme for the **dark** scheme.\n\n```html\n<esp-root\n  dark-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"dark\">\n  <esp-box><h2>Purple dark theme</h2></esp-box>\n</esp-root>\n```",
+              "attribute": "dark-theme"
+            },
+            {
+              "kind": "field",
+              "name": "fontCSSRoot",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"/css/fonts/\"",
+              "description": "Root path for locally-cached font CSS files used by\n`<esp-font-picker>` to load font previews.\n\nThe directory must contain the individual font CSS files\ngenerated by `npm run build-fonts`.  These files must be\nserved at stable, predictable paths (no filename hashing)\nbecause the picker constructs URLs by font family name.",
+              "attribute": "font-css-root"
+            },
+            {
+              "kind": "field",
+              "name": "fontDefinitionsUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Full URL to the `font-definitions.json` catalog used by\n`<esp-font-picker>`.\n\nWhen set, the picker fetches from this URL instead of\n`{fontCSSRoot}font-definitions.json`.  This allows the JSON\nto be served through a cache-busting asset pipeline while\nthe individual font CSS files remain at stable paths.",
+              "attribute": "font-definitions-url"
+            },
+            {
+              "kind": "field",
+              "name": "googleFontLoading",
+              "type": {
+                "text": "\"auto\" | \"none\""
+              },
+              "privacy": "public",
+              "default": "\"auto\"",
+              "description": "Controls whether Espalier may inject runtime Google Fonts CDN\nstylesheet links for selected Google Fonts.\n\n`auto` preserves the default behavior: theme font families and\nselected Google font-picker values may load full fonts from\n`fonts.googleapis.com`.  `none` prevents those runtime Google\nFonts links, leaving local preview CSS and web-safe font stacks\navailable for locked-down, offline, or strict-CSP environments.",
+              "attribute": "google-font-loading"
+            },
+            {
+              "kind": "field",
+              "name": "iconSpriteUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"/assets/icons.svg\"",
+              "description": "Full URL to the SVG sprite used by component-owned `icon`\nattributes.\n\nComponents append the validated icon name as a fragment, so\nthis should point to the sprite file itself, without `#icon`.\nUse this when your application serves the sprite from a\nsubpath, CDN, or cache-busted asset pipeline. Set it to an\nempty string to disable generated sprite icon URLs for this root.\n\n```html\n<esp-root icon-sprite-url=\"/dist/icons.abc123.svg\">\n  <esp-button icon=\"save\" label=\"Save\"></esp-button>\n</esp-root>\n```",
+              "attribute": "icon-sprite-url"
+            },
+            {
+              "kind": "field",
+              "name": "defaultScheme",
+              "type": {
+                "text": "\"light\" | \"dark\" | \"system\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "Initial color scheme to apply when `scheme` is not set.\n\nUse `light` or `dark` for a fixed published-site default, or\n`system` to follow the visitor's `prefers-color-scheme` before\nthey toggle the active `scheme`.",
+              "attribute": "default-scheme",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "description": "The active color scheme.\n\nLight scheme\n\n```html\n<esp-root scheme=\"light\">\n  <esp-box>\n    <h2>Light Scheme</h2>\n    <esp-button label=\"I am light\"></esp-button>\n  </esp-box>\n</esp-root>\n```\n\nDark scheme\n\n```html\n<esp-root scheme=\"dark\">\n  <esp-box>\n    <h2>Dark Scheme</h2>\n    <esp-button label=\"I am dark\"></esp-button>\n  </esp-box>\n</esp-root>\n```",
+              "default": "\"light\"",
+              "attribute": "scheme",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "description": "The effective seed color from the active theme.\n\nRead-only — supply a theme attribute with a different\n`seedColor` value to change.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "extractFamily",
+              "privacy": "private",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "cssValue",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Extract the bare font family name from a CSS `font-family`\nvalue like `\"Roboto\", sans-serif` → `Roboto`."
+            },
+            {
+              "kind": "method",
+              "name": "injectGoogleFontLink",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "slot",
+                  "type": {
+                    "text": "\"body\" | \"headings\" | \"brand\" | \"monospace\""
+                  }
+                },
+                {
+                  "name": "family",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "weight",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Inject (or replace) a Google Fonts `<link>` for a given slot.\n\nEach slot (`body`, `headings`, `brand`, `monospace`) gets at most one\n`<link>` scoped to this root instance by its correlationId,\nidentified by `data-esp-font=\"<correlationId>-<slot>\"`.\nThis ensures multiple `<esp-root>` instances on the same page\ndo not overwrite each other's font links."
+            },
+            {
+              "kind": "method",
+              "name": "syncGoogleFontLinks",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Ensure Google Font `<link>` tags match the active theme's\nfont families.  Called from `willUpdate()` after theme\nresolution."
+            },
+            {
+              "kind": "method",
+              "name": "removeRuntimeGoogleFontLinks",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "activeTheme",
+              "type": {
+                "text": "EspalierTheme"
+              },
+              "privacy": "public",
+              "description": "Returns the resolved theme for the active scheme.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "resolveThemes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Re-merge default → theme-attribute for both schemes.\nCalled in `willUpdate()` whenever any input property changes."
+            },
+            {
+              "kind": "field",
+              "name": "resizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => { getEspBus().publish(\"window-resized\", { emWidth: window.innerWidth / parseFloat(getComputedStyle(document.documentElement).fontSize), emHeight: window.innerHeight / parseFloat(getComputedStyle(document.documentElement).fontSize), pxWidth: window.innerWidth, pxHeight: window.innerHeight, }); })"
+            },
+            {
+              "kind": "method",
+              "name": "registerDocumentClickBridge",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unregisterDocumentClickBridge",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyDefaultScheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveDefaultScheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "\"light\" | \"dark\""
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncSystemSchemeListener",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSystemSchemeChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "lightDomStyles",
+              "static": true,
+              "default": "` /* ── Base typography ──────────────────────────────────── */ esp-root { font-family: var(--esp-font-body); font-weight: var(--esp-font-weight-body); line-height: 1.5; font-size: var(--esp-type-normal); color: var(--esp-color-text); } /* ── Lists ────────────────────────────────────────────── */ esp-root ul[role=\"list\"], esp-root ol[role=\"list\"] { list-style: none; } esp-root ul li::marker, esp-root ol li::marker { font-weight: bold; } /* ── Form controls ────────────────────────────────────── */ esp-root input, esp-root select, esp-root button { font-family: var(--esp-font-body); } /* ── Links ────────────────────────────────────────────── */ esp-root a:not([class]) { text-decoration-skip-ink: auto; font-weight: bold; color: var(--esp-color-link); } esp-root a { text-decoration: underline; text-decoration-skip-ink: auto; color: var(--esp-color-link); } esp-root a:hover { background-color: var(--esp-color-link-hover-bg); color: var(--esp-color-link-hover); text-decoration: none; } /* ── Inherited text styles ────────────────────────────── */ esp-root input, esp-root button, esp-root textarea, esp-root select, esp-root p, esp-root ul, esp-root li { font-family: var(--esp-font-body); color: var(--esp-color-text); font-size: inherit; } esp-root textarea:not([rows]) { min-height: 10em; } /* ── Headings ─────────────────────────────────────────── */ esp-root h1, esp-root h2, esp-root h3, esp-root h4, esp-root h5 { font-family: var(--esp-font-headings); font-weight: var(--esp-font-weight-headings); color: var(--esp-color-headings); margin: var(--esp-size-small-to-normal) 0 var(--esp-size-tiny-to-small); } esp-root h5 { font-size: var(--esp-type-small); line-height: 1.4; } esp-root h4 { font-size: var(--esp-type-medium); line-height: 1.3; } esp-root h3 { font-size: var(--esp-type-big); line-height: 1.2; } esp-root h2 { font-size: var(--esp-type-large); line-height: 1.15; } esp-root h1 { font-size: var(--esp-type-huge); line-height: 1.1; } /* ── Code / Pre ───────────────────────────────────────── */ esp-root pre, esp-root code { font-family: var(--esp-font-monospace); font-weight: var(--esp-font-weight-monospace); } esp-root code { font-size: var(--esp-type-small); background: var(--esp-color-layer-1); border-radius: var(--esp-size-border-radius); padding: 0 0.35em; display: inline-block; border: 1px dotted var(--esp-color-border); } esp-root pre { background-color: var(--esp-color-layer-1); border-radius: var(--esp-size-border-radius); border: 1px dotted var(--esp-color-border); } esp-root pre > code { font-size: var(--esp-type-tiny); display: block; background: none; border: none; hyphens: none; tab-size: 2; white-space: pre; padding: var(--esp-size-padding); overflow: auto; line-height: 1.8; } /* ── Images ────────────────────────────────────────────── */ esp-root img, esp-root picture { max-width: 100%; display: block; } `",
+              "description": "Light-DOM styles injected into `document.head` so that\nslotted content (headings, links, code blocks, lists, etc.)\ninherits the design-system tokens defined on `:host`.\nSelectors are scoped to `esp-root` descendants to avoid\nleaking into content outside the root."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "light-theme",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Base64-encoded JSON partial theme for the **light** scheme.\n\nOnly fields you wish to override need to be present — all\nothers inherit from the built-in light defaults.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"light\">\n  <esp-box><h2>Purple light theme</h2></esp-box>\n</esp-root>\n```",
+              "fieldName": "lightThemeAttr"
+            },
+            {
+              "name": "dark-theme",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Base64-encoded JSON partial theme for the **dark** scheme.\n\n```html\n<esp-root\n  dark-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4xNSAyODUpIn0=\"\n  scheme=\"dark\">\n  <esp-box><h2>Purple dark theme</h2></esp-box>\n</esp-root>\n```",
+              "fieldName": "darkThemeAttr"
+            },
+            {
+              "name": "font-css-root",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"/css/fonts/\"",
+              "description": "Root path for locally-cached font CSS files used by\n`<esp-font-picker>` to load font previews.\n\nThe directory must contain the individual font CSS files\ngenerated by `npm run build-fonts`.  These files must be\nserved at stable, predictable paths (no filename hashing)\nbecause the picker constructs URLs by font family name.",
+              "fieldName": "fontCSSRoot"
+            },
+            {
+              "name": "font-definitions-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Full URL to the `font-definitions.json` catalog used by\n`<esp-font-picker>`.\n\nWhen set, the picker fetches from this URL instead of\n`{fontCSSRoot}font-definitions.json`.  This allows the JSON\nto be served through a cache-busting asset pipeline while\nthe individual font CSS files remain at stable paths.",
+              "fieldName": "fontDefinitionsUrl"
+            },
+            {
+              "name": "google-font-loading",
+              "type": {
+                "text": "\"auto\" | \"none\""
+              },
+              "default": "\"auto\"",
+              "description": "Controls whether Espalier may inject runtime Google Fonts CDN\nstylesheet links for selected Google Fonts.\n\n`auto` preserves the default behavior: theme font families and\nselected Google font-picker values may load full fonts from\n`fonts.googleapis.com`.  `none` prevents those runtime Google\nFonts links, leaving local preview CSS and web-safe font stacks\navailable for locked-down, offline, or strict-CSP environments.",
+              "fieldName": "googleFontLoading"
+            },
+            {
+              "name": "icon-sprite-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"/assets/icons.svg\"",
+              "description": "Full URL to the SVG sprite used by component-owned `icon`\nattributes.\n\nComponents append the validated icon name as a fragment, so\nthis should point to the sprite file itself, without `#icon`.\nUse this when your application serves the sprite from a\nsubpath, CDN, or cache-busted asset pipeline. Set it to an\nempty string to disable generated sprite icon URLs for this root.\n\n```html\n<esp-root icon-sprite-url=\"/dist/icons.abc123.svg\">\n  <esp-button icon=\"save\" label=\"Save\"></esp-button>\n</esp-root>\n```",
+              "fieldName": "iconSpriteUrl"
+            },
+            {
+              "name": "default-scheme",
+              "type": {
+                "text": "\"light\" | \"dark\" | \"system\""
+              },
+              "default": "\"light\"",
+              "description": "Initial color scheme to apply when `scheme` is not set.\n\nUse `light` or `dark` for a fixed published-site default, or\n`system` to follow the visitor's `prefers-color-scheme` before\nthey toggle the active `scheme`.",
+              "fieldName": "defaultScheme"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "description": "The active color scheme.\n\nLight scheme\n\n```html\n<esp-root scheme=\"light\">\n  <esp-box>\n    <h2>Light Scheme</h2>\n    <esp-button label=\"I am light\"></esp-button>\n  </esp-box>\n</esp-root>\n```\n\nDark scheme\n\n```html\n<esp-root scheme=\"dark\">\n  <esp-box>\n    <h2>Dark Scheme</h2>\n    <esp-button label=\"I am dark\"></esp-button>\n  </esp-box>\n</esp-root>\n```",
+              "default": "\"light\"",
+              "fieldName": "scheme"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "esp-root",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Root",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/root",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Structure",
+            "description": ""
+          },
+          "menuOrder": {
+            "name": "1",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Root",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "building",
+            "description": ""
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "registerImageTexture",
+          "declaration": {
+            "name": "registerImageTexture",
+            "module": "../shared/image-texture-registry.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "registeredImageTextures",
+          "declaration": {
+            "name": "registeredImageTextures",
+            "module": "../shared/image-texture-registry.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BUILT_IN_IMAGE_TEXTURES",
+          "declaration": {
+            "name": "BUILT_IN_IMAGE_TEXTURES",
+            "module": "../shared/image-texture-registry.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ImageTextureDefinition",
+          "declaration": {
+            "name": "ImageTextureDefinition",
+            "module": "../shared/image-texture-registry.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SchemeEvents",
+          "declaration": {
+            "name": "SchemeEvents",
+            "module": "../shared/bus-events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EspalierRoot",
+          "declaration": {
+            "name": "EspalierRoot",
+            "module": "dist/root/esp-root.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-root",
+          "declaration": {
+            "name": "EspalierRoot",
+            "module": "dist/root/esp-root.js"
           }
         }
       ]

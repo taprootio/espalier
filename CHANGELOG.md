@@ -5,6 +5,22 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.13.1 — Workspace allocation and centering
+
+- Honor an explicit finite `--esp-page-main-max-width` on `kind="full"` pages.
+- Allocate configured auxiliary defaults and retained resize preferences through
+  the same contraction-first responsive path.
+- Contract automatic defaults against natural spare canvas without reclaiming
+  main merely to preserve them. Re-clamp a retained user choice monotonically
+  to the complete capacity available down to main's minimum instead of changing
+  policy at the minimum-fit threshold.
+- Cap and center the complete main, preview, and in-grid help workspace on
+  ultra-wide centered layouts.
+
+Migration: an explicit `--esp-page-main-max-width` now caps a `kind="full"`
+page. Consumers that previously relied on `kind="full"` to ignore a shared main
+maximum should unset that token on the full page.
+
 ## 2.13.0 — Default page workspace widths
 
 - Add `--esp-page-preview-default-width` and

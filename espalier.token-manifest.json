@@ -1655,7 +1655,7 @@
       "name": "--esp-page-main-max-width",
       "category": "component",
       "component": "esp-page",
-      "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). Surplus width beyond it becomes canvas gutters."
+      "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). An explicit value overrides every kind default, including `full`. Surplus width beyond it becomes canvas gutters."
     },
     {
       "name": "--esp-page-main-min-width",
