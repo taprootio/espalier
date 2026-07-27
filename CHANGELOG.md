@@ -5,6 +5,40 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.14.0 — Stable workspace resizing and trailing-edge controls
+
+- Yield a safely linked navigation rail after auxiliary panes contract and
+  before reclaiming main below its natural maximum, then retain the drawer
+  presentation whenever restoring the rail would change the settled workspace.
+- Add a recovery margin so navigation settlement remains stable across repeated
+  layout observation and restores only after expansion or pane contraction can
+  preserve the main, preview, and help allocation.
+- Keep the Main/Preview separator moving after main reaches its maximum by
+  shrinking preview independently and placing the released width in the aligned
+  outer canvas, including centered, keyboard, LTR, and RTL interactions.
+- Keep separator ARIA accurate through the main-cap transition by capping its
+  numeric main range and announcing the changing preview width in value text.
+- Keep viewport-height full-document help sticky while the application scrolls
+  through its footer, while compact contextual help continues to move with its
+  originating field, and add a dedicated full-page workspace documentation lab.
+- Expose the trailing edge of the last in-grid Preview or Help pane as an
+  independent pointer and keyboard resize separator whenever outer canvas is
+  available, with public parts and resize-event separator identities.
+- Extend the exported `PageWorkspaceSeparator` union with `"preview-end"` and
+  `"flyout-end"`; TypeScript consumers with exhaustive separator switches must
+  handle the two new trailing-edge identities.
+- Let an outward edge drag consume the complete aligned outside canvas, so
+  reaching the page edge maximizes Preview or Help within its configured bound.
+- Let Preview/Help consume trailing outside room before contraction, keeping
+  Help at its current width until it reaches the page edge. Main/Preview may
+  push the trailing group only while main can grow; a capped main instead
+  shrinks Preview immediately and releases aligned outside surplus, with
+  pointer tracking, centered settlement, keyboard access, and accurate value
+  text.
+- Control the workspace's logical leading position during pointer resizing so
+  the active line follows the cursor through zero-sum and outward growth, then
+  smoothly return the completed workspace to its configured alignment.
+
 ## 2.13.1 — Workspace allocation and centering
 
 - Honor an explicit finite `--esp-page-main-max-width` on `kind="full"` pages.

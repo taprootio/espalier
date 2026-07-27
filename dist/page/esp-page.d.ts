@@ -3,14 +3,16 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierDialog } from "../dialog/esp-dialog.js";
 import "../toaster/esp-toaster.js";
 type HeaderPosition = "normal" | "sticky" | "fixed";
-export type PageWorkspaceSeparator = "main-preview" | "preview-flyout" | "main-flyout";
+export type PageWorkspaceSeparator = "main-preview" | "preview-flyout" | "main-flyout" | "preview-end" | "flyout-end";
 export type PageWorkspaceResizeSource = "keyboard" | "pointer";
 /** Detail emitted while an `esp-page` workspace separator changes pane sizes. */
 export interface PageWorkspaceResizeDetail {
     /**
-     * Separator that initiated the resize. The second physical seam reports
+     * Separator that initiated the resize. The second internal seam reports
      * `"preview-flyout"` while preview is visible and `"main-flyout"` when it
      * sits directly between main and help because preview is hidden or closed.
+     * The exposed trailing workspace edge reports `"preview-end"` or
+     * `"flyout-end"` for the pane that owns that edge.
      */
     separator: PageWorkspaceSeparator;
     /** Input modality that initiated the resize. */
@@ -52,11 +54,13 @@ export interface PageWorkspaceResizeDetail {
  * The authoring workspace is ordered main, preview, then help. Each region
  * negotiates between public minimum and maximum widths; preview grows first,
  * then help. Set `workspace-resizable` to expose accessible drag and keyboard
- * separators on the dotted seams. Preferred pane sizes remain attached to the
- * mounted page instance and are re-clamped by the same allocator whenever the
- * available inline size changes. Opt into collapsing a directly paired
- * header/sidebar navigation to its accessible burger/drawer mode when the
- * combined workspace needs it.
+ * separators on the dotted internal seams and the exposed trailing edge of the
+ * last auxiliary pane. Preferred pane sizes remain attached to the mounted
+ * page instance and are re-clamped by the same allocator whenever the available
+ * inline size changes. Opt into collapsing a directly paired
+ * header/sidebar navigation to its accessible burger/drawer mode after
+ * auxiliary panes contract and before main is reclaimed. The rail returns
+ * only when doing so preserves the settled pane allocation.
  *
  * @slot sidebar - Contextual navigation placed in the left aside.
  * @slot right - Content to place in the right aside.
@@ -92,9 +96,10 @@ export interface PageWorkspaceResizeDetail {
  *
  * @event {CustomEvent<PageWorkspaceResizeDetail>} esp-page-workspace-resize -
  * Fired while a pointer or keyboard interaction changes a preferred workspace
- * allocation. `separator` is `"main-preview"`, `"preview-flyout"`, or
- * `"main-flyout"` (the second seam without a visible preview). Bubbles and
- * crosses the shadow boundary.
+ * allocation. `separator` identifies an internal seam (`"main-preview"`,
+ * `"preview-flyout"`, or `"main-flyout"`) or the exposed trailing edge
+ * (`"preview-end"` or `"flyout-end"`). Bubbles and crosses the shadow
+ * boundary.
  *
  * ```html
  * <esp-page class="docs">
@@ -240,12 +245,17 @@ export interface PageWorkspaceResizeDetail {
  * @csspart preview - The persistent preview complementary landmark.
  * @csspart preview-content - The sticky wrapper around preview content.
  * @csspart main-preview-resize-handle - Separator between main and preview.
- * Announces main's width.
+ * Announces main's width and includes preview's changing width in its value
+ * text when main is capped.
  * @csspart preview-flyout-resize-handle - Separator between preview and
  * in-grid flyout/help while preview is visible. Announces help's width.
  * @csspart main-flyout-resize-handle - The same physical seam while preview
  * is hidden or closed: it then sits between main and in-grid help, sizes
  * help directly against main, and reports `separator: "main-flyout"`.
+ * @csspart preview-end-resize-handle - The exposed trailing edge of preview
+ * while preview is the last in-grid auxiliary pane.
+ * @csspart flyout-end-resize-handle - The exposed trailing edge of in-grid
+ * flyout/help while help is the last auxiliary pane.
  *
  * ```html
  * <style>
@@ -372,7 +382,8 @@ export interface PageWorkspaceResizeDetail {
  *     <p>
  *       Help is anchored to the title field in this main editor. Its caret and
  *       dotted connector cross the persistent preview without blocking it.
- *       Both dotted pane seams are resize handles while their panes are in-grid.
+ *       The dotted internal seams and any exposed trailing pane edge are resize
+ *       handles while their panes are in-grid.
  *     </p>
  *     <esp-button id="page-workspace-preview-toggle" label="Toggle preview"></esp-button>
  *     <esp-button id="page-workspace-help-toggle" label="Toggle title help"></esp-button>
@@ -498,8 +509,10 @@ export declare class EspalierPage extends EspalierElementBase {
     previewCollapseSidebar: boolean;
     /**
      * Expose accessible pointer and keyboard separators for the visible
-     * Main → Preview → Flyout/Help workspace seams. Preferred sizes remain on
-     * this mounted instance and are continuously re-clamped by page allocation.
+     * Main → Preview → Flyout/Help workspace seams and for the trailing edge of
+     * the last auxiliary pane when outer canvas is available. Preferred sizes
+     * remain on this mounted instance and are continuously re-clamped by page
+     * allocation.
      */
     workspaceResizable: boolean;
     /**
