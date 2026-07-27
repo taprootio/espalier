@@ -62,15 +62,19 @@ export interface PageWorkspaceResizeDetail {
  * @slot right - Content to place in the right aside.
  * @slot preview - Persistent preview content placed after the main surface and
  * before help. It grows from `--esp-page-preview-min-width` to
- * `--esp-page-preview-max-width`, starts at viewport top, and gives its content
- * an independent `100dvh` vertical scroller. At either scroll boundary, wheel
- * and trackpad motion chains back to the main document. Unlike flyout content,
- * preview content is never replaced by the flyout request bus.
+ * `--esp-page-preview-max-width`, starting at
+ * `--esp-page-preview-default-width` when that token is set. It starts at
+ * viewport top and gives its content an independent `100dvh` vertical scroller. At
+ * either scroll boundary, wheel and trackpad motion chains back to the main
+ * document. Unlike flyout content, preview content is never replaced by the
+ * flyout request bus.
  * @slot flyout - A transient `esp-flyout` panel that lives on the
  * canvas after preview. Closed it costs no width; open it grows from
- * `--esp-page-flyout-min-width` to `--esp-page-flyout-max-width` after preview
- * receives flexible space, then docks as a width-competing right sidebar when
- * no gutter exists, and becomes an overlay drawer on small viewports.
+ * `--esp-page-flyout-min-width` to `--esp-page-flyout-max-width`, starting at
+ * `--esp-page-flyout-default-width` when that token is set. It receives
+ * remaining flexible space after preview when no default is set, then docks as
+ * a width-competing right sidebar when no gutter exists and becomes an overlay
+ * drawer on small viewports.
  * The persistent `right` aside and the transient flyout are
  * complementary, not alternatives. A flyout opened with an `anchor`
  * aligns to that trigger and stays in the same document scroll flow. When a
@@ -193,10 +197,18 @@ export interface PageWorkspaceResizeDetail {
  * additive surface.
  * @cssprop --esp-page-preview-min-width - Minimum preview width. Defaults to
  * `22.5rem` (360px, a reasonable mobile-device surface).
+ * @cssprop --esp-page-preview-default-width - Initial automatic preview
+ * target, clamped between the preview minimum and maximum. When unset, the
+ * established preview-first flexible allocation remains in effect. A retained
+ * pointer or keyboard resize preference supersedes this target.
  * @cssprop --esp-page-preview-max-width - Maximum preview width. Defaults to
  * `48rem`. Preview receives flexible trailing space before help grows.
  * @cssprop --esp-page-flyout-min-width - Minimum in-grid help width. Defaults
  * to `20rem`.
+ * @cssprop --esp-page-flyout-default-width - Initial automatic in-grid help
+ * target, clamped between the help minimum and maximum. When unset, the
+ * established flexible allocation remains in effect. A retained pointer or
+ * keyboard resize preference supersedes this target.
  * @cssprop --esp-page-flyout-max-width - Maximum help width and overlay drawer
  * cap before the `85vw` viewport cap. Defaults to `30rem`.
  * @cssprop --esp-page-resize-step - Arrow-key resize step. Defaults to `1rem`.

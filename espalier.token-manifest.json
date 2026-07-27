@@ -1616,6 +1616,12 @@
       "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`."
     },
     {
+      "name": "--esp-page-flyout-default-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Initial automatic in-grid help target, clamped between the help minimum and maximum. When unset, the established flexible allocation remains in effect. A retained pointer or keyboard resize preference supersedes this target."
+    },
+    {
       "name": "--esp-page-flyout-max-width",
       "category": "component",
       "component": "esp-page",
@@ -1674,6 +1680,12 @@
       "category": "component",
       "component": "esp-page",
       "description": "Leading tear-off edge between main and preview. Defaults to `1px dotted var(--esp-color-border)`."
+    },
+    {
+      "name": "--esp-page-preview-default-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Initial automatic preview target, clamped between the preview minimum and maximum. When unset, the established preview-first flexible allocation remains in effect. A retained pointer or keyboard resize preference supersedes this target."
     },
     {
       "name": "--esp-page-preview-max-width",

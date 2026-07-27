@@ -5,6 +5,23 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 2.13.0 — Default page workspace widths
+
+- Add `--esp-page-preview-default-width` and
+  `--esp-page-flyout-default-width` as independent, min/max-clamped automatic
+  allocation targets without changing the legacy fixed-width aliases or the
+  established allocation when the new tokens are unset.
+- Shrink defaulted help and preview widths toward their independent minimums,
+  in help-before-preview order, before reclaiming the main well. Apply the same
+  behavior to preview-only and help-only layouts while retaining the existing
+  minimum-fit preview hiding and help overlay ladder.
+- Keep pointer and keyboard resize preferences authoritative over configured
+  defaults, with the existing responsive clamping, hiding, overlay recovery,
+  restoration, and independent min/max resize travel.
+- Document the new API and add unit and browser coverage for default bounds,
+  contraction, one-pane allocation, preference precedence, responsive
+  restoration, legacy aliases, and the unset-token fallback.
+
 ## 2.12.1 — URL help flyout fixes
 
 - Change contextual help flyouts to the normalized document title when “View
