@@ -1,23 +1,40 @@
-type SpaceAboveBelow = {
-    spaceAbove: number;
-    spaceBelow: number;
-};
 /**
- * Calculates the available space above and below an element relative to the viewport.
- *
- * @param element - The HTML element to measure
- * @returns An object containing spaceAbove and spaceBelow in pixels
+ * `getSpaceAboveBelow` now lives in `./viewport.js` alongside the rest of the
+ * viewport measurement helpers. It is re-exported here because
+ * `@taprootio/espalier/shared/utilities` is a published entry point.
  */
-export declare function getSpaceAboveBelow(element: HTMLElement): SpaceAboveBelow;
+export { getSpaceAboveBelow, type SpaceAboveBelow } from "./viewport.js";
 /**
- * Scrolls an element into view within a scrollable container.
- * Handles scrolling up or down based on the direction flag.
+ * Scroll an element into view within a scrollable container.
+ *
+ * @deprecated No longer used by Espalier. Prefer `Element.scrollIntoView` with
+ * `block: "nearest"`, which the platform implements natively. Scheduled for
+ * removal in the next major release.
  *
  * @param container - The scrollable container element
  * @param element - The element to scroll into view
  * @param up - If true, scroll upward; if false, scroll downward
  */
 export declare function scrollElementIntoView(container: HTMLElement, element: HTMLElement, up: boolean): void;
+/**
+ * Whether an element or any ancestor is fixed-positioned, crossing shadow
+ * boundaries.
+ *
+ * @deprecated No longer used by Espalier. Scheduled for removal in the next
+ * major release.
+ *
+ * @param element - The element to check
+ */
+export declare function isFixedInShadowDom(element: HTMLElement): boolean;
+/**
+ * Whether an element or any light-DOM ancestor is fixed-positioned.
+ *
+ * @deprecated No longer used by Espalier. Scheduled for removal in the next
+ * major release.
+ *
+ * @param element - The element to check
+ */
+export declare function isFixedOrAncestorFixed(element: HTMLElement): boolean;
 /**
  * Traverses up the DOM tree from a given element to find the closest matching element.
  * Handles traversal across Shadow DOM boundaries to locate elements in parent scopes.
@@ -29,22 +46,6 @@ export declare function scrollElementIntoView(container: HTMLElement, element: H
  */
 export declare function traverseToClosest<TElement extends HTMLElement>(fromElement: Element, selector: string): TElement | null;
 /**
- * Checks if an element or any of its ancestors have a fixed position within a Shadow DOM.
- * Recursively traverses the Shadow DOM tree to detect fixed positioning.
- *
- * @param element - The element to check
- * @returns True if the element or any ancestor is fixed-positioned within Shadow DOM, false otherwise
- */
-export declare function isFixedInShadowDom(element: HTMLElement): boolean;
-/**
- * Checks if an element has a fixed position or if any of its ancestors are fixed-positioned.
- * Traverses up the DOM tree to detect fixed positioning at any level.
- *
- * @param element - The element to check
- * @returns True if the element or any ancestor has position: fixed, false otherwise
- */
-export declare function isFixedOrAncestorFixed(element: HTMLElement): boolean;
-/**
  * Compares two arrays to check if they contain the same values for a specific key.
  * Arrays are compared by extracting values for the given key, sorting them, and checking equality.
  * Order of elements in the original arrays does not matter.
@@ -55,4 +56,3 @@ export declare function isFixedOrAncestorFixed(element: HTMLElement): boolean;
  * @returns True if both arrays have the same length and matching values for the key, false otherwise
  */
 export declare const arrayKeysMatch: (arr1: Array<Record<string, unknown>>, arr2: Array<Record<string, unknown>>, key: string) => boolean;
-export {};

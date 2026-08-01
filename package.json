@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "2.14.0",
+  "version": "2.15.0",
   "packageManager": "bun@1.3.12",
   "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
@@ -269,6 +269,14 @@
     "./shared/font-helpers": {
       "types": "./dist/shared/font-helpers.d.ts",
       "import": "./dist/shared/font-helpers.js"
+    },
+    "./shared/cursor-pagination": {
+      "types": "./dist/shared/cursor-pagination.d.ts",
+      "import": "./dist/shared/cursor-pagination.js"
+    },
+    "./shared/viewport": {
+      "types": "./dist/shared/viewport.d.ts",
+      "import": "./dist/shared/viewport.js"
     },
     "./shared/utilities": {
       "types": "./dist/shared/utilities.d.ts",

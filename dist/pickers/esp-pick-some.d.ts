@@ -3,7 +3,6 @@ import "./esp-picker-item.js";
 import "./esp-picker-menu.js";
 import { type PickerItem } from "./esp-picker-item.js";
 import { EspalierPickerBase } from "./esp-picker-base.js";
-import type { TypeaheadFetchItems } from "./types.js";
 /**
  * Component for selecting multiple options from a list of options.
  *
@@ -154,34 +153,13 @@ import type { TypeaheadFetchItems } from "./types.js";
  * @customElement esp-pick-some
  */
 export declare class EspalierPickSome extends EspalierPickerBase {
+    protected decorateFilteredItems(items: PickerItem[]): PickerItem[];
+    /** Multi-select always clears the input — chips carry the selection. */
+    protected get typeaheadRestoreText(): string;
     /**
      * The values of all currently selected items.
      */
     get values(): Array<string>;
-    /**
-     * When true, the picker input becomes a typeahead search field.
-     * The user types to filter the option list.
-     *
-     * @type {boolean}
-     */
-    typeahead: boolean;
-    /**
-     * Async callback for fetching items from a remote source.
-     * When set alongside `typeahead`, the picker delegates to this
-     * callback instead of filtering locally.
-     *
-     * The callback receives the current query string and an
-     * `AbortSignal` that the component will abort when a newer
-     * query arrives before the previous request completes.
-     */
-    fetchItems: TypeaheadFetchItems | null;
-    /**
-     * Debounce delay in milliseconds for typeahead input. Defaults
-     * to `0` for local filtering and `300` for remote fetching.
-     *
-     * @type {number}
-     */
-    debounceMs: number | undefined;
     /**
      * Callback for adding a new value when the user types text
      * that does not match any existing item. The callback receives
@@ -199,10 +177,7 @@ export declare class EspalierPickSome extends EspalierPickerBase {
     } | null;
     protected handlePickerReset(): void;
     protected handlePickerRestore(state: string): void;
-    protected set showOptions(val: boolean);
-    protected get showOptions(): boolean;
-    protected willUpdate(changedProperties: PropertyValues): void;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    protected syncSelectionFromItems(changedProperties: PropertyValues): void;
     protected render(): TemplateResult<1>;
     static styles: import("lit").CSSResult[];
 }

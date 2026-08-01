@@ -106,8 +106,6 @@ export declare class EspalierPickerMenu extends LitElement {
      * Uses the Popover API to render in the top layer, escaping any
      * ancestor `overflow: hidden` clipping.
      *
-     * //TODO: Show the menu full screen on mobile...
-     *
      * @param relativeTo The element to place the picker above or below.
      */
     positionSelf(relativeTo: HTMLElement): void;

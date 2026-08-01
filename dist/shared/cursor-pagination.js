@@ -1,0 +1,1 @@
+class n{constructor(){this.version=0}begin(){return++this.version}isCurrent(r){return r===this.version}invalidate(){this.version++}}function i(e,r,t){return t===null?[...r]:[...e,...r]}export{n as RequestVersionGuard,i as accumulatePage};

@@ -1,0 +1,1 @@
+class l{constructor(e){this.callback=e,this.frameId=null}get isScheduled(){return this.frameId!==null}schedule(){this.frameId===null&&(this.frameId=requestAnimationFrame(()=>{this.frameId=null,this.callback()}))}restart(){this.cancel(),this.schedule()}cancel(){this.frameId!==null&&(cancelAnimationFrame(this.frameId),this.frameId=null)}}export{l as RafThrottle};

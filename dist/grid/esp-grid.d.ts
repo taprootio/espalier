@@ -2,6 +2,7 @@ import { type PropertyValues, type TemplateResult } from "lit";
 import "../input/esp-input.js";
 import "../button/esp-button.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+import { type CursorPageRequest, type CursorPageResult } from "../shared/cursor-pagination.js";
 import { type GridRow } from "./esp-grid-column.js";
 import "./esp-grid-column.js";
 import "../shared/virtualizer/lit-virtualizer.js";
@@ -20,27 +21,18 @@ export declare const GRID_ITEMS_CHANGED_EVENT = "esp-grid-items-changed";
  * Parameters passed to the `fetchPage` callback when the grid
  * is in cursor-based infinite scroll mode.
  */
-export type CursorFetchParams = {
-    /** The cursor for the page to fetch. `null` means fetch the first page. */
-    cursor: string | null;
-    /** The number of items to fetch per page (from `pageSize`). */
-    limit: number;
+export interface CursorFetchParams extends CursorPageRequest {
     /** The current search term (empty string if none). */
     search: string;
     /** The field name being sorted on (empty string if none). */
     sortField: string;
     /** The sort direction. */
     sortOrder: "asc" | "desc" | "";
-};
+}
 /**
  * The shape of the result returned by the `fetchPage` callback.
  */
-export type CursorFetchResult<T = GridRow> = {
-    /** The items for this page. */
-    items: T[];
-    /** Cursor for the next page, or `null` if there are no more pages. */
-    nextCursor: string | null;
-};
+export type CursorFetchResult<T = GridRow> = CursorPageResult<T>;
 export type GridDataStateEventDetail<T = GridRow> = {
     /** The grid's current loaded or filtered item set. */
     items: T[];

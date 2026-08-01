@@ -1,14 +1,17 @@
 import { nothing, type PropertyValues, type TemplateResult } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+import { type CursorPageRequest, type CursorPageResult } from "../shared/cursor-pagination.js";
 import "../shared/virtualizer/lit-virtualizer.js";
-export interface RepeaterFetchParams {
-    cursor: string | null;
-    limit: number;
-}
-export interface RepeaterFetchResult<T = unknown> {
-    items: T[];
-    nextCursor: string | null;
-}
+/**
+ * @deprecated Use `CursorPageRequest` from `shared/cursor-pagination.js`. This
+ * alias is retained for one release; the shape is unchanged.
+ */
+export type RepeaterFetchParams = CursorPageRequest;
+/**
+ * @deprecated Use `CursorPageResult` from `shared/cursor-pagination.js`. This
+ * alias is retained for one release; the shape is unchanged.
+ */
+export type RepeaterFetchResult<T = unknown> = CursorPageResult<T>;
 export type RepeaterLayout = "list" | "grid";
 export type RepeaterScrollModel = "contained" | "page";
 export type RepeaterRenderValue = TemplateResult | Node | string | number | boolean | typeof nothing | null | undefined;
