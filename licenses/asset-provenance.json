@@ -189,7 +189,7 @@
       "assetType": "browser-captured banner preset reference sheets (JPEG, 1120x1768)",
       "classification": "Taproot-authored derived documentation assets",
       "owner": "Taproot",
-      "source": "Captured from __tests__/image/esp-image-banner-reference.browser.html in the Codex in-app browser on 2026-07-20, using the provenance-cleared canvas-bg.jpg and canvas-bg-dark.jpg source images",
+      "source": "Captured from __tests__/image/esp-image-banner-reference.browser.html (now scripts/fixtures/esp-image-banner-reference.browser.html) in the Codex in-app browser on 2026-07-20, using the provenance-cleared canvas-bg.jpg and canvas-bg-dark.jpg source images",
       "license": "Taproot-owned reference composition; underlying source-image ownership and license remain recorded in their own manifest entries",
       "transformations": [
         "Rendered the locked procedural scrim and texture recipes over the bright and dark source images",

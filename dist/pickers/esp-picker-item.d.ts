@@ -16,6 +16,7 @@ export type PickerItem = {
  */
 export declare class EspalierPickerItem extends LitElement implements PickerItem {
     constructor();
+    connectedCallback(): void;
     styles: Record<string, string> | undefined;
     text: string;
     /**
