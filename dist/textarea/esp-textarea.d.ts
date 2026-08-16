@@ -22,7 +22,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Textarea can have [color variants](/guides/colors/variants).
+ * Textarea can have [color variants](/espalier-guides/).
  * Here are some examples:
  *
  * ```html

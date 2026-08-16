@@ -27,7 +27,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Input can have [color variants](/guides/colors/variants). Here are some examples:
+ * Input can have [color variants](/espalier-guides/). Here are some examples:
  *
  * ```html
  * <esp-input variant="split-complementary-left"></esp-input>

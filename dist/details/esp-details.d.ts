@@ -13,7 +13,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-details>
  * ```
  *
- * Details can have [color variants](/guides/colors/variants):
+ * Details can have [color variants](/espalier-guides/):
  *
  * ```html
  * <esp-details summary="Complementary variant" variant="complementary">

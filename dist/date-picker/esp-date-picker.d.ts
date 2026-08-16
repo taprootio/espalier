@@ -80,12 +80,10 @@ export type { CalendarDay, DatePickerMode, ParsedValue } from "./helpers/types.j
  * </script>
  * ```
  *
- * <esp-info variant="warning" icon="info-i">
- *   The Temporal API must be available at runtime. If your target
- *   browsers do not yet ship it natively, load a polyfill such as
- *   <code>temporal-polyfill</code> in your document
- *   <code>&lt;head&gt;</code> before using this component.
- * </esp-info>
+ * > **Runtime requirement:** The Temporal API must be available. If
+ * > target browsers do not yet ship it natively, load a polyfill such
+ * > as `temporal-polyfill` in the document `<head>` before using this
+ * > component.
  *
  * @event {CustomEvent<string>} value-changed - Emitted when the
  * user picks a date, time, or range. The event detail is the new

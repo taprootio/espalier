@@ -9,7 +9,7 @@ export type EspalierFormField = {
 /**
  * Wraps fields with label and error message functionality. For more
  * information about forms, read our
- * [guide work working with forms](/guides/forms).
+ * [guide for working with forms](/espalier-guides/#forms).
  *
  * ```html
  * <style>

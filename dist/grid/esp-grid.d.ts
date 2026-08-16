@@ -116,12 +116,10 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * scrolls. Search and sort are delegated to the server via the
  * callback parameters.
  *
- * <esp-info variant="warning" icon="info-i">
- *   Every column in an infinite-scroll grid must have an explicit
- *   `width` attribute. Use the `grow` attribute on one or more columns
- *   to fill remaining horizontal space when the grid is wider than its
- *   content.
- * </esp-info>
+ * > **Warning:** Every column in an infinite-scroll grid must have an
+ * > explicit `width` attribute. Use the `grow` attribute on one or more
+ * > columns to fill remaining horizontal space when the grid is wider
+ * > than its content.
  *
  * ```html
  * <esp-grid page-size="50">
@@ -419,9 +417,8 @@ export declare class EspalierGrid extends EspalierElementBase {
      * filter results by fields displayed in the grid, specify those
      * fields in the `search-fields` attribute.
      *
-     * <esp-info variant="warning" icon="info-i">
-     *   When specifying arrays in plain HTML, the attributes should be wrapped in single quotes.
-     * </esp-info>
+     * > **Warning:** When specifying arrays in plain HTML, the attributes
+     * > should be wrapped in single quotes.
      *
      * ```html
      * <esp-grid

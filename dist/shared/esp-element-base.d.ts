@@ -34,7 +34,7 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      */
     scheme: "dark" | "light" | "";
     /**
-     * The [color variant](/guides/color/variants) of the element.
+     * The [color variant](/espalier-guides/) of the element.
      * @type {EspalierVariant}
      */
     get variant(): EspalierVariant;
