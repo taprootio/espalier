@@ -50,6 +50,79 @@ export type ColorSource = "primary" | "analogous-left" | "analogous-right" | "co
  * color's chroma.
  */
 export type VariantColorSource = Exclude<ColorSource, "primary">;
+/**
+ * The object form of an anchor: a required base `color` plus named
+ * sub-slots — per-family variants the way designers already specify
+ * them (`rose.text` for the deepened rose that may carry copy).
+ */
+export type ThemeAnchorSlots = {
+    color: string;
+} & Record<string, string>;
+/**
+ * A named brand color in a **resolved** theme.
+ *
+ * Either a color string, or the slot object — which always carries its
+ * base `color`, because a partial that names only slots refines an
+ * anchor rather than replacing it. Like `seedColor`, this type states
+ * the contract `validateTheme` enforces: a theme assembled from an
+ * unvalidated partial that never declared a base color reports an error
+ * there, and degrades to the seed at runtime.
+ *
+ * Every value accepts any CSS color form (ESP0161) and is normalized to
+ * OKLCH at the merge boundary.
+ */
+export type ThemeAnchor = string | ThemeAnchorSlots;
+/**
+ * A named brand color in a **partial** theme, where an object form may
+ * name slots alone — `{ rose: { hover: "#88404c" } }` refines the rose
+ * anchor a base theme already declared.
+ */
+export type PartialThemeAnchor = string | Record<string, string>;
+/** Anchors as they appear in a partial theme. */
+export type PartialThemeAnchors = Record<string, PartialThemeAnchor>;
+/**
+ * Named brand colors, keyed by slug.
+ *
+ * Anchors are free-standing color sources for semantic mappings —
+ * `source: "anchor:<name>"` — so a multi-color brand is declared as the
+ * swatches the designer handed over instead of being bent through hue
+ * geometry and per-token chroma clamps. See ADR-015.
+ */
+export type ThemeAnchors = Record<string, ThemeAnchor>;
+/**
+ * A semantic mapping's color source: a geometric or status family from
+ * {@link ColorSource}, or a declared anchor — `anchor:<name>` for its
+ * base color, `anchor:<name>.<slot>` for a sub-slot.
+ *
+ * An anchor source contributes its own hue **and chroma**; lightness
+ * always comes from the mapping's ramp stop, and APCA enforcement
+ * applies unchanged. Under an element variant, anchor sources stay
+ * absolute — a brand color is a color, not a relationship to the seed,
+ * so variant re-seeding does not rotate it.
+ */
+export type MappingSource = ColorSource | `anchor:${string}`;
+/** Anchor names and slot names share one slug grammar. */
+export declare const ANCHOR_SLUG_PATTERN: RegExp;
+/** A parsed `anchor:` mapping source. */
+export interface AnchorReference {
+    name: string;
+    slot?: string;
+}
+/**
+ * Parse an `anchor:` mapping source into its reference, or return
+ * `null` for anything that is not anchor syntax at all. (A reference
+ * with an invalid or undeclared name parses fine here — declaration
+ * checks belong to validateTheme and resolution.)
+ */
+export declare function parseAnchorSource(source: string): AnchorReference | null;
+/**
+ * Resolve an anchor reference to its declared color string.
+ *
+ * `anchor:<name>` on an object-form anchor resolves the `color` key; a
+ * slot reference into a string-form anchor has nowhere to point and
+ * resolves `null`, as do unknown names and slots.
+ */
+export declare function resolveAnchorColor(anchors: ThemeAnchors, reference: AnchorReference): string | null;
 /** Every semantic color token the system computes. */
 export type SemanticColorName = "background" | "layer1" | "layer2" | "layer3" | "layer4" | "actionBackground" | "actionText" | "border" | "shadow" | "text" | "dangerText" | "headings" | "headingsHover" | "link" | "linkHover" | "linkHoverBg" | "inputCaret" | "inputSelection" | "inputSelectionBg";
 /** Chroma range enforced on a semantic token before gamut mapping. */
@@ -65,8 +138,11 @@ export interface ChromaRange {
  * lightness ramp position sets the perceived brightness.
  */
 export interface SemanticMapping {
-    /** The color variant or semantic hue to sample. */
-    source: ColorSource;
+    /**
+     * The color source to sample: a geometric/status family, or a
+     * declared anchor as `anchor:<name>` / `anchor:<name>.<slot>`.
+     */
+    source: MappingSource;
     /** The lightness ramp position to apply. */
     lightness: LightnessKey;
 }
@@ -201,6 +277,13 @@ export interface EspalierTheme {
     chroma: Record<SemanticColorName, ChromaRange>;
     /** Maps each semantic token to its color source + lightness. */
     semanticMappings: SemanticMappings;
+    /**
+     * Named brand colors available to semantic mappings as
+     * `anchor:<name>` sources. Empty by default — a single-color brand
+     * needs none; a multi-color brand declares its swatches here instead
+     * of bending hue angles. See {@link ThemeAnchors} and ADR-015.
+     */
+    anchors: ThemeAnchors;
     /** Optional CSS `background-image` for the page surface. */
     pageBackgroundImage?: string;
     /** Opacity (0–1) for the page background image. */
@@ -216,8 +299,16 @@ export interface EspalierTheme {
     /** Opacity (0–1) for the vellum background image layer. */
     vellumBackgroundImageOpacity?: number;
 }
-/** Recursively-partial version of {@link EspalierTheme}. */
-export type PartialTheme = DeepPartial<EspalierTheme>;
+/**
+ * Recursively-partial version of {@link EspalierTheme}.
+ *
+ * `anchors` is stated explicitly rather than derived: a partial may
+ * carry slot-only anchor overrides, which the resolved
+ * {@link ThemeAnchor} deliberately does not permit.
+ */
+export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors"> & {
+    anchors?: PartialThemeAnchors;
+};
 /** Validation result returned by {@link validateTheme}. */
 export interface ThemeValidationResult {
     /** `true` when there are zero errors (warnings are allowed). */
@@ -347,7 +438,7 @@ export declare function validateTheme(base64: string): ThemeValidationResult;
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["angles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *
