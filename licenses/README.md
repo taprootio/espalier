@@ -25,8 +25,8 @@ until reviewed and adapted by qualified IP and technology-transactions counsel.
 - `ESPALIER_DEAL_READINESS_CHECKLIST.md` - practical readiness checklist for
   lawyer review, diligence, packaging, and outreach.
 - `THIRD_PARTY_NOTICES.md` - third-party open-source notices for materials
-  copied into Espalier distribution artifacts, including Lit Virtualizer and
-  Tabler Icons.
+  copied into Espalier distribution artifacts, including Lit Virtualizer,
+  Tabler Icons, and the self-hosted documentation shell fonts.
 - `asset-provenance.json` and `ASSET_PROVENANCE.md` - machine-readable and
   human-readable provenance records for generated fonts, icons, vendored
   runtime source, textures, demo datasets, and docs assets.

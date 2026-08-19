@@ -9,6 +9,7 @@ removing, or replacing non-code assets.
 | Asset area | Provenance | Notice |
 |------------|------------|--------|
 | `css/fonts/**` | Generated Google Fonts preview CSS with per-family notices generated from upstream Google Fonts metadata links. | `licenses/GOOGLE_FONTS_NOTICES.md` |
+| `assets/shell-fonts.css`, `assets/shell-fonts/**` | Docs-only self-hosted Quicksand, Oswald, and Sometype Mono WOFF2 subsets under OFL 1.1, downloaded once from the Google Fonts css2 endpoint and checked in so the documentation shell never calls Google at runtime. | `licenses/THIRD_PARTY_NOTICES.md` |
 | `assets/icons.svg` | Tabler-derived SVG symbols plus Taproot-owned logo symbol. | `licenses/THIRD_PARTY_NOTICES.md` |
 | `*.ts` | Inline Tabler-style SVG templates and Taproot rendering helpers. | `licenses/THIRD_PARTY_NOTICES.md` |
 | `dist/shared/virtualizer/**` | Vendored Lit Virtualizer runtime source compiled into Espalier's package. | `licenses/THIRD_PARTY_NOTICES.md` |

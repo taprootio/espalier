@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-21",
+  "updatedAt": "2026-08-19",
   "entries": [
     {
       "id": "google-font-preview-assets",
@@ -315,6 +315,62 @@
       "docsInclusion": "docs-site only — referenced as --esp-page-canvas-background-image under esp-root[scheme=\"dark\"] in css/docs.css (excluded from the public @taprootio/espalier package) and served from the Eleventy /assets passthrough",
       "noticeRequirement": "none",
       "noticePaths": [],
+      "reviewStatus": "documented"
+    },
+    {
+      "id": "docs-shell-self-hosted-fonts",
+      "paths": [
+        "assets/shell-fonts.css",
+        "assets/shell-fonts/**"
+      ],
+      "assetType": "self-hosted web font faces (WOFF2 latin and latin-ext subsets) with a hand-authored @font-face stylesheet",
+      "classification": "third-party open font",
+      "owner": "The Quicksand, Oswald, and Sometype Mono project authors",
+      "source": "Google Fonts css2 endpoint, downloaded 2026-08-19 with a desktop Chrome User-Agent so the WOFF2 (not TrueType) sources were served: https://fonts.googleapis.com/css2?family=Quicksand&display=swap (Quicksand v37), https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap (Oswald v57), https://fonts.googleapis.com/css2?family=Sometype+Mono&display=swap (Sometype Mono v4). These are the exact URLs <esp-root> built at runtime for the documentation theme before ESP0171. Upstream license metadata: https://github.com/google/fonts/blob/main/ofl/quicksand/METADATA.pb, https://github.com/google/fonts/blob/main/ofl/oswald/METADATA.pb, https://github.com/google/fonts/blob/main/ofl/sometypemono/METADATA.pb",
+      "license": "SIL Open Font License 1.1 (https://openfontlicense.org/open-font-license-official-text/) for all three families",
+      "transformations": [
+        "Downloaded the latin and latin-ext WOFF2 subsets named by each css2 response; the vietnamese and cyrillic subsets were not vendored",
+        "Renamed each subset to family-weight-subset.woff2; the font bytes themselves are unmodified",
+        "Reproduced the css2 @font-face declarations by hand in assets/shell-fonts.css, keeping the upstream unicode-range values and font-display: swap, with src pointing at the local /assets/shell-fonts/ paths"
+      ],
+      "subsetFiles": [
+        {
+          "path": "assets/shell-fonts/quicksand-400-latin.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/quicksand/v37/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2",
+          "sha256": "fee25690fddfdf52d7c88f8460260998c523b762e1a53fc91561b179835e3316"
+        },
+        {
+          "path": "assets/shell-fonts/quicksand-400-latin-ext.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/quicksand/v37/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58i-wi40.woff2",
+          "sha256": "db0347bb53f618c0d932a128ee262d847a6e7243110e31f869611d1b63450505"
+        },
+        {
+          "path": "assets/shell-fonts/oswald-700-latin.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZosUZiZQ.woff2",
+          "sha256": "aae665c75af89ea7cb7d8ccc8b0911ea72267442ebcd84f6e3efa041ad3b3c16"
+        },
+        {
+          "path": "assets/shell-fonts/oswald-700-latin-ext.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZosUhiZTaR.woff2",
+          "sha256": "ceb8c34b47b9e706ebbb402ca2db8055adea563a417590090bd5ac42df3c8272"
+        },
+        {
+          "path": "assets/shell-fonts/sometype-mono-400-latin.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/sometypemono/v4/70lGu745KGk_R3uxyq0WrROhAJiJsJ_eTWllpTAMGH9diwE.woff2",
+          "sha256": "9719b185dc14ff3e39ee87cc277f7679c4c9b95c10c1dbf7882adcf9c582f685"
+        },
+        {
+          "path": "assets/shell-fonts/sometype-mono-400-latin-ext.woff2",
+          "upstreamUrl": "https://fonts.gstatic.com/s/sometypemono/v4/70lGu745KGk_R3uxyq0WrROhAJiJsJ_eTWllpTAMGH9TiwFrsw.woff2",
+          "sha256": "a467270a93a4f13300e6ac87410414ef6b4bf762e150fca8f04d49d1a2b50abf"
+        }
+      ],
+      "packageInclusion": "not included in npm package",
+      "docsInclusion": "docs-site only — linked from docs/_includes/layout.vto and docs/404.vto and served from the Eleventy /assets passthrough, so the documentation shell renders its theme faces without runtime fonts.googleapis.com links",
+      "noticeRequirement": "required",
+      "noticePaths": [
+        "licenses/THIRD_PARTY_NOTICES.md"
+      ],
       "reviewStatus": "documented"
     }
   ]
