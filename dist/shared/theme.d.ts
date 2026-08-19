@@ -74,7 +74,14 @@ export interface SemanticMapping {
 export type SemanticMappings = Record<SemanticColorName, SemanticMapping>;
 /** The complete, resolved Espalier theme. */
 export interface EspalierTheme {
-    /** OKLCH seed color string — drives the entire palette. */
+    /**
+     * Seed color — drives the entire palette.
+     *
+     * A theme author may supply any common CSS color form (`#rrggbb`,
+     * `#rgb`, `rgb()`, `hsl()`, or `oklch()`); non-OKLCH forms are
+     * converted at the merge boundary, so a **resolved** theme always
+     * carries an `oklch()` string here.
+     */
     seedColor: string;
     /** CSS `font-family` for body / UI text. */
     fontBody: string;

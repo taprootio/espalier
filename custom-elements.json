@@ -19436,368 +19436,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/form/esp-form.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A form wrapper that renders a native `<form>` element in\nthe light DOM. All form-associated custom elements placed\ninside participate natively in form submission, validation,\nand reset.\n\n`esp-form` has no visual presentation of its own — all\nstyling, labels, and layout should be handled independently\n(e.g. via [esp-form-item](/components/form-item), `esp-box`,\nor plain CSS).\n\n### Standard submission\n\n```html\n<esp-form action=\"/api/save\" method=\"post\" label=\"Contact form\">\n  <esp-form-item label=\"Name\">\n    <esp-input name=\"name\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Send\"></esp-button>\n</esp-form>\n```\n\n### Fetch submission\n\n```html\n<esp-form action=\"/api/save\" use-fetch use-json label=\"Settings\">\n  <esp-form-item label=\"Email\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Save\"></esp-button>\n</esp-form>\n```\n\n### Dialog integration\n\nWhen `method=\"dialog\"`, submitting the form dispatches a\n`closeDialog` event that `esp-dialog` listens for, closing\nthe dialog without a network request.\n\n### Multi-field form with validation\n\nRequired fields are validated on submit. The first invalid\nfield is scrolled into view and focused. Errors clear as\nthe user corrects each field. Use the `required-message`\nattribute on any form control to customize the error text.\n\n```html\n<style>\nesp-form.signup-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.signup-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"signup-demo\" use-fetch use-json action=\"/api/signup\" label=\"Sign up\">\n  <esp-form-item label=\"Full name\">\n    <esp-input name=\"fullName\" required required-message=\"We need your full name.\"></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Email address\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Password\">\n    <esp-input name=\"password\" input-type=\"password\" required required-message=\"You must enter a password to continue!\"></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Favorite color\">\n    <esp-pick-one name=\"color\" required placeholder=\"Pick one...\" required-message=\"Please choose your favorite color.\">\n      <esp-picker-item text=\"Red\" value=\"red\"></esp-picker-item>\n      <esp-picker-item text=\"Green\" value=\"green\"></esp-picker-item>\n      <esp-picker-item text=\"Blue\" value=\"blue\"></esp-picker-item>\n    </esp-pick-one>\n  </esp-form-item>\n  <esp-form-item label=\"I agree to the terms\">\n    <esp-checkbox name=\"terms\" value=\"agreed\" required required-message=\"You must accept the terms to continue.\">\n      Yes, I accept\n    </esp-checkbox>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Sign Up\"></esp-button>\n    <esp-button button-type=\"reset\" label=\"Reset\" variant=\"danger\"></esp-button>\n  </div>\n</esp-form>\n```\n\n### Skipping validation\n\nAdd `formnovalidate` to a submit button to bypass constraint\nvalidation. This is useful for \"Save Draft\" buttons that\nshould persist incomplete data.\n\n```html\n<style>\nesp-form.draft-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.draft-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"draft-demo\" use-fetch use-json action=\"/api/drafts\" label=\"Article editor\">\n  <esp-form-item label=\"Title\">\n    <esp-input name=\"title\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Category\">\n    <esp-pick-one name=\"category\" required placeholder=\"Select...\">\n      <esp-picker-item text=\"Technology\" value=\"tech\"></esp-picker-item>\n      <esp-picker-item text=\"Design\" value=\"design\"></esp-picker-item>\n      <esp-picker-item text=\"Business\" value=\"biz\"></esp-picker-item>\n    </esp-pick-one>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Publish\"></esp-button>\n    <esp-button button-type=\"submit\" formnovalidate label=\"Save Draft\" variant=\"split-complementary-left\"></esp-button>\n  </div>\n</esp-form>\n```\n\n### Handling the response\n\nListen for `esp-submit-response` and `esp-submit-error` to\nreact to the server's reply when using fetch submission.\n\n```html\n<style>\nesp-form.response-demo { display: grid; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"response-demo\" use-fetch use-json action=\"/api/feedback\" label=\"Feedback\">\n  <esp-form-item label=\"Your feedback\">\n    <esp-input name=\"message\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Send Feedback\"></esp-button>\n  <esp-info id=\"response-msg\" icon=\"info-i\" style=\"display:none\">\n    <span id=\"response-text\"></span>\n  </esp-info>\n</esp-form>\n<script>\n  const form = findByTagName(\"esp-form\")[0];\n  const msg = findById(\"response-msg\");\n  const text = findById(\"response-text\");\n  form.addEventListener(\"esp-submit-response\", (ev) => {\n    msg.style.display = \"\";\n    msg.setAttribute(\"variant\", ev.detail.ok ? \"success\" : \"warning\");\n    text.textContent = ev.detail.ok\n      ? \"Submitted successfully!\"\n      : \"Server returned an error.\";\n  });\n  form.addEventListener(\"esp-submit-error\", () => {\n    msg.style.display = \"\";\n    msg.setAttribute(\"variant\", \"danger\");\n    text.textContent = \"Network error — please try again.\";\n  });\n</script>\n```\n\n### Form with diverse input types\n\nCombines email, telephone, number, and date inputs with\nvalidation and custom messages.\n\n```html\n<style>\nesp-form.diverse-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.diverse-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"diverse-demo\" use-fetch use-json action=\"/api/contact\" label=\"Contact info\">\n  <esp-form-item label=\"Email\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Phone\">\n    <esp-input name=\"phone\" input-type=\"tel\"\n      tel-localities=\"US CA GB\" required>\n    </esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Age\">\n    <esp-input name=\"age\" input-type=\"number\"\n      min=\"0\" max=\"150\" required>\n    </esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Date of birth\">\n    <esp-input name=\"dob\" input-type=\"date\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Comments\">\n    <esp-textarea name=\"comments\" rows=\"3\"\n      placeholder=\"Any additional comments...\">\n    </esp-textarea>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Submit\"></esp-button>\n    <esp-button button-type=\"reset\" label=\"Reset\" variant=\"danger\"></esp-button>\n  </div>\n</esp-form>\n```",
-          "name": "EspalierForm",
-          "members": [
-            {
-              "kind": "field",
-              "name": "_form",
-              "type": {
-                "text": "HTMLFormElement"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_formReady",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "action",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The URL that processes the form submission. When `use-fetch`\nis true this is the URL `fetch()` sends the request to.",
-              "attribute": "action"
-            },
-            {
-              "kind": "field",
-              "name": "method",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"post\"",
-              "description": "The HTTP method for submission. Standard values are `get`,\n`post`, and `dialog`. When set to `dialog`, submitting the\nform closes the nearest `esp-dialog` ancestor without making\na network request.",
-              "attribute": "method"
-            },
-            {
-              "kind": "field",
-              "name": "novalidate",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "When true, constraint validation is skipped during\nsubmission.",
-              "attribute": "novalidate"
-            },
-            {
-              "kind": "field",
-              "name": "useFetch",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "When true, the form uses `fetch()` instead of native\nbrowser navigation for submission. An `esp-submit` event\nis fired with the `FormData` in the detail, allowing\nconsumers to cancel or modify the request.",
-              "attribute": "use-fetch"
-            },
-            {
-              "kind": "field",
-              "name": "useJson",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "When `use-fetch` is true and this is also true, the request\nbody is serialized as JSON instead of `FormData`.",
-              "attribute": "use-json"
-            },
-            {
-              "kind": "field",
-              "name": "enctype",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"application/x-www-form-urlencoded\"",
-              "description": "The encoding type for form submission. Maps to the native\n`enctype` attribute on the inner `<form>`.",
-              "attribute": "enctype"
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "An accessible label applied as `aria-label` on the inner\n`<form>` element so the form is discoverable as an ARIA\n`form` landmark by screen readers.",
-              "attribute": "label"
-            },
-            {
-              "kind": "method",
-              "name": "syncFormAttributes",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Run constraint validation on all controls without showing\nany UI feedback."
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "description": "Run constraint validation, display error messages via each\ncontrol's `esp-form-item`, and scroll the first invalid\nitem into view."
-            },
-            {
-              "kind": "method",
-              "name": "reset",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Programmatically reset the form and all its controls."
-            },
-            {
-              "kind": "method",
-              "name": "submit",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Programmatically trigger form submission (with validation)."
-            },
-            {
-              "kind": "method",
-              "name": "handleSubmit",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "SubmitEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "handleKeyDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "submitViaFetch",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "form",
-                  "type": {
-                    "text": "HTMLFormElement"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "noValidate",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true"
-            }
-          ],
-          "events": [
-            {
-              "name": "closeDialog",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when `method=\"dialog\"` is used and the form requests its containing `<esp-dialog>` to close. The event detail is an empty object."
-            },
-            {
-              "name": "esp-submit-response",
-              "type": {
-                "text": "CustomEvent<{ response: Response; ok: boolean }>"
-              },
-              "description": "Fired after a successful `fetch` submission."
-            },
-            {
-              "name": "esp-submit-error",
-              "type": {
-                "text": "CustomEvent<{ error: unknown }>"
-              },
-              "description": "Fired when a `fetch` submission fails."
-            },
-            {
-              "type": {
-                "text": "CustomEvent<{ formData: FormData; form: HTMLFormElement }>"
-              },
-              "description": "Fired when `use-fetch` is true and the form passes validation. Cancelable; calling `preventDefault()` aborts the fetch.",
-              "name": "esp-submit"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "action",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The URL that processes the form submission. When `use-fetch`\nis true this is the URL `fetch()` sends the request to.",
-              "fieldName": "action"
-            },
-            {
-              "name": "method",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"post\"",
-              "description": "The HTTP method for submission. Standard values are `get`,\n`post`, and `dialog`. When set to `dialog`, submitting the\nform closes the nearest `esp-dialog` ancestor without making\na network request.",
-              "fieldName": "method"
-            },
-            {
-              "name": "novalidate",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When true, constraint validation is skipped during\nsubmission.",
-              "fieldName": "novalidate"
-            },
-            {
-              "name": "use-fetch",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When true, the form uses `fetch()` instead of native\nbrowser navigation for submission. An `esp-submit` event\nis fired with the `FormData` in the detail, allowing\nconsumers to cancel or modify the request.",
-              "fieldName": "useFetch"
-            },
-            {
-              "name": "use-json",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When `use-fetch` is true and this is also true, the request\nbody is serialized as JSON instead of `FormData`.",
-              "fieldName": "useJson"
-            },
-            {
-              "name": "enctype",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"application/x-www-form-urlencoded\"",
-              "description": "The encoding type for form submission. Maps to the native\n`enctype` attribute on the inner `<form>`.",
-              "fieldName": "enctype"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "An accessible label applied as `aria-label` on the inner\n`<form>` element so the form is discoverable as an ARIA\n`form` landmark by screen readers.",
-              "fieldName": "label"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "esp-form",
-          "customElement": true,
-          "docPageTitle": {
-            "name": "Form",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/form",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Form",
-            "description": "Controls"
-          },
-          "menuLabel": {
-            "name": "Form",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "forms",
-            "description": ""
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierForm",
-          "declaration": {
-            "name": "EspalierForm",
-            "module": "dist/form/esp-form.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-form",
-          "declaration": {
-            "name": "EspalierForm",
-            "module": "dist/form/esp-form.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/footer/esp-footer-column.js",
       "declarations": [
         {
@@ -22237,6 +21875,368 @@
           "declaration": {
             "name": "*",
             "module": "dist/footer/esp-footer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/form/esp-form.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A form wrapper that renders a native `<form>` element in\nthe light DOM. All form-associated custom elements placed\ninside participate natively in form submission, validation,\nand reset.\n\n`esp-form` has no visual presentation of its own — all\nstyling, labels, and layout should be handled independently\n(e.g. via [esp-form-item](/components/form-item), `esp-box`,\nor plain CSS).\n\n### Standard submission\n\n```html\n<esp-form action=\"/api/save\" method=\"post\" label=\"Contact form\">\n  <esp-form-item label=\"Name\">\n    <esp-input name=\"name\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Send\"></esp-button>\n</esp-form>\n```\n\n### Fetch submission\n\n```html\n<esp-form action=\"/api/save\" use-fetch use-json label=\"Settings\">\n  <esp-form-item label=\"Email\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Save\"></esp-button>\n</esp-form>\n```\n\n### Dialog integration\n\nWhen `method=\"dialog\"`, submitting the form dispatches a\n`closeDialog` event that `esp-dialog` listens for, closing\nthe dialog without a network request.\n\n### Multi-field form with validation\n\nRequired fields are validated on submit. The first invalid\nfield is scrolled into view and focused. Errors clear as\nthe user corrects each field. Use the `required-message`\nattribute on any form control to customize the error text.\n\n```html\n<style>\nesp-form.signup-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.signup-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"signup-demo\" use-fetch use-json action=\"/api/signup\" label=\"Sign up\">\n  <esp-form-item label=\"Full name\">\n    <esp-input name=\"fullName\" required required-message=\"We need your full name.\"></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Email address\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Password\">\n    <esp-input name=\"password\" input-type=\"password\" required required-message=\"You must enter a password to continue!\"></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Favorite color\">\n    <esp-pick-one name=\"color\" required placeholder=\"Pick one...\" required-message=\"Please choose your favorite color.\">\n      <esp-picker-item text=\"Red\" value=\"red\"></esp-picker-item>\n      <esp-picker-item text=\"Green\" value=\"green\"></esp-picker-item>\n      <esp-picker-item text=\"Blue\" value=\"blue\"></esp-picker-item>\n    </esp-pick-one>\n  </esp-form-item>\n  <esp-form-item label=\"I agree to the terms\">\n    <esp-checkbox name=\"terms\" value=\"agreed\" required required-message=\"You must accept the terms to continue.\">\n      Yes, I accept\n    </esp-checkbox>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Sign Up\"></esp-button>\n    <esp-button button-type=\"reset\" label=\"Reset\" variant=\"danger\"></esp-button>\n  </div>\n</esp-form>\n```\n\n### Skipping validation\n\nAdd `formnovalidate` to a submit button to bypass constraint\nvalidation. This is useful for \"Save Draft\" buttons that\nshould persist incomplete data.\n\n```html\n<style>\nesp-form.draft-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.draft-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"draft-demo\" use-fetch use-json action=\"/api/drafts\" label=\"Article editor\">\n  <esp-form-item label=\"Title\">\n    <esp-input name=\"title\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Category\">\n    <esp-pick-one name=\"category\" required placeholder=\"Select...\">\n      <esp-picker-item text=\"Technology\" value=\"tech\"></esp-picker-item>\n      <esp-picker-item text=\"Design\" value=\"design\"></esp-picker-item>\n      <esp-picker-item text=\"Business\" value=\"biz\"></esp-picker-item>\n    </esp-pick-one>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Publish\"></esp-button>\n    <esp-button button-type=\"submit\" formnovalidate label=\"Save Draft\" variant=\"split-complementary-left\"></esp-button>\n  </div>\n</esp-form>\n```\n\n### Handling the response\n\nListen for `esp-submit-response` and `esp-submit-error` to\nreact to the server's reply when using fetch submission.\n\n```html\n<style>\nesp-form.response-demo { display: grid; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"response-demo\" use-fetch use-json action=\"/api/feedback\" label=\"Feedback\">\n  <esp-form-item label=\"Your feedback\">\n    <esp-input name=\"message\" required></esp-input>\n  </esp-form-item>\n  <esp-button button-type=\"submit\" label=\"Send Feedback\"></esp-button>\n  <esp-info id=\"response-msg\" icon=\"info-i\" style=\"display:none\">\n    <span id=\"response-text\"></span>\n  </esp-info>\n</esp-form>\n<script>\n  const form = findByTagName(\"esp-form\")[0];\n  const msg = findById(\"response-msg\");\n  const text = findById(\"response-text\");\n  form.addEventListener(\"esp-submit-response\", (ev) => {\n    msg.style.display = \"\";\n    msg.setAttribute(\"variant\", ev.detail.ok ? \"success\" : \"warning\");\n    text.textContent = ev.detail.ok\n      ? \"Submitted successfully!\"\n      : \"Server returned an error.\";\n  });\n  form.addEventListener(\"esp-submit-error\", () => {\n    msg.style.display = \"\";\n    msg.setAttribute(\"variant\", \"danger\");\n    text.textContent = \"Network error — please try again.\";\n  });\n</script>\n```\n\n### Form with diverse input types\n\nCombines email, telephone, number, and date inputs with\nvalidation and custom messages.\n\n```html\n<style>\nesp-form.diverse-demo { display: grid; gap: var(--esp-size-small); }\nesp-form.diverse-demo .actions { display: flex; gap: var(--esp-size-small); }\n</style>\n<esp-form class=\"diverse-demo\" use-fetch use-json action=\"/api/contact\" label=\"Contact info\">\n  <esp-form-item label=\"Email\">\n    <esp-input name=\"email\" input-type=\"email\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Phone\">\n    <esp-input name=\"phone\" input-type=\"tel\"\n      tel-localities=\"US CA GB\" required>\n    </esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Age\">\n    <esp-input name=\"age\" input-type=\"number\"\n      min=\"0\" max=\"150\" required>\n    </esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Date of birth\">\n    <esp-input name=\"dob\" input-type=\"date\" required></esp-input>\n  </esp-form-item>\n  <esp-form-item label=\"Comments\">\n    <esp-textarea name=\"comments\" rows=\"3\"\n      placeholder=\"Any additional comments...\">\n    </esp-textarea>\n  </esp-form-item>\n  <div class=\"actions\">\n    <esp-button button-type=\"submit\" label=\"Submit\"></esp-button>\n    <esp-button button-type=\"reset\" label=\"Reset\" variant=\"danger\"></esp-button>\n  </div>\n</esp-form>\n```",
+          "name": "EspalierForm",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_form",
+              "type": {
+                "text": "HTMLFormElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_formReady",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "action",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The URL that processes the form submission. When `use-fetch`\nis true this is the URL `fetch()` sends the request to.",
+              "attribute": "action"
+            },
+            {
+              "kind": "field",
+              "name": "method",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"post\"",
+              "description": "The HTTP method for submission. Standard values are `get`,\n`post`, and `dialog`. When set to `dialog`, submitting the\nform closes the nearest `esp-dialog` ancestor without making\na network request.",
+              "attribute": "method"
+            },
+            {
+              "kind": "field",
+              "name": "novalidate",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When true, constraint validation is skipped during\nsubmission.",
+              "attribute": "novalidate"
+            },
+            {
+              "kind": "field",
+              "name": "useFetch",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When true, the form uses `fetch()` instead of native\nbrowser navigation for submission. An `esp-submit` event\nis fired with the `FormData` in the detail, allowing\nconsumers to cancel or modify the request.",
+              "attribute": "use-fetch"
+            },
+            {
+              "kind": "field",
+              "name": "useJson",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When `use-fetch` is true and this is also true, the request\nbody is serialized as JSON instead of `FormData`.",
+              "attribute": "use-json"
+            },
+            {
+              "kind": "field",
+              "name": "enctype",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"application/x-www-form-urlencoded\"",
+              "description": "The encoding type for form submission. Maps to the native\n`enctype` attribute on the inner `<form>`.",
+              "attribute": "enctype"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "An accessible label applied as `aria-label` on the inner\n`<form>` element so the form is discoverable as an ARIA\n`form` landmark by screen readers.",
+              "attribute": "label"
+            },
+            {
+              "kind": "method",
+              "name": "syncFormAttributes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Run constraint validation on all controls without showing\nany UI feedback."
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "description": "Run constraint validation, display error messages via each\ncontrol's `esp-form-item`, and scroll the first invalid\nitem into view."
+            },
+            {
+              "kind": "method",
+              "name": "reset",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Programmatically reset the form and all its controls."
+            },
+            {
+              "kind": "method",
+              "name": "submit",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Programmatically trigger form submission (with validation)."
+            },
+            {
+              "kind": "method",
+              "name": "handleSubmit",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "SubmitEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "submitViaFetch",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "form",
+                  "type": {
+                    "text": "HTMLFormElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "noValidate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "closeDialog",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when `method=\"dialog\"` is used and the form requests its containing `<esp-dialog>` to close. The event detail is an empty object."
+            },
+            {
+              "name": "esp-submit-response",
+              "type": {
+                "text": "CustomEvent<{ response: Response; ok: boolean }>"
+              },
+              "description": "Fired after a successful `fetch` submission."
+            },
+            {
+              "name": "esp-submit-error",
+              "type": {
+                "text": "CustomEvent<{ error: unknown }>"
+              },
+              "description": "Fired when a `fetch` submission fails."
+            },
+            {
+              "type": {
+                "text": "CustomEvent<{ formData: FormData; form: HTMLFormElement }>"
+              },
+              "description": "Fired when `use-fetch` is true and the form passes validation. Cancelable; calling `preventDefault()` aborts the fetch.",
+              "name": "esp-submit"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "action",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The URL that processes the form submission. When `use-fetch`\nis true this is the URL `fetch()` sends the request to.",
+              "fieldName": "action"
+            },
+            {
+              "name": "method",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"post\"",
+              "description": "The HTTP method for submission. Standard values are `get`,\n`post`, and `dialog`. When set to `dialog`, submitting the\nform closes the nearest `esp-dialog` ancestor without making\na network request.",
+              "fieldName": "method"
+            },
+            {
+              "name": "novalidate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, constraint validation is skipped during\nsubmission.",
+              "fieldName": "novalidate"
+            },
+            {
+              "name": "use-fetch",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, the form uses `fetch()` instead of native\nbrowser navigation for submission. An `esp-submit` event\nis fired with the `FormData` in the detail, allowing\nconsumers to cancel or modify the request.",
+              "fieldName": "useFetch"
+            },
+            {
+              "name": "use-json",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When `use-fetch` is true and this is also true, the request\nbody is serialized as JSON instead of `FormData`.",
+              "fieldName": "useJson"
+            },
+            {
+              "name": "enctype",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"application/x-www-form-urlencoded\"",
+              "description": "The encoding type for form submission. Maps to the native\n`enctype` attribute on the inner `<form>`.",
+              "fieldName": "enctype"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "An accessible label applied as `aria-label` on the inner\n`<form>` element so the form is discoverable as an ARIA\n`form` landmark by screen readers.",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "esp-form",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Form",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/form",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Form",
+            "description": "Controls"
+          },
+          "menuLabel": {
+            "name": "Form",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "forms",
+            "description": ""
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierForm",
+          "declaration": {
+            "name": "EspalierForm",
+            "module": "dist/form/esp-form.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-form",
+          "declaration": {
+            "name": "EspalierForm",
+            "module": "dist/form/esp-form.js"
           }
         }
       ]
@@ -55382,7 +55382,7 @@
               }
             }
           ],
-          "description": "Parse an OKLCH CSS string into its components.\n\nAccepts:\n- `oklch(0.7 0.125 216)`\n- `oklch(70% 0.125 216)`\n\nReturns `null` if the string is not valid OKLCH."
+          "description": "Parse an OKLCH CSS string into its components.\n\nAccepts the CSS Color 4 grammar for the three components:\n- lightness as a number (`0.7`) or percentage (`70%`), clamped to 0–1\n- chroma as a number (`0.125`) or percentage of the 0.4 reference\n  maximum (`31.25%` = 0.125), negative values clamped to 0\n- hue as a number or angle (`deg`, `grad`, `rad`, `turn`), signed and\n  wrapped into 0–360\n\nAlpha is not supported. Returns `null` if the string is not valid OKLCH."
         },
         {
           "kind": "function",
@@ -55667,6 +55667,33 @@
             }
           ],
           "description": "Derive a semantic color with automatic APCA contrast\nenforcement against a reference background."
+        },
+        {
+          "kind": "variable",
+          "name": "ACCEPTED_COLOR_FORMS",
+          "type": {
+            "text": "string"
+          },
+          "default": "'\"#rrggbb\", \"#rgb\", \"rgb(…)\", \"hsl(…)\", \"oklch(…)\"'",
+          "description": "The color forms parseCssColor accepts, for validation\nerror messages and documentation."
+        },
+        {
+          "kind": "function",
+          "name": "parseCssColor",
+          "return": {
+            "type": {
+              "text": "OklchColor | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "colorStr",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Parse any accepted CSS color form into OKLCH components.\n\nAccepted forms:\n- `oklch(0.7 0.125 216)` / `oklch(70% 31.25% 0.6turn)` — parsed\n  natively via parseOklch, no re-rounding\n- `#rrggbb` / `#rgb`\n- `rgb(120, 72, 106)` / `rgb(120 72 106)` — numbers (with exponents)\n  or percentages; the legacy comma syntax requires all channels to be\n  the same type, the modern syntax may mix; `rgba()` is accepted as an\n  alias of the three-argument form\n- `hsl(338, 25%, 38%)` / `hsl(.94turn 25% 38%)` — hue as a number or\n  `deg`/`grad`/`rad`/`turn` angle; the legacy comma syntax requires\n  percentage saturation and lightness, the modern syntax also accepts\n  bare numbers; `hsla()` is accepted as an alias\n\nCSS comments are equivalent to whitespace in every form, and only\nCSS whitespace (tab, newline, form feed, carriage return, space)\nseparates arguments — JavaScript-only whitespace such as NBSP is\nrejected, matching browsers.\n\nNon-OKLCH forms convert through the forward sRGB → OKLab transform,\nnormalized to display precision (L 3 / C 4 / H 1 decimals, hue 0 when\nachromatic) when that rounding reproduces the identical 8-bit color\nin-gamut, and kept at full precision otherwise. Alpha is rejected in\nevery form — theme colors are opaque.\n\nReturns `null` when the string is not a valid instance of any\naccepted form."
         }
       ],
       "exports": [
@@ -55755,6 +55782,22 @@
           "name": "deriveSemanticWithContrast",
           "declaration": {
             "name": "deriveSemanticWithContrast",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ACCEPTED_COLOR_FORMS",
+          "declaration": {
+            "name": "ACCEPTED_COLOR_FORMS",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "parseCssColor",
+          "declaration": {
+            "name": "parseCssColor",
             "module": "dist/shared/color-engine.js"
           }
         }
