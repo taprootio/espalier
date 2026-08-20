@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "tokens": [
     {
       "name": "--esp-action-menu-background",
@@ -330,6 +330,46 @@
       "name": "--esp-color-primary",
       "category": "root-theme",
       "description": ""
+    },
+    {
+      "name": "--esp-color-series-1",
+      "category": "root-theme",
+      "description": "First categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-2",
+      "category": "root-theme",
+      "description": "Second categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-3",
+      "category": "root-theme",
+      "description": "Third categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-4",
+      "category": "root-theme",
+      "description": "Fourth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-5",
+      "category": "root-theme",
+      "description": "Fifth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-6",
+      "category": "root-theme",
+      "description": "Sixth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-7",
+      "category": "root-theme",
+      "description": "Seventh categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-8",
+      "category": "root-theme",
+      "description": "Eighth categorical data-series color."
     },
     {
       "name": "--esp-color-shadow",
@@ -2454,6 +2494,14 @@
       "name": "--esp-vellum-opacity",
       "category": "root-theme",
       "description": ""
+    }
+  ],
+  "patterns": [
+    {
+      "template": "--esp-color-ramp-<name>-<step>",
+      "pattern": "^--esp-color-ramp-[a-z][a-z0-9-]*-(?:[1-9]|1[01])$",
+      "category": "root-theme",
+      "description": "A generated data-ramp stop. <name> is a declared dataRamps slug and <step> is 1 through that ramp's configured step count (maximum 11)."
     }
   ]
 }

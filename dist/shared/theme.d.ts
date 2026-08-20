@@ -30,6 +30,7 @@
  * }
  * ```
  */
+import { type DataPalette, type DataRamps, type PartialDataRamps } from "./data-colors.js";
 /** A key in the lightness ramp.  Each maps to a perceptual role. */
 export type LightnessKey = "surface" | "raised1" | "raised2" | "raised3" | "raised4" | "accent" | "muted" | "text" | "border" | "ink" | "shadow";
 /** Lightness values (0–1) for every ramp position. */
@@ -123,6 +124,14 @@ export declare function parseAnchorSource(source: string): AnchorReference | nul
  * resolves `null`, as do unknown names and slots.
  */
 export declare function resolveAnchorColor(anchors: ThemeAnchors, reference: AnchorReference): string | null;
+/**
+ * Resolve a data color source to a concrete CSS color.
+ *
+ * Data palettes and ramps accept either a CSS color directly or the same
+ * `anchor:<name>[.<slot>]` references as semantic mappings. The returned color
+ * is parseable and opaque; invalid or unresolved sources return `null`.
+ */
+export declare function resolveDataColorSource(source: string, anchors: ThemeAnchors): string | null;
 /** Every semantic color token the system computes. */
 export type SemanticColorName = "background" | "layer1" | "layer2" | "layer3" | "layer4" | "actionBackground" | "actionText" | "border" | "shadow" | "text" | "dangerText" | "headings" | "headingsHover" | "link" | "linkHover" | "linkHoverBg" | "inputCaret" | "inputSelection" | "inputSelectionBg";
 /** Chroma range enforced on a semantic token before gamut mapping. */
@@ -385,6 +394,17 @@ export interface EspalierTheme {
      * See {@link ThemeRoles} and ADR-016.
      */
     roles: ThemeRoles;
+    /**
+     * Eight stable categorical data-series colors. Each value is a CSS color or
+     * an `anchor:<name>[.<slot>]` reference. Emitted as
+     * `--esp-color-series-1`–`--esp-color-series-8`.
+     */
+    dataPalette: DataPalette;
+    /**
+     * Named sequential and diverging data ramps. Empty by default; each
+     * declaration emits `--esp-color-ramp-<name>-1…<steps>`.
+     */
+    dataRamps: DataRamps;
     /** Optional CSS `background-image` for the page surface. */
     pageBackgroundImage?: string;
     /** Opacity (0–1) for the page background image. */
@@ -407,8 +427,9 @@ export interface EspalierTheme {
  * carry slot-only anchor overrides, which the resolved
  * {@link ThemeAnchor} deliberately does not permit.
  */
-export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors"> & {
+export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors" | "dataRamps"> & {
     anchors?: PartialThemeAnchors;
+    dataRamps?: PartialDataRamps;
 };
 /** Validation result returned by {@link validateTheme}. */
 export interface ThemeValidationResult {
@@ -562,7 +583,7 @@ export declare function validateTheme(base64: string): ThemeValidationResult;
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "dataPalette", "dataRamps", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *

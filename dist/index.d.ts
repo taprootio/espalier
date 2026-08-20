@@ -71,6 +71,7 @@ export { getImageDetails, releasePreviewUrl, type EspalierUploadImage, type Imag
 export { calculatePhotoLayout, type LayoutImage, type PhotoRow, } from "./shared/justified-layout.js";
 export { type TypeaheadFetchItems } from "./pickers/types.js";
 export { type EspalierTheme, type PartialTheme, type VariantColorSource, encodeTheme, parseTheme, mergePartials, layerThemes, buildTaprootLightTheme, buildTaprootDarkTheme, NESTED_THEME_KEYS, } from "./shared/theme.js";
+export { auditDataPalette, generateSequentialRamp, generateDivergingRamp, COLOR_VISION_SIMULATIONS, DATA_SERIES_KEYS, DEFAULT_DATA_PALETTE, DEFAULT_DATA_RAMP_STEPS, DEFAULT_DIVERGING_NEUTRAL, MAX_DATA_RAMP_STEPS, MIN_DATA_COLOR_DISTANCE, MIN_DATA_RAMP_LIGHTNESS_STEP, MIN_DATA_RAMP_STEPS, type ColorVisionSimulation, type DataPalette, type DataPaletteIssue, type DataRamp, type DataRamps, type DataSeriesKey, type DivergingDataRamp, type DivergingRampOptions, type PartialDataRamp, type PartialDataRamps, type SequentialDataRamp, type SequentialRampOptions, } from "./shared/data-colors.js";
 export { WEIGHT_LABELS, extractWeights, normalizeWeight, bestAvailableWeight, extractFamily, getFallbackFont, } from "./shared/font-helpers.js";
 export { getGoogleFonts } from "./font-picker/esp-font-picker.js";
 export { themeFitReport, themeFitRows, printThemeFitReport, type ThemeFitReport, type ThemeFitToken, type ThemeFitApcaAction, type ThemeFitAnchor, type ThemeFitRow, } from "./shared/theme-fit-report.js";

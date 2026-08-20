@@ -9,6 +9,38 @@
       "name": "--esp-seed-color",
       "description": "The OKLCH seed color string that drives the entire palette."
     },
+    {
+      "name": "--esp-color-series-1",
+      "description": "First categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-2",
+      "description": "Second categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-3",
+      "description": "Third categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-4",
+      "description": "Fourth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-5",
+      "description": "Fifth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-6",
+      "description": "Sixth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-7",
+      "description": "Seventh categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-8",
+      "description": "Eighth categorical data-series color."
+    },
 
     {
       "name": "--esp-color-primary",

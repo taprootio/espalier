@@ -953,6 +953,198 @@
         },
         {
           "kind": "js",
+          "name": "auditDataPalette",
+          "declaration": {
+            "name": "auditDataPalette",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateSequentialRamp",
+          "declaration": {
+            "name": "generateSequentialRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateDivergingRamp",
+          "declaration": {
+            "name": "generateDivergingRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "COLOR_VISION_SIMULATIONS",
+          "declaration": {
+            "name": "COLOR_VISION_SIMULATIONS",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DATA_SERIES_KEYS",
+          "declaration": {
+            "name": "DATA_SERIES_KEYS",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DATA_PALETTE",
+          "declaration": {
+            "name": "DEFAULT_DATA_PALETTE",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "DEFAULT_DATA_RAMP_STEPS",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DIVERGING_NEUTRAL",
+          "declaration": {
+            "name": "DEFAULT_DIVERGING_NEUTRAL",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MAX_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "MAX_DATA_RAMP_STEPS",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_COLOR_DISTANCE",
+          "declaration": {
+            "name": "MIN_DATA_COLOR_DISTANCE",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_RAMP_LIGHTNESS_STEP",
+          "declaration": {
+            "name": "MIN_DATA_RAMP_LIGHTNESS_STEP",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "MIN_DATA_RAMP_STEPS",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ColorVisionSimulation",
+          "declaration": {
+            "name": "ColorVisionSimulation",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DataPalette",
+          "declaration": {
+            "name": "DataPalette",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DataPaletteIssue",
+          "declaration": {
+            "name": "DataPaletteIssue",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DataRamp",
+          "declaration": {
+            "name": "DataRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DataRamps",
+          "declaration": {
+            "name": "DataRamps",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DataSeriesKey",
+          "declaration": {
+            "name": "DataSeriesKey",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DivergingDataRamp",
+          "declaration": {
+            "name": "DivergingDataRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DivergingRampOptions",
+          "declaration": {
+            "name": "DivergingRampOptions",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PartialDataRamp",
+          "declaration": {
+            "name": "PartialDataRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PartialDataRamps",
+          "declaration": {
+            "name": "PartialDataRamps",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SequentialDataRamp",
+          "declaration": {
+            "name": "SequentialDataRamp",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SequentialRampOptions",
+          "declaration": {
+            "name": "SequentialRampOptions",
+            "module": "./shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "WEIGHT_LABELS",
           "declaration": {
             "name": "WEIGHT_LABELS",
@@ -53625,6 +53817,40 @@
           "kind": "class",
           "description": "Root container for the Espalier design system.\n\nProvides the full design-token pipeline — colors, scales, and\nfonts — to every descendant component.  All tokens are\nJS-computed from a pair of Base64-encoded theme objects and\nemitted as CSS custom properties on the host element.\n\n### Theme API\n\nSupply a `light-theme` and/or `dark-theme` attribute containing\na **Base64-encoded JSON** partial theme.  Fields you omit fall\nback to built-in defaults.  Switch between them with `scheme`.\n\n```html\n<esp-root\n  light-theme=\"eyJzZWVkQ29sb3IiOiJva2xjaCgwLjcgMC4yIDE1NSkifQ==\"\n  scheme=\"light\">\n  <esp-box>\n    <h2>Themed content</h2>\n  </esp-box>\n</esp-root>\n```\n\n### Nested theme previews and scoped events\n\nA nested root creates a scoped theme for its descendants. It does not create\na separate event bus: every root publishes theme changes through the same\nEspalier singleton. Subscribe through the root whose changes you own so a\nnested preview cannot be mistaken for an application-level theme change.\n\n```ts\nconst applicationRoot = document.querySelector<EspalierRoot>(\"#application-theme\")!;\n\nconst unsubscribe = applicationRoot.subscribeScoped(\"scheme-changed\", ({ scheme }) => {\n  localStorage.setItem(\"scheme\", scheme);\n});\n\n// Initial state is read directly; scoped events report later changes only.\nrenderScheme(applicationRoot.scheme);\n\n// Call when the owning integration is disposed.\nunsubscribe();\n```\n\nThis contract covers `scheme-changed`, `seed-color-changed`,\n`theme-changed`, and `icon-sprite-url-changed`. Components derived from\n`EspalierElementBase` use the same closest-root filter internally.\n\nThe root also owns the application's banner-texture vocabulary:\n`EspalierRoot.registerTexture(name, definition)` registers an\nimage-backed texture preset that any\n[esp-image](/components/image) banner in the application selects with\n`texture=\"<name>\"`, and `EspalierRoot.registeredTextures()` enumerates\nthe presets for building texture pickers.",
           "name": "EspalierRoot",
+          "cssProperties": [
+            {
+              "description": "First categorical data-series color.",
+              "name": "--esp-color-series-1"
+            },
+            {
+              "description": "Second categorical data-series color.",
+              "name": "--esp-color-series-2"
+            },
+            {
+              "description": "Third categorical data-series color.",
+              "name": "--esp-color-series-3"
+            },
+            {
+              "description": "Fourth categorical data-series color.",
+              "name": "--esp-color-series-4"
+            },
+            {
+              "description": "Fifth categorical data-series color.",
+              "name": "--esp-color-series-5"
+            },
+            {
+              "description": "Sixth categorical data-series color.",
+              "name": "--esp-color-series-6"
+            },
+            {
+              "description": "Seventh categorical data-series color.",
+              "name": "--esp-color-series-7"
+            },
+            {
+              "description": "Eighth categorical data-series color.",
+              "name": "--esp-color-series-8"
+            }
+          ],
           "slots": [
             {
               "description": "Place Espalier components and content here.",
@@ -53741,6 +53967,12 @@
               },
               "privacy": "private",
               "default": "{ ...DEFAULT_DARK_THEME }"
+            },
+            {
+              "kind": "field",
+              "name": "appliedDataRampProperties",
+              "privacy": "private",
+              "default": "new Set<string>()"
             },
             {
               "kind": "field",
@@ -54231,1000 +54463,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/search/esp-search.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Modal search overlay with a Cmd+K / Ctrl+K interaction pattern.\n\n`<esp-search>` is a pure UI shell with no search-engine dependency.\nConsumers wire it to any search backend (Pagefind, MiniSearch, API,\netc.) by listening for `search-requested` events and calling\n`setResults()` with the matches.",
-          "name": "EspalierSearch",
-          "cssProperties": [
-            {
-              "description": "Maximum width of the search panel. Defaults to `40rem`.",
-              "name": "--esp-search-max-width"
-            },
-            {
-              "description": "Maximum height of the results list. Defaults to `60vh`.",
-              "name": "--esp-search-max-height"
-            },
-            {
-              "description": "Backdrop color behind the panel. Defaults to `oklch(0.15 0 0 / 0.6)`.",
-              "name": "--esp-search-backdrop"
-            },
-            {
-              "description": "Background color of the search panel. Defaults to `var(--esp-color-layer-1)`.",
-              "name": "--esp-search-panel-background"
-            },
-            {
-              "description": "Box shadow of the search panel.",
-              "name": "--esp-search-panel-shadow"
-            },
-            {
-              "description": "Divider and loading-track color used by the search panel. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-search-border-color"
-            },
-            {
-              "description": "Main text color used by the search UI. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-search-text-color"
-            },
-            {
-              "description": "Muted text color for placeholders, excerpts, and empty states.",
-              "name": "--esp-search-muted-color"
-            },
-            {
-              "description": "Title color for result rows. Defaults to `var(--esp-color-headings)`.",
-              "name": "--esp-search-title-color"
-            },
-            {
-              "description": "Background color of the active result row. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-search-active-background"
-            },
-            {
-              "description": "Background color applied to `<mark>` highlights inside excerpts.",
-              "name": "--esp-search-highlight-background"
-            },
-            {
-              "description": "Accent color of the loading spinner. Defaults to `var(--esp-color-primary)`.",
-              "name": "--esp-search-loading-indicator-color"
-            },
-            {
-              "description": "Track color of the loading spinner. Defaults to `var(--esp-search-border-color)`.",
-              "name": "--esp-search-loading-indicator-track-color"
-            },
-            {
-              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Search\\u2026\"",
-              "description": "Placeholder text for the search input.",
-              "attribute": "placeholder"
-            },
-            {
-              "kind": "field",
-              "name": "isOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "results",
-              "type": {
-                "text": "SearchResult[]"
-              },
-              "privacy": "private",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "loading",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "query",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "activeIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "-1"
-            },
-            {
-              "kind": "field",
-              "name": "vellumRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "inputRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "resultsRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "idPrefix",
-              "privacy": "private",
-              "readonly": true,
-              "default": "`esp-search-${this.correlationId}`",
-              "description": "Per-instance ID prefix for ARIA id attributes (listbox + options)."
-            },
-            {
-              "kind": "field",
-              "name": "_overlay",
-              "privacy": "private",
-              "default": "new OverlayController({ host: this, getFocusTrapContainer: () => this.vellumRef.value ?? null, getFocusFallback: () => this.inputRef.value ?? null, })"
-            },
-            {
-              "kind": "method",
-              "name": "show",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Open the search overlay and focus the input."
-            },
-            {
-              "kind": "method",
-              "name": "hide",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Close the search overlay and restore focus."
-            },
-            {
-              "kind": "method",
-              "name": "setResults",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "results",
-                  "type": {
-                    "text": "SearchResult[]"
-                  }
-                }
-              ],
-              "description": "Update the displayed search results."
-            },
-            {
-              "kind": "method",
-              "name": "setLoading",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "loading",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Show or hide the loading indicator."
-            },
-            {
-              "kind": "method",
-              "name": "handleInput",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "e",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "selectResult",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "result",
-                  "type": {
-                    "text": "SearchResult"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "handleKeyDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "handleBackdropClick",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "MouseEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "scrollActiveIntoView",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hasListbox",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "description": "Whether the listbox is currently rendered in the DOM.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "listboxId",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "optionId",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderResults",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "subscribedRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventUnsubscribers",
-              "type": {
-                "text": "Array<() => void>"
-              },
-              "privacy": "private",
-              "default": "[]",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantBacker",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "protected",
-              "default": "\"primary\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "public",
-              "description": "The [color variant](/espalier-guides/) of the element.",
-              "attribute": "variant",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "type": {
-                    "text": "EspalierRoot"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textContrast",
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "TOKEN_PAIRINGS",
-              "description": "Which ink sits on which surface, and at what APCA target.\n\nReads the single pairing table in the theme model rather than\ncarrying a second copy: an identical literal used to live here and\nin `compute-theme-properties.ts`, which is precisely the drift the\nrepository's adoption rules exist to catch. See ESP0164.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "statusVariantSources",
-              "type": {
-                "text": "ReadonlySet<ColorSource>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
-              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyVariantTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "effectiveVariantTokenSource",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "MappingSource"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "SemanticColorName"
-                  }
-                },
-                {
-                  "name": "mappedSource",
-                  "type": {
-                    "text": "MappingSource"
-                  }
-                },
-                {
-                  "name": "isStatusVariant",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getVariantColorSource",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "ColorSource | \"\""
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setVariantTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearVariantTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "events": [
-            {
-              "description": "The user changed the query input. Fires on every keystroke (not debounced) so consumers can track the latest query and discard stale async results. Consumers that need debouncing should apply it themselves (e.g. Pagefind's `debouncedSearch()`). `detail: { query: string }`",
-              "name": "search-requested"
-            },
-            {
-              "description": "The user chose a result. `detail: { url: string }`",
-              "name": "result-selected"
-            },
-            {
-              "description": "The overlay was closed (Escape, backdrop click, or result selection). Consumers should use this to cancel in-flight searches or discard pending results. `detail: {}`",
-              "name": "search-closed"
-            },
-            {
-              "name": "value-changed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Search\\u2026\"",
-              "description": "Placeholder text for the search input.",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "description": "The [color variant](/espalier-guides/) of the element.",
-              "fieldName": "variant",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "docUrl": {
-            "name": "/components/search",
-            "description": ""
-          },
-          "docPageTitle": {
-            "name": "Search",
-            "description": ""
-          },
-          "menuLabel": {
-            "name": "Search",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Interaction",
-            "description": ""
-          },
-          "menuOrder": {
-            "name": "5",
-            "description": ""
-          },
-          "docSections": {
-            "name": "examples,properties,events,cssprops",
-            "description": ""
-          },
-          "tagName": "esp-search",
-          "customElement": true,
-          "examples": [
-            {
-              "title": "Basic search (consumer wiring not shown)",
-              "body": "```html\n<esp-search placeholder=\"Search docs...\"></esp-search>\n```"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierSearch",
-          "declaration": {
-            "name": "EspalierSearch",
-            "module": "dist/search/esp-search.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-search",
-          "declaration": {
-            "name": "EspalierSearch",
-            "module": "dist/search/esp-search.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/shared/attribute-helpers.js",
       "declarations": [
         {
@@ -55298,6 +54536,42 @@
       "kind": "javascript-module",
       "path": "dist/shared/color-engine.js",
       "declarations": [
+        {
+          "kind": "function",
+          "name": "oklchToOklab",
+          "return": {
+            "type": {
+              "text": "OklabColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "c",
+              "type": {
+                "text": "OklchColor"
+              }
+            }
+          ],
+          "description": "Convert OKLCH to Cartesian OKLab coordinates."
+        },
+        {
+          "kind": "function",
+          "name": "clampChannel",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "v",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "description": "Clamp a single channel to [0, 1]."
+        },
         {
           "kind": "function",
           "name": "parseOklch",
@@ -55633,6 +54907,78 @@
           "description": "Derive a semantic color with automatic APCA contrast\nenforcement against a reference background."
         },
         {
+          "kind": "function",
+          "name": "gammaToLinear",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "c",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "description": "Gamma-encoded sRGB channel → linear light (inverse of `linearToGamma`)."
+        },
+        {
+          "kind": "function",
+          "name": "srgbToLinearRGB",
+          "return": {
+            "type": {
+              "text": "LinearRGB"
+            }
+          },
+          "parameters": [
+            {
+              "name": "srgb",
+              "type": {
+                "text": "SRGB"
+              }
+            }
+          ],
+          "description": "Convert gamma-encoded sRGB channels to linear-light sRGB."
+        },
+        {
+          "kind": "function",
+          "name": "linearRgbToOklab",
+          "return": {
+            "type": {
+              "text": "OklabColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "{ r, g, b }",
+              "type": {
+                "text": "LinearRGB"
+              }
+            }
+          ],
+          "description": "Convert linear-light sRGB to OKLab using the Ottosson reference matrices."
+        },
+        {
+          "kind": "function",
+          "name": "oklabToOklch",
+          "return": {
+            "type": {
+              "text": "OklchColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lab",
+              "type": {
+                "text": "OklabColor"
+              }
+            }
+          ],
+          "description": "OKLab → OKLCH (cylindrical form), hue normalized to 0–360."
+        },
+        {
           "kind": "variable",
           "name": "ACCEPTED_COLOR_FORMS",
           "type": {
@@ -55661,6 +55007,22 @@
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "oklchToOklab",
+          "declaration": {
+            "name": "oklchToOklab",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "clampChannel",
+          "declaration": {
+            "name": "clampChannel",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
         {
           "kind": "js",
           "name": "parseOklch",
@@ -55754,6 +55116,38 @@
           "name": "deriveSemanticWithContrast",
           "declaration": {
             "name": "deriveSemanticWithContrast",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "gammaToLinear",
+          "declaration": {
+            "name": "gammaToLinear",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "srgbToLinearRGB",
+          "declaration": {
+            "name": "srgbToLinearRGB",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "linearRgbToOklab",
+          "declaration": {
+            "name": "linearRgbToOklab",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "oklabToOklch",
+          "declaration": {
+            "name": "oklabToOklch",
             "module": "dist/shared/color-engine.js"
           }
         },
@@ -55934,6 +55328,269 @@
           "declaration": {
             "name": "accumulatePage",
             "module": "dist/shared/cursor-pagination.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/data-colors.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "DATA_SERIES_KEYS",
+          "type": {
+            "text": "[\n  \"series1\",\n  \"series2\",\n  \"series3\",\n  \"series4\",\n  \"series5\",\n  \"series6\",\n  \"series7\",\n  \"series8\",\n]"
+          },
+          "default": "[ \"series1\", \"series2\", \"series3\", \"series4\", \"series5\", \"series6\", \"series7\", \"series8\", ]",
+          "description": "Stable keys in the theme's categorical data palette."
+        },
+        {
+          "kind": "variable",
+          "name": "DEFAULT_DATA_PALETTE",
+          "type": {
+            "text": "Readonly<DataPalette>"
+          },
+          "default": "{ series1: \"#000000\", series2: \"#E69F00\", series3: \"#56B4E9\", series4: \"#009E73\", series5: \"#F0E442\", series6: \"#0072B2\", series7: \"#D55E00\", series8: \"#CC79A7\", }",
+          "description": "The shipped categorical baseline: the eight-color Okabe–Ito palette.\n\nThese familiar hex values are kept as the authoring contract. Theme output\nconverts them to gamut-mapped OKLCH alongside consumer overrides."
+        },
+        {
+          "kind": "variable",
+          "name": "COLOR_VISION_SIMULATIONS",
+          "type": {
+            "text": "[\"deuteranopia\", \"protanopia\", \"tritanopia\"]"
+          },
+          "default": "[\"deuteranopia\", \"protanopia\", \"tritanopia\"]",
+          "description": "Full color-vision-deficiency simulations used by the palette audit."
+        },
+        {
+          "kind": "variable",
+          "name": "MIN_DATA_COLOR_DISTANCE",
+          "type": {
+            "text": "number"
+          },
+          "default": "0.07",
+          "description": "Minimum OKLab distance used for categorical-palette advice.\n\nThis is a conservative separation heuristic, not an accessibility\ncertification. The shipped Okabe–Ito palette clears it under every\nsimulation; consumer failures are warnings because charts must also use\nlabels, shapes, or patterns rather than color alone."
+        },
+        {
+          "kind": "function",
+          "name": "auditDataPalette",
+          "return": {
+            "type": {
+              "text": "DataPaletteIssue[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "palette",
+              "type": {
+                "text": "Readonly<DataPalette>"
+              }
+            },
+            {
+              "name": "threshold",
+              "default": "MIN_DATA_COLOR_DISTANCE"
+            }
+          ],
+          "description": "Audit every categorical pair after full CVD simulation.\n\nPalette values must be concrete CSS colors. Resolve `anchor:` references\nthrough the theme first. The return value is empty when every pair clears\nthe threshold."
+        },
+        {
+          "kind": "variable",
+          "name": "MIN_DATA_RAMP_STEPS",
+          "type": {
+            "text": "number"
+          },
+          "default": "3",
+          "description": "Minimum supported number of colors in a generated data ramp."
+        },
+        {
+          "kind": "variable",
+          "name": "MAX_DATA_RAMP_STEPS",
+          "type": {
+            "text": "number"
+          },
+          "default": "11",
+          "description": "Maximum supported number of colors in a generated data ramp."
+        },
+        {
+          "kind": "variable",
+          "name": "DEFAULT_DATA_RAMP_STEPS",
+          "type": {
+            "text": "number"
+          },
+          "default": "7",
+          "description": "Default number of colors in a generated data ramp."
+        },
+        {
+          "kind": "variable",
+          "name": "MIN_DATA_RAMP_LIGHTNESS_STEP",
+          "type": {
+            "text": "number"
+          },
+          "default": "0.000001",
+          "description": "Smallest lightness separation preserved by serialized ramp output."
+        },
+        {
+          "kind": "variable",
+          "name": "DEFAULT_DIVERGING_NEUTRAL",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"oklch(0.96 0 0)\"",
+          "description": "Default neutral midpoint for diverging ramps."
+        },
+        {
+          "kind": "function",
+          "name": "generateSequentialRamp",
+          "return": {
+            "type": {
+              "text": "string[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "SequentialRampOptions"
+              }
+            }
+          ],
+          "description": "Generate a single-hue, light-to-dark sequential ramp.\n\nChroma is reduced only when needed to keep each stop in sRGB. Gamut mapping\npreserves lightness, so the requested sequence remains strictly monotone."
+        },
+        {
+          "kind": "function",
+          "name": "generateDivergingRamp",
+          "return": {
+            "type": {
+              "text": "string[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "start",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "end",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "DivergingRampOptions"
+              }
+            }
+          ],
+          "description": "Generate a two-ended diverging ramp with an exact neutral midpoint.\n\nEach half interpolates in OKLab, avoiding the hue spin that polar\ninterpolation produces as chroma approaches zero."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DATA_SERIES_KEYS",
+          "declaration": {
+            "name": "DATA_SERIES_KEYS",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DATA_PALETTE",
+          "declaration": {
+            "name": "DEFAULT_DATA_PALETTE",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "COLOR_VISION_SIMULATIONS",
+          "declaration": {
+            "name": "COLOR_VISION_SIMULATIONS",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_COLOR_DISTANCE",
+          "declaration": {
+            "name": "MIN_DATA_COLOR_DISTANCE",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "auditDataPalette",
+          "declaration": {
+            "name": "auditDataPalette",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "MIN_DATA_RAMP_STEPS",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MAX_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "MAX_DATA_RAMP_STEPS",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DATA_RAMP_STEPS",
+          "declaration": {
+            "name": "DEFAULT_DATA_RAMP_STEPS",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_DATA_RAMP_LIGHTNESS_STEP",
+          "declaration": {
+            "name": "MIN_DATA_RAMP_LIGHTNESS_STEP",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_DIVERGING_NEUTRAL",
+          "declaration": {
+            "name": "DEFAULT_DIVERGING_NEUTRAL",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateSequentialRamp",
+          "declaration": {
+            "name": "generateSequentialRamp",
+            "module": "dist/shared/data-colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateDivergingRamp",
+          "declaration": {
+            "name": "generateDivergingRamp",
+            "module": "dist/shared/data-colors.js"
           }
         }
       ]
@@ -59630,6 +59287,30 @@
           "description": "Resolve an anchor reference to its declared color string.\n\n`anchor:<name>` on an object-form anchor resolves the `color` key; a\nslot reference into a string-form anchor has nowhere to point and\nresolves `null`, as do unknown names and slots."
         },
         {
+          "kind": "function",
+          "name": "resolveDataColorSource",
+          "return": {
+            "type": {
+              "text": "string | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "source",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "anchors",
+              "type": {
+                "text": "ThemeAnchors"
+              }
+            }
+          ],
+          "description": "Resolve a data color source to a concrete CSS color.\n\nData palettes and ramps accept either a CSS color directly or the same\n`anchor:<name>[.<slot>]` references as semantic mappings. The returned color\nis parseable and opaque; invalid or unresolved sources return `null`."
+        },
+        {
           "kind": "variable",
           "name": "ROLE_NAMES",
           "type": {
@@ -59770,7 +59451,7 @@
           "type": {
             "text": "Readonly<EspalierTheme>"
           },
-          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, lightness: { ...DEFAULT_LIGHT_LIGHTNESS }, }",
+          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_LIGHT_LIGHTNESS }, }",
           "description": "The built-in **light** theme.\n\nIdentical to the dark theme in every field except `lightness`,\nwhich uses a high-surface / low-text ramp suited for bright\nbackgrounds."
         },
         {
@@ -59779,7 +59460,7 @@
           "type": {
             "text": "Readonly<EspalierTheme>"
           },
-          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, lightness: { ...DEFAULT_DARK_LIGHTNESS }, }",
+          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_DARK_LIGHTNESS }, }",
           "description": "The built-in **dark** theme.\n\nIdentical to the light theme in every field except `lightness`,\nwhich uses a low-surface / high-text ramp suited for dark\nbackgrounds."
         },
         {
@@ -59887,9 +59568,9 @@
           "kind": "variable",
           "name": "NESTED_THEME_KEYS",
           "type": {
-            "text": "[\n  \"anchors\",\n  \"angles\",\n  \"roles\",\n  \"chroma\",\n  \"lightness\",\n  \"semanticHues\",\n  \"semanticMappings\",\n  \"variantChroma\",\n]"
+            "text": "[\n  \"anchors\",\n  \"angles\",\n  \"dataPalette\",\n  \"dataRamps\",\n  \"roles\",\n  \"chroma\",\n  \"lightness\",\n  \"semanticHues\",\n  \"semanticMappings\",\n  \"variantChroma\",\n]"
           },
-          "default": "[ \"anchors\", \"angles\", \"roles\", \"chroma\", \"lightness\", \"semanticHues\", \"semanticMappings\", \"variantChroma\", ]",
+          "default": "[ \"anchors\", \"angles\", \"dataPalette\", \"dataRamps\", \"roles\", \"chroma\", \"lightness\", \"semanticHues\", \"semanticMappings\", \"variantChroma\", ]",
           "description": "Keys of EspalierTheme whose values are nested objects\nand therefore need key-by-key merging instead of wholesale\nreplacement when combining two PartialTheme objects."
         },
         {
@@ -59998,6 +59679,14 @@
           "name": "resolveAnchorColor",
           "declaration": {
             "name": "resolveAnchorColor",
+            "module": "dist/shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resolveDataColorSource",
+          "declaration": {
+            "name": "resolveDataColorSource",
             "module": "dist/shared/theme.js"
           }
         },
@@ -60812,6 +60501,1000 @@
           "declaration": {
             "name": "visualOverlayStyles",
             "module": "dist/shared/visual-overlay.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/search/esp-search.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Modal search overlay with a Cmd+K / Ctrl+K interaction pattern.\n\n`<esp-search>` is a pure UI shell with no search-engine dependency.\nConsumers wire it to any search backend (Pagefind, MiniSearch, API,\netc.) by listening for `search-requested` events and calling\n`setResults()` with the matches.",
+          "name": "EspalierSearch",
+          "cssProperties": [
+            {
+              "description": "Maximum width of the search panel. Defaults to `40rem`.",
+              "name": "--esp-search-max-width"
+            },
+            {
+              "description": "Maximum height of the results list. Defaults to `60vh`.",
+              "name": "--esp-search-max-height"
+            },
+            {
+              "description": "Backdrop color behind the panel. Defaults to `oklch(0.15 0 0 / 0.6)`.",
+              "name": "--esp-search-backdrop"
+            },
+            {
+              "description": "Background color of the search panel. Defaults to `var(--esp-color-layer-1)`.",
+              "name": "--esp-search-panel-background"
+            },
+            {
+              "description": "Box shadow of the search panel.",
+              "name": "--esp-search-panel-shadow"
+            },
+            {
+              "description": "Divider and loading-track color used by the search panel. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-search-border-color"
+            },
+            {
+              "description": "Main text color used by the search UI. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-search-text-color"
+            },
+            {
+              "description": "Muted text color for placeholders, excerpts, and empty states.",
+              "name": "--esp-search-muted-color"
+            },
+            {
+              "description": "Title color for result rows. Defaults to `var(--esp-color-headings)`.",
+              "name": "--esp-search-title-color"
+            },
+            {
+              "description": "Background color of the active result row. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-search-active-background"
+            },
+            {
+              "description": "Background color applied to `<mark>` highlights inside excerpts.",
+              "name": "--esp-search-highlight-background"
+            },
+            {
+              "description": "Accent color of the loading spinner. Defaults to `var(--esp-color-primary)`.",
+              "name": "--esp-search-loading-indicator-color"
+            },
+            {
+              "description": "Track color of the loading spinner. Defaults to `var(--esp-search-border-color)`.",
+              "name": "--esp-search-loading-indicator-track-color"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search\\u2026\"",
+              "description": "Placeholder text for the search input.",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "isOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "results",
+              "type": {
+                "text": "SearchResult[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "query",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "activeIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "vellumRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "inputRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resultsRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "idPrefix",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`esp-search-${this.correlationId}`",
+              "description": "Per-instance ID prefix for ARIA id attributes (listbox + options)."
+            },
+            {
+              "kind": "field",
+              "name": "_overlay",
+              "privacy": "private",
+              "default": "new OverlayController({ host: this, getFocusTrapContainer: () => this.vellumRef.value ?? null, getFocusFallback: () => this.inputRef.value ?? null, })"
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Open the search overlay and focus the input."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Close the search overlay and restore focus."
+            },
+            {
+              "kind": "method",
+              "name": "setResults",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "results",
+                  "type": {
+                    "text": "SearchResult[]"
+                  }
+                }
+              ],
+              "description": "Update the displayed search results."
+            },
+            {
+              "kind": "method",
+              "name": "setLoading",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "loading",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Show or hide the loading indicator."
+            },
+            {
+              "kind": "method",
+              "name": "handleInput",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectResult",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "result",
+                  "type": {
+                    "text": "SearchResult"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleBackdropClick",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scrollActiveIntoView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hasListbox",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "description": "Whether the listbox is currently rendered in the DOM.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "listboxId",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "optionId",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderResults",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "subscribedRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventUnsubscribers",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/espalier-guides/) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "TOKEN_PAIRINGS",
+              "description": "Which ink sits on which surface, and at what APCA target.\n\nReads the single pairing table in the theme model rather than\ncarrying a second copy: an identical literal used to live here and\nin `compute-theme-properties.ts`, which is precisely the drift the\nrepository's adoption rules exist to catch. See ESP0164.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "MappingSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "MappingSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "The user changed the query input. Fires on every keystroke (not debounced) so consumers can track the latest query and discard stale async results. Consumers that need debouncing should apply it themselves (e.g. Pagefind's `debouncedSearch()`). `detail: { query: string }`",
+              "name": "search-requested"
+            },
+            {
+              "description": "The user chose a result. `detail: { url: string }`",
+              "name": "result-selected"
+            },
+            {
+              "description": "The overlay was closed (Escape, backdrop click, or result selection). Consumers should use this to cancel in-flight searches or discard pending results. `detail: {}`",
+              "name": "search-closed"
+            },
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search\\u2026\"",
+              "description": "Placeholder text for the search input.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/espalier-guides/) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "docUrl": {
+            "name": "/components/search",
+            "description": ""
+          },
+          "docPageTitle": {
+            "name": "Search",
+            "description": ""
+          },
+          "menuLabel": {
+            "name": "Search",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Interaction",
+            "description": ""
+          },
+          "menuOrder": {
+            "name": "5",
+            "description": ""
+          },
+          "docSections": {
+            "name": "examples,properties,events,cssprops",
+            "description": ""
+          },
+          "tagName": "esp-search",
+          "customElement": true,
+          "examples": [
+            {
+              "title": "Basic search (consumer wiring not shown)",
+              "body": "```html\n<esp-search placeholder=\"Search docs...\"></esp-search>\n```"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierSearch",
+          "declaration": {
+            "name": "EspalierSearch",
+            "module": "dist/search/esp-search.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-search",
+          "declaration": {
+            "name": "EspalierSearch",
+            "module": "dist/search/esp-search.js"
           }
         }
       ]
@@ -64012,1073 +64695,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/textarea/esp-textarea.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Wraps a standard HTML textarea element, providing value\nbinding, input validation, and programmatic focus for\nEspalier forms and UIs.\n\n```html\n<esp-box>\n  <h2>esp-textarea example</h2>\n  <p>Start typing...</p>\n  <esp-textarea value=\"Hello from the textarea!\"></esp-textarea>\n</esp-box>\n<script>\n  const theTextarea = findByTagName(\"esp-textarea\")[0];\n  const theP = findByTagName(\"p\")[0];\n  theTextarea.addEventListener(\"value-changed\", (ev) => {\n    theP.innerText = ev.detail.length\n      ? ev.detail\n      : \"The textarea is empty...\";\n  });\n</script>\n```\n\nTextarea can have [color variants](/espalier-guides/).\nHere are some examples:\n\n```html\n<esp-textarea variant=\"split-complementary-left\"></esp-textarea>\n<esp-textarea variant=\"analogous-left\"></esp-textarea>\n```\n\n### Validation with minlength and maxlength\n\n```html\n<esp-box>\n  <esp-form-item label=\"Bio (10-500 characters)\">\n    <esp-textarea name=\"bio\" required minlength=\"10\" maxlength=\"500\"\n      rows=\"4\" placeholder=\"Tell us about yourself...\">\n    </esp-textarea>\n  </esp-form-item>\n</esp-box>\n```\n\n### Disabled textarea\n\n```html\n<esp-box>\n  <esp-form-item label=\"Read-only notes\">\n    <esp-textarea disabled value=\"This textarea is disabled.\"></esp-textarea>\n  </esp-form-item>\n</esp-box>\n```",
-          "name": "EspalierTextarea",
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "theTextarea",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "formCtrl",
-              "privacy": "private",
-              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, getValidity: () => this._getValidity(), getValidationAnchor: (): HTMLElement => this.theTextarea.value ?? this, onReset: () => { this.value = \"\"; this._hasVisibleError = false; }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
-            },
-            {
-              "kind": "field",
-              "name": "formItemDescription",
-              "privacy": "private",
-              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theTextarea.value, })"
-            },
-            {
-              "kind": "field",
-              "name": "_hasVisibleError",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "fieldName",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "A string value used for the id of the textarea.\n\n```html\n<esp-textarea field-name=\"comments\"></esp-textarea>\n```",
-              "attribute": "field-name"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The value of the textarea.\n\n```html\n<esp-textarea value=\"Some text\"></esp-textarea>\n```",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The name used when the textarea participates in a `<form>`.\n\n```html\n<form>\n  <esp-textarea name=\"comments\" value=\"Hello\"></esp-textarea>\n</form>\n```",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "When true, the field must have a value before the form can be\nsubmitted.\n\n```html\n<esp-textarea required></esp-textarea>\n```",
-              "attribute": "required",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "requiredMessage",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "A custom message to display when the field is required but empty.\nDefaults to `\"Please fill out this field.\"` when not set.\n\n```html\n<esp-textarea required required-message=\"Comments are required!\"></esp-textarea>\n```",
-              "attribute": "required-message"
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "A custom message to display when validation fails (e.g.\nminlength not met). Overrides the default friendly message.\n\n```html\n<esp-textarea minlength=\"10\"\n  validation-message=\"Please write at least 10 characters.\">\n</esp-textarea>\n```",
-              "attribute": "validation-message"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "When true, the textarea is disabled and cannot be\ninteracted with.\n\n```html\n<esp-textarea disabled></esp-textarea>\n```",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "public",
-              "description": "Placeholder text shown when the textarea is empty.\n\n```html\n<esp-textarea placeholder=\"Enter your message...\"></esp-textarea>\n```",
-              "attribute": "placeholder"
-            },
-            {
-              "kind": "field",
-              "name": "rows",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "public",
-              "description": "The visible number of text lines.\n\n```html\n<esp-textarea rows=\"6\"></esp-textarea>\n```",
-              "attribute": "rows"
-            },
-            {
-              "kind": "field",
-              "name": "cols",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "public",
-              "description": "The visible width in average character widths.\n\n```html\n<esp-textarea cols=\"40\"></esp-textarea>\n```",
-              "attribute": "cols"
-            },
-            {
-              "kind": "field",
-              "name": "minlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "public",
-              "description": "Minimum number of characters.",
-              "attribute": "minlength"
-            },
-            {
-              "kind": "field",
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "public",
-              "description": "Maximum number of characters.",
-              "attribute": "maxlength"
-            },
-            {
-              "kind": "method",
-              "name": "handleInput",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "e",
-                  "type": {
-                    "text": "InputEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_syncInput",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Sync the form value and fire `value-changed`. If the field\nis already showing an error, validate eagerly so the error\nclears immediately when the user fixes it. Otherwise just\nsync silently — errors will appear on blur."
-            },
-            {
-              "kind": "method",
-              "name": "_handleBlur",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_getValidity",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "{\n    flags: ValidityStateFlags;\n    message: string;\n  } | null"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_getFriendlyMessage",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "description": "Focus the textarea element.\n\n```html\n<div class=\"textarea-with-button\">\n  <esp-textarea value=\"Click to focus -->\"></esp-textarea>\n  <esp-button label=\"Focus\" icon=\"arrow-big-left\"></esp-button>\n</div>\n<script>\n  const theTextarea = findByTagName(\"esp-textarea\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    theTextarea.focus();\n  });\n</script>\n```"
-            },
-            {
-              "kind": "method",
-              "name": "validate",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Re-run constraint validation and dispatch `validity-changed`."
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Check whether the current state is valid (delegates to ElementInternals)."
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Called by the browser when the owning `<form>` is reset."
-            },
-            {
-              "kind": "method",
-              "name": "formStateRestoreCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "state",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Called by the browser to restore form state (bfcache, etc.)."
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "isDisabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
-            },
-            {
-              "kind": "field",
-              "name": "_trackVisibleError",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "subscribedRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventUnsubscribers",
-              "type": {
-                "text": "Array<() => void>"
-              },
-              "privacy": "private",
-              "default": "[]",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variantBacker",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "protected",
-              "default": "\"primary\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "privacy": "public",
-              "description": "The [color variant](/espalier-guides/) of the element.",
-              "attribute": "variant",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "type": {
-                    "text": "EspalierRoot"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textContrast",
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "TOKEN_PAIRINGS",
-              "description": "Which ink sits on which surface, and at what APCA target.\n\nReads the single pairing table in the theme model rather than\ncarrying a second copy: an identical literal used to live here and\nin `compute-theme-properties.ts`, which is precisely the drift the\nrepository's adoption rules exist to catch. See ESP0164.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "statusVariantSources",
-              "type": {
-                "text": "ReadonlySet<ColorSource>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
-              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyVariantTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "effectiveVariantTokenSource",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "MappingSource"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "SemanticColorName"
-                  }
-                },
-                {
-                  "name": "mappedSource",
-                  "type": {
-                    "text": "MappingSource"
-                  }
-                },
-                {
-                  "name": "isStatusVariant",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getVariantColorSource",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "ColorSource | \"\""
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setVariantTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearVariantTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "value-changed",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Emitted when the textarea value changes. ```html <esp-box> <p>Start typing...</p> <esp-textarea></esp-textarea> </esp-box> <script> const theTextarea = findByTagName(\"esp-textarea\")[0]; const theP = findByTagName(\"p\")[0]; theTextarea.addEventListener(\"value-changed\", (ev) => { theP.innerText = ev.detail.length ? ev.detail : \"The textarea is empty...\"; }); </script> ```",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "field-name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "A string value used for the id of the textarea.\n\n```html\n<esp-textarea field-name=\"comments\"></esp-textarea>\n```",
-              "fieldName": "fieldName"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The value of the textarea.\n\n```html\n<esp-textarea value=\"Some text\"></esp-textarea>\n```",
-              "fieldName": "value"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The name used when the textarea participates in a `<form>`.\n\n```html\n<form>\n  <esp-textarea name=\"comments\" value=\"Hello\"></esp-textarea>\n</form>\n```",
-              "fieldName": "name"
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When true, the field must have a value before the form can be\nsubmitted.\n\n```html\n<esp-textarea required></esp-textarea>\n```",
-              "fieldName": "required"
-            },
-            {
-              "name": "required-message",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "A custom message to display when the field is required but empty.\nDefaults to `\"Please fill out this field.\"` when not set.\n\n```html\n<esp-textarea required required-message=\"Comments are required!\"></esp-textarea>\n```",
-              "fieldName": "requiredMessage"
-            },
-            {
-              "name": "validation-message",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "A custom message to display when validation fails (e.g.\nminlength not met). Overrides the default friendly message.\n\n```html\n<esp-textarea minlength=\"10\"\n  validation-message=\"Please write at least 10 characters.\">\n</esp-textarea>\n```",
-              "fieldName": "validationMessage"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When true, the textarea is disabled and cannot be\ninteracted with.\n\n```html\n<esp-textarea disabled></esp-textarea>\n```",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Placeholder text shown when the textarea is empty.\n\n```html\n<esp-textarea placeholder=\"Enter your message...\"></esp-textarea>\n```",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "rows",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "The visible number of text lines.\n\n```html\n<esp-textarea rows=\"6\"></esp-textarea>\n```",
-              "fieldName": "rows"
-            },
-            {
-              "name": "cols",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "The visible width in average character widths.\n\n```html\n<esp-textarea cols=\"40\"></esp-textarea>\n```",
-              "fieldName": "cols"
-            },
-            {
-              "name": "minlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum number of characters.",
-              "fieldName": "minlength"
-            },
-            {
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum number of characters.",
-              "fieldName": "maxlength"
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "EspalierVariant"
-              },
-              "description": "The [color variant](/espalier-guides/) of the element.",
-              "fieldName": "variant",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "tagName": "esp-textarea",
-          "customElement": true,
-          "docPageTitle": {
-            "name": "Textarea",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/textarea",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Form",
-            "description": "Controls"
-          },
-          "menuLabel": {
-            "name": "Textarea",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "forms",
-            "description": ""
-          },
-          "cssProperties": [
-            {
-              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierTextarea",
-          "declaration": {
-            "name": "EspalierTextarea",
-            "module": "dist/textarea/esp-textarea.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-textarea",
-          "declaration": {
-            "name": "EspalierTextarea",
-            "module": "dist/textarea/esp-textarea.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/tabs/esp-tab-group.js",
       "declarations": [
         {
@@ -66620,6 +66236,1073 @@
           "declaration": {
             "name": "EspalierTab",
             "module": "dist/tabs/esp-tab.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/textarea/esp-textarea.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Wraps a standard HTML textarea element, providing value\nbinding, input validation, and programmatic focus for\nEspalier forms and UIs.\n\n```html\n<esp-box>\n  <h2>esp-textarea example</h2>\n  <p>Start typing...</p>\n  <esp-textarea value=\"Hello from the textarea!\"></esp-textarea>\n</esp-box>\n<script>\n  const theTextarea = findByTagName(\"esp-textarea\")[0];\n  const theP = findByTagName(\"p\")[0];\n  theTextarea.addEventListener(\"value-changed\", (ev) => {\n    theP.innerText = ev.detail.length\n      ? ev.detail\n      : \"The textarea is empty...\";\n  });\n</script>\n```\n\nTextarea can have [color variants](/espalier-guides/).\nHere are some examples:\n\n```html\n<esp-textarea variant=\"split-complementary-left\"></esp-textarea>\n<esp-textarea variant=\"analogous-left\"></esp-textarea>\n```\n\n### Validation with minlength and maxlength\n\n```html\n<esp-box>\n  <esp-form-item label=\"Bio (10-500 characters)\">\n    <esp-textarea name=\"bio\" required minlength=\"10\" maxlength=\"500\"\n      rows=\"4\" placeholder=\"Tell us about yourself...\">\n    </esp-textarea>\n  </esp-form-item>\n</esp-box>\n```\n\n### Disabled textarea\n\n```html\n<esp-box>\n  <esp-form-item label=\"Read-only notes\">\n    <esp-textarea disabled value=\"This textarea is disabled.\"></esp-textarea>\n  </esp-form-item>\n</esp-box>\n```",
+          "name": "EspalierTextarea",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "theTextarea",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formCtrl",
+              "privacy": "private",
+              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, getValidity: () => this._getValidity(), getValidationAnchor: (): HTMLElement => this.theTextarea.value ?? this, onReset: () => { this.value = \"\"; this._hasVisibleError = false; }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this.theTextarea.value, })"
+            },
+            {
+              "kind": "field",
+              "name": "_hasVisibleError",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "fieldName",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "A string value used for the id of the textarea.\n\n```html\n<esp-textarea field-name=\"comments\"></esp-textarea>\n```",
+              "attribute": "field-name"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The value of the textarea.\n\n```html\n<esp-textarea value=\"Some text\"></esp-textarea>\n```",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The name used when the textarea participates in a `<form>`.\n\n```html\n<form>\n  <esp-textarea name=\"comments\" value=\"Hello\"></esp-textarea>\n</form>\n```",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When true, the field must have a value before the form can be\nsubmitted.\n\n```html\n<esp-textarea required></esp-textarea>\n```",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "requiredMessage",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "A custom message to display when the field is required but empty.\nDefaults to `\"Please fill out this field.\"` when not set.\n\n```html\n<esp-textarea required required-message=\"Comments are required!\"></esp-textarea>\n```",
+              "attribute": "required-message"
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "A custom message to display when validation fails (e.g.\nminlength not met). Overrides the default friendly message.\n\n```html\n<esp-textarea minlength=\"10\"\n  validation-message=\"Please write at least 10 characters.\">\n</esp-textarea>\n```",
+              "attribute": "validation-message"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "When true, the textarea is disabled and cannot be\ninteracted with.\n\n```html\n<esp-textarea disabled></esp-textarea>\n```",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "public",
+              "description": "Placeholder text shown when the textarea is empty.\n\n```html\n<esp-textarea placeholder=\"Enter your message...\"></esp-textarea>\n```",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "public",
+              "description": "The visible number of text lines.\n\n```html\n<esp-textarea rows=\"6\"></esp-textarea>\n```",
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
+              "name": "cols",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "public",
+              "description": "The visible width in average character widths.\n\n```html\n<esp-textarea cols=\"40\"></esp-textarea>\n```",
+              "attribute": "cols"
+            },
+            {
+              "kind": "field",
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "public",
+              "description": "Minimum number of characters.",
+              "attribute": "minlength"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "public",
+              "description": "Maximum number of characters.",
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "method",
+              "name": "handleInput",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "InputEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_syncInput",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Sync the form value and fire `value-changed`. If the field\nis already showing an error, validate eagerly so the error\nclears immediately when the user fixes it. Otherwise just\nsync silently — errors will appear on blur."
+            },
+            {
+              "kind": "method",
+              "name": "_handleBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_getValidity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "{\n    flags: ValidityStateFlags;\n    message: string;\n  } | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_getFriendlyMessage",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "Focus the textarea element.\n\n```html\n<div class=\"textarea-with-button\">\n  <esp-textarea value=\"Click to focus -->\"></esp-textarea>\n  <esp-button label=\"Focus\" icon=\"arrow-big-left\"></esp-button>\n</div>\n<script>\n  const theTextarea = findByTagName(\"esp-textarea\")[0];\n  const theButton = findByTagName(\"esp-button\")[0];\n  theButton.addEventListener(\"clicked\", () => {\n    theTextarea.focus();\n  });\n</script>\n```"
+            },
+            {
+              "kind": "method",
+              "name": "validate",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Re-run constraint validation and dispatch `validity-changed`."
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Check whether the current state is valid (delegates to ElementInternals)."
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Called by the browser when the owning `<form>` is reset."
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Called by the browser to restore form state (bfcache, etc.)."
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "isDisabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
+            },
+            {
+              "kind": "field",
+              "name": "_trackVisibleError",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "subscribedRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventUnsubscribers",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variantBacker",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "protected",
+              "default": "\"primary\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "privacy": "public",
+              "description": "The [color variant](/espalier-guides/) of the element.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "textContrast",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "TOKEN_PAIRINGS",
+              "description": "Which ink sits on which surface, and at what APCA target.\n\nReads the single pairing table in the theme model rather than\ncarrying a second copy: an identical literal used to live here and\nin `compute-theme-properties.ts`, which is precisely the drift the\nrepository's adoption rules exist to catch. See ESP0164.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusVariantSources",
+              "type": {
+                "text": "ReadonlySet<ColorSource>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<ColorSource>([ \"danger\", \"success\", \"warning\", ])",
+              "description": "Variant color sources whose meaning is carried by a fixed hue rather\nthan the brand seed — the destructive / positive / warning status\nfamilies (ADR-004). For these variants the filled-action tokens are\npinned to the variant's own color so a theme cannot make them look\nlike an ordinary brand action. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface. For a\nstatus variant these always derive from the variant's own color, so\nthe Taproot \"Buttons\" semantic group (which re-points\n`actionBackground` / `actionText` to a brand source) cannot rotate a\ndestructive / warning / positive action off its semantic hue. See\ntask 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyVariantTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "effectiveVariantTokenSource",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "MappingSource"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "SemanticColorName"
+                  }
+                },
+                {
+                  "name": "mappedSource",
+                  "type": {
+                    "text": "MappingSource"
+                  }
+                },
+                {
+                  "name": "isStatusVariant",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Resolve the color source used to derive a semantic token for the\nactive variant.\n\nNormally this is the theme's mapping source, so the variant performs a\nfull palette shift relative to its own color. The exception is the\nmeaning-bearing status variants (`danger`, `success`, `warning`): their\nfilled-action tokens (`actionBackground`, `actionText`) are pinned to\nthe variant's own color — the `primary` entry of the sub-variant\npalette, which is the variant color itself — so a theme that re-points\nthe Buttons semantic group to a brand source cannot rotate a\ndestructive / warning / positive action off its semantic hue. Ordinary\nbrand and primary variants keep full theme customization. See task 098.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getVariantColorSource",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "ColorSource | \"\""
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setVariantTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearVariantTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "value-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Emitted when the textarea value changes. ```html <esp-box> <p>Start typing...</p> <esp-textarea></esp-textarea> </esp-box> <script> const theTextarea = findByTagName(\"esp-textarea\")[0]; const theP = findByTagName(\"p\")[0]; theTextarea.addEventListener(\"value-changed\", (ev) => { theP.innerText = ev.detail.length ? ev.detail : \"The textarea is empty...\"; }); </script> ```",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "field-name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "A string value used for the id of the textarea.\n\n```html\n<esp-textarea field-name=\"comments\"></esp-textarea>\n```",
+              "fieldName": "fieldName"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value of the textarea.\n\n```html\n<esp-textarea value=\"Some text\"></esp-textarea>\n```",
+              "fieldName": "value"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The name used when the textarea participates in a `<form>`.\n\n```html\n<form>\n  <esp-textarea name=\"comments\" value=\"Hello\"></esp-textarea>\n</form>\n```",
+              "fieldName": "name"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, the field must have a value before the form can be\nsubmitted.\n\n```html\n<esp-textarea required></esp-textarea>\n```",
+              "fieldName": "required"
+            },
+            {
+              "name": "required-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "A custom message to display when the field is required but empty.\nDefaults to `\"Please fill out this field.\"` when not set.\n\n```html\n<esp-textarea required required-message=\"Comments are required!\"></esp-textarea>\n```",
+              "fieldName": "requiredMessage"
+            },
+            {
+              "name": "validation-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "A custom message to display when validation fails (e.g.\nminlength not met). Overrides the default friendly message.\n\n```html\n<esp-textarea minlength=\"10\"\n  validation-message=\"Please write at least 10 characters.\">\n</esp-textarea>\n```",
+              "fieldName": "validationMessage"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, the textarea is disabled and cannot be\ninteracted with.\n\n```html\n<esp-textarea disabled></esp-textarea>\n```",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text shown when the textarea is empty.\n\n```html\n<esp-textarea placeholder=\"Enter your message...\"></esp-textarea>\n```",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The visible number of text lines.\n\n```html\n<esp-textarea rows=\"6\"></esp-textarea>\n```",
+              "fieldName": "rows"
+            },
+            {
+              "name": "cols",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The visible width in average character widths.\n\n```html\n<esp-textarea cols=\"40\"></esp-textarea>\n```",
+              "fieldName": "cols"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum number of characters.",
+              "fieldName": "minlength"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum number of characters.",
+              "fieldName": "maxlength"
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "EspalierVariant"
+              },
+              "description": "The [color variant](/espalier-guides/) of the element.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "tagName": "esp-textarea",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Textarea",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/textarea",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Form",
+            "description": "Controls"
+          },
+          "menuLabel": {
+            "name": "Textarea",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "forms",
+            "description": ""
+          },
+          "cssProperties": [
+            {
+              "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierTextarea",
+          "declaration": {
+            "name": "EspalierTextarea",
+            "module": "dist/textarea/esp-textarea.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-textarea",
+          "declaration": {
+            "name": "EspalierTextarea",
+            "module": "dist/textarea/esp-textarea.js"
           }
         }
       ]

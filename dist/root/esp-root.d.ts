@@ -63,6 +63,14 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  *
  * @customElement esp-root
  * @slot - Place Espalier components and content here.
+ * @cssprop --esp-color-series-1 - First categorical data-series color.
+ * @cssprop --esp-color-series-2 - Second categorical data-series color.
+ * @cssprop --esp-color-series-3 - Third categorical data-series color.
+ * @cssprop --esp-color-series-4 - Fourth categorical data-series color.
+ * @cssprop --esp-color-series-5 - Fifth categorical data-series color.
+ * @cssprop --esp-color-series-6 - Sixth categorical data-series color.
+ * @cssprop --esp-color-series-7 - Seventh categorical data-series color.
+ * @cssprop --esp-color-series-8 - Eighth categorical data-series color.
  *
  * @docPageTitle Root
  * @docUrl /components/root
