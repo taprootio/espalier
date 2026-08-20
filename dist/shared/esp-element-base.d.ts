@@ -39,6 +39,13 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      */
     get variant(): EspalierVariant;
     set variant(val: EspalierVariant);
+    /**
+     * A theme-defined color zone. The selected context rebinds designer-facing
+     * roles and emits a complete, contrast-enforced semantic token table on this
+     * host for descendants to inherit.
+     */
+    get context(): string;
+    set context(value: string);
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected firstUpdated(_changedProperties: PropertyValues): void;
@@ -51,14 +58,13 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      */
     traverseToClosest(selector: string): Element | null;
     /**
-     * Compute and apply variant-specific semantic color tokens.
+     * Compute and apply context- and variant-specific semantic color tokens.
      *
-     * For the **primary** variant (or none), all semantic tokens
-     * cascade from `<esp-root>` — any previous overrides are cleared.
+     * With no context and the **primary** variant (or none), all semantic
+     * tokens cascade from `<esp-root>` and previous overrides are cleared.
      *
-     * For non-primary variants, semantic tokens whose source is
-     * `primary` are recomputed using the variant color and applied
-     * as inline styles on the host element.
+     * A non-primary legacy variant is then computed over the contextual theme
+     * and applied as the final inline layer until ESP0166 removes re-seeding.
      */
     protected applyVariantTokens(): void;
     protected getVariantColorSource(): ColorSource | "";

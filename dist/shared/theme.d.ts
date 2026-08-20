@@ -205,6 +205,20 @@ export type RoleBinding<R extends RoleName = RoleName> = MappingSource | ({
 export type ThemeRoles = {
     [R in RoleName]?: RoleBinding<R>;
 };
+/**
+ * One named zone-level rebinding of the designer-facing color roles.
+ *
+ * A context may also carry a partial lightness ramp. Color sources alone
+ * cannot make a dark zone inside a light scheme because semantic derivation
+ * deliberately takes lightness from the ramp rather than from an anchor.
+ */
+export type ThemeContext = ThemeRoles & {
+    lightness?: Partial<LightnessMap>;
+};
+/** Named role-rebinding zones available to `context` attributes. */
+export type ThemeContexts = Record<string, ThemeContext>;
+/** Context declarations while partial themes are being layered. */
+export type PartialThemeContexts = Record<string, ThemeContext | undefined>;
 /** Ordered role names, for validation and iteration. */
 export declare const ROLE_NAMES: readonly RoleName[];
 /**
@@ -395,6 +409,12 @@ export interface EspalierTheme {
      */
     roles: ThemeRoles;
     /**
+     * Named zone-level role rebindings. A base-derived element selects one with
+     * its `context` attribute; the selected context is resolved against this
+     * scheme's complete theme and re-enforces every semantic ink pairing.
+     */
+    contexts: ThemeContexts;
+    /**
      * Eight stable categorical data-series colors. Each value is a CSS color or
      * an `anchor:<name>[.<slot>]` reference. Emitted as
      * `--esp-color-series-1`–`--esp-color-series-8`.
@@ -427,8 +447,9 @@ export interface EspalierTheme {
  * carry slot-only anchor overrides, which the resolved
  * {@link ThemeAnchor} deliberately does not permit.
  */
-export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors" | "dataRamps"> & {
+export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors" | "contexts" | "dataRamps"> & {
     anchors?: PartialThemeAnchors;
+    contexts?: PartialThemeContexts;
     dataRamps?: PartialDataRamps;
 };
 /** Validation result returned by {@link validateTheme}. */
@@ -556,7 +577,7 @@ export declare function encodeTheme(partial: PartialTheme): string;
  * Deep-merge a {@link PartialTheme} over a set of defaults.
  *
  * Primitive fields are replaced; nested objects (`angles`,
- * `semanticHues`, `lightness`, `chroma`, `semanticMappings`)
+ * `semanticHues`, `lightness`, `chroma`, `semanticMappings`, `contexts`)
  * are merged key-by-key.  Arrays (`stylesheets`) are replaced
  * wholesale.
  *
@@ -579,11 +600,19 @@ export declare function mergeTheme(defaults: EspalierTheme, overrides: PartialTh
  */
 export declare function validateTheme(base64: string): ThemeValidationResult;
 /**
+ * Validate the light and dark partials that form one scheme-paired theme.
+ *
+ * Each partial first passes through {@link validateTheme}. Once both are
+ * structurally valid, their context-name sets must match exactly so a stable
+ * `context` attribute cannot silently change meaning when the scheme changes.
+ */
+export declare function validateThemePair(lightBase64: string, darkBase64: string): ThemeValidationResult;
+/**
  * Keys of {@link EspalierTheme} whose values are nested objects
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "dataPalette", "dataRamps", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "contexts", "dataPalette", "dataRamps", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *
