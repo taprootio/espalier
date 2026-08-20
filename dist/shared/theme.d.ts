@@ -148,6 +148,100 @@ export interface SemanticMapping {
 }
 /** Full mapping table — one entry per semantic color token. */
 export type SemanticMappings = Record<SemanticColorName, SemanticMapping>;
+/**
+ * The designer-facing color roles.
+ *
+ * `semantic-groups.md` has always described these groups and then warned
+ * that exposing the nineteen raw tokens is "handing users the engine
+ * room instead of the dashboard" — but the groups were documentation
+ * only. Roles make them addressable: a sentence a designer would say
+ * becomes a line of theme.
+ *
+ * - `canvas` — the page and its raised surfaces
+ * - `ink` — body copy, with a `heading` slot for titles
+ * - `accent` — decoration (rules, icons, hover washes), with a `text`
+ *   slot for the deepened variant that may carry copy
+ * - `action` — filled action surfaces; its paired ink derives
+ *   automatically (see {@link ROLE_PAIRED_INK})
+ * - `structure` — borders and shadows
+ *
+ * `status` is deliberately absent: the danger/success/warning families
+ * carry meaning through fixed hues (ADR-004) and are not a brand
+ * decision.
+ */
+export type RoleName = "canvas" | "ink" | "accent" | "action" | "structure";
+/**
+ * A role binding: a color source, or an object with the base `color`
+ * plus role-specific slots.
+ *
+ * Sources are the same vocabulary mappings use — a geometric family, a
+ * status family, or an `anchor:<name>` reference (ADR-015).
+ */
+export type RoleSlotName = {
+    canvas: never;
+    ink: "heading";
+    accent: "text";
+    action: "ink";
+    structure: never;
+};
+export type RoleBinding<R extends RoleName = RoleName> = MappingSource | ({
+    color: MappingSource;
+} & Partial<Record<RoleSlotName[R], MappingSource>>);
+/**
+ * The roles a theme declares. Every role is optional, and each one
+ * admits only its own slots — `ink.heading`, `accent.text`,
+ * `action.ink` — so the structural claims the roles layer makes are
+ * checked by the type system, not only by validateTheme.
+ */
+export type ThemeRoles = {
+    [R in RoleName]?: RoleBinding<R>;
+};
+/** Ordered role names, for validation and iteration. */
+export declare const ROLE_NAMES: readonly RoleName[];
+/**
+ * Which semantic tokens each role slot paints, and at which ramp stop.
+ *
+ * This is the compilation table: it turns five designer-facing roles
+ * into the nineteen engine-room tokens. `dangerText` is absent by
+ * design — the status family is reserved and keeps its own source.
+ *
+ * The `accent` role has no body-text slot on purpose. "Rose is
+ * decorative only" is a structural guarantee here, not a comment: text
+ * that must come from the accent family comes through `accent.text`,
+ * the deepened variant a designer picked for legibility.
+ */
+export declare const ROLE_TOKEN_PLAN: Readonly<Record<RoleName, Readonly<Record<string, ReadonlyArray<[SemanticColorName, LightnessKey]>>>>>;
+/**
+ * Ink slots that derive from another role when the theme does not
+ * declare them.
+ *
+ * A role that paints a surface must also answer "what writes on it".
+ * `action.ink` defaults to the canvas color: the ink paired with a
+ * filled action is the page ground, and APCA enforcement against
+ * `actionBackground` then guarantees it is legible — which is exactly
+ * how "white on plum for reversed sections" becomes one theme line
+ * instead of a hand-picked hex.
+ */
+export declare const ROLE_PAIRED_INK: Readonly<Record<string, {
+    role: RoleName;
+    slot: string;
+}>>;
+interface CompileRoleOptions {
+    /** Token mappings declared explicitly at this merge boundary. */
+    explicitMappings?: Partial<SemanticMappings>;
+    /** Exact maximum paired-ink contrast of an action surface candidate. */
+    actionSurfaceContrast?: (source: MappingSource, stop: LightnessKey) => number;
+}
+/**
+ * Compile roles into semantic mappings.
+ *
+ * Only the tokens a declared role owns are emitted, so a theme that
+ * declares no roles compiles to nothing and every existing theme keeps
+ * its exact output. Token-level `semanticMappings` layer over the
+ * result — the engine room stays available for the cases roles do not
+ * reach.
+ */
+export declare function compileRoles(roles: ThemeRoles, lightness: LightnessMap, baseMappings: SemanticMappings, options?: CompileRoleOptions): Partial<SemanticMappings>;
 /** The complete, resolved Espalier theme. */
 export interface EspalierTheme {
     /**
@@ -284,6 +378,13 @@ export interface EspalierTheme {
      * of bending hue angles. See {@link ThemeAnchors} and ADR-015.
      */
     anchors: ThemeAnchors;
+    /**
+     * Designer-facing color roles, compiled into
+     * {@link EspalierTheme.semanticMappings} at merge time. Empty by
+     * default; token-level mappings layer over whatever roles produce.
+     * See {@link ThemeRoles} and ADR-016.
+     */
+    roles: ThemeRoles;
     /** Optional CSS `background-image` for the page surface. */
     pageBackgroundImage?: string;
     /** Opacity (0–1) for the page background image. */
@@ -318,6 +419,29 @@ export interface ThemeValidationResult {
     /** Soft issues — the theme will work but values are unusual. */
     warnings: string[];
 }
+/**
+ * Which semantic tokens are ink, what surface each sits on, and the
+ * APCA contrast each must clear.
+ *
+ * This pairing lived as an identical hardcoded table inside both
+ * `compute-theme-properties.ts` and `esp-element-base.ts` — invisible to
+ * themes and duplicated in exactly the way this repository's adoption
+ * rules exist to prevent. It belongs to the model: every serious system
+ * makes the surface/ink pair the unit designers see (Material's
+ * `on-primary`, shadcn's `-foreground`), and the roles layer derives an
+ * action's ink from it rather than asking a designer to hand-pick a
+ * legible color.
+ *
+ * Lc targets follow the APCA guidelines (ADR-002):
+ *   90 → body text at any size
+ *   75 → 16 px+ text (UI labels, links, body)
+ *   60 → 24 px+ bold / 28 px+ normal (headings, carets, decorative)
+ */
+type TokenPairing = Readonly<{
+    bg: SemanticColorName;
+    targetLc: number;
+}>;
+export declare const TOKEN_PAIRINGS: Readonly<Record<"actionText", TokenPairing> & Partial<Record<SemanticColorName, TokenPairing>>>;
 /** Ordered list of all semantic color token names. */
 export declare const SEMANTIC_COLOR_NAMES: readonly SemanticColorName[];
 /** Valid color-source identifiers for {@link SemanticMapping.source}. */
@@ -438,7 +562,7 @@ export declare function validateTheme(base64: string): ThemeValidationResult;
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *

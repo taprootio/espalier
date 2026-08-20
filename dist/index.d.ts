@@ -73,3 +73,4 @@ export { type TypeaheadFetchItems } from "./pickers/types.js";
 export { type EspalierTheme, type PartialTheme, type VariantColorSource, encodeTheme, parseTheme, mergePartials, layerThemes, buildTaprootLightTheme, buildTaprootDarkTheme, NESTED_THEME_KEYS, } from "./shared/theme.js";
 export { WEIGHT_LABELS, extractWeights, normalizeWeight, bestAvailableWeight, extractFamily, getFallbackFont, } from "./shared/font-helpers.js";
 export { getGoogleFonts } from "./font-picker/esp-font-picker.js";
+export { themeFitReport, themeFitRows, printThemeFitReport, type ThemeFitReport, type ThemeFitToken, type ThemeFitApcaAction, type ThemeFitAnchor, type ThemeFitRow, } from "./shared/theme-fit-report.js";
