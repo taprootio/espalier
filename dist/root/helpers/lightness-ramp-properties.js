@@ -1,0 +1,1 @@
+import{LIGHTNESS_KEYS as s}from"../../shared/theme.js";import{lightnessKeyToCSS as e}from"./lightness-key-to-css.js";function p(t){const o={};for(const r of s)o[e(r)]=`${Math.round(t.lightness[r]*100)}%`;return o}export{p as lightnessRampProperties};

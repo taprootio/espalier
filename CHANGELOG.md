@@ -5,6 +5,35 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 3.0.0 — Intent and context replace the variant attribute
+
+- Remove the `variant` attribute. Its two jobs are now separate attributes:
+  `intent` (`neutral`, `success`, `warning`, `danger`, `info`) states what an
+  element means, and `context` selects a theme-defined zone that re-emits the
+  complete, contrast-enforced semantic token table for its subtree.
+- Rename status values mechanically (`variant="danger"` becomes
+  `intent="danger"`; `variant="primary"` is deleted). Geometric values
+  (`complementary`, `triadic-left`, and the rest) have no rename: express each
+  usage as a named theme context. A leftover `variant` attribute is inert;
+  unknown `intent` values warn once and render as `neutral`, with the
+  attribute reflecting the normalized value, and removing the attribute
+  restores the element's own default intent.
+- Pin the filled-action pair on token-emitting controls to the intent's
+  family — fixed status hues for danger/success/warning, the complementary
+  family for info — derived over the governing context's theme with APCA
+  contrast enforced. Intents never repaint the surrounding zone.
+- Replace the `EspalierVariant` type with `EspalierIntentVariant` and
+  `ToastConfig.variant` with `ToastConfig.intent`.
+- Remove the protected variant hooks from `EspalierElementBase`:
+  `variantBacker` becomes `intentBacker`, `applyVariantTokens()` becomes
+  `applyScopedColorTokens()`, and `getVariantColorSource()` is gone;
+  class-styled chrome opts out of inline emission with
+  `intentEmitsTokens = false`.
+- Change `esp-info`'s default appearance: instead of re-seeding inline tokens
+  from the complementary family it renders a class-based informational surface
+  themeable via the `--esp-info-*` custom properties, and toasts without an
+  explicit intent render that same treatment.
+
 ## 2.14.0 — Stable workspace resizing and trailing-edge controls
 
 - Yield a safely linked navigation rail after auxiliary panes contract and

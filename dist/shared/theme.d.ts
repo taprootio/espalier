@@ -97,9 +97,10 @@ export type ThemeAnchors = Record<string, ThemeAnchor>;
  *
  * An anchor source contributes its own hue **and chroma**; lightness
  * always comes from the mapping's ramp stop, and APCA enforcement
- * applies unchanged. Under an element variant, anchor sources stay
- * absolute — a brand color is a color, not a relationship to the seed,
- * so variant re-seeding does not rotate it.
+ * applies unchanged. Anchors are absolute sources rather than seed
+ * rotations — a brand color is a color, not a relationship to the
+ * seed — so they hold steady while contexts rebind roles around them
+ * and intents replace the filled-action source.
  */
 export type MappingSource = ColorSource | `anchor:${string}`;
 /** Anchor names and slot names share one slug grammar. */
@@ -586,18 +587,6 @@ export declare function encodeTheme(partial: PartialTheme): string;
  * @returns A new fully-resolved {@link EspalierTheme}.
  */
 export declare function mergeTheme(defaults: EspalierTheme, overrides: PartialTheme): EspalierTheme;
-/**
- * Validate a Base64-encoded theme string.
- *
- * Checks structure, types, and value ranges.  The function is
- * intentionally lenient on unknown keys (future-proofing) but
- * strict on the keys it recognises.
- *
- * @param base64 A Base64-encoded JSON string representing a
- *   partial or full theme.
- * @returns A {@link ThemeValidationResult} with `valid`, `errors`,
- *   and `warnings`.
- */
 export declare function validateTheme(base64: string): ThemeValidationResult;
 /**
  * Validate the light and dark partials that form one scheme-paired theme.

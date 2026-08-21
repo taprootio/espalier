@@ -27,11 +27,13 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Input can have [color variants](/espalier-guides/). Here are some examples:
+ * Inputs pick up zone theming from an ancestor's `context` attribute —
+ * see the [theming guide](/espalier-guides/) for theme-defined contexts:
  *
  * ```html
- * <esp-input variant="split-complementary-left"></esp-input>
- * <esp-input variant="analogous-left"></esp-input>
+ * <esp-box context="quiet">
+ *   <esp-input label="Inside the quiet zone"></esp-input>
+ * </esp-box>
  * ```
  *
  * ### Email validation

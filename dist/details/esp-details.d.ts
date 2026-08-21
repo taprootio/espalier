@@ -13,15 +13,15 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-details>
  * ```
  *
- * Details can have [color variants](/espalier-guides/):
+ * Details pick up zone theming from a `context` attribute on the group
+ * or any ancestor — see the [theming guide](/espalier-guides/):
  *
  * ```html
- * <esp-details summary="Complementary variant" variant="complementary">
- *   <p>This details element uses the complementary color variant.</p>
- * </esp-details>
- * <esp-details summary="Analogous left variant" variant="analogous-left">
- *   <p>This one uses the analogous-left color variant.</p>
- * </esp-details>
+ * <esp-details-group context="quiet">
+ *   <esp-details summary="Inside the quiet zone">
+ *     <p>Zone-correct tokens, contrast enforced by the theme engine.</p>
+ *   </esp-details>
+ * </esp-details-group>
  * ```
  *
  * ### Pre-opened details
@@ -78,7 +78,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * ### Scroll-stability regression harness
  *
  * ```html
- * <esp-info variant="warning" icon="info-i">
+ * <esp-info intent="warning" icon="info-i">
  *   <strong>Manual verification (Firefox):</strong>
  *   <ol>
  *     <li>Scroll so the details summary and top of the grid are both visible.</li>
@@ -98,7 +98,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     <label style="display:flex; align-items:center; gap:var(--esp-size-tiny); font-family:var(--esp-font-body); color:var(--esp-color-text);">
  *       <input type="checkbox" value="flagged" /> Flagged
  *     </label>
- *     <esp-button id="scroll-test-apply" variant="complementary" label="Apply filters"></esp-button>
+ *     <esp-button id="scroll-test-apply" label="Apply filters"></esp-button>
  *   </div>
  * </esp-details>
  * <esp-grid page-size="30" grid-height="50vh" style="margin-top:var(--esp-size-small);">

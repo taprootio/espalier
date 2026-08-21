@@ -1,7 +1,6 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type SeedColorRoot } from "./bus-events.js";
-import { type ColorSource } from "./theme.js";
-export type EspalierVariant = "analogous-left" | "analogous-right" | "complementary" | "danger" | "info" | "neutral" | "primary" | "split-complementary-left" | "split-complementary-right" | "success" | "triadic-left" | "triadic-right" | "warning" | "";
+import { type EspalierIntentVariant } from "./intent-values.js";
 /**
  * Shared base class for Espalier elements.
  *
@@ -18,7 +17,16 @@ export type EspalierVariant = "analogous-left" | "analogous-right" | "complement
  * @cssprop --esp-field-focus-shadow - Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.
  */
 export declare class EspalierElementBase extends LitElement implements SeedColorRoot {
-    protected variantBacker: EspalierVariant;
+    protected intentBacker: EspalierIntentVariant;
+    /**
+     * Whether a non-neutral intent emits its inline tokens
+     * (`--esp-color-primary` and the filled-action pair). Interactive
+     * controls need them; chrome whose intent treatment is class-based
+     * (badges, callouts, status pills — see `intentSurfaceTokens`) opts
+     * out so a decorative intent never rewrites inherited tokens for
+     * slotted content.
+     */
+    protected intentEmitsTokens: boolean;
     get seedColor(): string;
     set seedColor(val: string);
     correlationId: `${string}-${string}-${string}-${string}-${string}`;
@@ -34,11 +42,20 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      */
     scheme: "dark" | "light" | "";
     /**
-     * The [color variant](/espalier-guides/) of the element.
-     * @type {EspalierVariant}
+     * The element's [intent](/espalier-guides/) — its meaning: `neutral`
+     * (no pin), `success`, `warning`, or `danger` (each pinned to its
+     * fixed status family), or `info` (pinned to the complementary
+     * family). On token-emitting controls a non-neutral intent pins the
+     * filled-action pair to that family, derived over the governing
+     * zone's theme; class-styled chrome (badges, callouts, status pills)
+     * opts out of inline emission and renders its treatment from CSS
+     * classes instead. An intent never repaints the surrounding zone,
+     * which is what contexts are for. Removing the attribute restores
+     * the element's own default intent.
+     * @type {EspalierIntentVariant}
      */
-    get variant(): EspalierVariant;
-    set variant(val: EspalierVariant);
+    get intent(): EspalierIntentVariant;
+    set intent(value: EspalierIntentVariant | string | null);
     /**
      * A theme-defined color zone. The selected context rebinds designer-facing
      * roles and emits a complete, contrast-enforced semantic token table on this
@@ -58,15 +75,16 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      */
     traverseToClosest(selector: string): Element | null;
     /**
-     * Compute and apply context- and variant-specific semantic color tokens.
+     * Compute and apply context- and intent-specific semantic color tokens.
      *
-     * With no context and the **primary** variant (or none), all semantic
-     * tokens cascade from `<esp-root>` and previous overrides are cleared.
-     *
-     * A non-primary legacy variant is then computed over the contextual theme
-     * and applied as the final inline layer until ESP0166 removes re-seeding.
+     * With no context and a `neutral` intent, all semantic tokens cascade
+     * from `<esp-root>` and previous overrides are cleared. A context
+     * emits the zone's complete nineteen-token table; a non-neutral intent
+     * then overlays the filled-action pair, derived over the governing
+     * zone's theme — this host's own context, or the nearest ancestor
+     * zone's — so its APCA enforcement runs against the zone's actual
+     * action surface.
      */
-    protected applyVariantTokens(): void;
-    protected getVariantColorSource(): ColorSource | "";
+    protected applyScopedColorTokens(): void;
     static styles: import("lit").CSSResult[];
 }

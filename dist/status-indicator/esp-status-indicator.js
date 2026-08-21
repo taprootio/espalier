@@ -1,4 +1,4 @@
-var n=function(t,e,r,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,r):a,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(t,e,r,a);else for(var h=t.length-1;h>=0;h--)(p=t[h])&&(i=(l<3?p(i):l>3?p(e,r,i):p(e,r))||i);return l>3&&i&&Object.defineProperty(e,r,i),i};import{css as v,html as s,nothing as m}from"lit";import{customElement as f,property as c,state as d}from"lit/decorators.js";import{classMap as g}from"lit/directives/class-map.js";import{createRef as b,ref as u}from"lit/directives/ref.js";import"../popover/esp-popover.js";import{EspalierElementBase as y}from"../shared/esp-element-base.js";import{EspalierIntentElementBase as k,intentSurfaceTokens as w}from"../shared/esp-intent-element-base.js";import{getIconHrefForHost as x}from"../shared/intent-values.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as B}from"../shared/svgs/render-sprite-icon.js";function P(t){return t==="bottom"||t==="left"||t==="right"?t:"top"}function S(t){return t==="outline"||t==="none"?t:"pill"}let I=0,o=class extends k{constructor(){super(...arguments),this.popoverRef=b(),this.iconSlot=new $(this),this.placementBacker="top",this.chromeBacker="pill",this.descriptionId=`esp-status-indicator-${++I}`,this.open=!1,this.popoverPinned=!1,this.icon="",this.label="",this.handlePopoverOpened=()=>{this.open=!0},this.handlePopoverClosed=()=>{this.open=!1,this.popoverPinned=!1},this.handleClick=()=>{this.pinPopoverOpen()},this.handleKeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault(),this.pinPopoverOpen();return}e.key==="Escape"&&(e.preventDefault(),this.popoverRef.value?.closePopover())}}get placement(){return this.placementBacker}set placement(e){const r=this.placementBacker;this.placementBacker=P(e),this.requestUpdate("placement",r),this.syncPlacementAttribute()}get chrome(){return this.chromeBacker}set chrome(e){const r=this.chromeBacker;this.chromeBacker=S(e),this.requestUpdate("chrome",r),this.syncChromeAttribute()}get attach(){switch(this.placement){case"bottom":return"below";case"left":return"left";case"right":return"right";case"top":default:return"above"}}get accessibleLabel(){return this.label||`${this.variant} status`}syncPlacementAttribute(){const e=this.getAttribute("placement");e!==null&&e!==this.placementBacker&&this.setAttribute("placement",this.placementBacker)}syncChromeAttribute(){const e=this.getAttribute("chrome");e!==null&&e!==this.chromeBacker&&this.setAttribute("chrome",this.chromeBacker)}pinPopoverOpen(){this.popoverPinned=!0,this.popoverRef.value?.openPopover()}renderDefaultIcon(){switch(this.variant){case"success":return s`
+var n=function(t,e,o,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,o):a,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(t,e,o,a);else for(var h=t.length-1;h>=0;h--)(p=t[h])&&(i=(l<3?p(i):l>3?p(e,o,i):p(e,o))||i);return l>3&&i&&Object.defineProperty(e,o,i),i};import{css as v,html as s,nothing as f}from"lit";import{customElement as g,property as c,state as d}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{createRef as y,ref as u}from"lit/directives/ref.js";import"../popover/esp-popover.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{intentSurfaceTokens as k}from"../shared/style-fragments.js";import{getIconHrefForHost as w}from"../shared/intent-values.js";import{SlottedIconController as x}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";function P(t){return t==="bottom"||t==="left"||t==="right"?t:"top"}function B(t){return t==="outline"||t==="none"?t:"pill"}let S=0,r=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.popoverRef=y(),this.iconSlot=new x(this),this.placementBacker="top",this.chromeBacker="pill",this.descriptionId=`esp-status-indicator-${++S}`,this.open=!1,this.popoverPinned=!1,this.icon="",this.label="",this.handlePopoverOpened=()=>{this.open=!0},this.handlePopoverClosed=()=>{this.open=!1,this.popoverPinned=!1},this.handleClick=()=>{this.pinPopoverOpen()},this.handleKeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault(),this.pinPopoverOpen();return}e.key==="Escape"&&(e.preventDefault(),this.popoverRef.value?.closePopover())}}get placement(){return this.placementBacker}set placement(e){const o=this.placementBacker;this.placementBacker=P(e),this.requestUpdate("placement",o),this.syncPlacementAttribute()}get chrome(){return this.chromeBacker}set chrome(e){const o=this.chromeBacker;this.chromeBacker=B(e),this.requestUpdate("chrome",o),this.syncChromeAttribute()}get attach(){switch(this.placement){case"bottom":return"below";case"left":return"left";case"right":return"right";case"top":default:return"above"}}get accessibleLabel(){return this.label||`${this.intent} status`}syncPlacementAttribute(){const e=this.getAttribute("placement");e!==null&&e!==this.placementBacker&&this.setAttribute("placement",this.placementBacker)}syncChromeAttribute(){const e=this.getAttribute("chrome");e!==null&&e!==this.chromeBacker&&this.setAttribute("chrome",this.chromeBacker)}pinPopoverOpen(){this.popoverPinned=!0,this.popoverRef.value?.openPopover()}renderDefaultIcon(){switch(this.intent){case"success":return s`
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
             <path d="M5 12l5 5l10 -10"></path>
           </svg>
@@ -26,14 +26,14 @@ var n=function(t,e,r,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
             <path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
             <path d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0 -18z"></path>
           </svg>
-        `}}renderIcon(){const e=x(this.icon,this),r=this.iconSlot.hasSlottedIcon();return s`<span class="indicator-icon" aria-hidden="true">
+        `}}renderIcon(){const e=w(this.icon,this),o=this.iconSlot.hasSlottedIcon();return s`<span class="indicator-icon" aria-hidden="true">
       <slot
         name="icon"
         ${u(this.iconSlot.slotRef)}
         @slotchange=${this.iconSlot.handleSlotChange}
       ></slot>
-      ${r?m:e?B(e,{class:null}):this.renderDefaultIcon()}
-    </span>`}render(){const e={indicator:!0,[`variant-${this.variant}`]:!0,[`chrome-${this.chrome}`]:!0};return s`
+      ${o?f:e?$(e,{class:null}):this.renderDefaultIcon()}
+    </span>`}render(){const e={indicator:!0,[`intent-${this.intent}`]:!0,[`chrome-${this.chrome}`]:!0};return s`
       <esp-popover
         ${u(this.popoverRef)}
         trigger=${this.popoverPinned?"none":"focus-hover"}
@@ -48,7 +48,7 @@ var n=function(t,e,r,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
         <button
           slot="target"
           type="button"
-          class=${g(e)}
+          class=${b(e)}
           aria-label=${this.accessibleLabel}
           aria-expanded=${String(this.open)}
           aria-describedby=${this.descriptionId}
@@ -61,7 +61,7 @@ var n=function(t,e,r,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
           <slot></slot>
         </div>
       </esp-popover>
-    `}};o.styles=[...y.styles,w,v`
+    `}};r.styles=[...m.styles,k,v`
       :host {
         display: inline-flex;
         vertical-align: middle;
@@ -147,4 +147,4 @@ var n=function(t,e,r,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
         font-size: var(--esp-type-small);
         line-height: 1.4;
       }
-    `],n([d()],o.prototype,"open",void 0),n([d()],o.prototype,"popoverPinned",void 0),n([c({type:String})],o.prototype,"icon",void 0),n([c({type:String})],o.prototype,"label",void 0),n([c({type:String,reflect:!0})],o.prototype,"placement",null),n([c({type:String,reflect:!0})],o.prototype,"chrome",null),o=n([f("esp-status-indicator")],o);export{o as EspalierStatusIndicator};
+    `],n([d()],r.prototype,"open",void 0),n([d()],r.prototype,"popoverPinned",void 0),n([c({type:String})],r.prototype,"icon",void 0),n([c({type:String})],r.prototype,"label",void 0),n([c({type:String,reflect:!0})],r.prototype,"placement",null),n([c({type:String,reflect:!0})],r.prototype,"chrome",null),r=n([g("esp-status-indicator")],r);export{r as EspalierStatusIndicator};

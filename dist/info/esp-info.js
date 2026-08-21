@@ -1,26 +1,26 @@
-var p=function(s,o,t,i){var n=arguments.length,e=n<3?o:i===null?i=Object.getOwnPropertyDescriptor(o,t):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(s,o,t,i);else for(var c=s.length-1;c>=0;c--)(l=s[c])&&(e=(n<3?l(e):n>3?l(o,t,e):l(o,t))||e);return n>3&&e&&Object.defineProperty(o,t,e),e};import{css as v,html as a}from"lit";import{customElement as f,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{trashSVG as h}from"../shared/svgs/trash.js";import{ref as u}from"lit/directives/ref.js";import{getIconHrefForHost as b}from"../shared/intent-values.js";import{SlottedIconController as y}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as g}from"../shared/svgs/render-sprite-icon.js";let r=class extends m{constructor(){super(...arguments),this.iconSlot=new y(this),this.variantBacker="complementary",this.icon="",this.destroyable=!1}render(){const o=b(this.icon,this),t=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return a`
-      <section>
+var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnPropertyDescriptor(t,e):s,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,t,e,s);else for(var a=r.length-1;a>=0;a--)(c=r[a])&&(o=(i<3?c(o):i>3?c(t,e,o):c(t,e))||o);return i>3&&o&&Object.defineProperty(t,e,o),o};import{css as f,html as l}from"lit";import{customElement as v,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{intentSurfaceTokens as h}from"../shared/style-fragments.js";import{classMap as u}from"lit/directives/class-map.js";import{trashSVG as b}from"../shared/svgs/trash.js";import{ref as g}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let n=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new S(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=y(this.icon,this),e=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return l`
+      <section class=${u({[`intent-${this.intent}`]:!0})}>
         <div class="icon">
           <slot
             name="icon-slot"
-            ${u(this.iconSlot.slotRef)}
+            ${g(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
-          ${!t&&o?g(o):a``}
+          ${!e&&t?_(t):l``}
         </div>
         <div class="message">
           <slot></slot>
         </div>
-        ${this.destroyable?a`<esp-button
+        ${this.destroyable?l`<esp-button
               class="destroy-button"
-              variant="danger"
+              intent="danger"
               icon-only
               @clicked=${()=>{this.dispatchEvent(new CustomEvent("destroy",{detail:{toDestroy:this}}))}}
             >
-              ${h}
-            </esp-button>`:a``}
+              ${b}
+            </esp-button>`:l``}
       </section>
-    `}};r.styles=[...m.styles,v`
+    `}};n.styles=[...m.styles,h,f`
       :host {
         display: block;
       }
@@ -28,18 +28,18 @@ var p=function(s,o,t,i){var n=arguments.length,e=n<3?o:i===null?i=Object.getOwnP
       section {
         display: grid;
         grid-template-columns: min-content auto min-content;
-        background: var(--esp-info-color-background, var(--esp-color-layer-1));
-        border: 1px solid var(--esp-info-color-border, var(--esp-color-border));
+        background: var(--esp-info-color-background, var(--_esp-intent-background));
+        border: 1px solid var(--esp-info-color-border, var(--_esp-intent-border-color));
         border-radius: var(--esp-size-border-radius);
-        color: var(--esp-info-color-text, var(--esp-color-text));
+        color: var(--esp-info-color-text, var(--_esp-intent-color));
         font-size: var(--esp-type-small);
 
         div.icon {
           display: grid;
           place-content: center;
           padding: var(--esp-size-tiny);
-          background: var(--esp-info-color-border, var(--esp-color-border));
-          color: var(--esp-info-color-background, var(--esp-color-layer-1));
+          background: var(--esp-info-color-border, var(--_esp-intent-border-color));
+          color: var(--esp-info-color-background, var(--_esp-intent-background));
 
           .generated-icon,
           slot::slotted(svg) {
@@ -58,4 +58,4 @@ var p=function(s,o,t,i){var n=arguments.length,e=n<3?o:i===null?i=Object.getOwnP
           margin: var(--esp-size-tiny);
         }
       }
-    `],p([d({type:String})],r.prototype,"icon",void 0),p([d({type:Boolean})],r.prototype,"destroyable",void 0),r=p([f("esp-info")],r);export{r as EspalierInfo};
+    `],p([d({type:String})],n.prototype,"icon",void 0),p([d({type:Boolean})],n.prototype,"destroyable",void 0),n=p([v("esp-info")],n);export{n as EspalierInfo};

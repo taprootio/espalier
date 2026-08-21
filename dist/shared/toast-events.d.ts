@@ -1,4 +1,4 @@
-import type { EspalierVariant } from "./esp-element-base.js";
+import type { EspalierIntentVariant } from "./intent-values.js";
 /**
  * Configuration for a toast notification.
  *
@@ -33,9 +33,10 @@ export type ToastConfig = {
      */
     svgPath?: string | undefined;
     /**
-     * The color variant of the toast.
+     * The intent of the toast — `neutral`, `success`, `warning`, `danger`,
+     * or `info` (the default treatment when omitted).
      */
-    variant?: EspalierVariant;
+    intent?: EspalierIntentVariant;
     /**
      * Callback fired when the toast is closed.
      */
@@ -48,8 +49,8 @@ export type ToastConfig = {
  * ```ts
  * import { showToast } from "@taprootio/espalier";
  *
- * showToast({ message: "Saved!", variant: "success" });
- * showToast({ message: "Error!", variant: "danger", duration: 0 });
+ * showToast({ message: "Saved!", intent: "success" });
+ * showToast({ message: "Error!", intent: "danger", duration: 0 });
  * ```
  *
  * @param config - Toast configuration.

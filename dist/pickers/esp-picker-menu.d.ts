@@ -42,6 +42,7 @@ import "../shared/virtualizer/lit-virtualizer.js";
 export declare class EspalierPickerMenu extends LitElement {
     constructor();
     connectedCallback(): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     /**
      * An accessible label for the listbox, typically passed from

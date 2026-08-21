@@ -69,15 +69,17 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-tab-group>
  * ```
  *
- * ### Color variants
+ * ### Zone theming
+ *
+ * Tab groups pick up zone theming from a `context` attribute:
  *
  * ```html
- * <esp-tab-group variant="complementary">
- *   <esp-tab label="Complementary A">
- *     <p>Complementary variant content.</p>
+ * <esp-tab-group context="quiet">
+ *   <esp-tab label="First">
+ *     <p>Zone-correct content.</p>
  *   </esp-tab>
- *   <esp-tab label="Complementary B">
- *     <p>More complementary content.</p>
+ *   <esp-tab label="Second">
+ *     <p>More content.</p>
  *   </esp-tab>
  * </esp-tab-group>
  * ```

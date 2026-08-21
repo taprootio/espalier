@@ -151,7 +151,7 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
         </esp-button>
         <esp-button
           icon-only
-          variant="danger"
+          intent="danger"
           @clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${S}
@@ -167,7 +167,7 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
         </esp-button>
         <esp-button
           icon-only
-          variant="danger"
+          intent="danger"
           @clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${S}

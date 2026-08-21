@@ -88,7 +88,6 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  *
  *   repeater.renderItem = (image) => {
  *     const card = document.createElement("esp-box");
- *     card.variant = "analogous-right";
  *     card.innerHTML = `
  *       <div style="display:grid; gap:var(--esp-size-small); grid-template-columns:7rem 1fr; align-items:start;">
  *         <img src="${image.thumbnail}" alt="" style="width:7rem; aspect-ratio:4 / 3; object-fit:cover; border-radius:var(--esp-size-border-radius);" />
@@ -185,7 +184,6 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  *
  *   repeater.renderItem = (image) => {
  *     const card = document.createElement("esp-box");
- *     card.variant = "analogous-right";
  *     card.innerHTML = `
  *       <article style="display:grid; gap:var(--esp-size-small);">
  *         <img src="${image.thumbnail}" alt="" style="width:100%; aspect-ratio:16 / 10; object-fit:cover; border-radius:var(--esp-size-border-radius);" />
@@ -256,7 +254,6 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  *
  *   repeater.renderItem = (image) => {
  *     const card = document.createElement("esp-box");
- *     card.variant = "analogous-right";
  *     card.innerHTML = `
  *       <article style="display:grid; gap:var(--esp-size-small);">
  *         <img src="${image.thumbnail}" alt="" style="width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:var(--esp-size-border-radius);" />

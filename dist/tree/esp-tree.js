@@ -228,7 +228,7 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
                 <div class="graft-actions">
                   <esp-button
                     collapsed
-                    variant="danger"
+                    intent="danger"
                     label="Cancel"
                     icon="circle-x"
                     ?disabled=${this.disabled}
@@ -236,7 +236,7 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
                   ></esp-button>
                   <esp-button
                     collapsed
-                    variant="success"
+                    intent="success"
                     label="Add branch"
                     icon="plus"
                     ?disabled=${this.disabled}

@@ -22,12 +22,13 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Textarea can have [color variants](/espalier-guides/).
- * Here are some examples:
+ * Textareas pick up zone theming from an ancestor's `context`
+ * attribute — see the [theming guide](/espalier-guides/):
  *
  * ```html
- * <esp-textarea variant="split-complementary-left"></esp-textarea>
- * <esp-textarea variant="analogous-left"></esp-textarea>
+ * <esp-box context="quiet">
+ *   <esp-textarea label="Inside the quiet zone"></esp-textarea>
+ * </esp-box>
  * ```
  *
  * ### Validation with minlength and maxlength

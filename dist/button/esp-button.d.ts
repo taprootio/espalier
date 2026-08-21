@@ -17,21 +17,15 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Here are some different button color variants:
+ * Here is each of the button intents:
  *
  * ```html
  * <div style="display: flex; flex-wrap: wrap; gap: var(--esp-size-padding);">
- *   <esp-button label="Analogous Left" variant="analogous-left" collapsed></esp-button>
- *   <esp-button label="Analogous Right" variant="analogous-right" collapsed></esp-button>
- *   <esp-button label="Complementary" variant="complementary" collapsed></esp-button>
- *   <esp-button label="Danger" variant="danger" collapsed></esp-button>
- *   <esp-button label="Primary" variant="primary" collapsed></esp-button>
- *   <esp-button label="Split Complementary Left" variant="split-complementary-left" collapsed></esp-button>
- *   <esp-button label="Split Complementary Right" variant="split-complementary-right" collapsed></esp-button>
- *   <esp-button label="Success" variant="success" collapsed></esp-button>
- *   <esp-button label="Triadic Left" variant="triadic-left" collapsed></esp-button>
- *   <esp-button label="Triadic Right" variant="triadic-right" collapsed></esp-button>
- *   <esp-button label="Warning" variant="warning" collapsed></esp-button>
+ *   <esp-button label="Neutral" intent="neutral" collapsed></esp-button>
+ *   <esp-button label="Success" intent="success" collapsed></esp-button>
+ *   <esp-button label="Warning" intent="warning" collapsed></esp-button>
+ *   <esp-button label="Danger" intent="danger" collapsed></esp-button>
+ *   <esp-button label="Info" intent="info" collapsed></esp-button>
  * </div>
  * ```
  *

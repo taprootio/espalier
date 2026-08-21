@@ -74,7 +74,7 @@ import { LitElement } from "lit";
  *   </esp-form-item>
  *   <div class="actions">
  *     <esp-button button-type="submit" label="Sign Up"></esp-button>
- *     <esp-button button-type="reset" label="Reset" variant="danger"></esp-button>
+ *     <esp-button button-type="reset" label="Reset" intent="danger"></esp-button>
  *   </div>
  * </esp-form>
  * ```
@@ -103,7 +103,7 @@ import { LitElement } from "lit";
  *   </esp-form-item>
  *   <div class="actions">
  *     <esp-button button-type="submit" label="Publish"></esp-button>
- *     <esp-button button-type="submit" formnovalidate label="Save Draft" variant="split-complementary-left"></esp-button>
+ *     <esp-button button-type="submit" formnovalidate label="Save Draft"></esp-button>
  *   </div>
  * </esp-form>
  * ```
@@ -132,14 +132,14 @@ import { LitElement } from "lit";
  *   const text = findById("response-text");
  *   form.addEventListener("esp-submit-response", (ev) => {
  *     msg.style.display = "";
- *     msg.setAttribute("variant", ev.detail.ok ? "success" : "warning");
+ *     msg.setAttribute("intent", ev.detail.ok ? "success" : "warning");
  *     text.textContent = ev.detail.ok
  *       ? "Submitted successfully!"
  *       : "Server returned an error.";
  *   });
  *   form.addEventListener("esp-submit-error", () => {
  *     msg.style.display = "";
- *     msg.setAttribute("variant", "danger");
+ *     msg.setAttribute("intent", "danger");
  *     text.textContent = "Network error — please try again.";
  *   });
  * </script>
@@ -179,7 +179,7 @@ import { LitElement } from "lit";
  *   </esp-form-item>
  *   <div class="actions">
  *     <esp-button button-type="submit" label="Submit"></esp-button>
- *     <esp-button button-type="reset" label="Reset" variant="danger"></esp-button>
+ *     <esp-button button-type="reset" label="Reset" intent="danger"></esp-button>
  *   </div>
  * </esp-form>
  * ```

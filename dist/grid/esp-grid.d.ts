@@ -81,7 +81,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  *   <esp-grid-column header="Email" field-name="email" sortable></esp-grid-column>
  *   <esp-grid-column pin="right" width="calc(var(--esp-size-font) + var(--esp-size-tiny) / 3 * 2 + var(--esp-size-tiny-to-small) * 2)">
  *     <esp-action-menu placement="bottom-end" icon-position="right">
- *       <esp-button slot="trigger" icon-only icon="select" variant="complementary" aria-label="Row actions" class="grid-demo-button"></esp-button>
+ *       <esp-button slot="trigger" icon-only icon="select" aria-label="Row actions" class="grid-demo-button"></esp-button>
  *       <esp-action-menu-item value="edit" icon="edit" grid-event="edit-user">
  *         Edit
  *       </esp-action-menu-item>
@@ -131,7 +131,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  *   <esp-grid-column header="Last name" field-name="last_name" width="calc(12ch + var(--esp-size-tiny-to-small) * 2)"></esp-grid-column>
  *   <esp-grid-column header="Email" field-name="email" sortable width="calc(22ch + var(--esp-size-tiny-to-small) * 2)" grow></esp-grid-column>
  *   <esp-grid-column pin="right" width="calc(var(--esp-size-font) + var(--esp-size-tiny) / 3 * 2 + var(--esp-size-tiny-to-small) * 2)">
- *     <esp-button grid-event="user-button-clicked" icon-only icon="user-circle" variant="complementary" class="grid-demo-button"></esp-button>
+ *     <esp-button grid-event="user-button-clicked" icon-only icon="user-circle" class="grid-demo-button"></esp-button>
  *   </esp-grid-column>
  * </esp-grid>
  * <script>
@@ -213,7 +213,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * <esp-grid page-size="50" grid-height="60vh">
  *   <esp-grid-column header="Id" field-name="id" text-align="right" sortable sort-type="number" width="calc(5ch + var(--esp-size-tiny-to-small) * 2)"></esp-grid-column>
  *   <esp-grid-column header="Name" field-name="name" sortable width="calc(18ch + var(--esp-size-tiny-to-small) * 2)" grow></esp-grid-column>
- *   <esp-button slot="header-buttons" variant="success" id="load-more-btn" label="Load more"></esp-button>
+ *   <esp-button slot="header-buttons" intent="success" id="load-more-btn" label="Load more"></esp-button>
  * </esp-grid>
  * <script>
  *   const theGrid = findByTagName("esp-grid")[0];
@@ -307,14 +307,14 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * item button:
  *
  * ```html
- * <esp-grid data-url="/assets/data/grid-data.json" search-fields='["first_name", "last_name"]' variant="triadic-left">
+ * <esp-grid data-url="/assets/data/grid-data.json" search-fields='["first_name", "last_name"]'>
  *   <esp-grid-column header="Name" sort-field="first_name" sort-order="asc" sortable>
  *     <a href="mailto:${email}">${first_name} ${last_name}</a>
  *   </esp-grid-column>
  *   <esp-grid-column width="0">
- *     <esp-button icon-only icon="user-circle" class="grid-demo-button" variant="triadic-left"></esp-button>
+ *     <esp-button icon-only icon="user-circle" class="grid-demo-button"></esp-button>
  *   </esp-grid-column>
- *   <esp-button variant="success" icon-only icon="plus" slot="header-buttons"></esp-button>
+ *   <esp-button intent="success" icon-only icon="plus" slot="header-buttons"></esp-button>
  * </esp-grid>
  * ```
  *
@@ -456,7 +456,7 @@ export declare class EspalierGrid extends EspalierElementBase {
      *   <esp-grid-column header="Last name" field-name="last_name"></esp-grid-column>
      *   <esp-grid-column header="Email" field-name="email" sortable></esp-grid-column>
      *   <esp-grid-column>
-     *     <esp-button grid-event="trash-button-clicked" icon-only icon="trash" variant="danger" class="grid-demo-button"></esp-button>
+     *     <esp-button grid-event="trash-button-clicked" icon-only icon="trash" intent="danger" class="grid-demo-button"></esp-button>
      *   </esp-grid-column>
      * </esp-grid>
      * <script>
@@ -486,7 +486,7 @@ export declare class EspalierGrid extends EspalierElementBase {
      *   <esp-grid-column header="Last name" field-name="last_name"></esp-grid-column>
      *   <esp-grid-column header="Email" field-name="email" sortable></esp-grid-column>
      *   <esp-grid-column>
-     *     <esp-button grid-event="replace-button-clicked" icon-only icon="wand" variant="triadic-left" class="grid-demo-button"></esp-button>
+     *     <esp-button grid-event="replace-button-clicked" icon-only icon="wand" class="grid-demo-button"></esp-button>
      *   </esp-grid-column>
      * </esp-grid>
      * <script>

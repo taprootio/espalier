@@ -41,7 +41,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     }
  *   }
  * </style>
- * <esp-box class="box-with-bg" variant="analogous-right">
+ * <esp-box class="box-with-bg">
  *   <h2>Box with background image</h2>
  *   <p>I have a different generated background texture in dark mode than light mode.</p>
  * </esp-box>
@@ -71,7 +71,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     padding: var(--esp-size-padding);
  *   }
  * </style>
- * <esp-box class="card-box" variant="analogous-right">
+ * <esp-box class="card-box">
  *   <header>Box as a card</header>
  *   <div>
  *     <p>Card content.</p>
@@ -92,11 +92,11 @@ export declare class EspalierBox extends EspalierElementBase {
      * displaying a dialog in full-screen mode.
      *
      * ```html
-     * <esp-box variant="triadic-right">
+     * <esp-box>
      *   <h2>Box things</h2>
-     *   <esp-box variant="complementary">
+     *   <esp-box>
      *     <h2>Box in box</h2>
-     *     <esp-button label="Toggle full screen" variant="complementary"></esp-button>
+     *     <esp-button label="Toggle full screen"></esp-button>
      *   </esp-box>
      * </esp-box>
      * <script>

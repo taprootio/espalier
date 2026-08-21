@@ -1,4 +1,4 @@
-import { EspalierIntentElementBase } from "../shared/esp-intent-element-base.js";
+import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierIntentVariant } from "../shared/intent-values.js";
 export type EspalierBadgeVariant = EspalierIntentVariant;
 export type EspalierBadgeSize = "small" | "medium";
@@ -12,10 +12,10 @@ export type EspalierBadgeSize = "small" | "medium";
  * ```html
  * <div style="display: flex; flex-wrap: wrap; gap: var(--esp-size-tiny);">
  *   <esp-badge>Draft</esp-badge>
- *   <esp-badge variant="success" icon="circle-dot">Published</esp-badge>
- *   <esp-badge variant="warning">Pending review</esp-badge>
- *   <esp-badge variant="danger" icon="circle-x">Banned</esp-badge>
- *   <esp-badge variant="info" size="medium" icon="info-i">12 updates</esp-badge>
+ *   <esp-badge intent="success" icon="circle-dot">Published</esp-badge>
+ *   <esp-badge intent="warning">Pending review</esp-badge>
+ *   <esp-badge intent="danger" icon="circle-x">Banned</esp-badge>
+ *   <esp-badge intent="info" size="medium" icon="info-i">12 updates</esp-badge>
  * </div>
  * ```
  *
@@ -32,7 +32,8 @@ export type EspalierBadgeSize = "small" | "medium";
  * @menuLabel Badge
  * @menuIcon tags
  */
-export declare class EspalierBadge extends EspalierIntentElementBase {
+export declare class EspalierBadge extends EspalierElementBase {
+    protected intentEmitsTokens: boolean;
     /**
      * Semantic visual treatment for the badge. Supported values are
      * `neutral`, `success`, `warning`, `danger`, and `info`.

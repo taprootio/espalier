@@ -1,5 +1,5 @@
 import "../popover/esp-popover.js";
-import { EspalierIntentElementBase } from "../shared/esp-intent-element-base.js";
+import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierIntentVariant } from "../shared/intent-values.js";
 export type EspalierStatusIndicatorVariant = EspalierIntentVariant;
 export type EspalierStatusIndicatorPlacement = "top" | "bottom" | "left" | "right";
@@ -10,13 +10,13 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  *
  * ```html
  * <esp-status-indicator
- *   variant="warning"
+ *   intent="warning"
  *   label="Image processing delayed"
  *   placement="right">
  *   The image is still queued. It will retry automatically.
  * </esp-status-indicator>
  *
- * <esp-status-indicator variant="success" label="Published">
+ * <esp-status-indicator intent="success" label="Published">
  *   This page is live and visible to visitors.
  * </esp-status-indicator>
  * ```
@@ -26,22 +26,22 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  * The `chrome` attribute controls the chip treatment around the icon.
  * `pill` (the default) renders the filled circular background, `outline`
  * keeps only the border, and `none` drops both — leaving just the
- * variant-colored icon and its popover affordance. `chrome="none"` is the
+ * intent-colored icon and its popover affordance. `chrome="none"` is the
  * right choice when the indicator sits inside dense metadata rows where
  * a full pill would feel heavy.
  *
  * ```html
  * <esp-box style="display: flex; gap: var(--esp-size-normal); align-items: center;">
- *   <esp-status-indicator variant="success" label="Pill (default)">
+ *   <esp-status-indicator intent="success" label="Pill (default)">
  *     Pill chrome wraps the icon in a filled circle.
  *   </esp-status-indicator>
  *
- *   <esp-status-indicator chrome="outline" variant="success" label="Outline">
+ *   <esp-status-indicator chrome="outline" intent="success" label="Outline">
  *     Outline chrome keeps the border but drops the fill.
  *   </esp-status-indicator>
  *
- *   <esp-status-indicator chrome="none" variant="success" label="None">
- *     None drops the chrome entirely — just the variant-colored icon.
+ *   <esp-status-indicator chrome="none" intent="success" label="None">
+ *     None drops the chrome entirely — just the intent-colored icon.
  *   </esp-status-indicator>
  * </esp-box>
  * ```
@@ -112,7 +112,7 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  *
  * <esp-status-indicator
  *   class="responsive-layers-indicator"
- *   variant="success"
+ *   intent="success"
  *   icon="layers-intersect"
  *   label="Responsive layers ready">
  *   <strong>Responsive layers ready</strong>
@@ -130,7 +130,7 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  * blocks of structured content (lists, key/value pairs) render inside
  * the popover at `--esp-status-indicator-popover-max-width`.
  * @slot icon - Optional custom status icon. When provided, it
- * overrides both the `icon` attribute and built-in variant icon.
+ * overrides both the `icon` attribute and built-in intent icon.
  *
  * @cssprop [--esp-status-indicator-width=var(--esp-size-normal-to-medium)] -
  * Width of the indicator chip. Override on the host to render a
@@ -151,7 +151,8 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  * @menuLabel Status Indicator
  * @menuIcon info
  */
-export declare class EspalierStatusIndicator extends EspalierIntentElementBase {
+export declare class EspalierStatusIndicator extends EspalierElementBase {
+    protected intentEmitsTokens: boolean;
     /** Optional icon name from the Espalier SVG sprite. */
     icon: string;
     /**
@@ -166,7 +167,7 @@ export declare class EspalierStatusIndicator extends EspalierIntentElementBase {
     /**
      * Visual chrome around the status icon. `pill` renders the filled
      * circular treatment, `outline` keeps only the border, and `none`
-     * renders the variant-colored icon alone.
+     * renders the intent-colored icon alone.
      */
     get chrome(): EspalierStatusIndicatorChrome;
     set chrome(value: EspalierStatusIndicatorChrome | string | null);

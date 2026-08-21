@@ -24,7 +24,7 @@ import { LitElement } from "lit";
  *   <esp-box>
  *     <h2>Showing something</h2>
  *     <p>There could be controls or a confirmation or anything here.</p>
- *     <esp-button variant="danger" label="Close"></esp-button>
+ *     <esp-button intent="danger" label="Close"></esp-button>
  *   </esp-box>
  * </esp-dialog>
  * <esp-button label="Show Dialog"></esp-button>
@@ -62,8 +62,8 @@ import { LitElement } from "lit";
  *     <esp-form-item label="Notes">
  *       <esp-textarea placeholder="Optional notes"></esp-textarea>
  *     </esp-form-item>
- *     <esp-button variant="success" label="Save"></esp-button>
- *     <esp-button variant="danger" label="Cancel"></esp-button>
+ *     <esp-button intent="success" label="Save"></esp-button>
+ *     <esp-button intent="danger" label="Cancel"></esp-button>
  *   </esp-box>
  * </esp-dialog>
  * <esp-button label="Open Form"></esp-button>
@@ -120,7 +120,7 @@ export declare class EspalierDialog extends LitElement {
      *   <esp-box full-screen>
      *     <h2>Full screen dialog</h2>
      *     <p>There could be controls or a confirmation or anything here.</p>
-     *     <esp-button variant="danger" label="Close"></esp-button>
+     *     <esp-button intent="danger" label="Close"></esp-button>
      *   </esp-box>
      * </esp-dialog>
      * <esp-button label="Show Dialog"></esp-button>

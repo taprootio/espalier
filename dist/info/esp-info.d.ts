@@ -1,4 +1,5 @@
-import { type EspalierVariant, EspalierElementBase } from "../shared/esp-element-base.js";
+import { EspalierElementBase } from "../shared/esp-element-base.js";
+import { type EspalierIntentVariant } from "../shared/intent-values.js";
 export type DestroyEspalierInfo = {
     toDestroy: EspalierInfo;
 };
@@ -7,7 +8,7 @@ export type DestroyEspalierInfo = {
  *
  * ```html
  * <esp-info>
- *   Info defaults to the complementary color.
+ *   Info defaults to intent="info" and its informational surface treatment.
  * </esp-info>
  * ```
  *
@@ -17,7 +18,7 @@ export type DestroyEspalierInfo = {
  *
  * ```html
  * <esp-info icon="user-circle">
- *   Info defaults to the complementary color.
+ *   Info defaults to intent="info" and its informational surface treatment.
  * </esp-info>
  * ```
  *
@@ -52,7 +53,8 @@ export type DestroyEspalierInfo = {
  *
  */
 export declare class EspalierInfo extends EspalierElementBase {
-    protected variantBacker: EspalierVariant;
+    protected intentEmitsTokens: boolean;
+    protected intentBacker: EspalierIntentVariant;
     /**
      * Optional icon name from the configured Espalier SVG sprite.
      * Slotted `icon-slot` content remains supported and overrides

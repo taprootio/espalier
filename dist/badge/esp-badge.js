@@ -1,16 +1,16 @@
-var c=function(s,e,t,o){var r=arguments.length,i=r<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,t):o,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(s,e,t,o);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(i=(r<3?a(i):r>3?a(e,t,i):a(e,t))||i);return r>3&&i&&Object.defineProperty(e,t,i),i};import{css as d,html as h,nothing as m}from"lit";import{customElement as f,property as p}from"lit/decorators.js";import{classMap as g}from"lit/directives/class-map.js";import{ref as u}from"lit/directives/ref.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{EspalierIntentElementBase as v,intentSurfaceTokens as z}from"../shared/esp-intent-element-base.js";import{syncNormalizedAttribute as y}from"../shared/attribute-helpers.js";import{getIconHrefForHost as w}from"../shared/intent-values.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";function x(s){return s==="medium"?"medium":"small"}let n=class extends v{constructor(){super(...arguments),this.iconSlot=new S(this),this.sizeBacker="small",this.icon=""}get size(){return this.sizeBacker}set size(e){const t=this.sizeBacker;this.sizeBacker=x(e),this.requestUpdate("size",t),y(this,"size",this.sizeBacker)}render(){const e=w(this.icon,this),t=this.iconSlot.hasSlottedIcon(),o=t||e.length>0,r={badge:!0,[`variant-${this.variant}`]:!0,[`size-${this.size}`]:!0,"has-icon":o};return h`
-      <span part="badge" class=${g(r)}>
+var c=function(s,e,t,o){var n=arguments.length,i=n<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,t):o,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(s,e,t,o);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(i=(n<3?a(i):n>3?a(e,t,i):a(e,t))||i);return n>3&&i&&Object.defineProperty(e,t,i),i};import{css as h,html as m,nothing as f}from"lit";import{customElement as g,property as p}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{ref as b}from"lit/directives/ref.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";import{intentSurfaceTokens as z}from"../shared/style-fragments.js";import{syncNormalizedAttribute as v}from"../shared/attribute-helpers.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{SlottedIconController as w}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as S}from"../shared/svgs/render-sprite-icon.js";function _(s){return s==="medium"?"medium":"small"}let r=class extends d{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new w(this),this.sizeBacker="small",this.icon=""}get size(){return this.sizeBacker}set size(e){const t=this.sizeBacker;this.sizeBacker=_(e),this.requestUpdate("size",t),v(this,"size",this.sizeBacker)}render(){const e=y(this.icon,this),t=this.iconSlot.hasSlottedIcon(),o=t||e.length>0,n={badge:!0,[`intent-${this.intent}`]:!0,[`size-${this.size}`]:!0,"has-icon":o};return m`
+      <span part="badge" class=${u(n)}>
         <span part="icon" class="icon" aria-hidden="true">
           <slot
             name="icon"
-            ${u(this.iconSlot.slotRef)}
+            ${b(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
-          ${!t&&e?_(e):m}
+          ${!t&&e?S(e):f}
         </span>
         <span part="label" class="label"><slot></slot></span>
       </span>
-    `}};n.styles=[...b.styles,z,d`
+    `}};r.styles=[...d.styles,z,h`
       :host {
         display: inline-flex;
         max-width: 100%;
@@ -72,4 +72,4 @@ var c=function(s,e,t,o){var r=arguments.length,i=r<3?e:o===null?o=Object.getOwnP
         overflow: hidden;
         text-overflow: ellipsis;
       }
-    `],c([p({type:String})],n.prototype,"icon",void 0),c([p({type:String,reflect:!0})],n.prototype,"size",null),n=c([f("esp-badge")],n);export{n as EspalierBadge};
+    `],c([p({type:String})],r.prototype,"icon",void 0),c([p({type:String,reflect:!0})],r.prototype,"size",null),r=c([g("esp-badge")],r);export{r as EspalierBadge};

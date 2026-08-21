@@ -33,8 +33,8 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * ```ts
  * import { showToast } from "@taprootio/espalier";
  *
- * showToast({ message: "Saved!", variant: "success" });
- * showToast({ message: "Connection lost", variant: "danger", duration: 0 });
+ * showToast({ message: "Saved!", intent: "success" });
+ * showToast({ message: "Connection lost", intent: "danger", duration: 0 });
  * ```
  *
  * Try it out — type a message and click a button to fire a toast:
@@ -51,10 +51,10 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     </esp-form-item>
  *   </div>
  *   <div style="display: flex; flex-wrap: wrap; gap: var(--esp-size-small); margin-top: var(--esp-size-small);">
- *     <esp-button id="fire-toast" label="Show Toast" variant="primary" collapsed></esp-button>
- *     <esp-button id="fire-persistent" label="Show Persistent Toast" variant="warning" collapsed></esp-button>
- *     <esp-button id="fire-success" label="Success!" variant="success" collapsed></esp-button>
- *     <esp-button id="fire-danger" label="Error!" variant="danger" collapsed></esp-button>
+ *     <esp-button id="fire-toast" label="Show Toast"  collapsed></esp-button>
+ *     <esp-button id="fire-persistent" label="Show Persistent Toast" intent="warning" collapsed></esp-button>
+ *     <esp-button id="fire-success" label="Success!" intent="success" collapsed></esp-button>
+ *     <esp-button id="fire-danger" label="Error!" intent="danger" collapsed></esp-button>
  *   </div>
  * </esp-box>
  * <script>
@@ -72,20 +72,20 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *       message: msgInput.value,
  *       duration: 0,
  *       icon: "bread",
- *       variant: "warning"
+ *       intent: "warning"
  *     });
  *   });
  *   findById("fire-success").addEventListener("clicked", () => {
  *     showToast({
  *       message: "Operation completed successfully!",
- *       variant: "success",
+ *       intent: "success",
  *       icon: "bread"
  *     });
  *   });
  *   findById("fire-danger").addEventListener("clicked", () => {
  *     showToast({
  *       message: "Something went wrong!",
- *       variant: "danger",
+ *       intent: "danger",
  *       duration: 0,
  *       icon: "bread"
  *     });

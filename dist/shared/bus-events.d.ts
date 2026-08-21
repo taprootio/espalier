@@ -33,7 +33,7 @@ import type { HelpRequest, HelpState } from "./help-events.js";
 /**
  * Contract for elements that provide a seed color to their subtree.
  * Implemented by `EspalierRoot` (the global provider) and
- * `EspalierElementBase` (per-component variant overrides).
+ * `EspalierElementBase` (scoped context and intent derivation).
  *
  * @docUrl /api/seed-color-root
  * @menuGroup Bus Events
@@ -48,7 +48,7 @@ export interface SeedColorRoot {
  *
  * Published by `<esp-root>` after initial mount and subscribed to by every
  * `EspalierElementBase` descendant so that scheme, seed, and full-theme changes
- * propagate to variant-aware children. All roots share one global bus, so
+ * propagate to scoped-token-aware descendants. All roots share one global bus, so
  * consumers should use `EspalierRoot.subscribeScoped()` instead of subscribing
  * to these events directly. Read initial values from the root; these events are
  * change-only and are not replayed for late subscribers.

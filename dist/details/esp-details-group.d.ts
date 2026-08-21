@@ -39,19 +39,6 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-details-group>
  * ```
  *
- * ### With color variant
- *
- * ```html
- * <esp-details-group variant="complementary">
- *   <esp-details summary="FAQ 1">
- *     <p>Answer to FAQ 1.</p>
- *   </esp-details>
- *   <esp-details summary="FAQ 2">
- *     <p>Answer to FAQ 2.</p>
- *   </esp-details>
- * </esp-details-group>
- * ```
- *
  * @customElement esp-details-group
  * @slot - Place `esp-details` elements in the default slot.
  *

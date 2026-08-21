@@ -57,7 +57,7 @@ var c=function(l,e,t,i){var a=arguments.length,s=a<3?e:i===null?i=Object.getOwnP
           class="close-btn"
           icon-only
           collapsed
-          variant="danger"
+          intent="danger"
           label="Close lightbox"
           @clicked=${this.close}
         >

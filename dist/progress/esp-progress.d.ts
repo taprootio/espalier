@@ -28,14 +28,14 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </div>
  * ```
  *
- * Color variants match the design system:
+ * Intent colors match the design system:
  *
  * ```html
  * <div style="display: grid; gap: var(--esp-size-padding);">
- *   <esp-progress value="80" label="Primary" variant="primary" show-value></esp-progress>
- *   <esp-progress value="60" label="Success" variant="success" show-value></esp-progress>
- *   <esp-progress value="40" label="Warning" variant="warning" show-value></esp-progress>
- *   <esp-progress value="20" label="Danger" variant="danger" show-value></esp-progress>
+ *   <esp-progress value="80" label="Primary" show-value></esp-progress>
+ *   <esp-progress value="60" label="Success" intent="success" show-value></esp-progress>
+ *   <esp-progress value="40" label="Warning" intent="warning" show-value></esp-progress>
+ *   <esp-progress value="20" label="Danger" intent="danger" show-value></esp-progress>
  * </div>
  * ```
  *
@@ -43,10 +43,10 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *
  * ```html
  * <esp-box>
- *   <esp-progress id="demo-progress" value="0" label="Demo progress" variant="success" size="large" show-value></esp-progress>
+ *   <esp-progress id="demo-progress" value="0" label="Demo progress" intent="success" size="large" show-value></esp-progress>
  *   <div style="display: flex; gap: var(--esp-size-small); margin-top: var(--esp-size-small);">
- *     <esp-button id="start-btn" label="Start" variant="primary" collapsed></esp-button>
- *     <esp-button id="reset-btn" label="Reset" variant="complementary" collapsed></esp-button>
+ *     <esp-button id="start-btn" label="Start" collapsed></esp-button>
+ *     <esp-button id="reset-btn" label="Reset" collapsed></esp-button>
  *   </div>
  * </esp-box>
  * <script>
@@ -67,7 +67,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *         requestAnimationFrame(step);
  *       } else {
  *         running = false;
- *         showToast({ message: "Complete!", variant: "success", icon: "bread" });
+ *         showToast({ message: "Complete!", intent: "success", icon: "bread" });
  *       }
  *     }
  *     requestAnimationFrame(step);
@@ -79,14 +79,14 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </script>
  * ```
  *
- * Indeterminate mode with different variants:
+ * Indeterminate mode with different intents:
  *
  * ```html
  * <div style="display: grid; gap: var(--esp-size-small);">
- *   <esp-progress label="Primary loading" variant="primary"></esp-progress>
- *   <esp-progress label="Success loading" variant="success"></esp-progress>
- *   <esp-progress label="Warning loading" variant="warning"></esp-progress>
- *   <esp-progress label="Danger loading" variant="danger"></esp-progress>
+ *   <esp-progress label="Primary loading"></esp-progress>
+ *   <esp-progress label="Success loading" intent="success"></esp-progress>
+ *   <esp-progress label="Warning loading" intent="warning"></esp-progress>
+ *   <esp-progress label="Danger loading" intent="danger"></esp-progress>
  * </div>
  * ```
  *
@@ -96,10 +96,10 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *
  * ```html
  * <div style="display: flex; gap: var(--esp-size-padding); align-items: center; flex-wrap: wrap;">
- *   <esp-progress mode="circle" value="80" label="Primary" variant="primary" show-value></esp-progress>
- *   <esp-progress mode="circle" value="60" label="Success" variant="success" show-value></esp-progress>
- *   <esp-progress mode="circle" value="40" label="Warning" variant="warning" show-value></esp-progress>
- *   <esp-progress mode="circle" value="20" label="Danger" variant="danger" show-value></esp-progress>
+ *   <esp-progress mode="circle" value="80" label="Primary" show-value></esp-progress>
+ *   <esp-progress mode="circle" value="60" label="Success" intent="success" show-value></esp-progress>
+ *   <esp-progress mode="circle" value="40" label="Warning" intent="warning" show-value></esp-progress>
+ *   <esp-progress mode="circle" value="20" label="Danger" intent="danger" show-value></esp-progress>
  * </div>
  * ```
  *
@@ -117,8 +117,8 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *
  * ```html
  * <div style="display: flex; gap: var(--esp-size-padding); align-items: center;">
- *   <esp-progress mode="circle" label="Primary loading" variant="primary"></esp-progress>
- *   <esp-progress mode="circle" label="Success loading" variant="success"></esp-progress>
+ *   <esp-progress mode="circle" label="Primary loading"></esp-progress>
+ *   <esp-progress mode="circle" label="Success loading" intent="success"></esp-progress>
  * </div>
  * ```
  *
@@ -127,10 +127,10 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * ```html
  * <esp-box>
  *   <div style="display: flex; align-items: center; gap: var(--esp-size-padding);">
- *     <esp-progress id="demo-circle" mode="circle" value="0" label="Circle demo" variant="success" size="large" show-value></esp-progress>
+ *     <esp-progress id="demo-circle" mode="circle" value="0" label="Circle demo" intent="success" size="large" show-value></esp-progress>
  *     <div style="display: flex; gap: var(--esp-size-small);">
- *       <esp-button id="start-circle-btn" label="Start" variant="primary" collapsed></esp-button>
- *       <esp-button id="reset-circle-btn" label="Reset" variant="complementary" collapsed></esp-button>
+ *       <esp-button id="start-circle-btn" label="Start" collapsed></esp-button>
+ *       <esp-button id="reset-circle-btn" label="Reset" collapsed></esp-button>
  *     </div>
  *   </div>
  * </esp-box>
@@ -152,7 +152,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *         requestAnimationFrame(step);
  *       } else {
  *         circleRunning = false;
- *         showToast({ message: "Complete!", variant: "success", icon: "bread" });
+ *         showToast({ message: "Complete!", intent: "success", icon: "bread" });
  *       }
  *     }
  *     requestAnimationFrame(step);

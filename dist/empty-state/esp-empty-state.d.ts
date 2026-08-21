@@ -8,7 +8,7 @@ export type EspalierEmptyStateSize = "medium" | "large";
  * <esp-empty-state icon="photo-up">
  *   <span slot="heading">No images yet</span>
  *   Upload the first image to start building this library.
- *   <esp-button slot="action" label="Upload Image" variant="primary"></esp-button>
+ *   <esp-button slot="action" label="Upload Image"></esp-button>
  * </esp-empty-state>
  *
  * <esp-empty-state size="large" icon="users">

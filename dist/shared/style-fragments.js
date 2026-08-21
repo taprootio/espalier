@@ -1,8 +1,8 @@
-import{css as n,unsafeCSS as t}from"lit";const a=n`
+import{css as o,unsafeCSS as e}from"lit";const l=o`
   :host([align]) {
     text-align: inherit;
   }
-`,d=n`
+`,a=o`
   .sr-only {
     position: absolute;
     width: 1px;
@@ -14,14 +14,44 @@ import{css as n,unsafeCSS as t}from"lit";const a=n`
     white-space: nowrap;
     border: 0;
   }
-`;function l(o){const i=o.includes(":host")||o.includes("[disabled]")?o:`:host([disabled]) ${o}`;return n`
-    ${t(i)} {
+`;function i(r){const n=r.includes(":host")||r.includes("[disabled]")?r:`:host([disabled]) ${r}`;return o`
+    ${e(n)} {
       opacity: 0.5;
       cursor: not-allowed;
     }
-  `}function p(o,i,e="0 0 3px",r=""){return n`
-    ${t(o)} {
-      box-shadow: ${t(r)} ${t(e)}
-        var(${t(i)}, var(--esp-color-shadow));
+  `}function p(r,n,t="0 0 3px",s=""){return o`
+    ${e(r)} {
+      box-shadow: ${e(s)} ${e(t)}
+        var(${e(n)}, var(--esp-color-shadow));
     }
-  `}export{a as alignAttributeTextInheritance,l as disabledControl,p as focusRing,d as srOnly};
+  `}const d=o`
+  .intent-neutral {
+    --_esp-intent-background: var(--esp-color-layer-2);
+    --_esp-intent-border-color: var(--esp-color-border);
+    --_esp-intent-color: var(--esp-color-text);
+  }
+
+  .intent-success {
+    --_esp-intent-background: oklch(from var(--esp-color-success) var(--esp-l-raised-2) c h);
+    --_esp-intent-border-color: oklch(from var(--esp-color-success) var(--esp-l-border) c h);
+    --_esp-intent-color: oklch(from var(--esp-color-success) var(--esp-l-text) c h);
+  }
+
+  .intent-warning {
+    --_esp-intent-background: oklch(from var(--esp-color-warning) var(--esp-l-raised-2) c h);
+    --_esp-intent-border-color: oklch(from var(--esp-color-warning) var(--esp-l-border) c h);
+    --_esp-intent-color: oklch(from var(--esp-color-warning) var(--esp-l-text) c h);
+  }
+
+  .intent-danger {
+    --_esp-intent-background: oklch(from var(--esp-color-danger) var(--esp-l-raised-2) c h);
+    --_esp-intent-border-color: oklch(from var(--esp-color-danger) var(--esp-l-border) c h);
+    --_esp-intent-color: var(--esp-color-danger-text);
+  }
+
+  .intent-info {
+    --_esp-intent-background: var(--esp-color-link-hover-bg);
+    --_esp-intent-border-color: oklch(from var(--esp-color-link) var(--esp-l-border) c h);
+    --_esp-intent-color: var(--esp-color-link);
+  }
+`;export{l as alignAttributeTextInheritance,i as disabledControl,p as focusRing,d as intentSurfaceTokens,a as srOnly};
