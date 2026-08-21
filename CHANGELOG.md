@@ -5,6 +5,38 @@ here. This file ships in the published npm package. It is a curated public
 record and intentionally does not mirror the private `taproot-controls`
 development history.
 
+## 3.1.0 — Info becomes a real blue family, and intent colors become yours
+
+- Give `intent="info"` its own fixed status family: blue (hue 244), derived
+  and emitted like danger/success/warning as `--esp-color-info`. It no
+  longer borrows the complementary family, which could render informational
+  styling green on complementary-adjacent brand seeds and made `info` mean
+  different colors on buttons versus badges.
+- Add the `intents` theme field: retune any status family with an absolute
+  color — an `anchor:` reference or a supported color form (hex,
+  `rgb()`, `hsl()`, `oklch()`; CSS keywords are not parsed)
+  (`"intents": { "danger": "#700007", "info": "anchor:sky" }`). One
+  override drives the emitted family token, `intent=` pins on controls,
+  class-styled chrome, and derived tokens such as `dangerText`; the legacy
+  `semanticHues`/`variantChroma` knobs are ignored for an overridden
+  family. Overrides retune a family, never reassign one: `validateTheme`
+  rejects family names as values and warns when two status colors — or a
+  status color and the action color — become hard to distinguish, with
+  per-pair remediation advice counterfactual-tested as rendered at
+  emitted-token precision: a remedy is offered alone only when it
+  separates the pair by itself, as an explicit "widen/move, then
+  retune" sequence only when a concrete retune is found under it, and
+  never when it cannot work or is not proven to — a retune is
+  promised only when a concrete emitted candidate clears the
+  threshold, and a pair whose best candidate lands within the audit's
+  search margin is flagged as unreliable to retune rather than
+  impossible.
+- Add the `accent.hover` role slot, so a hover can change family rather
+  than only lightness; when absent, `linkHover` follows `accent.text`
+  unchanged.
+- Warn when an explicit `chroma` band targets an anchor-sourced token and
+  would move a declared swatch off its color.
+
 ## 3.0.0 — Intent and context replace the variant attribute
 
 - Remove the `variant` attribute. Its two jobs are now separate attributes:

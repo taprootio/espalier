@@ -43,9 +43,9 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
     scheme: "dark" | "light" | "";
     /**
      * The element's [intent](/espalier-guides/) — its meaning: `neutral`
-     * (no pin), `success`, `warning`, or `danger` (each pinned to its
-     * fixed status family), or `info` (pinned to the complementary
-     * family). On token-emitting controls a non-neutral intent pins the
+     * (no pin), or `success`, `warning`, `danger`, `info` — each pinned
+     * to its fixed status family (blue for `info`), retunable per theme
+     * via `intents`. On token-emitting controls a non-neutral intent pins the
      * filled-action pair to that family, derived over the governing
      * zone's theme; class-styled chrome (badges, callouts, status pills)
      * opts out of inline emission and renders its treatment from CSS

@@ -1,8 +1,8 @@
-import{css as o,unsafeCSS as e}from"lit";const l=o`
+import{css as o,unsafeCSS as e}from"lit";const a=o`
   :host([align]) {
     text-align: inherit;
   }
-`,a=o`
+`,l=o`
   .sr-only {
     position: absolute;
     width: 1px;
@@ -50,8 +50,8 @@ import{css as o,unsafeCSS as e}from"lit";const l=o`
   }
 
   .intent-info {
-    --_esp-intent-background: var(--esp-color-link-hover-bg);
-    --_esp-intent-border-color: oklch(from var(--esp-color-link) var(--esp-l-border) c h);
-    --_esp-intent-color: var(--esp-color-link);
+    --_esp-intent-background: oklch(from var(--esp-color-info) var(--esp-l-raised-2) c h);
+    --_esp-intent-border-color: oklch(from var(--esp-color-info) var(--esp-l-border) c h);
+    --_esp-intent-color: oklch(from var(--esp-color-info) var(--esp-l-text) c h);
   }
-`;export{l as alignAttributeTextInheritance,i as disabledControl,p as focusRing,d as intentSurfaceTokens,a as srOnly};
+`;export{a as alignAttributeTextInheritance,i as disabledControl,p as focusRing,d as intentSurfaceTokens,l as srOnly};

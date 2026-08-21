@@ -52,6 +52,27 @@ export interface DataPaletteIssue {
  * the threshold.
  */
 export declare function auditDataPalette(palette: Readonly<DataPalette>, threshold?: number): DataPaletteIssue[];
+/** Vision conditions covered by {@link auditColorDistances}: normal plus every CVD simulation. */
+export type VisionCondition = ColorVisionSimulation | "normal";
+/** One too-close pair found by {@link auditColorDistances}. */
+export interface ColorDistanceIssue {
+    /** The two entry names, in input order. */
+    pair: [string, string];
+    /** The vision condition under which the pair collapses. */
+    simulation: VisionCondition;
+    /** Post-simulation OKLab distance between the pair. */
+    distance: number;
+    /** The threshold the distance fell below. */
+    threshold: number;
+}
+/**
+ * Audit an arbitrary named color set for pairwise distinguishability
+ * under normal vision and every CVD simulation (ESP0172 — the intent
+ * collision check). Values must be concrete CSS colors, like
+ * {@link auditDataPalette}'s — resolve anchors first; the palette-shaped
+ * audit remains the categorical-series wrapper.
+ */
+export declare function auditColorDistances(entries: ReadonlyArray<readonly [string, string]>, threshold?: number, conditions?: readonly VisionCondition[]): ColorDistanceIssue[];
 /** Minimum supported number of colors in a generated data ramp. */
 export declare const MIN_DATA_RAMP_STEPS = 3;
 /** Maximum supported number of colors in a generated data ramp. */

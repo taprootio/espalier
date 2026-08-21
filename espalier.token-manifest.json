@@ -253,6 +253,11 @@
       "description": ""
     },
     {
+      "name": "--esp-color-info",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
       "name": "--esp-color-input-caret",
       "category": "root-theme",
       "description": ""

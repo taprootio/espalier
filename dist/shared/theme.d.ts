@@ -36,21 +36,35 @@ export type LightnessKey = "surface" | "raised1" | "raised2" | "raised3" | "rais
 /** Lightness values (0–1) for every ramp position. */
 export type LightnessMap = Record<LightnessKey, number>;
 /**
- * A geometric color-theory variant **or** a fixed semantic hue.
+ * A geometric color-theory variant **or** a fixed status family.
  *
- * Geometric variants are derived by rotating the seed hue; semantic
- * hues (`danger`, `success`, `warning`) use fixed angles defined
- * in `semanticHues`.
+ * Geometric variants are derived by rotating the seed hue; the status
+ * families (`danger`, `success`, `warning`, `info`) use fixed hue
+ * angles from `semanticHues` — or a theme's `intents` override, which
+ * retunes a family with a declared absolute color (ESP0172).
  */
-export type ColorSource = "primary" | "analogous-left" | "analogous-right" | "complementary" | "split-complementary-left" | "split-complementary-right" | "triadic-left" | "triadic-right" | "danger" | "success" | "warning";
+export type ColorSource = "primary" | "analogous-left" | "analogous-right" | "complementary" | "split-complementary-left" | "split-complementary-right" | "triadic-left" | "triadic-right" | "danger" | "success" | "warning" | "info";
 /**
- * Non-primary color sources — the ten variants that can carry
+ * Non-primary color sources — the eleven variants that can carry
  * independent chroma overrides.
  *
  * Primary is excluded because its chroma is always the seed
  * color's chroma.
  */
 export type VariantColorSource = Exclude<ColorSource, "primary">;
+/**
+ * The fixed-meaning status families (ADR-004): the colors
+ * `intent="danger|success|warning|info"` and the same-named mapping
+ * sources resolve to. A theme may retune each with `intents`.
+ */
+export type StatusColorSource = "danger" | "success" | "warning" | "info";
+/**
+ * Status-family color overrides, by family (ESP0172). Values are an
+ * `anchor:<name>[.<slot>]` reference or a supported color form
+ * (`#rrggbb`, `#rgb`, `rgb()`, `hsl()`, `oklch()`); see
+ * {@link EspalierTheme.intents}.
+ */
+export type ThemeIntents = Partial<Record<StatusColorSource, string>>;
 /**
  * The object form of an anchor: a required base `color` plus named
  * sub-slots — per-family variants the way designers already specify
@@ -175,9 +189,11 @@ export type SemanticMappings = Record<SemanticColorName, SemanticMapping>;
  *   automatically (see {@link ROLE_PAIRED_INK})
  * - `structure` — borders and shadows
  *
- * `status` is deliberately absent: the danger/success/warning families
- * carry meaning through fixed hues (ADR-004) and are not a brand
- * decision.
+ * `status` is deliberately absent as a role: the four status families
+ * (`danger`, `success`, `warning`, `info`) carry reserved *meanings*
+ * that no role may reassign (ADR-004, as amended). Their *colors* are
+ * a brand decision — retune a family with the theme's `intents` field
+ * and every derived token follows.
  */
 export type RoleName = "canvas" | "ink" | "accent" | "action" | "structure";
 /**
@@ -190,7 +206,7 @@ export type RoleName = "canvas" | "ink" | "accent" | "action" | "structure";
 export type RoleSlotName = {
     canvas: never;
     ink: "heading";
-    accent: "text";
+    accent: "text" | "hover";
     action: "ink";
     structure: never;
 };
@@ -232,7 +248,10 @@ export declare const ROLE_NAMES: readonly RoleName[];
  * The `accent` role has no body-text slot on purpose. "Rose is
  * decorative only" is a structural guarantee here, not a comment: text
  * that must come from the accent family comes through `accent.text`,
- * the deepened variant a designer picked for legibility.
+ * the deepened variant a designer picked for legibility. `accent.hover`
+ * lets a hover change *family*, not just lightness — "plum link, rose
+ * hover" is an ordinary brand rule (ESP0172); absent, `linkHover` keeps
+ * following `accent.text` exactly as before.
  */
 export declare const ROLE_TOKEN_PLAN: Readonly<Record<RoleName, Readonly<Record<string, ReadonlyArray<[SemanticColorName, LightnessKey]>>>>>;
 /**
@@ -356,7 +375,7 @@ export interface EspalierTheme {
         /** Triadic offset from seed (default 120). */
         triadic: number;
     };
-    /** Fixed hue angles for danger / success / warning colors. */
+    /** Fixed hue angles for the danger / success / warning / info families. */
     semanticHues: {
         /** Danger hue angle (default 27, red-orange). */
         danger: number;
@@ -364,7 +383,46 @@ export interface EspalierTheme {
         success: number;
         /** Warning hue angle (default 90, yellow-green). */
         warning: number;
+        /** Info hue angle (default 244, blue). */
+        info: number;
     };
+    /**
+     * Status-family color overrides, by family (ESP0172).
+     *
+     * Each entry retunes one of the fixed status families — the colors
+     * `intent="danger|success|warning|info"` and the same-named mapping
+     * sources resolve to — with a declared color: an
+     * `anchor:<name>[.<slot>]` reference or a supported color form —
+     * `#rrggbb`, `#rgb`, `rgb()`, `hsl()`, or `oklch()`. CSS keywords
+     * such as `red` are not parsed.
+     *
+     * An override is **absolute**, like an anchor: it carries its own
+     * lightness, chroma, and hue, and `semanticHues` / `variantChroma`
+     * are ignored for that family. Overrides retune a family; they do
+     * not reassign its meaning (ADR-004): give `danger` your brand's
+     * red, but never point one family at another — a family name as a
+     * value (`intents.success: "danger"`) is rejected by validation; a
+     * color choice that creates a rendered collision is flagged by the
+     * distance warning, while a merely unusual — but separated — color
+     * passes silently. `validateTheme` warns when two
+     * status families — or a family and the action color — become hard
+     * to distinguish as rendered on controls, and its advice is
+     * counterfactual-tested per pair: it recommends retuning, widening
+     * the chroma band, or moving the lightness stop only when that
+     * change can actually separate the pair, and says "then retune"
+     * when a band or stop change merely makes a retune possible rather
+     * than separating the pair on its own. The built-in warning is
+     * normal-vision-only; status meanings need redundant cues (icons,
+     * labels) regardless, though lightness and chroma separation chosen
+     * here can still genuinely help color-vision-deficient users — see
+     * ADR-004's amendment and the data-color guidance.
+     *
+     * @example
+     * ```jsonc
+     * "intents": { "info": "anchor:sky", "danger": "#700007" }
+     * ```
+     */
+    intents: ThemeIntents;
     /**
      * Per-variant chroma overrides (OKLCH chroma, 0–0.4).
      *
@@ -489,10 +547,12 @@ export declare const TOKEN_PAIRINGS: Readonly<Record<"actionText", TokenPairing>
 export declare const SEMANTIC_COLOR_NAMES: readonly SemanticColorName[];
 /** Valid color-source identifiers for {@link SemanticMapping.source}. */
 export declare const COLOR_SOURCES: readonly ColorSource[];
+/** The four fixed status families, matching {@link StatusColorSource}. */
+export declare const STATUS_COLOR_SOURCES: readonly StatusColorSource[];
 /**
  * Non-primary color sources that support independent chroma overrides.
  *
- * Matches the ten entries in {@link VariantColorSource}.
+ * Matches the eleven entries in {@link VariantColorSource}.
  */
 export declare const VARIANT_COLOR_SOURCES: readonly VariantColorSource[];
 /** Valid keys for the lightness ramp. */
@@ -587,13 +647,26 @@ export declare function encodeTheme(partial: PartialTheme): string;
  * @returns A new fully-resolved {@link EspalierTheme}.
  */
 export declare function mergeTheme(defaults: EspalierTheme, overrides: PartialTheme): EspalierTheme;
+/**
+ * Validate a single encoded theme partial.
+ *
+ * Structural grammar aside, the advisory checks (the status-collision
+ * warning and chroma-band provenance) resolve the partial against
+ * {@link DEFAULT_LIGHT_THEME}. A partial written for the dark side of a
+ * pair should be validated through {@link validateThemePair}, which
+ * audits it against the dark defaults instead.
+ */
 export declare function validateTheme(base64: string): ThemeValidationResult;
 /**
  * Validate the light and dark partials that form one scheme-paired theme.
  *
- * Each partial first passes through {@link validateTheme}. Once both are
- * structurally valid, their context-name sets must match exactly so a stable
- * `context` attribute cannot silently change meaning when the scheme changes.
+ * Each side runs the same validation as {@link validateTheme}, with one
+ * scheme-aware difference: the dark partial's advisory checks resolve
+ * against {@link DEFAULT_DARK_THEME}, so a collision that only appears
+ * through the dark ramp is caught. Once both sides are structurally
+ * valid, their context-name sets must match exactly so a stable
+ * `context` attribute cannot silently change meaning when the scheme
+ * changes.
  */
 export declare function validateThemePair(lightBase64: string, darkBase64: string): ThemeValidationResult;
 /**
@@ -601,7 +674,7 @@ export declare function validateThemePair(lightBase64: string, darkBase64: strin
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "contexts", "dataPalette", "dataRamps", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "contexts", "dataPalette", "dataRamps", "intents", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *
