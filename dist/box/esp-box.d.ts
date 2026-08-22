@@ -11,6 +11,15 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-box>
  * ```
  *
+ * **What esp-box is not:** a full-bleed page band. The box is a *card* —
+ * it paints its own raised surface (`--esp-color-layer-1`), carries
+ * padding, and fills its container's height. A band is
+ * [`esp-section`](/components/section): it paints the local canvas edge
+ * to edge with a centered well and hosts a theme zone (`context="…"`)
+ * with nothing to neutralize. Keep boxes for what they are for — cards,
+ * panels, and form surfaces — and replace any pre-3.2 "neutralized box"
+ * band with a bare section.
+ *
  * @customElement esp-box
  * @slot - The default slot holds elements to display in the box.
  *
@@ -25,6 +34,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @cssprop --esp-box-background - Adds a layer in the background of the box. Intended for background images or gradients.
  * @cssprop --esp-box-background-opacity - The opacity of the background layer.
  * @cssprop --esp-size-box-padding - The padding inside the box.
+ * @cssprop --esp-box-shadow - The box's drop shadow. Defaults to the theme's `--esp-shadow-1` elevation.
  *
  * ```html
  * <style>

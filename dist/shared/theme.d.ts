@@ -628,7 +628,8 @@ export declare function parseTheme(base64: string): PartialTheme | null;
 /**
  * Encode a {@link PartialTheme} as a Base64 JSON string.
  *
- * The inverse of {@link parseTheme}.
+ * The inverse of {@link parseTheme}. Unicode-safe: theme strings (font
+ * names, anchor slugs' display metadata) may carry any code point.
  *
  * @param partial The partial theme to encode.
  * @returns A Base64-encoded JSON string.

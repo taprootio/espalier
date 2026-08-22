@@ -1,6 +1,6 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type SchemeEvents, type SeedColorRoot } from "../shared/bus-events.js";
-import { type EspalierTheme } from "../shared/theme.js";
+import { type EspalierTheme, type PartialTheme } from "../shared/theme.js";
 import { type ImageTextureDefinition } from "../shared/image-texture-registry.js";
 export { registerImageTexture, registeredImageTextures, BUILT_IN_IMAGE_TEXTURES, type ImageTextureDefinition, } from "../shared/image-texture-registry.js";
 export type GoogleFontLoadingPolicy = "auto" | "none";
@@ -136,6 +136,29 @@ export declare class EspalierRoot extends LitElement implements SeedColorRoot {
      * @type {string}
      */
     darkThemeAttr: string;
+    /**
+     * Object form of the light theme (ESP0174). Assigning a partial theme
+     * object encodes it into {@link lightThemeAttr} — the same pipeline
+     * the `light-theme` attribute feeds, so both entry points stay one
+     * source of truth. Reading decodes the currently mounted partial, or
+     * `null` when none is set.
+     *
+     * Registered as a reactive property (not just an accessor pair) so a
+     * value assigned BEFORE the element upgrades — the classic
+     * pre-definition own-property shadow — is captured and re-applied
+     * through this setter when the upgrade runs.
+     *
+     * ```js
+     * document.querySelector("esp-root").lightTheme = { seedColor: "#78486A" };
+     * ```
+     */
+    get lightTheme(): PartialTheme | null;
+    set lightTheme(theme: PartialTheme | null);
+    /**
+     * Object form of the dark theme (ESP0174) — see {@link lightTheme}.
+     */
+    get darkTheme(): PartialTheme | null;
+    set darkTheme(theme: PartialTheme | null);
     /**
      * Root path for locally-cached font CSS files used by
      * `<esp-font-picker>` to load font previews.

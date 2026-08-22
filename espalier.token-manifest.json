@@ -108,6 +108,12 @@
       "description": "The opacity of the background layer."
     },
     {
+      "name": "--esp-box-shadow",
+      "category": "component",
+      "component": "esp-box",
+      "description": "The box's drop shadow. Defaults to the theme's `--esp-shadow-1` elevation."
+    },
+    {
       "name": "--esp-breadcrumb-color",
       "category": "component",
       "component": "esp-breadcrumb",
@@ -142,6 +148,11 @@
       "category": "component",
       "component": "esp-button",
       "description": "The padding inside the button label and icon areas."
+    },
+    {
+      "name": "--esp-card-min",
+      "category": "root-theme",
+      "description": ""
     },
     {
       "name": "--esp-checkbox-focus-shadow",
@@ -1435,6 +1446,16 @@
       "description": "The opacity of the overlay background (falls through to --esp-vellum-opacity, default: 0.85)."
     },
     {
+      "name": "--esp-measure",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
+      "name": "--esp-measure-wide",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
       "name": "--esp-menu-background",
       "category": "component",
       "component": "esp-menu",
@@ -1700,7 +1721,7 @@
       "name": "--esp-page-main-max-width",
       "category": "component",
       "component": "esp-page",
-      "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). An explicit value overrides every kind default, including `full`. Surplus width beyond it becomes canvas gutters."
+      "description": "Maximum width of the main content well. Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full). An explicit value overrides every kind default, including `full` — except `site`, whose main region is always unbounded because sections own their wells. Surplus width beyond it becomes canvas gutters."
     },
     {
       "name": "--esp-page-main-min-width",
@@ -1809,6 +1830,12 @@
       "category": "component",
       "component": "esp-page",
       "description": "The box shadow drawn on the left and right edges of the content surface. On by default; casts into the gutters and is clipped away when the surface fills the viewport, so it only shows above the cap. Set to `none` to remove it."
+    },
+    {
+      "name": "--esp-page-well-max-width",
+      "category": "component",
+      "component": "esp-page",
+      "description": "The shared content-column width in `kind=\"site\"`: the header and footer alignment contract and every `esp-section` well default to it. Defaults to `72rem`."
     },
     {
       "name": "--esp-progress-border-color",
@@ -1925,6 +1952,12 @@
       "description": "Padding used by repeater state panels and the loading/error footer."
     },
     {
+      "name": "--esp-row-gap",
+      "category": "component",
+      "component": "esp-row",
+      "description": "Overrides the gap between children. Defaults to the `gap` attribute's step, `normal` when unset."
+    },
+    {
       "name": "--esp-scheme",
       "category": "root-theme",
       "description": ""
@@ -2008,7 +2041,46 @@
       "description": "Title color for result rows. Defaults to `var(--esp-color-headings)`."
     },
     {
+      "name": "--esp-section-background",
+      "category": "component",
+      "component": "esp-section",
+      "description": "The band's background. Defaults to the local `--esp-color-background`, which inside a `context` zone is the zone's canvas."
+    },
+    {
+      "name": "--esp-section-max-width",
+      "category": "component",
+      "component": "esp-section",
+      "description": "The content well's cap. Defaults to `var(--esp-page-well-max-width, 72rem)`; `none` lets content span the band."
+    },
+    {
+      "name": "--esp-section-padding-block",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Vertical rhythm above and below the well. Defaults to `var(--esp-size-section)`."
+    },
+    {
+      "name": "--esp-section-padding-inline",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Horizontal breathing room inside the band at narrow viewports. Defaults to `var(--esp-size-medium)`."
+    },
+    {
       "name": "--esp-seed-color",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
+      "name": "--esp-shadow-1",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
+      "name": "--esp-shadow-2",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
+      "name": "--esp-shadow-3",
       "category": "root-theme",
       "description": ""
     },
@@ -2096,6 +2168,11 @@
       "description": ""
     },
     {
+      "name": "--esp-size-section",
+      "category": "root-theme",
+      "description": ""
+    },
+    {
       "name": "--esp-size-small",
       "category": "root-theme",
       "description": ""
@@ -2168,6 +2245,12 @@
       "category": "component",
       "component": "esp-slider",
       "description": "Height of the slider track. Defaults to `6px`."
+    },
+    {
+      "name": "--esp-stack-gap",
+      "category": "component",
+      "component": "esp-stack",
+      "description": "Overrides the gap between children. Defaults to the `gap` attribute's step, `normal` when unset."
     },
     {
       "name": "--esp-status-indicator-border-radius",

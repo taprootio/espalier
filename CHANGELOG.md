@@ -1,3 +1,30 @@
+# 3.2.0
+
+Website-tier layout: the pieces a real marketing page proved were
+missing (measured: a 297-line style block, 48% layout, none of it
+novel).
+
+- `esp-page kind="site"`: sections run edge to edge and the header,
+  footer, and every section well share one centered column via
+  `--esp-page-well-max-width` (default 72rem).
+- `esp-section`: the full-bleed band with a centered well — and the
+  natural `context` zone host, with no card identity to neutralize.
+  Rhythm defaults to the new fluid `--esp-size-section` step.
+- `esp-stack` and `esp-row`: column and wrapping-row flow with
+  space-scale gaps. Stacks stretch like block flow while slotted
+  buttons keep their natural width — the pairing a plain flex column
+  cannot express.
+- Layout tokens: `--esp-measure` / `--esp-measure-wide`,
+  `--esp-size-section`, `--esp-shadow-1..3` (elevation; level 1 is
+  exactly the shadow `esp-box` always painted, now overridable via
+  `--esp-box-shadow`), and `--esp-card-min` for the auto-fit card-grid
+  recipe.
+- `esp-root` accepts theme objects directly: `root.lightTheme = {...}`
+  / `root.darkTheme = {...}` encode through the same pipeline as the
+  `light-theme` / `dark-theme` attributes.
+- New export subpaths: `./section`, `./stack`, `./row`, and dedicated
+  entries for `./flyout`, `./progress`, `./toaster`, `./tooltip`.
+
 # Changelog
 
 All notable changes to the public `@taprootio/espalier` package are documented

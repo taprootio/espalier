@@ -1,10 +1,10 @@
-var n=function(s,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(s,e,r,i);else for(var p=s.length-1;p>=0;p--)(l=s[p])&&(o=(a<3?l(o):a>3?l(e,r,o):l(e,r))||o);return a>3&&o&&Object.defineProperty(e,r,o),o};import{css as c,html as b}from"lit";import{customElement as v,property as h}from"lit/decorators.js";import{classMap as f}from"lit/directives/class-map.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";let t=class extends d{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return b`
+var n=function(t,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(t,e,r,i);else for(var p=t.length-1;p>=0;p--)(l=t[p])&&(o=(a<3?l(o):a>3?l(e,r,o):l(e,r))||o);return a>3&&o&&Object.defineProperty(e,r,o),o};import{css as c,html as v}from"lit";import{customElement as b,property as h}from"lit/decorators.js";import{classMap as f}from"lit/directives/class-map.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";let s=class extends d{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return v`
       <div class=${f({"esp-box":!0,"full-screen":e})}>
         <div part="box">
           <slot></slot>
         </div>
       </div>
-    `}};t.styles=[...d.styles,c`
+    `}};s.styles=[...d.styles,c`
       :host {
         display: block;
       }
@@ -12,7 +12,7 @@ var n=function(s,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnP
       .esp-box {
         background-color: var(--esp-color-box-background, var(--esp-color-layer-1));
         border-radius: var(--esp-size-border-radius);
-        box-shadow: 1px 1px 4px var(--esp-color-shadow);
+        box-shadow: var(--esp-box-shadow, var(--esp-shadow-1, 1px 1px 4px var(--esp-color-shadow)));
         overflow: visible;
         position: relative;
         height: 100%;
@@ -61,4 +61,4 @@ var n=function(s,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnP
           }
         }
       }
-    `],n([h({attribute:"full-screen",type:Boolean})],t.prototype,"fullScreen",void 0),t=n([v("esp-box")],t);export{t as EspalierBox};
+    `],n([h({attribute:"full-screen",type:Boolean})],s.prototype,"fullScreen",void 0),s=n([b("esp-box")],s);export{s as EspalierBox};

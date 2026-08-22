@@ -163,8 +163,13 @@ export interface PageWorkspaceResizeDetail {
  * while preview or in-grid help competes for space. Defaults to `30rem`.
  * @cssprop --esp-page-main-max-width - Maximum width of the main content well.
  * Defaults from `kind`: `1536px` (wide), `768px` (narrow), or unbounded (full).
- * An explicit value overrides every kind default, including `full`. Surplus
- * width beyond it becomes canvas gutters.
+ * An explicit value overrides every kind default, including `full` —
+ * except `site`, whose main region is always unbounded because sections
+ * own their wells.
+ * Surplus width beyond it becomes canvas gutters.
+ * @cssprop --esp-page-well-max-width - The shared content-column width in
+ * `kind="site"`: the header and footer alignment contract and every
+ * `esp-section` well default to it. Defaults to `72rem`.
  * @cssprop --esp-page-max-width - Legacy fallback for
  * `--esp-page-main-max-width`.
  * @cssprop --esp-page-background-image - The background image to
@@ -439,14 +444,24 @@ export declare class EspalierPage extends EspalierElementBase {
      * - `wide` (default) — constrains the main content well to 1536px.
      *   Optimized for high-density dashboards and complex data grids.
      * - `narrow` — constrains the main content well to 768px and applies
-     *   a `max-inline-size: 66ch` reading measure. Optimized for
-     *   long-form reading content.
+     *   a `max-inline-size: var(--esp-measure, 66ch)` reading measure.
+     *   Optimized for long-form reading content.
      * - `full` — no max-width constraint unless
      *   `--esp-page-main-max-width` is explicitly configured. Optimized for
      *   immersive canvases like maps or design tools and finite authoring
      *   workspaces that opt back into a cap.
+     * - `site` — the marketing-page shell (ESP0174): the main region
+     *   always spans the full viewport width with no gutters, so slotted
+     *   `esp-section` bands run edge to edge and center their own wells.
+     *   The header and footer alignment contract is published from
+     *   `--esp-page-well-max-width` instead of a main cap, so bar
+     *   content, section wells, and footer content share one column.
+     *   The sidebar/right rail slots are unsupported in this kind (a
+     *   rail would offset the sections while the chrome keeps centering
+     *   on the viewport, splitting the shared column) — a populated rail
+     *   warns once.
      */
-    kind: "wide" | "narrow" | "full";
+    kind: "wide" | "narrow" | "full" | "site";
     /**
      * Horizontal alignment of the content **surface** (left aside + main
      * well + right aside) within the page once the viewport is wider than
@@ -461,8 +476,9 @@ export declare class EspalierPage extends EspalierElementBase {
      * - `end` — the surface hugs the trailing edge; spare width collects in
      *   the leading gutter.
      *
-     * Has no effect when an unconfigured `kind="full"` leaves main unbounded,
-     * or on viewports narrower than the complete visible workspace cap.
+     * Has no effect when an unconfigured `kind="full"` or `kind="site"`
+     * leaves main unbounded, or on viewports narrower than the complete
+     * visible workspace cap.
      */
     align: "start" | "center" | "end";
     /**
