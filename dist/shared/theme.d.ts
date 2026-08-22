@@ -228,9 +228,16 @@ export type ThemeRoles = {
  * A context may also carry a partial lightness ramp. Color sources alone
  * cannot make a dark zone inside a light scheme because semantic derivation
  * deliberately takes lightness from the ramp rather than from an anchor.
+ *
+ * A context may also carry token-level `semanticMappings` (ESP0175).
+ * Root-level explicit mappings survive into every context by design —
+ * they are deliberate token pins — so a zone that needs a different
+ * value for one of them declares its own mapping here, which layers over
+ * the inherited pin exactly as a root-level mapping layers over roles.
  */
 export type ThemeContext = ThemeRoles & {
     lightness?: Partial<LightnessMap>;
+    semanticMappings?: Partial<SemanticMappings>;
 };
 /** Named role-rebinding zones available to `context` attributes. */
 export type ThemeContexts = Record<string, ThemeContext>;
@@ -274,6 +281,8 @@ interface CompileRoleOptions {
     explicitMappings?: Partial<SemanticMappings>;
     /** Exact maximum paired-ink contrast of an action surface candidate. */
     actionSurfaceContrast?: (source: MappingSource, stop: LightnessKey) => number;
+    /** ΔE-OK between an action surface candidate and the theme's background. */
+    actionSurfaceSeparation?: (source: MappingSource, stop: LightnessKey) => number;
 }
 /**
  * Compile roles into semantic mappings.
@@ -636,6 +645,18 @@ export declare function parseTheme(base64: string): PartialTheme | null;
  */
 export declare function encodeTheme(partial: PartialTheme): string;
 /**
+ * Recover explicit mapping provenance from a resolved theme.
+ *
+ * Themes produced in this process carry exact provenance in the WeakMap.
+ * The comparison fallback preserves the historical behavior for a fully
+ * resolved theme reconstructed outside `mergeTheme`, where provenance is
+ * necessarily unavailable because it is not part of the serialized model.
+ *
+ * Exported for the fit report (ESP0175), which marks explicit tokens so
+ * a zone's surprising value traces to the mapping that pinned it.
+ */
+export declare function explicitMappingTokens(theme: EspalierTheme): Set<SemanticColorName>;
+/**
  * Deep-merge a {@link PartialTheme} over a set of defaults.
  *
  * Primitive fields are replaced; nested objects (`angles`,
@@ -648,6 +669,21 @@ export declare function encodeTheme(partial: PartialTheme): string;
  * @returns A new fully-resolved {@link EspalierTheme}.
  */
 export declare function mergeTheme(defaults: EspalierTheme, overrides: PartialTheme): EspalierTheme;
+/**
+ * Compile a named context over a resolved theme — the exact theme a
+ * `context="<name>"` zone renders (ESP0175).
+ *
+ * This is the same compilation `esp-element-base` performs for a zone
+ * host, exported so a check script or the fit report can inspect a
+ * context surface without a DOM: role rebindings and the partial
+ * lightness ramp merge over the root theme, and any context-level
+ * `semanticMappings` layer on top as explicit token pins. Returns `null`
+ * when the theme does not define the context.
+ *
+ * @param theme A resolved theme (as `mergeTheme` returns).
+ * @param name  The context name a zone would set in its attribute.
+ */
+export declare function resolveContextTheme(theme: EspalierTheme, name: string): EspalierTheme | null;
 /**
  * Validate a single encoded theme partial.
  *

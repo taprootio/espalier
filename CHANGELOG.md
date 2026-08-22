@@ -1,3 +1,29 @@
+# 3.3.0
+
+Theme QA: the fit report as a lint over every surface a themed site
+has, a CLI that makes fit tables reviewable, and swatch intake.
+
+- `themeFitReportSuite(lightPartial, darkPartial)`: root plus every
+  context, both schemes, compiled through the exact zone path a
+  `context` attribute uses (`resolveContextTheme`, now exported), with
+  cross-token lints — action/canvas separation and link/hover ordering.
+- `npx espalier theme check ./theme.json` — validate a pair, print the
+  suite, and gate CI on committed fit tables (`--expect`, non-zero on
+  drift; refresh deliberately with `--update-expect`).
+- The action-surface placement steps past stops indistinguishable from
+  the local canvas whenever a separated stop can carry the ink.
+- Context declarations accept `semanticMappings` to correct inherited
+  root-level pins; the fit report marks pins `declared` / `inherited`.
+- New data companions per surface: `--esp-color-series-N-wash` (the
+  documented 75% OKLab fill mix, baked against the local background)
+  and `--esp-color-series-N-ink` (text-tier contrast).
+- `themeFromSwatches` / `deriveLightnessRamp`: brand book in,
+  reviewable paired theme starter out (names normalized to anchor
+  slugs).
+- Fix: `linkHover` is enforced against `linkHoverBg`, the wash hovered
+  links actually paint on. Values move only where hover was under tier
+  on its rendered wash.
+
 # 3.2.0
 
 Website-tier layout: the pieces a real marketing page proved were

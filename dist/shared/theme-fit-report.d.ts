@@ -48,7 +48,7 @@
  * report.adjustedTokens;                // ['linkHover']
  * ```
  */
-import { type EspalierTheme, type LightnessKey, type MappingSource, type SemanticColorName } from "./theme.js";
+import { type EspalierTheme, type LightnessKey, type MappingSource, type PartialTheme, type SemanticColorName } from "./theme.js";
 /** What APCA enforcement did to one token. */
 export interface ThemeFitApcaAction {
     /** The requested value, as an `oklch()` string. */
@@ -105,6 +105,14 @@ export interface ThemeFitToken {
     anchor?: ThemeFitAnchor;
     /** Present for the text tokens APCA enforcement guards. */
     apca?: ThemeFitApcaAction;
+    /**
+     * Present when the mapping was pinned token-level rather than compiled
+     * from roles (ESP0175). `"declared"` means this surface's own
+     * declaration pinned it; `"inherited"` means a root-level pin survived
+     * into this context — the silent case this marker exists to surface,
+     * since a zone's unexpected value then traces to a root theme line.
+     */
+    explicit?: "declared" | "inherited";
 }
 /**
  * A theme's fit report — the stable JSON shape the docs site renders.
@@ -135,6 +143,17 @@ export interface ThemeFitRow {
     /** The anchor reference and its ΔE; empty for non-anchor sources. */
     anchor: string;
 }
+/** Options for {@link themeFitReport}. */
+export interface ThemeFitReportOptions {
+    /**
+     * Report a named context's surface instead of the root (ESP0175). The
+     * context compiles through the exact zone path a `context` attribute
+     * uses — `resolveContextTheme` — so the report cannot drift from what
+     * a zone host renders. Unknown names throw, mirroring the zone host's
+     * warning for an undefined context.
+     */
+    context?: string;
+}
 /**
  * Build the fit report for a resolved theme.
  *
@@ -142,10 +161,11 @@ export interface ThemeFitRow {
  * what it did. An unparseable seed produces an empty token list, exactly
  * as it produces an empty property record.
  *
- * @param theme  A resolved theme (as `mergeTheme` returns).
- * @param scheme The scheme to compute.
+ * @param theme   A resolved theme (as `mergeTheme` returns).
+ * @param scheme  The scheme to compute.
+ * @param options Surface selection; omit for the root surface.
  */
-export declare function themeFitReport(theme: EspalierTheme, scheme: "light" | "dark"): ThemeFitReport;
+export declare function themeFitReport(theme: EspalierTheme, scheme: "light" | "dark", options?: ThemeFitReportOptions): ThemeFitReport;
 /**
  * Render a report as `console.table` rows.
  *
@@ -160,3 +180,73 @@ export declare function themeFitRows(report: ThemeFitReport): ThemeFitRow[];
  * then a `console.table` of every token.
  */
 export declare function printThemeFitReport(report: ThemeFitReport): void;
+/** One cross-token finding over a single surface's emitted values. */
+export interface ThemeFitLint {
+    /** Stable lint identifier. */
+    id: "action-canvas-separation" | "link-hover-ordering";
+    /** Lints describe design-quality hazards, not validation failures. */
+    severity: "warning";
+    /** The tokens the finding is about. */
+    tokens: SemanticColorName[];
+    /** The measured number the lint fired on (ΔE-OK, or an Lc deficit). */
+    measured: number;
+    /** Human-readable finding, with the remedy phrased as a retune. */
+    message: string;
+}
+/**
+ * Cross-token lints over one surface's report (ESP0175).
+ *
+ * Both checks consume only the report's `resolved` strings — the emitted
+ * custom-property values — so the lints, like the report, cannot
+ * disagree with the pipeline:
+ *
+ * - **action-canvas-separation** — a filled action within ΔE-OK 0.045 of
+ *   the surface's own background vanishes into it. The stop placement
+ *   avoids this when any viable stop exists; the lint reports the
+ *   residue (explicit pins, ramps with no separated stop).
+ * - **link-hover-ordering** — measured on the surfaces the states
+ *   actually render: resting `link` on `background`, hovered `linkHover`
+ *   on the `linkHoverBg` wash. When the theme paints a real wash, the
+ *   wash itself signals the state and the ink must clear the text tier
+ *   there; when the wash equals the background (no visible wash), hover
+ *   must not read weaker than rest — a dimming hover feels disabled.
+ */
+export declare function themeFitLints(report: ThemeFitReport): ThemeFitLint[];
+/**
+ * The root surface's identifier in a suite. Deliberately not a valid
+ * context slug (slugs are letter-first), so no theme-declared context
+ * name — `root` included, which has been a legal name since contexts
+ * shipped — can ever collide with it.
+ */
+export declare const ROOT_SURFACE = ":root";
+/** One surface's report inside a {@link ThemeFitSuite}. */
+export interface ThemeFitSurfaceReport extends ThemeFitReport {
+    /** {@link ROOT_SURFACE}, or the context name a zone would set. */
+    surface: string;
+    /** Cross-token lints over this surface's emitted values. */
+    lints: ThemeFitLint[];
+}
+/**
+ * Every surface a themed site has, both schemes, in one stable shape.
+ */
+export interface ThemeFitSuite {
+    /** Surface names in report order: {@link ROOT_SURFACE}, then contexts, sorted. */
+    surfaces: string[];
+    /** One report per surface the light theme defines. */
+    light: ThemeFitSurfaceReport[];
+    /** One report per surface the dark theme defines. */
+    dark: ThemeFitSurfaceReport[];
+}
+/**
+ * Fit-report every surface a themed site has (ESP0175): for each scheme,
+ * the root plus every declared context, each with its cross-token lints.
+ *
+ * Takes the partials an `esp-root` would take (they merge over the same
+ * scheme defaults the root uses), so the suite describes exactly the
+ * site the partials produce — the 448-line hand-rolled check script,
+ * minus the client-specific lines. Surfaces are the union of both
+ * schemes' context names so an asymmetric pair still reports every
+ * surface it can; `validateThemePair` is the gate that rejects the
+ * asymmetry itself.
+ */
+export declare function themeFitReportSuite(lightPartial: PartialTheme, darkPartial: PartialTheme): ThemeFitSuite;

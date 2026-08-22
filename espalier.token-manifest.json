@@ -353,9 +353,29 @@
       "description": "First categorical data-series color."
     },
     {
+      "name": "--esp-color-series-1-ink",
+      "category": "root-theme",
+      "description": "First series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-1-wash",
+      "category": "root-theme",
+      "description": "First series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-2",
       "category": "root-theme",
       "description": "Second categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-2-ink",
+      "category": "root-theme",
+      "description": "Second series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-2-wash",
+      "category": "root-theme",
+      "description": "Second series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-3",
@@ -363,9 +383,29 @@
       "description": "Third categorical data-series color."
     },
     {
+      "name": "--esp-color-series-3-ink",
+      "category": "root-theme",
+      "description": "Third series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-3-wash",
+      "category": "root-theme",
+      "description": "Third series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-4",
       "category": "root-theme",
       "description": "Fourth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-4-ink",
+      "category": "root-theme",
+      "description": "Fourth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-4-wash",
+      "category": "root-theme",
+      "description": "Fourth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-5",
@@ -373,9 +413,29 @@
       "description": "Fifth categorical data-series color."
     },
     {
+      "name": "--esp-color-series-5-ink",
+      "category": "root-theme",
+      "description": "Fifth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-5-wash",
+      "category": "root-theme",
+      "description": "Fifth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-6",
       "category": "root-theme",
       "description": "Sixth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-6-ink",
+      "category": "root-theme",
+      "description": "Sixth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-6-wash",
+      "category": "root-theme",
+      "description": "Sixth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-7",
@@ -383,9 +443,29 @@
       "description": "Seventh categorical data-series color."
     },
     {
+      "name": "--esp-color-series-7-ink",
+      "category": "root-theme",
+      "description": "Seventh series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-7-wash",
+      "category": "root-theme",
+      "description": "Seventh series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-8",
       "category": "root-theme",
       "description": "Eighth categorical data-series color."
+    },
+    {
+      "name": "--esp-color-series-8-ink",
+      "category": "root-theme",
+      "description": "Eighth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-8-wash",
+      "category": "root-theme",
+      "description": "Eighth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-shadow",
