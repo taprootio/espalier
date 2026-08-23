@@ -233,6 +233,49 @@ export declare class EspalierRoot extends LitElement implements SeedColorRoot {
      */
     iconSpriteUrl: string;
     /**
+     * Hold descendant paint until the first author theme resolves
+     * (ESP0177) — opt in when the theme is assigned from script.
+     *
+     * A script-mounted theme lands after the elements upgrade, so without
+     * this the page paints one frame on the default palette and then
+     * repaints on the brand's. Declaring `theme-pending` keeps the
+     * subtree invisible (it still takes its space, so nothing shifts)
+     * until the theme applies.
+     *
+     * Server-rendered `light-theme` / `dark-theme` attributes close a
+     * different window: the theme is present when the root upgrades, so
+     * it settles on its first update and never renders the defaults. They
+     * do not cover the frame before this module runs, when the host is
+     * still an unknown element painting its light DOM unstyled — a
+     * server-rendered page whose bundle may load after first paint wants
+     * this attribute too, plus the page-level gate, and its hold releases
+     * the moment it upgrades.
+     *
+     * The hold always ends: if no theme arrives within
+     * {@link THEME_SETTLE_TIMEOUT_MS} the root reveals anyway and warns,
+     * so a broken mount degrades to the default palette instead of a
+     * blank page.
+     */
+    themePending: boolean;
+    /**
+     * `true` once the theme this root will render with is the theme it
+     * has — an author theme resolved, or the pre-theme window closed with
+     * none. Mirrored to the `data-theme-ready` attribute so page CSS can
+     * gate on it. Pair it with the opt-in attribute —
+     * `esp-root[theme-pending]:not([data-theme-ready]) { visibility: hidden }`
+     * — which is the only frame-zero cover for the window before this
+     * module runs, and which scopes the hold to roots that asked for it:
+     * unscoped, the rule would also blank a page that never mounts a
+     * theme, until its deadline closes the window.
+     */
+    get themeSettled(): boolean;
+    /**
+     * Resolves when {@link themeSettled} turns true — the honest moment
+     * to judge whether a named context is genuinely missing rather than
+     * merely not mounted yet.
+     */
+    whenThemeSettled(): Promise<void>;
+    /**
      * Initial color scheme to apply when `scheme` is not set.
      *
      * Use `light` or `dark` for a fixed published-site default, or

@@ -1,3 +1,21 @@
+# 3.5.0
+
+No unthemed flash when the theme mounts from script.
+
+- `<esp-root theme-pending>` holds the subtree's paint until the theme
+  for the active scheme applies — no frame on the default palette, no
+  layout shift on reveal. The hold ends on its own (and warns) if no
+  theme arrives, so a broken mount shows the wrong colors, never a
+  blank page, and the deadline survives a reattach.
+- The hold runs from upgrade onward. To close the window before your
+  scripts run, add the documented one-liner to your page:
+  `esp-root[theme-pending]:not([data-theme-ready]) { visibility: hidden }`.
+- Readiness is public: `themeSettled`, `whenThemeSettled()`, and a
+  `data-theme-ready` attribute page CSS can gate on.
+- The "context is not defined" warning now judges the settled theme, so
+  a zone whose context the theme goes on to define stays quiet while a
+  genuinely missing one still warns.
+
 # 3.4.0
 
 An offline story for icons: a fully self-contained page renders
