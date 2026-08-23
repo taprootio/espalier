@@ -1,3 +1,19 @@
+# 3.4.0
+
+An offline story for icons: a fully self-contained page renders
+Espalier icons with zero network requests.
+
+- `import { installIconSprite } from "@taprootio/espalier/icons"` —
+  inline the sprite once (idempotent) and point the root at it:
+  `icon-sprite-url="#esp-icons"`.
+- The same-document form works for any inline sprite, including your
+  own: `<svg id="brand-icons"><symbol id="…">` +
+  `icon-sprite-url="#brand-icons"`. Components adopt exactly the
+  symbols they reference into their shadow roots; light-DOM
+  `<use href="#id">` resolves against the document directly.
+- Behavior note: a fragment-only `icon-sprite-url` previously disabled
+  icons; it now selects same-document mode.
+
 # 3.3.0
 
 Theme QA: the fit report as a lint over every surface a themed site

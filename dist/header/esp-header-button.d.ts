@@ -44,6 +44,7 @@ import { LitElement } from "lit";
  * @menuGroup Navigation
  */
 export declare class EspalierHeaderButton extends LitElement {
+    constructor();
     /**
      * Accessible label for icon-only buttons. When set, the inner
      * `<button>` receives an `aria-label` so screen readers announce

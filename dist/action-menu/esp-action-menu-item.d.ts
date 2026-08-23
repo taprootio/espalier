@@ -1,3 +1,4 @@
+import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 export type ActionMenuItemActivateDetail = {
     item: EspalierActionMenuItem;
@@ -84,7 +85,7 @@ export declare class EspalierActionMenuItem extends EspalierElementBase {
     set iconPosition(value: ActionMenuItemIconPosition);
     connectedCallback(): void;
     disconnectedCallback(): void;
-    protected updated(): void;
+    protected updated(changed: PropertyValues): void;
     /** Activates the item and notifies the parent action menu. */
     activate(): void;
     /** Applies the parent menu's icon position unless this item has its own override. */

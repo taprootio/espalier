@@ -66,6 +66,7 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected firstUpdated(_changedProperties: PropertyValues): void;
+    constructor();
     /**
      * Traverse up the DOM tree to find the closest element that
      * matches the selector. This method is aware of shadow DOM

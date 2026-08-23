@@ -60,7 +60,7 @@ export * from "./search/esp-search.js";
 export * from "./status-indicator/esp-status-indicator.js";
 export * from "./tree/esp-tree.js";
 export * from "./tree/esp-tree-item.js";
-export { DEFAULT_ICON_SPRITE_URL, DEFAULT_ICON_VIEW_BOX, INTENT_VARIANTS, type EspalierIntentVariant, normalizeIntentVariant, getIconHref, getIconHrefForHost, getIconSpriteUrl, } from "./shared/intent-values.js";
+export { DEFAULT_ICON_SPRITE_URL, DEFAULT_ICON_VIEW_BOX, INTENT_VARIANTS, type EspalierIntentVariant, normalizeIntentVariant, getIconHref, getIconHrefForHost, getIconSpriteUrl, getIconSpriteReference, type IconSpriteReference, } from "./shared/intent-values.js";
 export { EspalierElementBase } from "./shared/esp-element-base.js";
 export { type ValidationError, VALIDITY_CHANGED_EVENT, type ValidityChangedDetail, } from "./shared/validation.js";
 export { FormFieldController, type FormFieldControllerOptions, } from "./shared/form-field-controller.js";
@@ -78,4 +78,5 @@ export { auditDataPalette, generateSequentialRamp, generateDivergingRamp, COLOR_
 export { WEIGHT_LABELS, extractWeights, normalizeWeight, bestAvailableWeight, extractFamily, getFallbackFont, } from "./shared/font-helpers.js";
 export { getGoogleFonts } from "./font-picker/esp-font-picker.js";
 export { ROOT_SURFACE, themeFitReport, themeFitRows, themeFitLints, themeFitReportSuite, printThemeFitReport, type ThemeFitReport, type ThemeFitReportOptions, type ThemeFitToken, type ThemeFitApcaAction, type ThemeFitAnchor, type ThemeFitRow, type ThemeFitLint, type ThemeFitSurfaceReport, type ThemeFitSuite, } from "./shared/theme-fit-report.js";
+export { ICON_SPRITE, ICON_SPRITE_ID, installIconSprite } from "./icons/index.js";
 export { deriveLightnessRamp, themeFromSwatches, type ThemeFromSwatchesOptions, type ThemeFromSwatchesResult, } from "./shared/theme-swatches.js";

@@ -1,4 +1,4 @@
-import { LitElement } from "lit";
+import { LitElement, type PropertyValues } from "lit";
 /**
  * A form wrapper that renders a native `<form>` element in
  * the light DOM. All form-associated custom elements placed
@@ -258,7 +258,7 @@ export declare class EspalierForm extends LitElement {
     connectedCallback(): void;
     protected render(): import("lit-html").TemplateResult<1>;
     protected firstUpdated(): void;
-    protected updated(): void;
+    protected updated(changed: PropertyValues): void;
     /**
      * Run constraint validation on all controls without showing
      * any UI feedback.

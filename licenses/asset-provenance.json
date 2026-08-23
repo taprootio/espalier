@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-19",
+  "updatedAt": "2026-08-22",
   "entries": [
     {
       "id": "google-font-preview-assets",
@@ -28,7 +28,8 @@
     {
       "id": "tabler-svg-sprite",
       "paths": [
-        "assets/icons.svg"
+        "assets/icons.svg",
+        "icon-sprite.generated.ts"
       ],
       "assetType": "SVG sprite",
       "classification": "mixed third-party and Taproot-owned",
@@ -38,9 +39,10 @@
       "transformations": [
         "Converted selected SVG icons into <symbol> entries",
         "Normalized currentColor usage and sprite ids",
-        "Added Taproot-owned taproot-logo symbol"
+        "Added Taproot-owned taproot-logo symbol",
+        "Generated importable module (icon-sprite.generated.ts) from the sprite via scripts/build-icon-module.js for the offline story (ESP0176)"
       ],
-      "packageInclusion": "not included in npm package",
+      "packageInclusion": "included in npm package as dist/icons/icon-sprite.generated.js (the importable inline sprite); the .svg asset itself is not packaged",
       "docsInclusion": "copied to public docs assets by Eleventy and referenced by examples",
       "noticeRequirement": "required",
       "noticePaths": [
@@ -293,7 +295,7 @@
         "None; used as-is as a repeating docs-site canvas gutter background at 50% image-layer opacity"
       ],
       "packageInclusion": "not included in npm package",
-      "docsInclusion": "docs-site only — referenced as --esp-page-canvas-background-image in css/docs.css (which the public @taprootio/espalier package excludes) and served from the Eleventy /assets passthrough",
+      "docsInclusion": "docs-site only \u2014 referenced as --esp-page-canvas-background-image in css/docs.css (which the public @taprootio/espalier package excludes) and served from the Eleventy /assets passthrough",
       "noticeRequirement": "none",
       "noticePaths": [],
       "reviewStatus": "documented"
@@ -312,7 +314,7 @@
         "None; used as-is as a repeating docs-site dark-mode canvas gutter background at 50% image-layer opacity"
       ],
       "packageInclusion": "not included in npm package",
-      "docsInclusion": "docs-site only — referenced as --esp-page-canvas-background-image under esp-root[scheme=\"dark\"] in css/docs.css (excluded from the public @taprootio/espalier package) and served from the Eleventy /assets passthrough",
+      "docsInclusion": "docs-site only \u2014 referenced as --esp-page-canvas-background-image under esp-root[scheme=\"dark\"] in css/docs.css (excluded from the public @taprootio/espalier package) and served from the Eleventy /assets passthrough",
       "noticeRequirement": "none",
       "noticePaths": [],
       "reviewStatus": "documented"
@@ -366,7 +368,7 @@
         }
       ],
       "packageInclusion": "not included in npm package",
-      "docsInclusion": "docs-site only — linked from docs/_includes/layout.vto and docs/404.vto and served from the Eleventy /assets passthrough, so the documentation shell renders its theme faces without runtime fonts.googleapis.com links",
+      "docsInclusion": "docs-site only \u2014 linked from docs/_includes/layout.vto and docs/404.vto and served from the Eleventy /assets passthrough, so the documentation shell renders its theme faces without runtime fonts.googleapis.com links",
       "noticeRequirement": "required",
       "noticePaths": [
         "licenses/THIRD_PARTY_NOTICES.md"
