@@ -35,7 +35,7 @@ export type ActionMenuSelectDetail = {
  *   </esp-action-menu-item>
  * </esp-action-menu>
  * <script>
- *   findById("demo-actions").addEventListener("select", (event) => {
+ *   findById("demo-actions").addEventListener("esp-action-menu-select", (event) => {
  *     showToast({
  *       message: `Selected ${event.detail.value}`,
  *       icon: "info-i",
@@ -70,7 +70,7 @@ export type ActionMenuSelectDetail = {
  * @slot - Place `esp-action-menu-item` children here.
  * @slot trigger - Optional custom trigger element.
  *
- * @event {CustomEvent<ActionMenuSelectDetail>} select - Emitted from
+ * @event {CustomEvent<ActionMenuSelectDetail>} esp-action-menu-select - Emitted from
  * the menu when an enabled item is activated.
  *
  * @cssprop --esp-action-menu-background - Menu surface background.

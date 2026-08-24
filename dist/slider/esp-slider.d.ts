@@ -34,9 +34,11 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  * @slot - Label content displayed alongside the slider. When
  * present, it provides the accessible name via `aria-labelledby`.
  *
- * @event {CustomEvent<string>} value-changed -
+ * @event {CustomEvent<string>} esp-value-changed -
  * Fired when the slider value changes. The detail is the new value
  * as a string.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever the always-valid form contract is evaluated.
  *
  * @cssprop --esp-slider-track-height - Height of the slider track.
  * Defaults to `6px`.
@@ -103,7 +105,7 @@ export declare class EspalierSlider extends EspalierElementBase implements Espal
     protected firstUpdated(changed: PropertyValues): void;
     /** Focus the slider thumb. */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

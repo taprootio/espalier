@@ -8,7 +8,7 @@ export type ButtonIconPosition = "left" | "right";
  * <esp-button label="Hello there!"></esp-button>
  * <script>
  *   const theButton = findByTagName("esp-button")[0];
- *   theButton.addEventListener("clicked", () => {
+ *   theButton.addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: `You clicked the button!`,
  *       icon: "info-i",
@@ -59,13 +59,13 @@ export type ButtonIconPosition = "left" | "right";
  * <esp-button label="Profile" icon="user-circle"></esp-button>
  * ```
  *
- * @event {CustomEvent} clicked - Emitted when the button is clicked.
+ * @event {CustomEvent} esp-clicked - Emitted when the button is clicked.
  *
  * ```html
  * <esp-button label="Click me!"></esp-button>
  * <script>
  *   const theButton = findByTagName("esp-button")[0];
- *   theButton.addEventListener("clicked", () => {
+ *   theButton.addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: `Hi! You clicked the button. This message will self-destruct in 4 seconds...`,
  *       icon: "info-i",
@@ -151,7 +151,7 @@ export declare class EspalierButton extends EspalierElementBase {
      * <esp-button disabled label="Disabled"></esp-button>
      * <script>
      *   const theButton = findByTagName("esp-button")[0];
-     *   theButton.addEventListener("clicked", () => {
+     *   theButton.addEventListener("esp-clicked", () => {
      *   alert("We will not get here...");
      * });
      * </script>
@@ -233,7 +233,7 @@ export declare class EspalierButton extends EspalierElementBase {
      * <esp-button label="Click me..." icon="save"></esp-button>
      * <script>
      *   const theButton = findByTagName("esp-button")[0];
-     *   theButton.addEventListener("clicked", async () => {
+     *   theButton.addEventListener("esp-clicked", async () => {
      *     theButton.loading = true;
      *     setTimeout(function() {
      *       theButton.loading = false;

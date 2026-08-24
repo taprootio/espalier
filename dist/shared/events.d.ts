@@ -34,8 +34,10 @@ export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, }
 export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
 export { type PageWorkspaceResizeDetail, type PageWorkspaceResizeSource, type PageWorkspaceSeparator, } from "../page/esp-page.js";
 import type { EspalierDetails } from "../details/esp-details.js";
+import type { ActionMenuSelectDetail } from "../action-menu/esp-action-menu.js";
+import type { FocusChangedDetail } from "../focus-picker/esp-focus-picker.js";
 import type { FlyoutCloseReason } from "./flyout-events.js";
-import type { ValidityChangedDetail } from "./validation.js";
+import { type ValidityChangedDetail } from "./validation.js";
 import type { GridClickedEvent, GridItemsChangedEventDetail, GridLoadErrorEventDetail, GridLoadStartEventDetail, GridLoadSuccessEventDetail } from "../grid/esp-grid.js";
 import type { DestroyEspalierInfo } from "../info/esp-info.js";
 import type { PickerItem } from "../pickers/esp-picker-item.js";
@@ -44,6 +46,7 @@ export type { UploadEventDetail } from "../image-upload/image-helpers.js";
 import type { FontPickerValueChangedDetail } from "../font-picker/esp-font-picker.js";
 import type { EspThemeToggleEventDetail } from "../header/esp-header.js";
 import type { PageWorkspaceResizeDetail } from "../page/esp-page.js";
+import type { EspTreeEditDetail, EspTreeGraftDetail, EspTreeGraftInputDetail, EspTreeGraftRequestDetail, EspTreeNodeActionDetail, EspTreeSelectDetail, EspTreeToggleDetail } from "../tree/esp-tree.js";
 /**
  * Canonical event name strings for every CustomEvent in the library.
  *
@@ -58,47 +61,67 @@ import type { PageWorkspaceResizeDetail } from "../page/esp-page.js";
  * @menuLabel ESP_EVENTS
  */
 export declare const ESP_EVENTS: {
-    readonly VALUE_CHANGED: "value-changed";
-    readonly VALIDITY_CHANGED: "validity-changed";
-    readonly CLICKED: "clicked";
-    readonly ESP_SUBMIT: "esp-submit";
-    readonly ESP_SUBMIT_RESPONSE: "esp-submit-response";
-    readonly ESP_SUBMIT_ERROR: "esp-submit-error";
-    readonly ESP_TAB_CHANGED: "esp-tab-changed";
-    readonly ESP_TAB_UPDATED: "esp-tab-updated";
-    readonly ESP_TOGGLE: "esp-toggle";
-    readonly ESP_ACCORDION_CHANGE: "esp-accordion-change";
-    readonly DRAWER_OPENED: "drawer-opened";
-    readonly DRAWER_CLOSED: "drawer-closed";
-    readonly ESP_THEME_TOGGLE: "esp-theme-toggle";
-    readonly FLYOUT_OPENED: "flyout-opened";
-    readonly FLYOUT_CLOSED: "flyout-closed";
-    readonly FLYOUT_STATE_CHANGED: "flyout-state-changed";
-    readonly ESP_PAGE_WORKSPACE_RESIZE: "esp-page-workspace-resize";
-    readonly POPOVER_OPENED: "popover-opened";
-    readonly POPOVER_CLOSED: "popover-closed";
-    readonly GRID_EVENT: "grid-event";
+    readonly VALUE_CHANGED: "esp-value-changed";
+    readonly VALIDITY_CHANGED: "esp-validity-changed";
+    readonly CLICKED: "esp-clicked";
+    readonly ACTION_MENU_SELECT: "esp-action-menu-select";
+    readonly BURGER_OPENED: "esp-burger-opened";
+    readonly BURGER_CLOSED: "esp-burger-closed";
+    readonly DETAILS_TOGGLE: "esp-details-toggle";
+    readonly DETAILS_GROUP_CHANGE: "esp-details-group-change";
+    readonly DIALOG_OPENED: "esp-dialog-opened";
+    readonly DIALOG_CLOSING: "esp-dialog-closing";
+    readonly DIALOG_CLOSED: "esp-dialog-closed";
+    readonly FILE_UPLOAD_FILES_SELECTED: "esp-file-upload-files-selected";
+    readonly FLYOUT_OPENED: "esp-flyout-opened";
+    readonly FLYOUT_CLOSED: "esp-flyout-closed";
+    readonly FLYOUT_STATE_CHANGED: "esp-flyout-state-changed";
+    readonly FOCUS_PICKER_CHANGED: "esp-focus-picker-changed";
+    readonly FORM_DIALOG_CLOSE_REQUESTED: "esp-form-dialog-close-requested";
+    readonly FORM_SUBMIT: "esp-form-submit";
+    readonly FORM_SUBMIT_RESPONSE: "esp-form-submit-response";
+    readonly FORM_SUBMIT_ERROR: "esp-form-submit-error";
+    readonly GRID_EVENT: "esp-grid-event";
     readonly GRID_LOAD_START: "esp-grid-load-start";
     readonly GRID_LOAD_SUCCESS: "esp-grid-load-success";
     readonly GRID_LOAD_ERROR: "esp-grid-load-error";
     readonly GRID_ITEMS_CHANGED: "esp-grid-items-changed";
-    readonly DESTROY: "destroy";
-    readonly FILE_SELECTED: "file-selected";
-    readonly FILE_REMOVED: "file-removed";
-    readonly FILES_SELECTED: "files-selected";
-    readonly FILES_REJECTED: "files-rejected";
-    readonly UPLOAD_RETRY: "upload-retry";
-    readonly RETRY_UPLOAD: "retry-upload";
-    readonly IMAGES_REORDERED: "images-reordered";
-    readonly SEARCH_REQUESTED: "search-requested";
-    readonly RESULT_SELECTED: "result-selected";
-    readonly SEARCH_CLOSED: "search-closed";
-    readonly SELECTION_CHANGED: "selection-changed";
-    readonly CLOSE_MENU: "close-menu";
-    readonly REMOVE_IMAGE: "remove-image";
+    readonly HEADER_THEME_TOGGLE: "esp-header-theme-toggle";
+    readonly IMAGE_UPLOAD_FILE_SELECTED: "esp-image-upload-file-selected";
+    readonly IMAGE_UPLOAD_FILE_REMOVED: "esp-image-upload-file-removed";
+    readonly IMAGE_UPLOAD_FILES_REJECTED: "esp-image-upload-files-rejected";
+    readonly IMAGE_UPLOAD_RETRY: "esp-image-upload-retry";
+    readonly IMAGE_UPLOAD_IMAGES_REORDERED: "esp-image-upload-images-reordered";
+    readonly INFO_DESTROY: "esp-info-destroy";
+    readonly INPUT_ICON_CLICKED: "esp-input-icon-clicked";
+    readonly LIGHTBOX_CHANGED: "esp-lightbox-changed";
+    readonly MENU_GROUP_TOGGLE: "esp-menu-group-toggle";
+    readonly MENU_DRAWER_OPENED: "esp-menu-drawer-opened";
+    readonly MENU_DRAWER_CLOSED: "esp-menu-drawer-closed";
+    readonly PAGE_WORKSPACE_RESIZE: "esp-page-workspace-resize";
+    readonly PICKER_MENU_SELECTION_CHANGED: "esp-picker-menu-selection-changed";
+    readonly PICKER_MENU_CLOSE_REQUESTED: "esp-picker-menu-close-requested";
+    readonly PICKER_MENU_RANGE_CHANGED: "esp-picker-menu-range-changed";
+    readonly POPOVER_OPENED: "esp-popover-opened";
+    readonly POPOVER_CLOSED: "esp-popover-closed";
+    readonly SEARCH_REQUESTED: "esp-search-requested";
+    readonly SEARCH_RESULT_SELECTED: "esp-search-result-selected";
+    readonly SEARCH_CLOSED: "esp-search-closed";
+    readonly TAB_GROUP_CHANGED: "esp-tab-group-changed";
+    readonly TREE_SELECT: "esp-tree-select";
+    readonly TREE_TOGGLE: "esp-tree-toggle";
+    readonly TREE_GRAFT_REQUEST: "esp-tree-graft-request";
+    readonly TREE_GRAFT: "esp-tree-graft";
+    readonly TREE_EDIT: "esp-tree-edit";
+    readonly TREE_DELETE: "esp-tree-delete";
+    readonly TREE_MOVE_UP: "esp-tree-move-up";
+    readonly TREE_MOVE_DOWN: "esp-tree-move-down";
+    readonly TREE_CUT: "esp-tree-cut";
+    readonly TREE_PASTE_CHILD: "esp-tree-paste-child";
+    readonly TREE_GRAFT_INPUT: "esp-tree-graft-input";
 };
 /**
- * Detail for `value-changed` on toggle controls
+ * Detail for `esp-value-changed` on toggle controls
  * (`esp-checkbox`, `esp-switch`, `esp-radio-button`).
  *
  * @docUrl /api/toggle-value-changed-detail
@@ -112,7 +135,7 @@ export interface ToggleValueChangedDetail {
     value: string;
 }
 /**
- * Detail for `value-changed` on `esp-color-picker`.
+ * Detail for `esp-value-changed` on `esp-color-picker`.
  *
  * @docUrl /api/color-value-changed-detail
  * @menuGroup Event Details
@@ -125,7 +148,7 @@ export interface ColorValueChangedDetail {
     lightness: number;
 }
 /**
- * Detail for `esp-submit` on `esp-form`.
+ * Detail for `esp-form-submit` on `esp-form`.
  *
  * @docUrl /api/esp-submit-detail
  * @menuGroup Event Details
@@ -136,7 +159,7 @@ export interface EspSubmitDetail {
     form: HTMLFormElement;
 }
 /**
- * Detail for `esp-submit-response` on `esp-form`.
+ * Detail for `esp-form-submit-response` on `esp-form`.
  *
  * @docUrl /api/esp-submit-response-detail
  * @menuGroup Event Details
@@ -147,7 +170,7 @@ export interface EspSubmitResponseDetail {
     ok: boolean;
 }
 /**
- * Detail for `esp-submit-error` on `esp-form`.
+ * Detail for `esp-form-submit-error` on `esp-form`.
  *
  * @docUrl /api/esp-submit-error-detail
  * @menuGroup Event Details
@@ -157,7 +180,7 @@ export interface EspSubmitErrorDetail {
     error: unknown;
 }
 /**
- * Detail for `esp-tab-changed` on `esp-tab-group`.
+ * Detail for `esp-tab-group-changed` on `esp-tab-group`.
  *
  * @docUrl /api/esp-tab-changed-detail
  * @menuGroup Event Details
@@ -168,7 +191,7 @@ export interface EspTabChangedDetail {
     label: string;
 }
 /**
- * Detail for `esp-toggle` on `esp-details`.
+ * Detail for `esp-details-toggle` on `esp-details`.
  *
  * @docUrl /api/esp-toggle-detail
  * @menuGroup Event Details
@@ -178,7 +201,7 @@ export interface EspToggleDetail {
     open: boolean;
 }
 /**
- * Detail for `esp-accordion-change` on `esp-details-group`.
+ * Detail for `esp-details-group-change` on `esp-details-group`.
  *
  * @docUrl /api/esp-accordion-change-detail
  * @menuGroup Event Details
@@ -195,6 +218,7 @@ export interface EspalierButtonEventMap {
 export interface EspalierInputEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<string>;
     [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
+    [ESP_EVENTS.INPUT_ICON_CLICKED]: CustomEvent<void>;
 }
 /** Events fired by `<esp-textarea>`. */
 export interface EspalierTextareaEventMap {
@@ -219,7 +243,6 @@ export interface EspalierSwitchEventMap {
 /** Events fired by `<esp-radio-button>`. */
 export interface EspalierRadioButtonEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<ToggleValueChangedDetail>;
-    [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
 }
 /** Events fired by `<esp-radio-button-group>`. */
 export interface EspalierRadioButtonGroupEventMap {
@@ -239,12 +262,10 @@ export interface EspalierPickSomeEventMap {
 /** Events fired by `<esp-color-picker>`. */
 export interface EspalierColorPickerEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<ColorValueChangedDetail>;
-    [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
 }
 /** Events fired by `<esp-font-picker>`. */
 export interface EspalierFontPickerEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<FontPickerValueChangedDetail>;
-    [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
 }
 /** Events fired by `<esp-date-picker>`. */
 export interface EspalierDatePickerEventMap {
@@ -253,31 +274,56 @@ export interface EspalierDatePickerEventMap {
 }
 /** Events fired by `<esp-form>`. */
 export interface EspalierFormEventMap {
-    [ESP_EVENTS.ESP_SUBMIT]: CustomEvent<EspSubmitDetail>;
-    [ESP_EVENTS.ESP_SUBMIT_RESPONSE]: CustomEvent<EspSubmitResponseDetail>;
-    [ESP_EVENTS.ESP_SUBMIT_ERROR]: CustomEvent<EspSubmitErrorDetail>;
+    [ESP_EVENTS.FORM_DIALOG_CLOSE_REQUESTED]: CustomEvent<Record<string, never>>;
+    [ESP_EVENTS.FORM_SUBMIT]: CustomEvent<EspSubmitDetail>;
+    [ESP_EVENTS.FORM_SUBMIT_RESPONSE]: CustomEvent<EspSubmitResponseDetail>;
+    [ESP_EVENTS.FORM_SUBMIT_ERROR]: CustomEvent<EspSubmitErrorDetail>;
+}
+/** Events fired by `<esp-action-menu>`. */
+export interface EspalierActionMenuEventMap {
+    [ESP_EVENTS.ACTION_MENU_SELECT]: CustomEvent<ActionMenuSelectDetail>;
 }
 /** Events fired by `<esp-tab-group>`. */
 export interface EspalierTabGroupEventMap {
-    [ESP_EVENTS.ESP_TAB_CHANGED]: CustomEvent<EspTabChangedDetail>;
+    [ESP_EVENTS.TAB_GROUP_CHANGED]: CustomEvent<EspTabChangedDetail>;
 }
 /** Events fired by `<esp-details>`. */
 export interface EspalierDetailsEventMap {
-    [ESP_EVENTS.ESP_TOGGLE]: CustomEvent<EspToggleDetail>;
+    [ESP_EVENTS.DETAILS_TOGGLE]: CustomEvent<EspToggleDetail>;
 }
 /** Events fired by `<esp-details-group>`. */
 export interface EspalierDetailsGroupEventMap {
-    [ESP_EVENTS.ESP_ACCORDION_CHANGE]: CustomEvent<EspAccordionChangeDetail>;
+    [ESP_EVENTS.DETAILS_GROUP_CHANGE]: CustomEvent<EspAccordionChangeDetail>;
 }
 /** Events fired by `<esp-popover>`. */
 export interface EspalierPopoverEventMap {
     [ESP_EVENTS.POPOVER_OPENED]: CustomEvent<void>;
     [ESP_EVENTS.POPOVER_CLOSED]: CustomEvent<void>;
 }
+/** Events fired by `<esp-dialog>`. */
+export interface EspalierDialogEventMap {
+    [ESP_EVENTS.DIALOG_OPENED]: CustomEvent<Record<string, never>>;
+    [ESP_EVENTS.DIALOG_CLOSING]: CustomEvent<{
+        reason: "escape" | "close-dialog" | "api";
+    }>;
+    [ESP_EVENTS.DIALOG_CLOSED]: CustomEvent<{
+        reason: "escape" | "close-dialog" | "api";
+    }>;
+}
 /** Events fired by `<esp-menu>`. */
 export interface EspalierMenuEventMap {
-    [ESP_EVENTS.DRAWER_OPENED]: CustomEvent<void>;
-    [ESP_EVENTS.DRAWER_CLOSED]: CustomEvent<void>;
+    [ESP_EVENTS.MENU_DRAWER_OPENED]: CustomEvent<void>;
+    [ESP_EVENTS.MENU_DRAWER_CLOSED]: CustomEvent<void>;
+}
+/** Events fired by `<esp-menu-group>`. */
+export interface EspalierMenuGroupEventMap {
+    [ESP_EVENTS.MENU_GROUP_TOGGLE]: CustomEvent<{
+        open: boolean;
+    }>;
+}
+/** Events fired by `<esp-menu-item>`. */
+export interface EspalierMenuItemEventMap {
+    [ESP_EVENTS.CLICKED]: CustomEvent<Record<string, never>>;
 }
 /** Events fired by `<esp-flyout>`. */
 export interface EspalierFlyoutEventMap {
@@ -289,7 +335,11 @@ export interface EspalierFlyoutEventMap {
 }
 /** Events fired by `<esp-page>`. */
 export interface EspalierPageEventMap {
-    [ESP_EVENTS.ESP_PAGE_WORKSPACE_RESIZE]: CustomEvent<PageWorkspaceResizeDetail>;
+    [ESP_EVENTS.PAGE_WORKSPACE_RESIZE]: CustomEvent<PageWorkspaceResizeDetail>;
+}
+/** Events fired by `<esp-focus-picker>`. */
+export interface EspalierFocusPickerEventMap {
+    [ESP_EVENTS.FOCUS_PICKER_CHANGED]: CustomEvent<FocusChangedDetail>;
 }
 /** Events fired by `<esp-header-button>`. */
 export interface EspalierHeaderButtonEventMap {
@@ -297,7 +347,7 @@ export interface EspalierHeaderButtonEventMap {
 }
 /** Events fired by `<esp-header>`. */
 export interface EspalierHeaderEventMap {
-    [ESP_EVENTS.ESP_THEME_TOGGLE]: CustomEvent<EspThemeToggleEventDetail>;
+    [ESP_EVENTS.HEADER_THEME_TOGGLE]: CustomEvent<EspThemeToggleEventDetail>;
 }
 /** Events fired by `<esp-grid>`. */
 export interface EspalierGridEventMap {
@@ -309,10 +359,16 @@ export interface EspalierGridEventMap {
 }
 /** Events fired by `<esp-info>`. */
 export interface EspalierInfoEventMap {
-    [ESP_EVENTS.DESTROY]: CustomEvent<DestroyEspalierInfo>;
+    [ESP_EVENTS.INFO_DESTROY]: CustomEvent<DestroyEspalierInfo>;
+}
+/** Events fired by `<esp-lightbox>`. */
+export interface EspalierLightboxEventMap {
+    [ESP_EVENTS.LIGHTBOX_CHANGED]: CustomEvent<{
+        index: number;
+    }>;
 }
 /**
- * Detail for `images-reordered` on `esp-image-upload`.
+ * Detail for `esp-image-upload-images-reordered` on `esp-image-upload`.
  *
  * @docUrl /api/images-reordered-detail
  * @menuGroup Event Details
@@ -322,7 +378,7 @@ export interface ImagesReorderedDetail {
     images: EspalierUploadImage[];
 }
 /**
- * Detail for `files-rejected` on `esp-image-upload`.
+ * Detail for `esp-image-upload-files-rejected` on `esp-image-upload`.
  *
  * Fired when some of the user's selected files are skipped. Route it to a
  * toast or inline message if the component's built-in notice is not enough.
@@ -339,23 +395,33 @@ export interface FilesRejectedDetail {
 }
 /** Events fired by `<esp-image-upload>`. */
 export interface EspalierImageUploadEventMap {
-    [ESP_EVENTS.FILE_SELECTED]: CustomEvent<UploadEventDetail>;
-    [ESP_EVENTS.FILE_REMOVED]: CustomEvent<EspalierUploadImage>;
-    [ESP_EVENTS.FILES_REJECTED]: CustomEvent<FilesRejectedDetail>;
-    [ESP_EVENTS.UPLOAD_RETRY]: CustomEvent<UploadEventDetail>;
-    [ESP_EVENTS.IMAGES_REORDERED]: CustomEvent<ImagesReorderedDetail>;
+    [ESP_EVENTS.IMAGE_UPLOAD_FILE_SELECTED]: CustomEvent<UploadEventDetail>;
+    [ESP_EVENTS.IMAGE_UPLOAD_FILE_REMOVED]: CustomEvent<EspalierUploadImage>;
+    [ESP_EVENTS.IMAGE_UPLOAD_FILES_REJECTED]: CustomEvent<FilesRejectedDetail>;
+    [ESP_EVENTS.IMAGE_UPLOAD_RETRY]: CustomEvent<UploadEventDetail>;
+    [ESP_EVENTS.IMAGE_UPLOAD_IMAGES_REORDERED]: CustomEvent<ImagesReorderedDetail>;
 }
 /** Events fired by `<esp-file-upload>`. */
 export interface EspalierFileUploadEventMap {
-    [ESP_EVENTS.FILES_SELECTED]: CustomEvent<FileList>;
+    [ESP_EVENTS.FILE_UPLOAD_FILES_SELECTED]: CustomEvent<FileList>;
 }
 /** Events fired by `<esp-burger>`. */
 export interface EspalierBurgerEventMap {
-    [ESP_EVENTS.DRAWER_OPENED]: CustomEvent<void>;
-    [ESP_EVENTS.DRAWER_CLOSED]: CustomEvent<void>;
+    [ESP_EVENTS.BURGER_OPENED]: CustomEvent<void>;
+    [ESP_EVENTS.BURGER_CLOSED]: CustomEvent<void>;
+}
+/** Events fired by `<esp-picker-menu>`. */
+export interface EspalierPickerMenuEventMap {
+    [ESP_EVENTS.PICKER_MENU_SELECTION_CHANGED]: CustomEvent<PickerItem[]>;
+    [ESP_EVENTS.PICKER_MENU_CLOSE_REQUESTED]: CustomEvent<PickerItem[]>;
+    [ESP_EVENTS.PICKER_MENU_RANGE_CHANGED]: CustomEvent<{
+        first: number;
+        last: number;
+        items: PickerItem[];
+    }>;
 }
 /**
- * Detail for `search-requested` on `esp-search`.
+ * Detail for `esp-search-requested` on `esp-search`.
  *
  * @docUrl /api/search-requested-detail
  * @menuGroup Event Details
@@ -366,7 +432,7 @@ export interface SearchRequestedDetail {
     query: string;
 }
 /**
- * Detail for `result-selected` on `esp-search`.
+ * Detail for `esp-search-result-selected` on `esp-search`.
  *
  * @docUrl /api/result-selected-detail
  * @menuGroup Event Details
@@ -384,6 +450,21 @@ export interface EspalierSliderEventMap {
 /** Events fired by `<esp-search>`. */
 export interface EspalierSearchEventMap {
     [ESP_EVENTS.SEARCH_REQUESTED]: CustomEvent<SearchRequestedDetail>;
-    [ESP_EVENTS.RESULT_SELECTED]: CustomEvent<ResultSelectedDetail>;
+    [ESP_EVENTS.SEARCH_RESULT_SELECTED]: CustomEvent<ResultSelectedDetail>;
     [ESP_EVENTS.SEARCH_CLOSED]: CustomEvent<Record<string, never>>;
+}
+/** Events fired by `<esp-tree>`. */
+export interface EspalierTreeEventMap {
+    [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
+    [ESP_EVENTS.TREE_SELECT]: CustomEvent<EspTreeSelectDetail>;
+    [ESP_EVENTS.TREE_TOGGLE]: CustomEvent<EspTreeToggleDetail>;
+    [ESP_EVENTS.TREE_GRAFT_REQUEST]: CustomEvent<EspTreeGraftRequestDetail>;
+    [ESP_EVENTS.TREE_GRAFT]: CustomEvent<EspTreeGraftDetail>;
+    [ESP_EVENTS.TREE_EDIT]: CustomEvent<EspTreeEditDetail>;
+    [ESP_EVENTS.TREE_DELETE]: CustomEvent<EspTreeNodeActionDetail>;
+    [ESP_EVENTS.TREE_MOVE_UP]: CustomEvent<EspTreeNodeActionDetail>;
+    [ESP_EVENTS.TREE_MOVE_DOWN]: CustomEvent<EspTreeNodeActionDetail>;
+    [ESP_EVENTS.TREE_CUT]: CustomEvent<EspTreeNodeActionDetail>;
+    [ESP_EVENTS.TREE_PASTE_CHILD]: CustomEvent<EspTreeNodeActionDetail>;
+    [ESP_EVENTS.TREE_GRAFT_INPUT]: CustomEvent<EspTreeGraftInputDetail>;
 }

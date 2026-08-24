@@ -5,37 +5,6 @@
  */
 export { getSpaceAboveBelow, type SpaceAboveBelow } from "./viewport.js";
 /**
- * Scroll an element into view within a scrollable container.
- *
- * @deprecated No longer used by Espalier. Prefer `Element.scrollIntoView` with
- * `block: "nearest"`, which the platform implements natively. Scheduled for
- * removal in the next major release.
- *
- * @param container - The scrollable container element
- * @param element - The element to scroll into view
- * @param up - If true, scroll upward; if false, scroll downward
- */
-export declare function scrollElementIntoView(container: HTMLElement, element: HTMLElement, up: boolean): void;
-/**
- * Whether an element or any ancestor is fixed-positioned, crossing shadow
- * boundaries.
- *
- * @deprecated No longer used by Espalier. Scheduled for removal in the next
- * major release.
- *
- * @param element - The element to check
- */
-export declare function isFixedInShadowDom(element: HTMLElement): boolean;
-/**
- * Whether an element or any light-DOM ancestor is fixed-positioned.
- *
- * @deprecated No longer used by Espalier. Scheduled for removal in the next
- * major release.
- *
- * @param element - The element to check
- */
-export declare function isFixedOrAncestorFixed(element: HTMLElement): boolean;
-/**
  * Traverses up the DOM tree from a given element to find the closest matching element.
  * Handles traversal across Shadow DOM boundaries to locate elements in parent scopes.
  *

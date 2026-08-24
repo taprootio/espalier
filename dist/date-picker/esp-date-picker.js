@@ -95,7 +95,7 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
           placeholder="Hour"
           width="3.25em"
           .value=${String(this._hour)}
-          @value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._hour=Number(e.detail.value),this._commitTime())}}
+          @esp-value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._hour=Number(e.detail.value),this._commitTime())}}
         >
           ${I.map(e=>c`
               <esp-picker-item
@@ -113,7 +113,7 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
           placeholder="Min"
           width="3.25em"
           .value=${String(this._minute)}
-          @value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._minute=Number(e.detail.value),this._commitTime())}}
+          @esp-value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._minute=Number(e.detail.value),this._commitTime())}}
         >
           ${B.map(e=>c`
               <esp-picker-item
@@ -129,7 +129,7 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
           placeholder="AM/PM"
           width="3.75em"
           .value=${this._period}
-          @value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._period=e.detail.value,this._commitTime())}}
+          @esp-value-changed=${e=>{e.stopPropagation(),e.detail?.value&&(this._period=e.detail.value,this._commitTime())}}
         >
           <esp-picker-item
             text="AM"
@@ -145,14 +145,14 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
 
         <esp-button
           icon-only
-          @clicked=${()=>{this._closePopover(),this.inputRef.value?.focus()}}
+          @esp-clicked=${()=>{this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${b}
         </esp-button>
         <esp-button
           icon-only
           intent="danger"
-          @clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
+          @esp-clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${S}
         </esp-button>
@@ -161,14 +161,14 @@ var n=function(m,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
       <div class="popover-actions">
         <esp-button
           icon-only
-          @clicked=${()=>{this._closePopover(),this.inputRef.value?.focus()}}
+          @esp-clicked=${()=>{this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${b}
         </esp-button>
         <esp-button
           icon-only
           intent="danger"
-          @clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
+          @esp-clicked=${()=>{this.value=this._valueOnOpen,this._closePopover(),this.inputRef.value?.focus()}}
         >
           ${S}
         </esp-button>

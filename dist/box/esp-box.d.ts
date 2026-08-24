@@ -113,7 +113,7 @@ export declare class EspalierBox extends EspalierElementBase {
      *   let fullScreen = false;
      *   const theBox = findByTagName("esp-box")[0];
      *   const theButton = findByTagName("esp-button")[0];
-     *   theButton.addEventListener("clicked", () => {
+     *   theButton.addEventListener("esp-clicked", () => {
      *     fullScreen = !fullScreen;
      *
      *     if(fullScreen) {

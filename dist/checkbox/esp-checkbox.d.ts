@@ -33,9 +33,11 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  *
  * @slot - The label text for the checkbox.
  *
- * @event {CustomEvent<{ checked: boolean; value: string }>} value-changed -
+ * @event {CustomEvent<{ checked: boolean; value: string }>} esp-value-changed -
  * Fired when the checkbox is toggled. The detail contains the new
  * `checked` state and the checkbox `value`.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @cssprop --esp-checkbox-size - The width and height of the
  * checkbox icon. Defaults to `var(--esp-size-normal-to-medium)`.
@@ -102,7 +104,7 @@ export declare class EspalierCheckbox extends EspalierElementBase implements Esp
      * Focus the checkbox control.
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

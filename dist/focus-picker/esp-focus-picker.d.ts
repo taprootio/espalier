@@ -2,7 +2,7 @@ import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type FocusPoint } from "../image/image-focus.js";
 import "../image/esp-image.js";
-export declare const FOCUS_CHANGED_EVENT = "focus-changed";
+export declare const FOCUS_CHANGED_EVENT: "esp-focus-picker-changed";
 export type FocusChangedDetail = FocusPoint;
 /**
  * A keyboard- and pointer-operable focal-point authoring control with live
@@ -25,13 +25,13 @@ export type FocusChangedDetail = FocusPoint;
  * </p>
  * <script>
  *   const picker = findByTagName("esp-focus-picker")[0];
- *   picker.addEventListener("focus-changed", (event) => {
+ *   picker.addEventListener("esp-focus-picker-changed", (event) => {
  *     localStorage.setItem("banner-focus", JSON.stringify(event.detail));
  *   });
  * </script>
  * ```
  *
- * @event {CustomEvent<{x: number, y: number}>} focus-changed - Bubbles across
+ * @event {CustomEvent<{x: number, y: number}>} esp-focus-picker-changed - Bubbles across
  * shadow boundaries after every pointer or keyboard adjustment.
  * @csspart picker - The complete control layout.
  * @csspart stage - The source-image authoring surface.
@@ -72,6 +72,6 @@ declare global {
         "esp-focus-picker": EspalierFocusPicker;
     }
     interface HTMLElementEventMap {
-        "focus-changed": CustomEvent<FocusChangedDetail>;
+        "esp-focus-picker-changed": CustomEvent<FocusChangedDetail>;
     }
 }

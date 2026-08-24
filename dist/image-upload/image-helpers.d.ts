@@ -31,7 +31,7 @@ export type ExistingUploadImage = UploadImageBase & {
  * Narrow on `source` to access variant-specific fields.
  */
 export type EspalierUploadImage = SelectedUploadImage | ExistingUploadImage;
-/** Callbacks attached to `file-selected` and `upload-retry` event details. */
+/** Callbacks attached to `esp-image-upload-file-selected` and `esp-image-upload-retry` event details. */
 export interface UploadCallbacks {
     /** Update the progress overlay (0–100 determinate, `null` for indeterminate). */
     onProgress: (value: number | null) => void;
@@ -40,7 +40,7 @@ export interface UploadCallbacks {
     /** Mark upload as failed. Shows an error overlay with a retry button. */
     onFailed: () => void;
 }
-/** Detail type for `file-selected` and `upload-retry` events. */
+/** Detail type for `esp-image-upload-file-selected` and `esp-image-upload-retry` events. */
 export interface UploadEventDetail extends UploadCallbacks {
     /** The actual image object stored in `uploadedImages`. */
     image: SelectedUploadImage;

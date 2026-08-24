@@ -1,10 +1,10 @@
-var i=function(l,e,t,s){var a=arguments.length,r=a<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,t):s,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(l,e,t,s);else for(var d=l.length-1;d>=0;d--)(p=l[d])&&(r=(a<3?p(r):a>3?p(e,t,r):p(e,t))||r);return a>3&&r&&Object.defineProperty(e,t,r),r};import{css as g,html as c,nothing as v}from"lit";import{customElement as b,property as n}from"lit/decorators.js";import{classMap as m}from"lit/directives/class-map.js";import{createRef as f,ref as w}from"lit/directives/ref.js";import"../button/esp-button.js";import"../progress/esp-progress.js";import{EspalierElementBase as h}from"../shared/esp-element-base.js";import{ESP_EVENTS as u}from"../shared/events.js";let o=class extends h{constructor(){super(...arguments),this.image=f(),this.url="",this.alt="",this.failed=!1}render(){const e=this.progress!==void 0,t=this.failed&&!e,s=e?this.alt?`Cancel upload and remove ${this.alt}`:"Cancel upload and remove image":this.alt?`Remove ${this.alt}`:"Remove image";return c`<div>
-      <img ${w(this.image)} src=${this.url} alt=${this.alt} draggable="false" decoding="async" />
+var i=function(l,e,s,t){var a=arguments.length,r=a<3?e:t===null?t=Object.getOwnPropertyDescriptor(e,s):t,p;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(l,e,s,t);else for(var d=l.length-1;d>=0;d--)(p=l[d])&&(r=(a<3?p(r):a>3?p(e,s,r):p(e,s))||r);return a>3&&r&&Object.defineProperty(e,s,r),r};import{css as g,html as c,nothing as v}from"lit";import{customElement as u,property as n}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{createRef as m,ref as f}from"lit/directives/ref.js";import"../button/esp-button.js";import"../progress/esp-progress.js";import{EspalierElementBase as h}from"../shared/esp-element-base.js";const w="esp-internal-image-preview-remove",y="esp-internal-image-preview-retry";let o=class extends h{constructor(){super(...arguments),this.image=m(),this.url="",this.alt="",this.failed=!1}render(){const e=this.progress!==void 0,s=this.failed&&!e,t=e?this.alt?`Cancel upload and remove ${this.alt}`:"Cancel upload and remove image":this.alt?`Remove ${this.alt}`:"Remove image";return c`<div>
+      <img ${f(this.image)} src=${this.url} alt=${this.alt} draggable="false" decoding="async" />
       <button
         type="button"
-        aria-label=${s}
-        class=${m({uploading:e})}
-        @click=${()=>{this.dispatchEvent(new CustomEvent(u.REMOVE_IMAGE,{detail:this,bubbles:!0,composed:!0}))}}
+        aria-label=${t}
+        class=${b({uploading:e})}
+        @click=${()=>{this.dispatchEvent(new CustomEvent(w,{detail:this,bubbles:!0,composed:!0}))}}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ var i=function(l,e,t,s){var a=arguments.length,r=a<3?e:s===null?s=Object.getOwnP
               ></esp-progress>
             </div>
           `:v}
-      ${t?c`
+      ${s?c`
             <div class="upload-overlay failed">
               <svg
                 class="alert-icon"
@@ -55,7 +55,7 @@ var i=function(l,e,t,s){var a=arguments.length,r=a<3?e:s===null?s=Object.getOwnP
                 class="retry-btn"
                 collapsed
                 label="Retry upload"
-                @clicked=${a=>{a.stopPropagation(),this.dispatchEvent(new CustomEvent(u.RETRY_UPLOAD,{detail:this,bubbles:!0,composed:!0}))}}
+                @esp-clicked=${a=>{a.stopPropagation(),this.dispatchEvent(new CustomEvent(y,{detail:this,bubbles:!0,composed:!0}))}}
               >
                 Retry
               </esp-button>
@@ -169,4 +169,4 @@ var i=function(l,e,t,s){var a=arguments.length,r=a<3?e:s===null?s=Object.getOwnP
         --esp-color-action-text: var(--esp-image-preview-overlay-text, var(--esp-color-layer-1));
         --esp-color-border: var(--esp-image-preview-overlay-text, var(--esp-color-layer-1));
       }
-    `],i([n()],o.prototype,"url",void 0),i([n()],o.prototype,"alt",void 0),i([n({type:Number})],o.prototype,"progress",void 0),i([n({type:Boolean})],o.prototype,"failed",void 0),o=i([b("esp-image-preview")],o);export{o as EspalierImagePreview};
+    `],i([n()],o.prototype,"url",void 0),i([n()],o.prototype,"alt",void 0),i([n({type:Number})],o.prototype,"progress",void 0),i([n({type:Boolean})],o.prototype,"failed",void 0),o=i([u("esp-image-preview")],o);export{o as EspalierImagePreview};

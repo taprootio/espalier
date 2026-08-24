@@ -4,11 +4,11 @@ import "../shared/virtualizer/lit-virtualizer.js";
 /**
  * A menu used by Espalier pickers when choosing option(s).
  *
- * @event {CustomEvent<Array<PickerItem>>} selection-changed - Emitted when
+ * @event {CustomEvent<Array<PickerItem>>} esp-picker-menu-selection-changed - Emitted when
  * the user changes the selected item(s). If there are initially selected items,
  * emitted on first update.
- * @event {CustomEvent<Array<PickerItem>>} close-menu - Emitted in single-select mode when the menu should close after a selection is made. Bubbles and is composed so parent pickers can observe it across shadow boundaries.
- * @event {CustomEvent<{ first: number; last: number; items: Array<PickerItem> }>} range-changed - Emitted when the virtualized visible item range changes.
+ * @event {CustomEvent<Array<PickerItem>>} esp-picker-menu-close-requested - Emitted in single-select mode when the menu should close after a selection is made. Bubbles and is composed so parent pickers can observe it across shadow boundaries.
+ * @event {CustomEvent<{ first: number; last: number; items: Array<PickerItem> }>} esp-picker-menu-range-changed - Emitted when the virtualized visible item range changes.
  *
  * ```html
  * <esp-box>
@@ -22,7 +22,7 @@ import "../shared/virtualizer/lit-virtualizer.js";
  * <script>
  *   const theMenu = findByTagName("esp-picker-menu")[0];
  *   const theHeader = findByTagName("h4")[0];
- *   theMenu.addEventListener("selection-changed", (ev) => {
+ *   theMenu.addEventListener("esp-picker-menu-selection-changed", (ev) => {
  *     theHeader.innerText = ev.detail.length == 0 ? "No selected items" :
  *       ev.detail.map(pi => pi.text).join(", ");
  *   });

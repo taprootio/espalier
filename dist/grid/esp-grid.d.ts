@@ -13,10 +13,10 @@ export type GridClickedEvent = {
     event: string;
     data: GridRow;
 };
-export declare const GRID_LOAD_START_EVENT = "esp-grid-load-start";
-export declare const GRID_LOAD_SUCCESS_EVENT = "esp-grid-load-success";
-export declare const GRID_LOAD_ERROR_EVENT = "esp-grid-load-error";
-export declare const GRID_ITEMS_CHANGED_EVENT = "esp-grid-items-changed";
+export declare const GRID_LOAD_START_EVENT: "esp-grid-load-start";
+export declare const GRID_LOAD_SUCCESS_EVENT: "esp-grid-load-success";
+export declare const GRID_LOAD_ERROR_EVENT: "esp-grid-load-error";
+export declare const GRID_ITEMS_CHANGED_EVENT: "esp-grid-items-changed";
 /**
  * Parameters passed to the `fetchPage` callback when the grid
  * is in cursor-based infinite scroll mode.
@@ -99,7 +99,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * </esp-grid>
  * <script>
  *   const theGrid = findByTagName("esp-grid")[0];
- *   theGrid.addEventListener("grid-event", (event) => {
+ *   theGrid.addEventListener("esp-grid-event", (event) => {
  *     showToast({
  *       message: `${event.detail.event} for ${event.detail.data.first_name} ${event.detail.data.last_name}.`,
  *       icon: "info-i",
@@ -136,7 +136,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * </esp-grid>
  * <script>
  *   const theGrid = findByTagName("esp-grid")[0];
- *   theGrid.addEventListener("grid-event", (event) => {
+ *   theGrid.addEventListener("esp-grid-event", (event) => {
  *     showToast({
  *       message: `You clicked on ${event.detail.data.first_name} ${event.detail.data.last_name}.`,
  *       icon: "info-i",
@@ -228,7 +228,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  *     items: currentData,
  *     nextCursor: null,
  *   });
- *   btn.addEventListener("clicked", () => {
+ *   btn.addEventListener("esp-clicked", () => {
  *     currentData = currentData === oneItem ? tenItems : oneItem;
  *     btn.label = currentData === oneItem ? "Load more" : "Load less";
  *     theGrid.reload();
@@ -318,7 +318,7 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * </esp-grid>
  * ```
  *
- * @event {CustomEvent<GridClickedEvent>} grid-event - The
+ * @event {CustomEvent<GridClickedEvent>} esp-grid-event - The
  * grid listens for click events, and if a child element has a `grid-event`
  * attribute, grid publishes an event with the grid, clicked element, and
  * associated data.
@@ -462,7 +462,7 @@ export declare class EspalierGrid extends EspalierElementBase {
      * <script>
      *   const thePage = document.getElementsByTagName("esp-page")[0];
      *   const theGrid = findByTagName("esp-grid")[0];
-     *   theGrid.addEventListener("grid-event", (event) => {
+     *   theGrid.addEventListener("esp-grid-event", (event) => {
      *     if(event.detail.event === "trash-button-clicked") {
      *       theGrid.delete(item => item.id === event.detail.data.id);
      *     }
@@ -492,7 +492,7 @@ export declare class EspalierGrid extends EspalierElementBase {
      * <script>
      *   const thePage = document.getElementsByTagName("esp-page")[0];
      *   const theGrid = findByTagName("esp-grid")[0];
-     *   theGrid.addEventListener("grid-event", (event) => {
+     *   theGrid.addEventListener("esp-grid-event", (event) => {
      *     if(event.detail.event === "replace-button-clicked") {
      *       const newObject = { ...event.detail.data, first_name: "Replaced", last_name: "User" };
      *       theGrid.addOrReplace(item => item.id === event.detail.data.id, newObject);

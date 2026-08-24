@@ -12,22 +12,22 @@ import { LitElement } from "lit";
  * @cssprop --esp-color-burger-opened - The color of the burger lines when open.
  * @cssprop --esp-color-burger-opened-hover - The hover color of the burger lines when open.
  * @cssprop --esp-size-burger-stroke - The stroke width of the burger lines.
- * @event {CustomEvent} opened - Emitted when the button is clicked and the image changes from a burger to an X.
- * @event {CustomEvent} closed - Emitted when the button is clicked and the image changes from an X to a burger.
+ * @event {CustomEvent} esp-burger-opened - Emitted when the button is clicked and the image changes from a burger to an X.
+ * @event {CustomEvent} esp-burger-closed - Emitted when the button is clicked and the image changes from an X to a burger.
  *
  * ```html
  * <esp-burger></esp-burger>
  * <script>
  *   const theBurger = findByTagName("esp-burger")[0];
  *
- *   theBurger.addEventListener("opened", () => {
+ *   theBurger.addEventListener("esp-burger-opened", () => {
  *     showToast({
  *       message: "It would be a good time to show the menu. This message will self-destruct in 4 seconds...",
  *       icon: "info-i",
  *       duration: 4
  *     });
  *   });
- *   theBurger.addEventListener("closed", () => {
+ *   theBurger.addEventListener("esp-burger-closed", () => {
  *     showToast({
  *       message: "It would be a good time to hide the menu. This message will self-destruct in 4 seconds...",
  *       icon: "info-i",

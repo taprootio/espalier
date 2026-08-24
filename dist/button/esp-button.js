@@ -1,4 +1,4 @@
-var n=function(h,t,r,o){var a=arguments.length,i=a<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,r):o,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(h,t,r,o);else for(var c=h.length-1;c>=0;c--)(d=h[c])&&(i=(a<3?d(i):a>3?d(t,r,i):d(t,r))||i);return a>3&&i&&Object.defineProperty(t,r,i),i};import{css as f,html as p,nothing as l}from"lit";import{customElement as g,eventOptions as m,property as s,state as v}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ref as y}from"lit/directives/ref.js";import{getIconHrefForHost as w}from"../shared/intent-values.js";import{SlottedIconController as x}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as k}from"../shared/svgs/render-sprite-icon.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as T}from"./action-state-lightness.js";const S=p`<svg
+var n=function(h,t,r,o){var a=arguments.length,i=a<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,r):o,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(h,t,r,o);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(i=(a<3?d(i):a>3?d(t,r,i):d(t,r))||i);return a>3&&i&&Object.defineProperty(t,r,i),i};import{css as f,html as c,nothing as l}from"lit";import{customElement as g,eventOptions as m,property as s,state as v}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ESP_EVENTS as y}from"../shared/events.js";import{ref as w}from"lit/directives/ref.js";import{getIconHrefForHost as x}from"../shared/intent-values.js";import{SlottedIconController as k}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as T}from"../shared/svgs/render-sprite-icon.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as S}from"./action-state-lightness.js";const $=c`<svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   fill="none"
@@ -10,13 +10,13 @@ var n=function(h,t,r,o){var a=arguments.length,i=a<3?t:o===null?o=Object.getOwnP
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>`;let e=class extends b{constructor(){super(...arguments),this.iconSlot=new x(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.formNoValidate=!1,this.buildIcon=t=>this.loading?p` <span>${S}</span> `:p`
+</svg>`;let e=class extends b{constructor(){super(...arguments),this.iconSlot=new k(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.formNoValidate=!1,this.buildIcon=t=>this.loading?c` <span>${$}</span> `:c`
       <span>
-        <slot ${y(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
-        ${!this.iconSlot.hasSlottedIcon(":scope > *")&&t?k(t):l}
+        <slot ${w(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
+        ${!this.iconSlot.hasSlottedIcon(":scope > *")&&t?T(t):l}
       </span>
-    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,r,o){if(super.attributeChangedCallback(t,r,o),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const a=o===null?null:Number(o),i=a===null||Number.isNaN(a)?null:a;i!==null&&i>=0?(this.innerTabindex=i,this.writeHostTabindex(null)):i===null&&o!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=i}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent("clicked",{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const o=document.createElement("button");o.type="submit",o.hidden=!0,this.formNoValidate&&(o.formNoValidate=!0),r.appendChild(o),r.requestSubmit(o),o.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=w(this.icon,this),r=this.loading||this.iconSlot.hasSlottedIcon(":scope > *")||t.length>0,{collapsed:o,iconOnly:a}=this,i=a?this.getAttribute("aria-label")||this.label||l:l,d=this.getAttribute("aria-pressed")||l,c={"esp-field":!0,"icon-only":a,incognito:this.incognito,"is-collapsed":o,"has-icon":r,"icon-left":r&&!a&&this.iconPosition==="left"};return this.href.length?p`
-          <div part="wrapper" class=${u(c)}>
+    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,r,o){if(super.attributeChangedCallback(t,r,o),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const a=o===null?null:Number(o),i=a===null||Number.isNaN(a)?null:a;i!==null&&i>=0?(this.innerTabindex=i,this.writeHostTabindex(null)):i===null&&o!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=i}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent(y.CLICKED,{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const o=document.createElement("button");o.type="submit",o.hidden=!0,this.formNoValidate&&(o.formNoValidate=!0),r.appendChild(o),r.requestSubmit(o),o.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=x(this.icon,this),r=this.loading||this.iconSlot.hasSlottedIcon(":scope > *")||t.length>0,{collapsed:o,iconOnly:a}=this,i=a?this.getAttribute("aria-label")||this.label||l:l,d=this.getAttribute("aria-pressed")||l,p={"esp-field":!0,"icon-only":a,incognito:this.incognito,"is-collapsed":o,"has-icon":r,"icon-left":r&&!a&&this.iconPosition==="left"};return this.href.length?c`
+          <div part="wrapper" class=${u(p)}>
             <a
               ?disabled=${this.disabled}
               href=${this.href}
@@ -29,8 +29,8 @@ var n=function(h,t,r,o){var a=arguments.length,i=a<3?t:o===null?o=Object.getOwnP
               ${this.buildIcon(t)}
             </a>
           </div>
-        `:p`
-          <div part="wrapper" class=${u(c)}>
+        `:c`
+          <div part="wrapper" class=${u(p)}>
             <button
               ?disabled=${this.disabled||this.loading}
               @click=${this.handleClick}
@@ -139,7 +139,7 @@ var n=function(h,t,r,o){var a=arguments.length,i=a<3?t:o===null?o=Object.getOwnP
         &:hover,
         &:focus-within {
           background-color: oklch(
-            from var(--esp-color-action-background) calc(l * ${T})
+            from var(--esp-color-action-background) calc(l * ${S})
               c h
           );
         }

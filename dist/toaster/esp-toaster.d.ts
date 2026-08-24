@@ -60,14 +60,14 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const msgInput = findById("toast-msg");
  *   const durInput = findById("toast-dur");
- *   findById("fire-toast").addEventListener("clicked", () => {
+ *   findById("fire-toast").addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: msgInput.value,
  *       duration: Number(durInput.value) || 5,
  *       icon: "bread"
  *     });
  *   });
- *   findById("fire-persistent").addEventListener("clicked", () => {
+ *   findById("fire-persistent").addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: msgInput.value,
  *       duration: 0,
@@ -75,14 +75,14 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *       intent: "warning"
  *     });
  *   });
- *   findById("fire-success").addEventListener("clicked", () => {
+ *   findById("fire-success").addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: "Operation completed successfully!",
  *       intent: "success",
  *       icon: "bread"
  *     });
  *   });
- *   findById("fire-danger").addEventListener("clicked", () => {
+ *   findById("fire-danger").addEventListener("esp-clicked", () => {
  *     showToast({
  *       message: "Something went wrong!",
  *       intent: "danger",

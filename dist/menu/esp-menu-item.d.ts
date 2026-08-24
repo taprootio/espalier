@@ -5,13 +5,13 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * A navigation item for [`<esp-menu>`](/components/menu/).
  *
  * Items render as links when `url` is provided and as buttons when
- * no URL is present. Button-style items dispatch `clicked`.
+ * no URL is present. Button-style items dispatch `esp-clicked`.
  *
  * @customElement esp-menu-item
  * @slot - Optional SVG or image icon. Slotted content overrides the
  * generated sprite icon from the `icon` attribute.
  *
- * @event {CustomEvent} clicked - Fired when the item is rendered as a button (no `url`) and activated.
+ * @event {CustomEvent} esp-clicked - Fired when the item is rendered as a button (no `url`) and activated.
  *
  * @cssprop --esp-menu-item-color - Text color.
  * @cssprop --esp-menu-item-background - Background color.

@@ -60,7 +60,7 @@ export * from "./search/esp-search.js";
 export * from "./status-indicator/esp-status-indicator.js";
 export * from "./tree/esp-tree.js";
 export * from "./tree/esp-tree-item.js";
-export { DEFAULT_ICON_SPRITE_URL, DEFAULT_ICON_VIEW_BOX, INTENT_VARIANTS, type EspalierIntentVariant, normalizeIntentVariant, getIconHref, getIconHrefForHost, getIconSpriteUrl, getIconSpriteReference, type IconSpriteReference, } from "./shared/intent-values.js";
+export { DEFAULT_ICON_SPRITE_URL, DEFAULT_ICON_VIEW_BOX, INTENT_VARIANTS, type EspalierIntentVariant, normalizeIntentVariant, getIconHrefForHost, getIconSpriteUrl, getIconSpriteReference, type IconSpriteReference, } from "./shared/intent-values.js";
 export { EspalierElementBase } from "./shared/esp-element-base.js";
 export { type ValidationError, VALIDITY_CHANGED_EVENT, type ValidityChangedDetail, } from "./shared/validation.js";
 export { FormFieldController, type FormFieldControllerOptions, } from "./shared/form-field-controller.js";

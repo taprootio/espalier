@@ -45,7 +45,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @cssprop --esp-details-group-color-border - The border color
  * of the group container.
  *
- * @event {CustomEvent<{ openItem: EspalierDetails | null }>} esp-accordion-change -
+ * @event {CustomEvent<{ openItem: EspalierDetails | null }>} esp-details-group-change -
  * Fired when the currently open item changes.
  *
  * @docPageTitle Details Group

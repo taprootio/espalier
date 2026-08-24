@@ -31,10 +31,10 @@ import { LitElement } from "lit";
  * <script>
  *   const theDialog = findByTagName("esp-dialog")[0];
  *   const buttons = findByTagName("esp-button");
- *   buttons[0].addEventListener("clicked", () => {
+ *   buttons[0].addEventListener("esp-clicked", () => {
  *     theDialog.toggleOpen();
  *   });
- *   buttons[1].addEventListener("clicked", () => {
+ *   buttons[1].addEventListener("esp-clicked", () => {
  *     theDialog.toggleOpen();
  *   });
  * </script>
@@ -72,10 +72,10 @@ import { LitElement } from "lit";
  *   const buttons = findByTagName("esp-button");
  *   const openBtn = buttons[buttons.length - 1];
  *   const cancelBtn = buttons[1];
- *   openBtn.addEventListener("clicked", () => {
+ *   openBtn.addEventListener("esp-clicked", () => {
  *     dialog.toggleOpen();
  *   });
- *   cancelBtn.addEventListener("clicked", () => {
+ *   cancelBtn.addEventListener("esp-clicked", () => {
  *     dialog.toggleOpen();
  *   });
  * </script>
@@ -91,7 +91,7 @@ import { LitElement } from "lit";
  * Call `event.preventDefault()` to cancel the close (e.g. for
  * unsaved-changes confirmation). The `reason` indicates what
  * triggered the close: `"escape"` for the Escape key,
- * `"close-dialog"` for a `closeDialog` event from slotted content
+ * `"close-dialog"` for a `esp-form-dialog-close-requested` event from slotted content
  * (typically `<esp-form method="dialog">`), or `"api"` for a
  * direct `toggleOpen()` call.
  *
@@ -127,10 +127,10 @@ export declare class EspalierDialog extends LitElement {
      * <script>
      *   const theDialog = findByTagName("esp-dialog")[0];
      *   const buttons = findByTagName("esp-button");
-     *   buttons[0].addEventListener("clicked", () => {
+     *   buttons[0].addEventListener("esp-clicked", () => {
      *     theDialog.toggleOpen();
      *   });
-     *   buttons[1].addEventListener("clicked", () => {
+     *   buttons[1].addEventListener("esp-clicked", () => {
      *     theDialog.toggleOpen();
      *   });
      * </script>

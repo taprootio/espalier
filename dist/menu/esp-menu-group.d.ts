@@ -13,7 +13,7 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * @slot - Menu items or nested menu groups.
  * @slot icon - Optional SVG or image icon for the group.
  *
- * @event {CustomEvent<{ open: boolean }>} esp-group-toggle - Fired when the group opens or closes.
+ * @event {CustomEvent<{ open: boolean }>} esp-menu-group-toggle - Fired when the group opens or closes.
  *
  * @cssprop --esp-menu-group-color - Text color of the group header.
  * @cssprop --esp-menu-group-background - Background color of the group header.

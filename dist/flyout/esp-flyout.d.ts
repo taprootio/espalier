@@ -67,7 +67,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </esp-page>
  * <script>
  *   const flyout = findById("demo-flyout");
- *   findById("toggle-flyout").addEventListener("clicked", () => flyout.toggle());
+ *   findById("toggle-flyout").addEventListener("esp-clicked", () => flyout.toggle());
  * </script>
  * ```
  *
@@ -100,7 +100,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </esp-page>
  * <script>
  *   const matchFlyout = findById("match-flyout");
- *   findById("toggle-match").addEventListener("clicked", () => matchFlyout.toggle());
+ *   findById("toggle-match").addEventListener("esp-clicked", () => matchFlyout.toggle());
  * </script>
  * ```
  *
@@ -132,7 +132,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </esp-page>
  * <script>
  *   const dockedFlyout = findById("docked-flyout");
- *   findById("toggle-docked").addEventListener("clicked", () => dockedFlyout.toggle());
+ *   findById("toggle-docked").addEventListener("esp-clicked", () => dockedFlyout.toggle());
  * </script>
  * ```
  *
@@ -164,7 +164,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </esp-page>
  * <script>
  *   const overlayFlyout = findById("overlay-flyout");
- *   findById("open-overlay").addEventListener("clicked", () => overlayFlyout.toggle());
+ *   findById("open-overlay").addEventListener("esp-clicked", () => overlayFlyout.toggle());
  * </script>
  * ```
  *
@@ -247,12 +247,12 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </esp-page>
  * <script>
  *   const applesButton = findById("show-apples");
- *   applesButton.addEventListener("clicked", () => {
+ *   applesButton.addEventListener("esp-clicked", () => {
  *     showFlyout({ heading: "Apples", content: "Crisp. Store cold.", anchor: applesButton });
  *   });
  *   const pearsButton = findById("show-pears");
  *   const pearsDescription = findById("pears-description");
- *   pearsButton.addEventListener("clicked", () => {
+ *   pearsButton.addEventListener("esp-clicked", () => {
  *     showFlyout({
  *       heading: "Pears",
  *       content: pearsDescription.content.cloneNode(true),
@@ -264,16 +264,16 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  *
  * @slot - The flyout's content.
  *
- * @event {CustomEvent<{}>} flyout-opened - Fired by `show()` when the
+ * @event {CustomEvent<{}>} esp-flyout-opened - Fired by `show()` when the
  * flyout opens.
- * @event {CustomEvent<{reason: FlyoutCloseReason}>} flyout-closed -
+ * @event {CustomEvent<{reason: FlyoutCloseReason}>} esp-flyout-closed -
  * Fired by `close()` when the flyout closes. `reason` is `"escape"`,
  * `"vellum"`, `"button"`, or `"programmatic"`.
- * @event {CustomEvent<{}>} flyout-state-changed - Fired on every
+ * @event {CustomEvent<{}>} esp-flyout-state-changed - Fired on every
  * `open`, `mode`, or `anchor` change, including direct property
  * assignment (not just `show()`/`close()`). `esp-page` uses it to keep
  * its layout in sync; most consumers want
- * `flyout-opened`/`flyout-closed` instead.
+ * `esp-flyout-opened`/`esp-flyout-closed` instead.
  *
  * @csspart panel - The panel surface.
  * @csspart header - The heading/close-button row.

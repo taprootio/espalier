@@ -9,12 +9,12 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *
  * **Uploading new images**
  *
- * The `file-selected` event detail provides the `image`
+ * The `esp-image-upload-file-selected` event detail provides the `image`
  * reference (the actual object in `uploadedImages`) plus
  * `onProgress`, `onComplete`, and `onFailed` callbacks
  * bound to it, and a `signal` that aborts if the user removes
  * the image while it is still uploading. The same shape is
- * used for `upload-retry`.
+ * used for `esp-image-upload-retry`.
  *
  * ```html
  * <script>
@@ -31,7 +31,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *   function deleteFromServer(id) { console.log("delete", id); }
  *
  *   const uploader = findByTagName("esp-image-upload")[0];
- *   uploader.addEventListener("file-selected", (e) => {
+ *   uploader.addEventListener("esp-image-upload-file-selected", (e) => {
  *     const { image, signal, onProgress, onComplete, onFailed } = e.detail;
  *     // Pass `signal` to fetch/XHR so removing the image cancels the upload.
  *     uploadToServer(image.file, {
@@ -40,14 +40,14 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     }).then((id) => onComplete(id))
  *       .catch(() => onFailed());
  *   });
- *   uploader.addEventListener("upload-retry", (e) => {
+ *   uploader.addEventListener("esp-image-upload-retry", (e) => {
  *     const { image, signal, onProgress, onComplete } = e.detail;
  *     uploadToServer(image.file, {
  *       signal,
  *       onProgress: (pct) => onProgress(pct),
  *     }).then((id) => onComplete(id));
  *   });
- *   uploader.addEventListener("file-removed", (e) => {
+ *   uploader.addEventListener("esp-image-upload-file-removed", (e) => {
  *     deleteFromServer(e.detail.uploadedId);
  *   });
  * </script>
@@ -83,12 +83,12 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     }, 300 + Math.random() * 300);
  *   }
  *
- *   uploader.addEventListener("file-selected", (e) => {
+ *   uploader.addEventListener("esp-image-upload-file-selected", (e) => {
  *     const idx = fileIndex++;
  *     simulateUpload(e.detail, idx === 1);
  *   });
  *
- *   uploader.addEventListener("upload-retry", (e) => {
+ *   uploader.addEventListener("esp-image-upload-retry", (e) => {
  *     simulateUpload(e.detail, false);
  *   });
  * </script>
@@ -107,7 +107,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     { url: "https://picsum.photos/id/29/1200/800", width: 1200, height: 800, uploadedId: "img-1" },
  *     { url: "https://picsum.photos/id/15/900/1200", width: 900,  height: 1200, uploadedId: "img-2" },
  *   ]);
- *   uploader.addEventListener("file-removed", (e) => {
+ *   uploader.addEventListener("esp-image-upload-file-removed", (e) => {
  *     if (e.detail.source === "existing") {
  *       console.log("Mark for deletion:", e.detail.uploadedId);
  *     }
@@ -116,27 +116,27 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <esp-image-upload></esp-image-upload>
  * ```
  *
- * @event {CustomEvent<EspalierUploadImage>} file-removed - Fired when
+ * @event {CustomEvent<EspalierUploadImage>} esp-image-upload-file-removed - Fired when
  * an image has been removed by the user. Narrow on `detail.source` to
  * distinguish newly selected images from pre-existing server images.
  * If the image's upload was still in flight, its `signal` aborts.
  *
- * @event {CustomEvent<UploadEventDetail>} file-selected - Fired when
+ * @event {CustomEvent<UploadEventDetail>} esp-image-upload-file-selected - Fired when
  * an image has been selected by the user. `detail.image` is the actual
  * object stored in `uploadedImages`; `detail.onProgress`, `detail.onComplete`,
  * and `detail.onFailed` are callbacks bound to that image. `detail.signal`
  * aborts if the image is removed mid-upload — pass it to fetch/XHR.
  *
- * @event {CustomEvent<UploadEventDetail>} upload-retry - Fired when
+ * @event {CustomEvent<UploadEventDetail>} esp-image-upload-retry - Fired when
  * the user clicks Retry on a failed upload. `detail.image` is the same
  * object reference; fresh callbacks and a fresh `signal` are provided.
  * The component automatically resets the image to indeterminate progress.
  *
- * @event {CustomEvent<ImagesReorderedDetail>} images-reordered - Fired
+ * @event {CustomEvent<ImagesReorderedDetail>} esp-image-upload-images-reordered - Fired
  * after the user drags an image to a new position. `detail.images` is the
  * reordered array (same references, new order).
  *
- * @event {CustomEvent<FilesRejectedDetail>} files-rejected - Fired when
+ * @event {CustomEvent<FilesRejectedDetail>} esp-image-upload-files-rejected - Fired when
  * selected files are skipped, either because their type is not accepted
  * (`detail.unsupported`) or because they could not be read or decoded
  * (`detail.unreadable`). The component also shows a transient inline notice.
@@ -154,7 +154,7 @@ export declare class EspalierImageUpload extends EspalierElementBase {
      * Comma-separated list of accepted file types, in the same format as the
      * native input `accept` attribute: MIME types (`image/png`), MIME
      * wildcards (`image/*`), or extensions (`.png`). Files outside this list
-     * are skipped and reported via the `files-rejected` event.
+     * are skipped and reported via the `esp-image-upload-files-rejected` event.
      */
     accept: string;
     connectedCallback(): void;

@@ -3,7 +3,7 @@ var u=function(t,e,o,n){var i=arguments.length,s=i<3?e:n===null?n=Object.getOwnP
       .pickerItems=${this.fonts.map(e=>({text:e.family,value:y(e),selected:this.value===y(e),styles:{fontFamily:U(e)}}))}
       .value=${this.value}
       .placeholder=${this.placeholder}
-      @range-changed=${this.handleItemsInViewEvent}
-      @value-changed=${async e=>{e.stopPropagation();const o=this.value;if(!e.detail){this.value="",o&&h(this,o),this.emitValueChanged(void 0);return}const n=this.fonts.find(i=>y(i)===e.detail.value);this.value=e.detail.value,this.fontSource==="google"&&(await g(this.value)&&this.loadedFonts.add(this.value),S(this,this.value),o&&o!==this.value&&h(this,o)),this.emitValueChanged(n)}}
+      @esp-picker-menu-range-changed=${this.handleItemsInViewEvent}
+      @esp-value-changed=${async e=>{e.stopPropagation();const o=this.value;if(!e.detail){this.value="",o&&h(this,o),this.emitValueChanged(void 0);return}const n=this.fonts.find(i=>y(i)===e.detail.value);this.value=e.detail.value,this.fontSource==="google"&&(await g(this.value)&&this.loadedFonts.add(this.value),S(this,this.value),o&&o!==this.value&&h(this,o)),this.emitValueChanged(n)}}
     >
     </esp-pick-one>`}};u([G()],r.prototype,"fonts",void 0),u([m({attribute:"category",type:String})],r.prototype,"category",void 0),u([m({attribute:"font-source",type:String})],r.prototype,"fontSource",void 0),u([m({type:String})],r.prototype,"value",void 0),u([m({type:String})],r.prototype,"placeholder",void 0),r=u([$("esp-font-picker")],r);const q=()=>{f=void 0,p=!1;for(const t of document.head.querySelectorAll("style[data-font]"))t.remove();d.clear();for(const t of document.head.querySelectorAll(`link[${v}]`))t.remove()};export{r as EspalierFontPicker,w as WEB_SAFE_FONTS,N as getGoogleFonts,V as previewFontFamily,q as resetFontCache};

@@ -3,8 +3,8 @@ export type ValidationError = {
     fieldName: string;
 };
 /** Event name dispatched by `FormFieldController` on every validation pass. */
-export declare const VALIDITY_CHANGED_EVENT = "validity-changed";
-/** Detail payload for the `validity-changed` custom event. */
+export declare const VALIDITY_CHANGED_EVENT = "esp-validity-changed";
+/** Detail payload for the `esp-validity-changed` custom event. */
 export interface ValidityChangedDetail {
     valid: boolean;
     message: string;

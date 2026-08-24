@@ -1,4 +1,4 @@
-var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,t):i,h;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,e,t,i);else for(var d=r.length-1;d>=0;d--)(h=r[d])&&(o=(s<3?h(o):s>3?h(e,t,o):h(e,t))||o);return s>3&&o&&Object.defineProperty(e,t,o),o};import{LitElement as g,css as b,html as m,nothing as f,unsafeCSS as $}from"lit";import{customElement as y,property as n}from"lit/decorators.js";import{classMap as w}from"lit/directives/class-map.js";import{createRef as u,ref as p}from"lit/directives/ref.js";import{styleMap as k}from"lit/directives/style-map.js";const v=70;let c="linear-gradient(to right,";for(let r=0;r<361;r++)c+=`oklch(${v}% 0.25 ${r}),`;c=c.slice(0,-1)+")";const x=r=>Number((r/100).toFixed(4)).toString();let l=class extends g{constructor(){super(...arguments),this.hueInput=u(),this.chromaInput=u(),this.lightnessInput=u(),this.mode="hc",this.chroma=25,this.hue=180,this.lightness=v,this.changed=()=>{const{hue:e,chroma:t,lightness:i}=this,s=`oklch(${x(i)} ${(t/100).toFixed(4)} ${e})`;this.dispatchEvent(new CustomEvent("value-changed",{detail:{seedColor:s,hue:e,chroma:t,lightness:i},bubbles:!0,composed:!0}))}}render(){const{hue:e,chroma:t,lightness:i}=this,s={"--selected-hue":e,"--selected-chroma":t,"--selected-lightness":`${i}%`};return m`
+var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,t):i,h;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,e,t,i);else for(var d=r.length-1;d>=0;d--)(h=r[d])&&(o=(s<3?h(o):s>3?h(e,t,o):h(e,t))||o);return s>3&&o&&Object.defineProperty(e,t,o),o};import{LitElement as g,css as b,html as m,nothing as f,unsafeCSS as $}from"lit";import{customElement as y,property as n}from"lit/decorators.js";import{classMap as w}from"lit/directives/class-map.js";import{createRef as p,ref as u}from"lit/directives/ref.js";import{styleMap as k}from"lit/directives/style-map.js";import{ESP_EVENTS as x}from"../shared/events.js";const v=70;let c="linear-gradient(to right,";for(let r=0;r<361;r++)c+=`oklch(${v}% 0.25 ${r}),`;c=c.slice(0,-1)+")";const E=r=>Number((r/100).toFixed(4)).toString();let l=class extends g{constructor(){super(...arguments),this.hueInput=p(),this.chromaInput=p(),this.lightnessInput=p(),this.mode="hc",this.chroma=25,this.hue=180,this.lightness=v,this.changed=()=>{const{hue:e,chroma:t,lightness:i}=this,s=`oklch(${E(i)} ${(t/100).toFixed(4)} ${e})`;this.dispatchEvent(new CustomEvent(x.VALUE_CHANGED,{detail:{seedColor:s,hue:e,chroma:t,lightness:i},bubbles:!0,composed:!0}))}}render(){const{hue:e,chroma:t,lightness:i}=this,s={"--selected-hue":e,"--selected-chroma":t,"--selected-lightness":`${i}%`};return m`
       <div
         class=${w({"esp-color-picker":!0,hcl:this.mode==="hcl"})}
         style=${k(s)}
@@ -7,7 +7,7 @@ var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
         <div class="hue">
           <label for="hue-slider">Hue <span class="value">${this.hue}°</span></label>
           <input
-            ${p(this.hueInput)}
+            ${u(this.hueInput)}
             id="hue-slider"
             type="range"
             min="0"
@@ -21,7 +21,7 @@ var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
             >Chroma <span class="value">${(this.chroma/100).toFixed(3)}</span></label
           >
           <input
-            ${p(this.chromaInput)}
+            ${u(this.chromaInput)}
             id="chroma-slider"
             type="range"
             min="0"
@@ -35,7 +35,7 @@ var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
                 >Lightness <span class="value">${this.lightness}%</span></label
               >
               <input
-                ${p(this.lightnessInput)}
+                ${u(this.lightnessInput)}
                 id="lightness-slider"
                 type="range"
                 min="0"

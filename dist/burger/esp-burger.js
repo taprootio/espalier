@@ -1,4 +1,4 @@
-var p=function(n,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,t):i,o;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(n,e,t,i);else for(var l=n.length-1;l>=0;l--)(o=n[l])&&(s=(r<3?o(s):r>3?o(e,t,s):o(e,t))||s);return r>3&&s&&Object.defineProperty(e,t,s),s};import{LitElement as h,css as m,html as c}from"lit";import{classMap as C}from"lit/directives/class-map.js";import{customElement as u,property as d}from"lit/decorators.js";let a=class extends h{constructor(){super(...arguments),this.menuOpen=!1,this.presentationOnly=!1}render(){const{menuOpen:e}=this,t=e?"Close menu":"Open menu",r=c`
+var p=function(n,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,t):i,o;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(n,e,t,i);else for(var l=n.length-1;l>=0;l--)(o=n[l])&&(s=(r<3?o(s):r>3?o(e,t,s):o(e,t))||s);return r>3&&s&&Object.defineProperty(e,t,s),s};import{LitElement as m,css as C,html as c}from"lit";import{classMap as u}from"lit/directives/class-map.js";import{customElement as v,property as h}from"lit/decorators.js";import{ESP_EVENTS as d}from"../shared/events.js";let a=class extends m{constructor(){super(...arguments),this.menuOpen=!1,this.presentationOnly=!1}render(){const{menuOpen:e}=this,t=e?"Close menu":"Open menu",r=c`
       <svg>
         <defs>
           <filter id="animate-button">
@@ -13,7 +13,7 @@ var p=function(n,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
           </filter>
         </defs>
       </svg>
-      <div class=${C({plate:!0,active:e})}>
+      <div class=${u({plate:!0,active:e})}>
         <svg class="esp-burger" version="1.1" viewBox="0 0 100 100">
           <path
             class="line line1"
@@ -47,7 +47,7 @@ var p=function(n,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
       </div>
     `;return this.presentationOnly?c`<div class="animated-mb" aria-hidden="true">${r}</div>`:c`<button class="animated-mb" @click=${this.toggleMenu} aria-label=${t}>
       ${r}
-    </button>`}toggleMenu(){this.menuOpen=!this.menuOpen,this.menuOpen?this.dispatchEvent(new CustomEvent("opened",{bubbles:!0,composed:!0})):this.dispatchEvent(new CustomEvent("closed",{bubbles:!0,composed:!0}))}};a.styles=m`
+    </button>`}toggleMenu(){this.menuOpen=!this.menuOpen,this.menuOpen?this.dispatchEvent(new CustomEvent(d.BURGER_OPENED,{bubbles:!0,composed:!0})):this.dispatchEvent(new CustomEvent(d.BURGER_CLOSED,{bubbles:!0,composed:!0}))}};a.styles=C`
     :host {
       height: var(--esp-header-height, calc(4.5 * var(--esp-size-small)));
       width: var(--esp-header-height, calc(4.5 * var(--esp-size-small)));
@@ -200,4 +200,4 @@ var p=function(n,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
         transition: transform 400ms 50ms;
       }
     }
-  `,p([d({attribute:"menu-open",type:Boolean})],a.prototype,"menuOpen",void 0),p([d({attribute:"presentation-only",type:Boolean})],a.prototype,"presentationOnly",void 0),a=p([u("esp-burger")],a);export{a as EspalierBurger};
+  `,p([h({attribute:"menu-open",type:Boolean})],a.prototype,"menuOpen",void 0),p([h({attribute:"presentation-only",type:Boolean})],a.prototype,"presentationOnly",void 0),a=p([v("esp-burger")],a);export{a as EspalierBurger};

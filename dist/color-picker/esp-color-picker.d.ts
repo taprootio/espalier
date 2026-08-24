@@ -9,7 +9,7 @@ export type ColorPickerMode = "hc" | "hcl";
  * needs to tune hue, chroma, and lightness directly.
  *
  * @customElement esp-color-picker
- * @event {CustomEvent<{ seedColor: string, hue: number, chroma: number, lightness: number }>} value-changed - Fired
+ * @event {CustomEvent<{ seedColor: string, hue: number, chroma: number, lightness: number }>} esp-value-changed - Fired
  * when the user changes the color. The event detail contains the seed
  * color OKLCH string, plus raw hue, chroma, and lightness values.
  *
@@ -30,7 +30,7 @@ export type ColorPickerMode = "hc" | "hcl";
  *     colorPicker.chroma = Math.round(+parts[2] * 100);
  *   }
  *
- *   colorPicker.addEventListener("value-changed", (event) => {
+ *   colorPicker.addEventListener("esp-value-changed", (event) => {
  *     const { seedColor } = event.detail;
  *     localStorage.setItem("esp-seed-color", seedColor);
  *     espRoot.setAttribute("seed-color", seedColor);

@@ -2,7 +2,7 @@ import { LitElement } from "lit";
 /**
  * A styled icon button designed for the `buttons` slot of
  * [`<esp-header>`](/components/header/). Each button wraps an
- * SVG icon and dispatches a `clicked` event when activated.
+ * SVG icon and dispatches an `esp-clicked` event when activated.
  *
  * The button sizes itself to match the header height and
  * transitions its background color on hover.
@@ -33,7 +33,7 @@ import { LitElement } from "lit";
  * </esp-header>
  * ```
  *
- * @fires clicked - Dispatched when the button is clicked. The event bubbles and is composed.
+ * @event {CustomEvent} esp-clicked - Dispatched when the button is clicked. The event bubbles and is composed.
  * @cssprop --esp-header-button-background - The background color of the button. Defaults to `var(--esp-color-layer-3)`.
  * @cssprop --esp-header-button-background-hover - The background color of the button on hover. Defaults to `var(--esp-color-layer-4)`.
  * @cssprop --esp-header-button-box-shadow - The box shadow of the button. Defaults to `0px 0px 3px 0px var(--esp-color-shadow)`.

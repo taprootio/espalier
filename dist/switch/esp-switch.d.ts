@@ -54,9 +54,11 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  * renders beside the track; in text mode it is visually hidden
  * and included in the control's accessible label.
  *
- * @event {CustomEvent<{ checked: boolean; value: string }>} value-changed -
+ * @event {CustomEvent<{ checked: boolean; value: string }>} esp-value-changed -
  * Fired when the switch is toggled. The detail contains the new
  * `checked` state and the switch `value`.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @cssprop --esp-switch-width - The width of the switch track.
  * Defaults to `calc(var(--esp-size-normal-to-medium) * 1.75)`.
@@ -152,7 +154,7 @@ export declare class EspalierSwitch extends EspalierElementBase implements Espal
      * Focus the switch control.
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

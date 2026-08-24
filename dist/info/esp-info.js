@@ -1,9 +1,9 @@
-var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnPropertyDescriptor(t,e):s,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,t,e,s);else for(var a=r.length-1;a>=0;a--)(c=r[a])&&(o=(i<3?c(o):i>3?c(t,e,o):c(t,e))||o);return i>3&&o&&Object.defineProperty(t,e,o),o};import{css as f,html as l}from"lit";import{customElement as v,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{intentSurfaceTokens as h}from"../shared/style-fragments.js";import{classMap as u}from"lit/directives/class-map.js";import{trashSVG as b}from"../shared/svgs/trash.js";import{ref as g}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let n=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new S(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=y(this.icon,this),e=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return l`
-      <section class=${u({[`intent-${this.intent}`]:!0})}>
+var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnPropertyDescriptor(t,e):s,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,t,e,s);else for(var a=r.length-1;a>=0;a--)(c=r[a])&&(o=(i<3?c(o):i>3?c(t,e,o):c(t,e))||o);return i>3&&o&&Object.defineProperty(t,e,o),o};import{css as f,html as l}from"lit";import{customElement as v,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as h}from"../shared/events.js";import{intentSurfaceTokens as u}from"../shared/style-fragments.js";import{classMap as b}from"lit/directives/class-map.js";import{trashSVG as g}from"../shared/svgs/trash.js";import{ref as y}from"lit/directives/ref.js";import{getIconHrefForHost as S}from"../shared/intent-values.js";import{SlottedIconController as E}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let n=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new E(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=S(this.icon,this),e=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return l`
+      <section class=${b({[`intent-${this.intent}`]:!0})}>
         <div class="icon">
           <slot
             name="icon-slot"
-            ${g(this.iconSlot.slotRef)}
+            ${y(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
           ${!e&&t?_(t):l``}
@@ -15,12 +15,12 @@ var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnP
               class="destroy-button"
               intent="danger"
               icon-only
-              @clicked=${()=>{this.dispatchEvent(new CustomEvent("destroy",{detail:{toDestroy:this}}))}}
+              @esp-clicked=${()=>{this.dispatchEvent(new CustomEvent(h.INFO_DESTROY,{detail:{toDestroy:this}}))}}
             >
-              ${b}
+              ${g}
             </esp-button>`:l``}
       </section>
-    `}};n.styles=[...m.styles,h,f`
+    `}};n.styles=[...m.styles,u,f`
       :host {
         display: block;
       }

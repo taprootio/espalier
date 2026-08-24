@@ -35,7 +35,7 @@ import { LitElement, type PropertyValues } from "lit";
  * ### Dialog integration
  *
  * When `method="dialog"`, submitting the form dispatches a
- * `closeDialog` event that `esp-dialog` listens for, closing
+ * `esp-form-dialog-close-requested` event that `esp-dialog` listens for, closing
  * the dialog without a network request.
  *
  * ### Multi-field form with validation
@@ -110,7 +110,7 @@ import { LitElement, type PropertyValues } from "lit";
  *
  * ### Handling the response
  *
- * Listen for `esp-submit-response` and `esp-submit-error` to
+ * Listen for `esp-form-submit-response` and `esp-form-submit-error` to
  * react to the server's reply when using fetch submission.
  *
  * ```html
@@ -130,14 +130,14 @@ import { LitElement, type PropertyValues } from "lit";
  *   const form = findByTagName("esp-form")[0];
  *   const msg = findById("response-msg");
  *   const text = findById("response-text");
- *   form.addEventListener("esp-submit-response", (ev) => {
+ *   form.addEventListener("esp-form-submit-response", (ev) => {
  *     msg.style.display = "";
  *     msg.setAttribute("intent", ev.detail.ok ? "success" : "warning");
  *     text.textContent = ev.detail.ok
  *       ? "Submitted successfully!"
  *       : "Server returned an error.";
  *   });
- *   form.addEventListener("esp-submit-error", () => {
+ *   form.addEventListener("esp-form-submit-error", () => {
  *     msg.style.display = "";
  *     msg.setAttribute("intent", "danger");
  *     text.textContent = "Network error — please try again.";
@@ -186,10 +186,10 @@ import { LitElement, type PropertyValues } from "lit";
  *
  * @customElement esp-form
  *
- * @event {CustomEvent<{ formData: FormData; form: HTMLFormElement }>} esp-submit - Fired when `use-fetch` is true and the form passes validation. Cancelable; calling `preventDefault()` aborts the fetch.
- * @event {CustomEvent<{ response: Response; ok: boolean }>} esp-submit-response - Fired after a successful `fetch` submission.
- * @event {CustomEvent<{ error: unknown }>} esp-submit-error - Fired when a `fetch` submission fails.
- * @event {CustomEvent} closeDialog - Fired when `method="dialog"` is used and the form requests its containing `<esp-dialog>` to close. The event detail is an empty object.
+ * @event {CustomEvent<{ formData: FormData; form: HTMLFormElement }>} esp-form-submit - Fired when `use-fetch` is true and the form passes validation. Cancelable; calling `preventDefault()` aborts the fetch.
+ * @event {CustomEvent<{ response: Response; ok: boolean }>} esp-form-submit-response - Fired after a successful `fetch` submission.
+ * @event {CustomEvent<{ error: unknown }>} esp-form-submit-error - Fired when a `fetch` submission fails.
+ * @event {CustomEvent} esp-form-dialog-close-requested - Fired when `method="dialog"` is used and the form requests its containing `<esp-dialog>` to close. The event detail is an empty object.
  *
  * @docPageTitle Form
  * @docUrl /components/form
@@ -226,7 +226,7 @@ export declare class EspalierForm extends LitElement {
     novalidate: boolean;
     /**
      * When true, the form uses `fetch()` instead of native
-     * browser navigation for submission. An `esp-submit` event
+     * browser navigation for submission. An `esp-form-submit` event
      * is fired with the `FormData` in the detail, allowing
      * consumers to cancel or modify the request.
      *

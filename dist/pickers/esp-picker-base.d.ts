@@ -170,7 +170,7 @@ export declare abstract class EspalierPickerBase extends EspalierElementBase imp
      * Focus the picker.
      */
     focus(): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

@@ -31,9 +31,9 @@ import { LitElement, type PropertyValues } from "lit";
  * </esp-popover>
  * ```
  *
- * @event {CustomEvent} popover-opened - Emitted when the popover is opened.
+ * @event {CustomEvent} esp-popover-opened - Emitted when the popover is opened.
  *
- * @event {CustomEvent} popover-closed - Emitted when the popover is closed.
+ * @event {CustomEvent} esp-popover-closed - Emitted when the popover is closed.
  *
  * @slot target - The target listens for events to show the popover.
  *

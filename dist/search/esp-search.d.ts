@@ -16,17 +16,17 @@ export interface SearchResult {
  *
  * `<esp-search>` is a pure UI shell with no search-engine dependency.
  * Consumers wire it to any search backend (Pagefind, MiniSearch, API,
- * etc.) by listening for `search-requested` events and calling
+ * etc.) by listening for `esp-search-requested` events and calling
  * `setResults()` with the matches.
  *
- * @fires search-requested - The user changed the query input. Fires on
+ * @event {CustomEvent<{ query: string }>} esp-search-requested - The user changed the query input. Fires on
  *   every keystroke (not debounced) so consumers can track the latest
  *   query and discard stale async results. Consumers that need debouncing
  *   should apply it themselves (e.g. Pagefind's `debouncedSearch()`).
  *   `detail: { query: string }`
- * @fires result-selected - The user chose a result.
+ * @event {CustomEvent<{ url: string }>} esp-search-result-selected - The user chose a result.
  *   `detail: { url: string }`
- * @fires search-closed - The overlay was closed (Escape, backdrop click,
+ * @event {CustomEvent<{}>} esp-search-closed - The overlay was closed (Escape, backdrop click,
  *   or result selection). Consumers should use this to cancel in-flight
  *   searches or discard pending results.
  *   `detail: {}`

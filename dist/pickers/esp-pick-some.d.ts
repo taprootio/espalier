@@ -143,8 +143,10 @@ import { EspalierPickerBase } from "./esp-picker-base.js";
  * </script>
  * ```
  *
- * @event {CustomEvent<PickerItem[]>} value-changed - Fired when
+ * @event {CustomEvent<PickerItem[]>} esp-value-changed - Fired when
  * the user adds or removes a selected picker item.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @docPageTitle Pick Some
  * @docUrl /components/pickers/pick-some

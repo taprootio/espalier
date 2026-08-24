@@ -3,7 +3,7 @@ var u=function(o,e,s,n){var c=arguments.length,r=c<3?e:n===null?n=Object.getOwnP
         ${this.toasts.map(e=>{const s=this.getToastIconHref(e);return l`<esp-info
             .destroyable=${(e.duration??5)===0}
             .intent=${e.intent??"info"}
-            @destroy=${()=>this.removeToast(e)}
+            @esp-info-destroy=${()=>this.removeToast(e)}
           >
             ${s?y(s,{"aria-hidden":null,class:null,slot:"icon-slot"}):l``}
             ${e.message}</esp-info

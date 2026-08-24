@@ -39,7 +39,7 @@ var c=function(o,t,s,e){var a=arguments.length,i=a<3?t:e===null?e=Object.getOwnP
           tabindex="-1"
           ${d(this.pickerMenu)}
           multi-select
-          @selection-changed=${e=>{if(e.stopPropagation(),this.typeahead){const i=new Set(this.filteredItems.map(h=>h.value)),l=[...this.selectedItems.filter(h=>!i.has(h.value)),...e.detail];if(f(l,this.selectedItems,"value"))return;this.setSelectedItems(l),this.resetTypeaheadInput();return}f(e.detail,this.selectedItems,"value")||this.setSelectedItems(e.detail)}}
+          @esp-picker-menu-selection-changed=${e=>{if(e.stopPropagation(),this.typeahead){const i=new Set(this.filteredItems.map(h=>h.value)),l=[...this.selectedItems.filter(h=>!i.has(h.value)),...e.detail];if(f(l,this.selectedItems,"value"))return;this.setSelectedItems(l),this.resetTypeaheadInput();return}f(e.detail,this.selectedItems,"value")||this.setSelectedItems(e.detail)}}
         >
         </esp-picker-menu>
       </div>

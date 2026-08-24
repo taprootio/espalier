@@ -33,9 +33,11 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  *
  * @slot - Place `esp-checkbox` elements in the default slot.
  *
- * @event {CustomEvent<string[]>} value-changed - Fired when any
+ * @event {CustomEvent<string[]>} esp-value-changed - Fired when any
  * child checkbox state changes. The detail is an array of the
  * values of all currently checked checkboxes.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @docPageTitle Checkbox Group
  * @docUrl /components/checkbox/group
@@ -77,7 +79,7 @@ export declare class EspalierCheckboxGroup extends EspalierElementBase implement
      * Focus the first non-disabled checkbox in the group.
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

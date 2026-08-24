@@ -60,7 +60,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @cssprop --esp-details-size-padding - The padding inside the
  * content area and summary row.
  *
- * @event {CustomEvent<{ open: boolean }>} esp-toggle - Fired when
+ * @event {CustomEvent<{ open: boolean }>} esp-details-toggle - Fired when
  * the details element is opened or closed.
  *
  * ```html
@@ -69,7 +69,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-details>
  * <script>
  *   const details = findByTagName("esp-details")[0];
- *   details.addEventListener("esp-toggle", (ev) => {
+ *   details.addEventListener("esp-details-toggle", (ev) => {
  *     console.log("Open:", ev.detail.open);
  *   });
  * </script>

@@ -1,5 +1,5 @@
 /**
- * The reason a flyout closed, carried on the `flyout-closed`
+ * The reason a flyout closed, carried on the `esp-flyout-closed`
  * event detail.
  *
  * - `"escape"` — the user pressed the Escape key

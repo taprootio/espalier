@@ -361,6 +361,7 @@ export declare function buildWebTreePath({ parentPath, segment, rootPath, }: Esp
  * @event {CustomEvent<EspTreeNodeActionDetail>} esp-tree-cut - Fired when a cuttable node's cut action is invoked.
  * @event {CustomEvent<EspTreeNodeActionDetail>} esp-tree-paste-child - Fired when a paste child target node's paste-as-child action is invoked.
  * @event {CustomEvent<EspTreeGraftInputDetail>} esp-tree-graft-input - Fired live as the graft input changes.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed - Fired whenever constraint validation runs.
  *
  * @docPageTitle Tree
  * @docUrl /components/tree
@@ -513,7 +514,7 @@ export declare class EspalierTree extends EspalierElementBase {
     formStateRestoreCallback(state: string): void;
     /** Called by the browser when a parent `<fieldset>` is en/disabled. */
     formDisabledCallback(isDisabled: boolean): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid. */
     checkValidity(): boolean;

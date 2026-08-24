@@ -67,7 +67,7 @@ export declare const previewFontFamily: (family: string) => string;
  * </esp-form-item>
  * ```
  *
- * @event {CustomEvent<FontPickerValueChangedDetail>} value-changed - Fired
+ * @event {CustomEvent<FontPickerValueChangedDetail>} esp-value-changed - Fired
  * when the user selects a font
  *
  * @customElement esp-font-picker

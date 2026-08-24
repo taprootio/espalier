@@ -14,7 +14,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const theTextarea = findByTagName("esp-textarea")[0];
  *   const theP = findByTagName("p")[0];
- *   theTextarea.addEventListener("value-changed", (ev) => {
+ *   theTextarea.addEventListener("esp-value-changed", (ev) => {
  *     theP.innerText = ev.detail.length
  *       ? ev.detail
  *       : "The textarea is empty...";
@@ -54,7 +54,8 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * ```
  *
  * @customElement esp-textarea
- * @event {CustomEvent<string>} value-changed - Emitted when the textarea value changes.
+ * @event {CustomEvent<string>} esp-value-changed - Emitted when the textarea value changes.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed - Emitted whenever constraint validation runs.
  *
  * ```html
  * <esp-box>
@@ -64,7 +65,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const theTextarea = findByTagName("esp-textarea")[0];
  *   const theP = findByTagName("p")[0];
- *   theTextarea.addEventListener("value-changed", (ev) => {
+ *   theTextarea.addEventListener("esp-value-changed", (ev) => {
  *     theP.innerText = ev.detail.length
  *       ? ev.detail
  *       : "The textarea is empty...";
@@ -213,7 +214,7 @@ export declare class EspalierTextarea extends EspalierElementBase implements Esp
      * <script>
      *   const theTextarea = findByTagName("esp-textarea")[0];
      *   const theButton = findByTagName("esp-button")[0];
-     *   theButton.addEventListener("clicked", () => {
+     *   theButton.addEventListener("esp-clicked", () => {
      *     theTextarea.focus();
      *   });
      * </script>
@@ -221,7 +222,7 @@ export declare class EspalierTextarea extends EspalierElementBase implements Esp
      *
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

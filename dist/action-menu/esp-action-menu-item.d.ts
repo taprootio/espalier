@@ -9,7 +9,7 @@ export type ActionMenuItemIconPosition = "left" | "right";
  *
  * Use the optional `icon` slot for a leading visual cue. Link-style
  * action items are intentionally not part of this API yet; use the
- * parent menu's `select` event and handle navigation in application
+ * parent menu's `esp-action-menu-select` event and handle navigation in application
  * code until the href behavior is reviewed.
  *
  * ```html
@@ -30,8 +30,8 @@ export type ActionMenuItemIconPosition = "left" | "right";
  * @slot icon - Optional custom leading icon. Slotted icons override
  * the generated SVG from the `icon` attribute.
  *
- * @event {CustomEvent<ActionMenuItemActivateDetail>} esp-action-menu-item-activate -
- * Internal activation event consumed by the parent action menu.
+ * Activation is reported through a private coordination event consumed by
+ * the parent action menu.
  *
  * @cssprop --esp-action-menu-item-padding - Padding inside each
  * menu item. Defaults to `var(--esp-size-tiny) var(--esp-size-small)`.
@@ -68,7 +68,7 @@ export declare class EspalierActionMenuItem extends EspalierElementBase {
      */
     icon: string;
     /**
-     * Value included in the parent menu's `select` event detail.
+     * Value included in the parent menu's `esp-action-menu-select` event detail.
      */
     value: string;
     /**

@@ -135,7 +135,7 @@ export interface EspThemeToggleEventDetail {
  * `buttons` slot should contain
  * [`<esp-header-button>`](/components/header/button/) instances.
  * Each button can reference the configured SVG sprite with `icon`
- * and fires a `clicked` event when activated:
+ * and fires an `esp-clicked` event when activated:
  *
  * ```html
  * <esp-header>
@@ -148,18 +148,18 @@ export interface EspThemeToggleEventDetail {
  * </esp-header>
  * ```
  *
- * The built-in theme toggle emits `esp-theme-toggle` only for a visitor
+ * The built-in theme toggle emits `esp-header-theme-toggle` only for a visitor
  * activation, so a host can persist explicit choices without treating
  * automatic scheme resolution as intent:
  *
  * ```js
  * const root = document.querySelector("esp-root");
- * root.addEventListener("esp-theme-toggle", (event) => {
+ * root.addEventListener("esp-header-theme-toggle", (event) => {
  *   localStorage.setItem("scheme", event.detail.scheme);
  * });
  * ```
  *
- * @event {CustomEvent<EspThemeToggleEventDetail>} esp-theme-toggle - Fired after the built-in theme toggle changes the nearest `esp-root`. Bubbles and crosses the shadow boundary.
+ * @event {CustomEvent<EspThemeToggleEventDetail>} esp-header-theme-toggle - Fired after the built-in theme toggle changes the nearest `esp-root`. Bubbles and crosses the shadow boundary.
  *
  * @cssprop --esp-header-background - The background color of the header bar. Defaults to `var(--esp-color-layer-2)`.
  * @cssprop --esp-header-border-width - The border width of the header. Defaults to `0 0 1px 0`.
@@ -261,7 +261,7 @@ export declare class EspalierHeader extends EspalierElementBase {
      *     header.layout = event.detail?.value || picker.value || "standard";
      *   }
      *
-     *   picker.addEventListener("value-changed", applyLayout);
+     *   picker.addEventListener("esp-value-changed", applyLayout);
      * </script>
      * ```
      *

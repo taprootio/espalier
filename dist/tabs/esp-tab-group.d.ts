@@ -97,7 +97,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-tab-group>
  * <script>
  *   const tabs = findByTagName("esp-tab-group")[0];
- *   tabs.addEventListener("esp-tab-changed", (ev) => {
+ *   tabs.addEventListener("esp-tab-group-changed", (ev) => {
  *     console.log("Switched to:", ev.detail.label, "at index", ev.detail.index);
  *   });
  * </script>
@@ -124,7 +124,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @cssprop --esp-tab-size-padding - Padding inside the panel
  * area and tab buttons.
  *
- * @event {CustomEvent<{ index: number; label: string }>} esp-tab-changed -
+ * @event {CustomEvent<{ index: number; label: string }>} esp-tab-group-changed -
  * Fired when the active tab changes. The detail contains
  * the `index` and `label` of the newly active tab.
  *

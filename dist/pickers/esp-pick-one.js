@@ -29,8 +29,8 @@ var h=function(a,e,n,t){var i=arguments.length,s=i<3?e:t===null?t=Object.getOwnP
           .label=${this.placeholder}
           tabindex="-1"
           ${p(this.pickerMenu)}
-          @selection-changed=${t=>{if(t.stopPropagation(),this.typeahead)return;const i=t.detail,s=i.length>0?i[0]:void 0;(i.length>0?this.selectedItem!==s:this.selectedItem!==void 0)&&(this.selection=this.showOptions?r.of(s):this.selection.withProvisionalItem(s),this.formCtrl.syncValue(),this.emitValueChanged(this.selectedItem))}}
-          @close-menu=${t=>{if(this.showOptions=!1,this.clearActiveDescendant(),this.typeahead){const i=t.detail,s=i.length>0?i[0]:void 0;if(s?this.selectedItem?.value!==s.value:this.selectedItem!==void 0){if(this.selection=r.of(s),s)for(const l of this.pickerItems)l.selected=l.value===s.value;this.formCtrl.syncValue(),this.emitValueChanged(this.selectedItem)}this.suppressAutoSelect=!0,this.theInput.value?.focus(),this.resetTypeaheadInput()}else this.theInput.value?.focus()}}
+          @esp-picker-menu-selection-changed=${t=>{if(t.stopPropagation(),this.typeahead)return;const i=t.detail,s=i.length>0?i[0]:void 0;(i.length>0?this.selectedItem!==s:this.selectedItem!==void 0)&&(this.selection=this.showOptions?r.of(s):this.selection.withProvisionalItem(s),this.formCtrl.syncValue(),this.emitValueChanged(this.selectedItem))}}
+          @esp-picker-menu-close-requested=${t=>{if(this.showOptions=!1,this.clearActiveDescendant(),this.typeahead){const i=t.detail,s=i.length>0?i[0]:void 0;if(s?this.selectedItem?.value!==s.value:this.selectedItem!==void 0){if(this.selection=r.of(s),s)for(const l of this.pickerItems)l.selected=l.value===s.value;this.formCtrl.syncValue(),this.emitValueChanged(this.selectedItem)}this.suppressAutoSelect=!0,this.theInput.value?.focus(),this.resetTypeaheadInput()}else this.theInput.value?.focus()}}
         >
         </esp-picker-menu>
       </div>

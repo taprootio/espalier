@@ -40,8 +40,8 @@ export type EspalierMenuOverflow = "auto" | "wrap" | "scroll" | "left-drawer" | 
  * @customElement esp-menu
  * @slot - `esp-menu-item` and `esp-menu-group` children.
  *
- * @event {CustomEvent} drawer-opened - Fired when the drawer opens.
- * @event {CustomEvent} drawer-closed - Fired when the drawer closes.
+ * @event {CustomEvent} esp-menu-drawer-opened - Fired when the drawer opens.
+ * @event {CustomEvent} esp-menu-drawer-closed - Fired when the drawer closes.
  *
  * @cssprop --esp-menu-background - Background color of vertical and drawer menus.
  * @cssprop --esp-menu-border-color - Border color of menu rails and drawers.

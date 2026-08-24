@@ -21,7 +21,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const theInput = findByTagName("esp-input")[0];
  *   const theP = findByTagName("p")[0];
- *   theInput.addEventListener("value-changed", (ev) => {
+ *   theInput.addEventListener("esp-value-changed", (ev) => {
  *     theP.innerText = ev.detail.length ? ev.detail : "The input is empty...";
  *   });
  * </script>
@@ -98,8 +98,9 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * ```
  *
  * @customElement esp-input
- * @event {CustomEvent<string>} value-changed - Emitted when the input value changes.
- * @event {CustomEvent} icon-clicked - Emitted when the icon action button is clicked.
+ * @event {CustomEvent<string>} esp-value-changed - Emitted when the input value changes.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed - Emitted whenever constraint validation runs.
+ * @event {CustomEvent} esp-input-icon-clicked - Emitted when the icon action button is clicked.
  *
  * ```html
  * <esp-box>
@@ -115,7 +116,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const theInput = findByTagName("esp-input")[0];
  *   const theP = findByTagName("p")[0];
- *   theInput.addEventListener("icon-clicked", () => {
+ *   theInput.addEventListener("esp-input-icon-clicked", () => {
  *     theP.innerText = "Icon clicked!";
  *   });
  * </script>
@@ -129,7 +130,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <script>
  *   const theInput = findByTagName("esp-input")[0];
  *   const theP = findByTagName("p")[0];
- *   theInput.addEventListener("value-changed", (ev) => {
+ *   theInput.addEventListener("esp-value-changed", (ev) => {
  *     theP.innerText = ev.detail.length ? ev.detail : "The input is empty...";
  *   });
  * </script>
@@ -405,7 +406,7 @@ export declare class EspalierInput extends EspalierElementBase implements Espali
      * <script>
      *   const theInput = findByTagName("esp-input")[0];
      *   const theButton = findByTagName("esp-button")[0];
-     *   theButton.addEventListener("clicked", () => {
+     *   theButton.addEventListener("esp-clicked", () => {
      *     theInput.focus();
      *   });
      * </script>
@@ -413,7 +414,7 @@ export declare class EspalierInput extends EspalierElementBase implements Espali
      *
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

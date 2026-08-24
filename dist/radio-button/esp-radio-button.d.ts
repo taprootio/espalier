@@ -31,7 +31,7 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  *
  * @slot - The label text for the radio button.
  *
- * @event {CustomEvent<{ checked: boolean; value: string }>} value-changed -
+ * @event {CustomEvent<{ checked: boolean; value: string }>} esp-value-changed -
  * Fired when the radio button is selected. The detail contains the
  * new `checked` state and the radio button `value`.
  *

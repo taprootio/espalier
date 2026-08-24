@@ -42,8 +42,8 @@ var n=function(t,e,o,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
         offset="4px"
         show-delay="0"
         hide-delay="100"
-        @popover-opened=${this.handlePopoverOpened}
-        @popover-closed=${this.handlePopoverClosed}
+        @esp-popover-opened=${this.handlePopoverOpened}
+        @esp-popover-closed=${this.handlePopoverClosed}
       >
         <button
           slot="target"

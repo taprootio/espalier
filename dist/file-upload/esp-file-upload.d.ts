@@ -7,7 +7,7 @@ import "../button/esp-button.js";
  * <esp-file-upload choose-text="Upload Document"></esp-file-upload>
  * <script>
  *   const theFileUpload = findByTagName("esp-file-upload")[0];
- *   theFileUpload.addEventListener("files-selected", () => {
+ *   theFileUpload.addEventListener("esp-file-upload-files-selected", () => {
  *     showToast({
  *       message: `You selected a file!`,
  *       icon: "info-i",
@@ -19,6 +19,9 @@ import "../button/esp-button.js";
  *   });
  * </script>
  * ```
+ *
+ * @event {CustomEvent<FileList>} esp-file-upload-files-selected - Fired after
+ * the user selects one or more files.
  *
  * @docPageTitle File Upload
  * @docUrl /components/file-upload
@@ -43,7 +46,7 @@ export declare class EspalierFileUpload extends EspalierElementBase {
      */
     multiple: boolean;
     /**
-     * The `files-selected` event sets the file upload to a processing state.
+     * The `esp-file-upload-files-selected` event sets the file upload to a processing state.
      * Call this method when you have finished processing the selected files
      * to reset the file upload.
      */

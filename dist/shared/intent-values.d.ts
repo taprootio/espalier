@@ -5,18 +5,6 @@ export declare const INTENT_VARIANTS: readonly EspalierIntentVariant[];
 export declare function normalizeIntentVariant(value: string | null | undefined): EspalierIntentVariant;
 export declare function getIconHrefForHost(icon: string | null | undefined, host?: Element | null | undefined): string;
 /**
- * Former name of `getIconHrefForHost`.
- *
- * @deprecated Use `getIconHrefForHost`. This alias is retained for one release
- * so existing consumers keep compiling; it will be removed after that.
- *
- * NOTE: do not use an inline `{@link}` tag in this comment. On an exported
- * `const` alias the custom-elements-manifest analyzer tries to resolve the link
- * target and serializes the TypeScript AST node, which fails `build-cem` with
- * "Converting circular structure to JSON". A plain backticked name is safe.
- */
-export declare const getIconHref: typeof getIconHrefForHost;
-/**
  * The configured sprite, classified (ESP0176).
  *
  * - `url` — an ordinary sprite location; hrefs become `url#name`.

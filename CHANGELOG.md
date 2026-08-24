@@ -1,3 +1,20 @@
+# 4.0.0
+
+Consumer-facing API names are deterministic before wider adoption.
+
+- Every public bubbling DOM event now uses the `esp-` namespace. Shared
+  controls use `esp-value-changed`, `esp-validity-changed`, and `esp-clicked`;
+  other events use component-qualified names. Legacy event names are not
+  dual-dispatched.
+- `ESP_EVENTS` is exhaustive and component-qualified. Internal coordination
+  events are absent from the registry and the Custom Elements Manifest.
+- Remove the expired `getIconHref`, `RepeaterFetchParams`,
+  `RepeaterFetchResult`, `scrollElementIntoView`, `isFixedInShadowDom`, and
+  `isFixedOrAncestorFixed` exports.
+- The Espalier 4 migration guide contains the exact event, registry-key, and
+  export replacement tables. Form-associated components continue to compose
+  the public `FormFieldController`; `esp-slider` remains always-valid.
+
 # 3.9.0
 
 Button icons can lead or trail without looking like a split action.

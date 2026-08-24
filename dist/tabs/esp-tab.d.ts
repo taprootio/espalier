@@ -48,7 +48,8 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * @customElement esp-tab
  * @slot - The default slot holds the panel content displayed
  * when this tab is active.
- * @event {CustomEvent} esp-tab-updated - Fired when the tab's label, active state, or disabled state changes so the parent tab group can refresh its derived metadata.
+ * Label, active-state, and disabled-state updates are reported through a
+ * private coordination event consumed by the parent tab group.
  *
  * @csspart panel - The panel wrapper element.
  *

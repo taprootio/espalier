@@ -33,9 +33,11 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  *
  * @slot - Place `esp-radio-button` elements in the default slot.
  *
- * @event {CustomEvent<string>} value-changed - Fired when the
+ * @event {CustomEvent<string>} esp-value-changed - Fired when the
  * selected radio button changes. The detail is the value of the
  * newly selected radio button.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @docPageTitle Radio Button Group
  * @docUrl /components/radio-button/group
@@ -78,7 +80,7 @@ export declare class EspalierRadioButtonGroup extends EspalierElementBase implem
      * radio button if none is checked.
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

@@ -54,7 +54,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *   const startBtn = findById("start-btn");
  *   const resetBtn = findById("reset-btn");
  *   let running = false;
- *   startBtn.addEventListener("clicked", () => {
+ *   startBtn.addEventListener("esp-clicked", () => {
  *     if (running) return;
  *     running = true;
  *     progress.value = 0;
@@ -72,7 +72,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     }
  *     requestAnimationFrame(step);
  *   });
- *   resetBtn.addEventListener("clicked", () => {
+ *   resetBtn.addEventListener("esp-clicked", () => {
  *     running = false;
  *     progress.value = 0;
  *   });
@@ -139,7 +139,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *   const startCircleBtn = findById("start-circle-btn");
  *   const resetCircleBtn = findById("reset-circle-btn");
  *   let circleRunning = false;
- *   startCircleBtn.addEventListener("clicked", () => {
+ *   startCircleBtn.addEventListener("esp-clicked", () => {
  *     if (circleRunning) return;
  *     circleRunning = true;
  *     circleProgress.value = 0;
@@ -157,7 +157,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     }
  *     requestAnimationFrame(step);
  *   });
- *   resetCircleBtn.addEventListener("clicked", () => {
+ *   resetCircleBtn.addEventListener("esp-clicked", () => {
  *     circleRunning = false;
  *     circleProgress.value = 0;
  *   });

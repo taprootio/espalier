@@ -42,7 +42,7 @@ export type DestroyEspalierInfo = {
  * </esp-info>
  * ```
  *
- * @event {CustomEvent<DestroyEspalierInfo>} destroy - Fired when the user
+ * @event {CustomEvent<DestroyEspalierInfo>} esp-info-destroy - Fired when the user
  * clicks the destroy button.
  *
  * @docPageTitle Info
@@ -63,7 +63,7 @@ export declare class EspalierInfo extends EspalierElementBase {
     icon: string;
     /**
      * If an info box is destroyable, it has a button that will fire the
-     * destroy event when clicked.
+     * `esp-info-destroy` event when clicked.
      *
      * ```html
      * <esp-info destroyable>

@@ -419,17 +419,17 @@ export interface PageWorkspaceResizeDetail {
  *   page.kind = page.previewOpen || help.open ? "wide" : "full";
  * };
  *
- * findById("page-workspace-preview-toggle").addEventListener("clicked", () => {
+ * findById("page-workspace-preview-toggle").addEventListener("esp-clicked", () => {
  *   page.togglePreview();
  *   syncMainWidth();
  * });
- * findById("page-workspace-help-toggle").addEventListener("clicked", () => {
+ * findById("page-workspace-help-toggle").addEventListener("esp-clicked", () => {
  *   help.anchor = title;
  *   help.toggle();
  *   syncMainWidth();
  * });
- * help.addEventListener("flyout-opened", syncMainWidth);
- * help.addEventListener("flyout-closed", syncMainWidth);
+ * help.addEventListener("esp-flyout-opened", syncMainWidth);
+ * help.addEventListener("esp-flyout-closed", syncMainWidth);
  * syncMainWidth();
  * </script>
  * ```

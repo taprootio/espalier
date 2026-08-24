@@ -74,7 +74,7 @@ export type { CalendarDay, DatePickerMode, ParsedValue } from "./helpers/types.j
  * <script>
  *   const form = document.getElementById("booking-form");
  *   const picker = findByTagName("esp-date-picker")[0];
- *   picker.addEventListener("value-changed", (event) => {
+ *   picker.addEventListener("esp-value-changed", (event) => {
  *     console.log("Selected:", event.detail);
  *   });
  * </script>
@@ -85,9 +85,11 @@ export type { CalendarDay, DatePickerMode, ParsedValue } from "./helpers/types.j
  * > as `temporal-polyfill` in the document `<head>` before using this
  * > component.
  *
- * @event {CustomEvent<string>} value-changed - Emitted when the
+ * @event {CustomEvent<string>} esp-value-changed - Emitted when the
  * user picks a date, time, or range. The event detail is the new
  * ISO 8601 value string.
+ * @event {CustomEvent<{ valid: boolean; message: string }>} esp-validity-changed -
+ * Fired whenever constraint validation runs.
  *
  * @customElement esp-date-picker
  * @docPageTitle Date Picker
@@ -250,7 +252,7 @@ export declare class EspalierDatePicker extends EspalierElementBase implements E
      * Focus the date picker's text input.
      */
     focus(options?: FocusOptions): void;
-    /** Re-run constraint validation and dispatch `validity-changed`. */
+    /** Re-run constraint validation and dispatch `esp-validity-changed`. */
     validate(): void;
     /** Check whether the current state is valid (delegates to ElementInternals). */
     checkValidity(): boolean;

@@ -69,7 +69,7 @@ export declare class FormFieldController implements ReactiveController {
     /**
      * Push the current value into `ElementInternals` for form
      * participation, then run constraint validation and dispatch
-     * a `validity-changed` event.
+     * a `esp-validity-changed` event.
      *
      * Call this whenever the host's value changes.
      */
@@ -84,7 +84,7 @@ export declare class FormFieldController implements ReactiveController {
     syncValueSilently(): void;
     /**
      * Run constraint validation against the host's current state
-     * and dispatch a `validity-changed` event.
+     * and dispatch a `esp-validity-changed` event.
      */
     validate(): void;
     /**
@@ -99,7 +99,7 @@ export declare class FormFieldController implements ReactiveController {
     /**
      * Delegate for the host's `formResetCallback()`.
      * Calls the `onReset` hook, silently re-syncs the form value
-     * and validity, then dispatches `validity-changed` with
+     * and validity, then dispatches `esp-validity-changed` with
      * `valid: true` so that `esp-form-item` clears any displayed
      * errors. The internals are updated to reflect the real
      * (possibly invalid) state, but the event always reports
