@@ -48,7 +48,7 @@
  * report.adjustedTokens;                // ['linkHover']
  * ```
  */
-import { type EspalierTheme, type LightnessKey, type MappingSource, type PartialTheme, type SemanticColorName } from "./theme.js";
+import { type EspalierTheme, type LightnessReference, type MappingSource, type PartialTheme, type SemanticColorName } from "./theme.js";
 /** What APCA enforcement did to one token. */
 export interface ThemeFitApcaAction {
     /** The requested value, as an `oklch()` string. */
@@ -75,8 +75,8 @@ export interface ThemeFitAnchor {
     /**
      * ΔE-OK between the declared anchor and the emitted token. Expect a
      * non-zero number even on a perfect fit: lightness always comes from
-     * the mapping's ramp stop, so a swatch used as a source is re-lit by
-     * design (ADR-015).
+     * the mapping's built-in stop or custom tone, so a swatch used as a
+     * source is re-lit by design (ADR-015, ADR-020).
      */
     deltaE: number;
 }
@@ -88,8 +88,8 @@ export interface ThemeFitToken {
     property: string;
     /** The mapping's declared source. */
     source: MappingSource;
-    /** The lightness ramp stop the mapping selected. */
-    lightness: LightnessKey;
+    /** The built-in ramp stop or custom tone reference the mapping selected. */
+    lightness: LightnessReference;
     /** The value the mapping asked for, before contrast enforcement. */
     requested: string;
     /** The value actually emitted. */

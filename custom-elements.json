@@ -921,6 +921,22 @@
         },
         {
           "kind": "js",
+          "name": "LightnessKey",
+          "declaration": {
+            "name": "LightnessKey",
+            "module": "./shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LightnessReference",
+          "declaration": {
+            "name": "LightnessReference",
+            "module": "./shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "PartialTheme",
           "declaration": {
             "name": "PartialTheme",
@@ -937,6 +953,14 @@
         },
         {
           "kind": "js",
+          "name": "PartialThemeTones",
+          "declaration": {
+            "name": "PartialThemeTones",
+            "module": "./shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "ThemeContext",
           "declaration": {
             "name": "ThemeContext",
@@ -948,6 +972,22 @@
           "name": "ThemeContexts",
           "declaration": {
             "name": "ThemeContexts",
+            "module": "./shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ThemeTones",
+          "declaration": {
+            "name": "ThemeTones",
+            "module": "./shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ToneReference",
+          "declaration": {
+            "name": "ToneReference",
             "module": "./shared/theme.js"
           }
         },
@@ -73989,6 +74029,72 @@
           "description": "Valid keys for the lightness ramp."
         },
         {
+          "kind": "function",
+          "name": "toneReferenceName",
+          "return": {
+            "type": {
+              "text": "string | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "reference",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ],
+          "description": "Return the custom tone name carried by a valid `tone:<slug>` reference."
+        },
+        {
+          "kind": "function",
+          "name": "isLightnessKey",
+          "return": {
+            "type": {
+              "text": "reference is LightnessKey"
+            }
+          },
+          "parameters": [
+            {
+              "name": "reference",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ],
+          "description": "True when a string names one of the eleven engine-owned ramp stops."
+        },
+        {
+          "kind": "function",
+          "name": "resolveLightnessReference",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lightness",
+              "type": {
+                "text": "LightnessMap"
+              }
+            },
+            {
+              "name": "tones",
+              "type": {
+                "text": "ThemeTones | undefined"
+              }
+            },
+            {
+              "name": "reference",
+              "type": {
+                "text": "LightnessReference"
+              }
+            }
+          ],
+          "description": "Resolve the lightness an explicit semantic mapping requested.\n\nCustom tones are a lookup namespace only: this function never adds them to\nLIGHTNESS_KEYS, so automatic role and action-stop algorithms continue\nto consider exactly the built-in eleven. An invalid runtime reference falls\nback to `surface`; validation reports the authoring error before mounting."
+        },
+        {
           "kind": "variable",
           "name": "DEFAULT_LIGHT_LIGHTNESS",
           "type": {
@@ -74021,7 +74127,7 @@
           "type": {
             "text": "Readonly<EspalierTheme>"
           },
-          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, contexts: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_LIGHT_LIGHTNESS }, }",
+          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, contexts: {}, tones: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_LIGHT_LIGHTNESS }, }",
           "description": "The built-in **light** theme.\n\nIdentical to the dark theme in every field except `lightness`,\nwhich uses a high-surface / low-text ramp suited for bright\nbackgrounds."
         },
         {
@@ -74030,7 +74136,7 @@
           "type": {
             "text": "Readonly<EspalierTheme>"
           },
-          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, contexts: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_DARK_LIGHTNESS }, }",
+          "default": "{ ...SHARED_DEFAULTS, chroma: buildDefaultChroma(), semanticMappings: { ...DEFAULT_SEMANTIC_MAPPINGS }, anchors: {}, roles: {}, contexts: {}, tones: {}, dataPalette: { ...DEFAULT_DATA_PALETTE }, dataRamps: {}, lightness: { ...DEFAULT_DARK_LIGHTNESS }, }",
           "description": "The built-in **dark** theme.\n\nIdentical to the light theme in every field except `lightness`,\nwhich uses a low-surface / high-text ramp suited for dark\nbackgrounds."
         },
         {
@@ -74131,7 +74237,7 @@
               "description": "User-supplied partial overrides."
             }
           ],
-          "description": "Deep-merge a PartialTheme over a set of defaults.\n\nPrimitive fields are replaced; nested objects (`angles`,\n`semanticHues`, `lightness`, `chroma`, `semanticMappings`, `contexts`)\nare merged key-by-key.  Arrays (`stylesheets`) are replaced\nwholesale."
+          "description": "Deep-merge a PartialTheme over a set of defaults.\n\nPrimitive fields are replaced; nested objects (`angles`,\n`semanticHues`, `lightness`, `tones`, `chroma`, `semanticMappings`, `contexts`)\nare merged key-by-key.  Arrays (`stylesheets`) are replaced\nwholesale."
         },
         {
           "kind": "function",
@@ -74157,7 +74263,7 @@
               "description": "The context name a zone would set in its attribute."
             }
           ],
-          "description": "Compile a named context over a resolved theme — the exact theme a\n`context=\"<name>\"` zone renders (ESP0175).\n\nThis is the same compilation `esp-element-base` performs for a zone\nhost, exported so a check script or the fit report can inspect a\ncontext surface without a DOM: role rebindings and the partial\nlightness ramp merge over the root theme, and any context-level\n`semanticMappings` layer on top as explicit token pins. Returns `null`\nwhen the theme does not define the context."
+          "description": "Compile a named context over a resolved theme — the exact theme a\n`context=\"<name>\"` zone renders (ESP0175).\n\nThis is the same compilation `esp-element-base` performs for a zone\nhost, exported so a check script or the fit report can inspect a\ncontext surface without a DOM: role rebindings, the partial lightness ramp,\nand custom tones merge over the root theme, and any context-level\n`semanticMappings` layer on top as explicit token pins. Returns `null` when\nthe theme does not define the context."
         },
         {
           "kind": "function",
@@ -74205,9 +74311,9 @@
           "kind": "variable",
           "name": "NESTED_THEME_KEYS",
           "type": {
-            "text": "[\n  \"anchors\",\n  \"angles\",\n  \"contexts\",\n  \"dataPalette\",\n  \"dataRamps\",\n  \"intents\",\n  \"roles\",\n  \"chroma\",\n  \"lightness\",\n  \"semanticHues\",\n  \"semanticMappings\",\n  \"variantChroma\",\n]"
+            "text": "[\n  \"anchors\",\n  \"angles\",\n  \"contexts\",\n  \"dataPalette\",\n  \"dataRamps\",\n  \"intents\",\n  \"roles\",\n  \"chroma\",\n  \"lightness\",\n  \"tones\",\n  \"semanticHues\",\n  \"semanticMappings\",\n  \"variantChroma\",\n]"
           },
-          "default": "[ \"anchors\", \"angles\", \"contexts\", \"dataPalette\", \"dataRamps\", \"intents\", \"roles\", \"chroma\", \"lightness\", \"semanticHues\", \"semanticMappings\", \"variantChroma\", ]",
+          "default": "[ \"anchors\", \"angles\", \"contexts\", \"dataPalette\", \"dataRamps\", \"intents\", \"roles\", \"chroma\", \"lightness\", \"tones\", \"semanticHues\", \"semanticMappings\", \"variantChroma\", ]",
           "description": "Keys of EspalierTheme whose values are nested objects\nand therefore need key-by-key merging instead of wholesale\nreplacement when combining two PartialTheme objects."
         },
         {
@@ -74404,6 +74510,30 @@
           "name": "LIGHTNESS_KEYS",
           "declaration": {
             "name": "LIGHTNESS_KEYS",
+            "module": "dist/shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toneReferenceName",
+          "declaration": {
+            "name": "toneReferenceName",
+            "module": "dist/shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isLightnessKey",
+          "declaration": {
+            "name": "isLightnessKey",
+            "module": "dist/shared/theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resolveLightnessReference",
+          "declaration": {
+            "name": "resolveLightnessReference",
             "module": "dist/shared/theme.js"
           }
         },

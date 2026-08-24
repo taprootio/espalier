@@ -1,3 +1,18 @@
+# 3.8.0
+
+One-off semantic lightness without moving a shared ramp stop.
+
+- Themes and contexts can declare named `tones`; an explicit semantic mapping
+  references one as `tone:<name>` and keeps the ordinary chroma, gamut, APCA,
+  and fit-report pipeline.
+- Tones are deliberately isolated: they do not emit `--esp-l-*`, join the
+  eleven-stop ramp, or influence roles and automatic action placement. A
+  context can override a root tone for its own semantic table.
+- Validation rejects malformed or missing tone references and now catches
+  unknown built-in lightness keys instead of silently discarding them.
+- The theming and lightness-ramp guides show when to move a shared stop and
+  when to use a custom tone for a recessed, pressed, or hovered ground.
+
 # 3.7.0
 
 Subtle category color behind ordinary copy.

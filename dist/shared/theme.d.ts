@@ -35,6 +35,14 @@ import { type DataPalette, type DataRamps, type PartialDataRamps } from "./data-
 export type LightnessKey = "surface" | "raised1" | "raised2" | "raised3" | "raised4" | "accent" | "muted" | "text" | "border" | "ink" | "shadow";
 /** Lightness values (0–1) for every ramp position. */
 export type LightnessMap = Record<LightnessKey, number>;
+/** A named, opt-in lightness value outside the engine-owned ramp. */
+export type ToneReference = `tone:${string}`;
+/** A built-in ramp stop or an explicitly declared custom tone. */
+export type LightnessReference = LightnessKey | ToneReference;
+/** Named custom lightness values. They are inert until a mapping references one. */
+export type ThemeTones = Record<string, number>;
+/** Tone declarations while partial themes are being layered. */
+export type PartialThemeTones = Record<string, number | undefined>;
 /**
  * A geometric color-theory variant **or** a fixed status family.
  *
@@ -110,11 +118,11 @@ export type ThemeAnchors = Record<string, ThemeAnchor>;
  * base color, `anchor:<name>.<slot>` for a sub-slot.
  *
  * An anchor source contributes its own hue **and chroma**; lightness
- * always comes from the mapping's ramp stop, and APCA enforcement
- * applies unchanged. Anchors are absolute sources rather than seed
- * rotations — a brand color is a color, not a relationship to the
- * seed — so they hold steady while contexts rebind roles around them
- * and intents replace the filled-action source.
+ * comes from the mapping's built-in stop or custom tone, and APCA
+ * enforcement applies unchanged. Anchors are absolute sources rather
+ * than seed rotations — a brand color is a color, not a relationship
+ * to the seed — so they hold steady while contexts rebind roles around
+ * them and intents replace the filled-action source.
  */
 export type MappingSource = ColorSource | `anchor:${string}`;
 /** Anchor names and slot names share one slug grammar. */
@@ -167,8 +175,8 @@ export interface SemanticMapping {
      * declared anchor as `anchor:<name>` / `anchor:<name>.<slot>`.
      */
     source: MappingSource;
-    /** The lightness ramp position to apply. */
-    lightness: LightnessKey;
+    /** A built-in ramp stop, or a named custom tone as `tone:<name>`. */
+    lightness: LightnessReference;
 }
 /** Full mapping table — one entry per semantic color token. */
 export type SemanticMappings = Record<SemanticColorName, SemanticMapping>;
@@ -229,14 +237,14 @@ export type ThemeRoles = {
  * cannot make a dark zone inside a light scheme because semantic derivation
  * deliberately takes lightness from the ramp rather than from an anchor.
  *
- * A context may also carry token-level `semanticMappings` (ESP0175).
- * Root-level explicit mappings survive into every context by design —
- * they are deliberate token pins — so a zone that needs a different
- * value for one of them declares its own mapping here, which layers over
- * the inherited pin exactly as a root-level mapping layers over roles.
+ * A context may also carry custom `tones` and token-level
+ * `semanticMappings` (ESP0175, ESP0180). Root-level tones and explicit
+ * mappings survive into every context by design, while a zone may add or
+ * override a tone and pin a token locally. Each record layers by name.
  */
 export type ThemeContext = ThemeRoles & {
     lightness?: Partial<LightnessMap>;
+    tones?: PartialThemeTones;
     semanticMappings?: Partial<SemanticMappings>;
 };
 /** Named role-rebinding zones available to `context` attributes. */
@@ -279,6 +287,8 @@ export declare const ROLE_PAIRED_INK: Readonly<Record<string, {
 interface CompileRoleOptions {
     /** Token mappings declared explicitly at this merge boundary. */
     explicitMappings?: Partial<SemanticMappings>;
+    /** Custom tones available to explicit surface mappings. */
+    tones?: ThemeTones;
     /** Exact maximum paired-ink contrast of an action surface candidate. */
     actionSurfaceContrast?: (source: MappingSource, stop: LightnessKey) => number;
     /** ΔE-OK between an action surface candidate and the theme's background. */
@@ -458,6 +468,14 @@ export interface EspalierTheme {
     variantChroma: Partial<Record<VariantColorSource, number>>;
     /** Lightness values (0–1) for the eleven ramp positions. */
     lightness: LightnessMap;
+    /**
+     * Named custom lightness values for explicit semantic mappings.
+     *
+     * Refer to one as `tone:<name>` from `semanticMappings`. Tones do not
+     * become built-in ramp stops, emit `--esp-l-*` properties, or participate
+     * in automatic role and action-stop selection.
+     */
+    tones: ThemeTones;
     /** Per-semantic-token chroma min / max. */
     chroma: Record<SemanticColorName, ChromaRange>;
     /** Maps each semantic token to its color source + lightness. */
@@ -515,10 +533,11 @@ export interface EspalierTheme {
  * carry slot-only anchor overrides, which the resolved
  * {@link ThemeAnchor} deliberately does not permit.
  */
-export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors" | "contexts" | "dataRamps"> & {
+export type PartialTheme = Omit<DeepPartial<EspalierTheme>, "anchors" | "contexts" | "dataRamps" | "tones"> & {
     anchors?: PartialThemeAnchors;
     contexts?: PartialThemeContexts;
     dataRamps?: PartialDataRamps;
+    tones?: PartialThemeTones;
 };
 /** Validation result returned by {@link validateTheme}. */
 export interface ThemeValidationResult {
@@ -566,6 +585,19 @@ export declare const STATUS_COLOR_SOURCES: readonly StatusColorSource[];
 export declare const VARIANT_COLOR_SOURCES: readonly VariantColorSource[];
 /** Valid keys for the lightness ramp. */
 export declare const LIGHTNESS_KEYS: readonly LightnessKey[];
+/** Return the custom tone name carried by a valid `tone:<slug>` reference. */
+export declare function toneReferenceName(reference: unknown): string | null;
+/** True when a string names one of the eleven engine-owned ramp stops. */
+export declare function isLightnessKey(reference: unknown): reference is LightnessKey;
+/**
+ * Resolve the lightness an explicit semantic mapping requested.
+ *
+ * Custom tones are a lookup namespace only: this function never adds them to
+ * {@link LIGHTNESS_KEYS}, so automatic role and action-stop algorithms continue
+ * to consider exactly the built-in eleven. An invalid runtime reference falls
+ * back to `surface`; validation reports the authoring error before mounting.
+ */
+export declare function resolveLightnessReference(lightness: LightnessMap, tones: ThemeTones | undefined, reference: LightnessReference): number;
 /**
  * Default lightness ramp for the **light** scheme.
  *
@@ -660,7 +692,7 @@ export declare function explicitMappingTokens(theme: EspalierTheme): Set<Semanti
  * Deep-merge a {@link PartialTheme} over a set of defaults.
  *
  * Primitive fields are replaced; nested objects (`angles`,
- * `semanticHues`, `lightness`, `chroma`, `semanticMappings`, `contexts`)
+ * `semanticHues`, `lightness`, `tones`, `chroma`, `semanticMappings`, `contexts`)
  * are merged key-by-key.  Arrays (`stylesheets`) are replaced
  * wholesale.
  *
@@ -675,10 +707,10 @@ export declare function mergeTheme(defaults: EspalierTheme, overrides: PartialTh
  *
  * This is the same compilation `esp-element-base` performs for a zone
  * host, exported so a check script or the fit report can inspect a
- * context surface without a DOM: role rebindings and the partial
- * lightness ramp merge over the root theme, and any context-level
- * `semanticMappings` layer on top as explicit token pins. Returns `null`
- * when the theme does not define the context.
+ * context surface without a DOM: role rebindings, the partial lightness ramp,
+ * and custom tones merge over the root theme, and any context-level
+ * `semanticMappings` layer on top as explicit token pins. Returns `null` when
+ * the theme does not define the context.
  *
  * @param theme A resolved theme (as `mergeTheme` returns).
  * @param name  The context name a zone would set in its attribute.
@@ -711,7 +743,7 @@ export declare function validateThemePair(lightBase64: string, darkBase64: strin
  * and therefore need key-by-key merging instead of wholesale
  * replacement when combining two {@link PartialTheme} objects.
  */
-export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "contexts", "dataPalette", "dataRamps", "intents", "roles", "chroma", "lightness", "semanticHues", "semanticMappings", "variantChroma"];
+export declare const NESTED_THEME_KEYS: readonly ["anchors", "angles", "contexts", "dataPalette", "dataRamps", "intents", "roles", "chroma", "lightness", "tones", "semanticHues", "semanticMappings", "variantChroma"];
 /**
  * Deep-merge two {@link PartialTheme} objects.
  *
