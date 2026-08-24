@@ -1,3 +1,15 @@
+# 3.7.0
+
+Subtle category color behind ordinary copy.
+
+- `--esp-color-series-1-tint` through `--esp-color-series-8-tint` mix 12%
+  series identity over 88% of `--esp-color-background` in OKLab — a quieter
+  companion for category-tinted rows, chips, cells, and tags.
+- Tints are concrete per-surface emissions like wash and ink: the root mixes
+  against its canvas, and each theme zone re-emits them against its own.
+- The data-colors guide now distinguishes fill (`-wash`), tint (`-tint`), and
+  ink (`-ink`), and calls out the background-composition and text-tier limits.
+
 # 3.6.0
 
 Named type roles without a generic text wrapper.

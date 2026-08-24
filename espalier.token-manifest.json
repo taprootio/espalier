@@ -358,6 +358,11 @@
       "description": "First series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
     },
     {
+      "name": "--esp-color-series-1-tint",
+      "category": "root-theme",
+      "description": "First series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-1-wash",
       "category": "root-theme",
       "description": "First series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
@@ -371,6 +376,11 @@
       "name": "--esp-color-series-2-ink",
       "category": "root-theme",
       "description": "Second series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-2-tint",
+      "category": "root-theme",
+      "description": "Second series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-2-wash",
@@ -388,6 +398,11 @@
       "description": "Third series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
     },
     {
+      "name": "--esp-color-series-3-tint",
+      "category": "root-theme",
+      "description": "Third series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-3-wash",
       "category": "root-theme",
       "description": "Third series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
@@ -401,6 +416,11 @@
       "name": "--esp-color-series-4-ink",
       "category": "root-theme",
       "description": "Fourth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-4-tint",
+      "category": "root-theme",
+      "description": "Fourth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-4-wash",
@@ -418,6 +438,11 @@
       "description": "Fifth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
     },
     {
+      "name": "--esp-color-series-5-tint",
+      "category": "root-theme",
+      "description": "Fifth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-5-wash",
       "category": "root-theme",
       "description": "Fifth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
@@ -431,6 +456,11 @@
       "name": "--esp-color-series-6-ink",
       "category": "root-theme",
       "description": "Sixth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-6-tint",
+      "category": "root-theme",
+      "description": "Sixth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-6-wash",
@@ -448,6 +478,11 @@
       "description": "Seventh series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
     },
     {
+      "name": "--esp-color-series-7-tint",
+      "category": "root-theme",
+      "description": "Seventh series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
+    },
+    {
       "name": "--esp-color-series-7-wash",
       "category": "root-theme",
       "description": "Seventh series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas."
@@ -461,6 +496,11 @@
       "name": "--esp-color-series-8-ink",
       "category": "root-theme",
       "description": "Eighth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable)."
+    },
+    {
+      "name": "--esp-color-series-8-tint",
+      "category": "root-theme",
+      "description": "Eighth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas."
     },
     {
       "name": "--esp-color-series-8-wash",

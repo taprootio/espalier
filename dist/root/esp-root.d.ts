@@ -72,20 +72,28 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  * @cssprop --esp-color-series-7 - Seventh categorical data-series color.
  * @cssprop --esp-color-series-8 - Eighth categorical data-series color.
  * @cssprop --esp-color-series-1-wash - First series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-1-tint - First series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-1-ink - First series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-2-wash - Second series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-2-tint - Second series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-2-ink - Second series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-3-wash - Third series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-3-tint - Third series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-3-ink - Third series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-4-wash - Fourth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-4-tint - Fourth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-4-ink - Fourth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-5-wash - Fifth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-5-tint - Fifth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-5-ink - Fifth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-6-wash - Sixth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-6-tint - Sixth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-6-ink - Sixth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-7-wash - Seventh series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-7-tint - Seventh series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-7-ink - Seventh series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-8-wash - Eighth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
+ * @cssprop --esp-color-series-8-tint - Eighth series tinted over the local background (12% identity in OKLab) for grounds behind ordinary text; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-8-ink - Eighth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-type-overline - Overline ink enforced to Lc 90 against the local background.
  * @cssprop --esp-color-type-label - Label ink enforced to Lc 75 against the local background.
