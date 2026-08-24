@@ -186,7 +186,7 @@ export interface ThemeFitLint {
     id: "action-canvas-separation" | "link-hover-ordering";
     /** Lints describe design-quality hazards, not validation failures. */
     severity: "warning";
-    /** The tokens the finding is about. */
+    /** The tokens the finding is about, recommended retune target first. */
     tokens: SemanticColorName[];
     /** The measured number the lint fired on (ΔE-OK, or an Lc deficit). */
     measured: number;

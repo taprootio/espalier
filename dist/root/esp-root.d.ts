@@ -87,6 +87,27 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  * @cssprop --esp-color-series-7-ink - Seventh series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
  * @cssprop --esp-color-series-8-wash - Eighth series washed toward the local background (75% identity in OKLab) for large fills; theme zones re-emit it against their own canvas.
  * @cssprop --esp-color-series-8-ink - Eighth series pushed to the text contrast tier against the local background (best-contrast pole when a mid-lightness surface makes the tier unreachable).
+ * @cssprop --esp-color-type-overline - Overline ink enforced to Lc 90 against the local background.
+ * @cssprop --esp-color-type-label - Label ink enforced to Lc 75 against the local background.
+ * @cssprop --esp-color-type-lead - Lead-paragraph ink enforced to Lc 75 against the local background.
+ * @cssprop --esp-color-type-caption - Caption ink enforced to Lc 90 against the local background.
+ * @cssprop --esp-type-overline-font-size - Fluid font size for overline text.
+ * @cssprop --esp-type-overline-font-weight - Font weight for overline text.
+ * @cssprop --esp-type-overline-letter-spacing - Letter spacing for overline text.
+ * @cssprop --esp-type-overline-text-transform - Text transform for overline text.
+ * @cssprop --esp-type-overline-color - Context-local color alias for overline text.
+ * @cssprop --esp-type-label-font-size - Fluid font size for label text.
+ * @cssprop --esp-type-label-font-weight - Font weight for label text.
+ * @cssprop --esp-type-label-letter-spacing - Letter spacing for label text.
+ * @cssprop --esp-type-label-color - Context-local color alias for label text.
+ * @cssprop --esp-type-lead-font-size - Fluid font size for lead paragraphs.
+ * @cssprop --esp-type-lead-font-weight - Font weight for lead paragraphs.
+ * @cssprop --esp-type-lead-letter-spacing - Letter spacing for lead paragraphs.
+ * @cssprop --esp-type-lead-color - Context-local color alias for lead paragraphs.
+ * @cssprop --esp-type-caption-font-size - Fluid font size for captions.
+ * @cssprop --esp-type-caption-font-weight - Font weight for captions.
+ * @cssprop --esp-type-caption-letter-spacing - Letter spacing for captions.
+ * @cssprop --esp-type-caption-color - Context-local color alias for captions.
  *
  * @docPageTitle Root
  * @docUrl /components/root

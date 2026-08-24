@@ -148,7 +148,7 @@ export declare function resolveAnchorColor(anchors: ThemeAnchors, reference: Anc
  */
 export declare function resolveDataColorSource(source: string, anchors: ThemeAnchors): string | null;
 /** Every semantic color token the system computes. */
-export type SemanticColorName = "background" | "layer1" | "layer2" | "layer3" | "layer4" | "actionBackground" | "actionText" | "border" | "shadow" | "text" | "dangerText" | "headings" | "headingsHover" | "link" | "linkHover" | "linkHoverBg" | "inputCaret" | "inputSelection" | "inputSelectionBg";
+export type SemanticColorName = "background" | "layer1" | "layer2" | "layer3" | "layer4" | "actionBackground" | "actionText" | "border" | "shadow" | "text" | "typeOverline" | "typeLabel" | "typeLead" | "typeCaption" | "dangerText" | "headings" | "headingsHover" | "link" | "linkHover" | "linkHoverBg" | "inputCaret" | "inputSelection" | "inputSelectionBg";
 /** Chroma range enforced on a semantic token before gamut mapping. */
 export interface ChromaRange {
     /** Minimum chroma (≥ 0). */
@@ -176,7 +176,7 @@ export type SemanticMappings = Record<SemanticColorName, SemanticMapping>;
  * The designer-facing color roles.
  *
  * `semantic-groups.md` has always described these groups and then warned
- * that exposing the nineteen raw tokens is "handing users the engine
+ * that exposing the twenty-three raw tokens is "handing users the engine
  * room instead of the dashboard" — but the groups were documentation
  * only. Roles make them addressable: a sentence a designer would say
  * becomes a line of theme.
@@ -249,7 +249,7 @@ export declare const ROLE_NAMES: readonly RoleName[];
  * Which semantic tokens each role slot paints, and at which ramp stop.
  *
  * This is the compilation table: it turns five designer-facing roles
- * into the nineteen engine-room tokens. `dangerText` is absent by
+ * into the twenty-three engine-room tokens. `dangerText` is absent by
  * design — the status family is reserved and keeps its own source.
  *
  * The `accent` role has no body-text slot on purpose. "Rose is

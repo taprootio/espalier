@@ -1,3 +1,31 @@
+# 3.6.0
+
+Named type roles without a generic text wrapper.
+
+- Overline, label, lead, and caption each have a complete
+  `--esp-type-<role>-*` recipe for size, weight, tracking, color, and — for
+  overline — uppercase transform. Apply the recipes to native paragraphs,
+  labels, captions, and inline elements so their semantics stay intact.
+- Each role has its own semantic ink. Overline and caption clear APCA Lc 90;
+  label and lead clear Lc 75. Theme `ink.color` or an existing raw `text`
+  mapping supplies unbound and unpinned roles without weakening a distinct
+  role family, and a context re-emits only the color aliases against its
+  locally enforced colors so inherited recipe overrides survive.
+- `esp-form-item` consumes the label recipe while retaining its component-level
+  label-color override.
+- Theme QA now recommends retuning the one-consumer `linkHoverBg` wash before
+  changing the widely shared `linkHover` ink.
+- Identical type-role APCA inputs share one background-aware enforcement
+  derivation per surface while retaining every token's fit-report record.
+
+### Migration note
+
+`esp-form-item` labels now take their size and weight from the label role instead
+of inheriting `--esp-form-item-font-size` and using literal `bold`. Themes with
+normal-weight headings therefore render normal-weight form labels; compact
+regions can override `--esp-type-label-font-size` or
+`--esp-type-label-font-weight` on their wrapper.
+
 # 3.5.0
 
 No unthemed flash when the theme mounts from script.

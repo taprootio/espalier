@@ -51,8 +51,10 @@ var o=function(h,e,t,r){var s=arguments.length,i=s<3?e:r===null?r=Object.getOwnP
       > .field-shell > label > .field-label {
         grid-column: 1;
         grid-row: 1;
-        font-weight: bold;
-        color: var(--esp-form-item-label-color, var(--esp-color-text));
+        font-size: var(--esp-type-label-font-size, var(--esp-type-normal));
+        font-weight: var(--esp-type-label-font-weight, var(--esp-font-weight-headings));
+        letter-spacing: var(--esp-type-label-letter-spacing, 0.01em);
+        color: var(--esp-form-item-label-color, var(--esp-type-label-color, var(--esp-color-text)));
       }
 
       > .field-shell > label > slot,

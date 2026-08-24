@@ -80,7 +80,7 @@ export declare class EspalierElementBase extends LitElement implements SeedColor
      *
      * With no context and a `neutral` intent, all semantic tokens cascade
      * from `<esp-root>` and previous overrides are cleared. A context
-     * emits the zone's complete nineteen-token table; a non-neutral intent
+     * emits the zone's complete twenty-three-token table; a non-neutral intent
      * then overlays the filled-action pair, derived over the governing
      * zone's theme — this host's own context, or the nearest ancestor
      * zone's — so its APCA enforcement runs against the zone's actual

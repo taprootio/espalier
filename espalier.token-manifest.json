@@ -503,6 +503,26 @@
       "description": ""
     },
     {
+      "name": "--esp-color-type-caption",
+      "category": "root-theme",
+      "description": "Caption ink enforced to Lc 90 against the local background."
+    },
+    {
+      "name": "--esp-color-type-label",
+      "category": "root-theme",
+      "description": "Label ink enforced to Lc 75 against the local background."
+    },
+    {
+      "name": "--esp-color-type-lead",
+      "category": "root-theme",
+      "description": "Lead-paragraph ink enforced to Lc 75 against the local background."
+    },
+    {
+      "name": "--esp-color-type-overline",
+      "category": "root-theme",
+      "description": "Overline ink enforced to Lc 90 against the local background."
+    },
+    {
       "name": "--esp-color-warning",
       "category": "root-theme",
       "description": ""
@@ -2614,14 +2634,74 @@
       "description": ""
     },
     {
+      "name": "--esp-type-caption-color",
+      "category": "root-theme",
+      "description": "Context-local color alias for captions."
+    },
+    {
+      "name": "--esp-type-caption-font-size",
+      "category": "root-theme",
+      "description": "Fluid font size for captions."
+    },
+    {
+      "name": "--esp-type-caption-font-weight",
+      "category": "root-theme",
+      "description": "Font weight for captions."
+    },
+    {
+      "name": "--esp-type-caption-letter-spacing",
+      "category": "root-theme",
+      "description": "Letter spacing for captions."
+    },
+    {
       "name": "--esp-type-huge",
       "category": "root-theme",
       "description": ""
     },
     {
+      "name": "--esp-type-label-color",
+      "category": "root-theme",
+      "description": "Context-local color alias for label text."
+    },
+    {
+      "name": "--esp-type-label-font-size",
+      "category": "root-theme",
+      "description": "Fluid font size for label text."
+    },
+    {
+      "name": "--esp-type-label-font-weight",
+      "category": "root-theme",
+      "description": "Font weight for label text."
+    },
+    {
+      "name": "--esp-type-label-letter-spacing",
+      "category": "root-theme",
+      "description": "Letter spacing for label text."
+    },
+    {
       "name": "--esp-type-large",
       "category": "root-theme",
       "description": ""
+    },
+    {
+      "name": "--esp-type-lead-color",
+      "category": "root-theme",
+      "description": "Context-local color alias for lead paragraphs."
+    },
+    {
+      "name": "--esp-type-lead-font-size",
+      "category": "root-theme",
+      "description": "Fluid font size for lead paragraphs."
+    },
+    {
+      "name": "--esp-type-lead-font-weight",
+      "category": "root-theme",
+      "description": "Font weight for lead paragraphs."
+    },
+    {
+      "name": "--esp-type-lead-letter-spacing",
+      "category": "root-theme",
+      "description": "Letter spacing for lead paragraphs."
     },
     {
       "name": "--esp-type-medium",
@@ -2632,6 +2712,31 @@
       "name": "--esp-type-normal",
       "category": "root-theme",
       "description": ""
+    },
+    {
+      "name": "--esp-type-overline-color",
+      "category": "root-theme",
+      "description": "Context-local color alias for overline text."
+    },
+    {
+      "name": "--esp-type-overline-font-size",
+      "category": "root-theme",
+      "description": "Fluid font size for overline text."
+    },
+    {
+      "name": "--esp-type-overline-font-weight",
+      "category": "root-theme",
+      "description": "Font weight for overline text."
+    },
+    {
+      "name": "--esp-type-overline-letter-spacing",
+      "category": "root-theme",
+      "description": "Letter spacing for overline text."
+    },
+    {
+      "name": "--esp-type-overline-text-transform",
+      "category": "root-theme",
+      "description": "Text transform for overline text."
     },
     {
       "name": "--esp-type-small",
