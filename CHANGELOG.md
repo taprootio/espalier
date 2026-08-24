@@ -1,3 +1,18 @@
+# 3.9.0
+
+Button icons can lead or trail without looking like a split action.
+
+- `icon-position="left"` places an icon on the logical leading side and
+  `icon-position="right"` places it on the logical trailing side. The trailing
+  position remains the default, and both positions mirror automatically in
+  right-to-left layouts.
+- Positioning works the same for native buttons, links, loading indicators,
+  slotted icons, and incognito buttons. Incognito buttons previously forced a
+  leading icon and now follow the trailing default; add `icon-position="left"`
+  to keep the previous layout.
+- A labelled single-icon button now uses one continuous action background with
+  no internal divider. `esp-button-group` keeps its divider between buttons.
+
 # 3.8.0
 
 One-off semantic lightness without moving a shared ramp stop.

@@ -1,5 +1,6 @@
 import { type TemplateResult } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+export type ButtonIconPosition = "left" | "right";
 /**
  * Used to initiate a user action or link to another page.
  *
@@ -26,6 +27,27 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *   <esp-button label="Warning" intent="warning" collapsed></esp-button>
  *   <esp-button label="Danger" intent="danger" collapsed></esp-button>
  *   <esp-button label="Info" intent="info" collapsed></esp-button>
+ * </div>
+ * ```
+ *
+ * Use `icon-position="left"` for a leading icon. The default `"right"`
+ * position keeps the icon trailing; both positions follow writing direction
+ * and therefore mirror in RTL.
+ *
+ * ```html
+ * <div style="display: flex; gap: var(--esp-size-padding);">
+ *   <esp-button
+ *     collapsed
+ *     label="Save"
+ *     icon="save"
+ *     icon-position="left">
+ *   </esp-button>
+ *   <esp-button
+ *     collapsed
+ *     label="Next"
+ *     icon="arrow-big-right"
+ *     icon-position="right">
+ *   </esp-button>
  * </div>
  * ```
  *
@@ -180,6 +202,18 @@ export declare class EspalierButton extends EspalierElementBase {
      * @type {string}
      */
     icon: string;
+    /**
+     * Places the optional icon on the logical leading (`"left"`) or trailing
+     * (`"right"`) side of the label. Logical placement mirrors in RTL.
+     *
+     * ```html
+     * <esp-button label="Save" icon="save" icon-position="left"></esp-button>
+     * <esp-button label="Next" icon="arrow-big-right" icon-position="right"></esp-button>
+     * ```
+     *
+     * @type {"left" | "right"}
+     */
+    iconPosition: ButtonIconPosition;
     /**
      * The label of the button.
      *
