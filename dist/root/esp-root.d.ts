@@ -116,6 +116,12 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  * @cssprop --esp-type-caption-font-weight - Font weight for captions.
  * @cssprop --esp-type-caption-letter-spacing - Letter spacing for captions.
  * @cssprop --esp-type-caption-color - Context-local color alias for captions.
+ * @cssprop --esp-type-display-font-family - Heading font family for opt-in display text.
+ * @cssprop --esp-type-display-font-size - Fluid display size spanning the large mobile floor through the huge desktop ceiling.
+ * @cssprop --esp-type-display-font-weight - Heading font weight for opt-in display text.
+ * @cssprop --esp-type-display-line-height - Line height for opt-in display text.
+ * @cssprop --esp-type-display-letter-spacing - Letter spacing for opt-in display text.
+ * @cssprop --esp-type-display-color - Context-local heading-color alias for opt-in display text.
  *
  * @docPageTitle Root
  * @docUrl /components/root

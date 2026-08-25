@@ -1,4 +1,4 @@
-import{css as r,html as o,nothing as a}from"lit";function i(e={}){return o`
+import{css as r,html as o,nothing as a}from"lit";function t(e={}){return o`
     <div
       class="esp-visual-overlay ${e.className??""}"
       part=${e.rootPart||a}
@@ -8,7 +8,7 @@ import{css as r,html as o,nothing as a}from"lit";function i(e={}){return o`
       <div class="esp-visual-overlay__scrim" part=${e.scrimPart||a}></div>
       <div class="esp-visual-overlay__texture" part=${e.texturePart||a}></div>
     </div>
-  `}const v=r`
+  `}const i=r`
   .esp-visual-overlay {
     position: absolute;
     z-index: var(--_esp-overlay-z-index, auto);
@@ -41,11 +41,18 @@ import{css as r,html as o,nothing as a}from"lit";function i(e={}){return o`
   }
 
   .esp-visual-overlay__texture {
-    background: var(--_esp-overlay-texture, none);
+    background-color: var(--_esp-overlay-texture-color, transparent);
+    background-image: var(--_esp-overlay-texture, none);
+    background-position: var(--_esp-overlay-texture-position, 0 0);
+    background-repeat: var(--_esp-overlay-texture-repeat, repeat);
     background-size: var(--_esp-overlay-texture-size, auto);
     opacity: var(--_esp-overlay-texture-opacity, 1);
     mix-blend-mode: var(--_esp-overlay-texture-blend-mode, normal);
     filter: var(--_esp-overlay-texture-filter, none);
-    mask: var(--_esp-overlay-texture-mask, none);
+    mask-image: var(--_esp-overlay-texture-mask, none);
+    mask-mode: alpha;
+    mask-position: var(--_esp-overlay-texture-mask-position, 0 0);
+    mask-repeat: var(--_esp-overlay-texture-mask-repeat, repeat);
+    mask-size: var(--_esp-overlay-texture-mask-size, auto);
   }
-`;export{i as renderVisualOverlay,v as visualOverlayStyles};
+`;export{t as renderVisualOverlay,i as visualOverlayStyles};

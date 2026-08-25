@@ -2187,6 +2187,36 @@
       "description": "The band's background. Defaults to the local `--esp-color-background`, which inside a `context` zone is the zone's canvas."
     },
     {
+      "name": "--esp-section-decoration-color",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Semantic tint applied through the mask. Defaults to the local `--esp-color-headings`."
+    },
+    {
+      "name": "--esp-section-decoration-image",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Raster alpha mask painted behind the well. Defaults to `none`."
+    },
+    {
+      "name": "--esp-section-decoration-opacity",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Decoration opacity from `0` through `1`. Defaults to `1`."
+    },
+    {
+      "name": "--esp-section-decoration-position",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Mask position, including responsive or bleeding values. Defaults to `center`."
+    },
+    {
+      "name": "--esp-section-decoration-size",
+      "category": "component",
+      "component": "esp-section",
+      "description": "Mask size. Defaults to `contain`."
+    },
+    {
       "name": "--esp-section-max-width",
       "category": "component",
       "component": "esp-section",
@@ -2692,6 +2722,36 @@
       "name": "--esp-type-caption-letter-spacing",
       "category": "root-theme",
       "description": "Letter spacing for captions."
+    },
+    {
+      "name": "--esp-type-display-color",
+      "category": "root-theme",
+      "description": "Context-local heading-color alias for opt-in display text."
+    },
+    {
+      "name": "--esp-type-display-font-family",
+      "category": "root-theme",
+      "description": "Heading font family for opt-in display text."
+    },
+    {
+      "name": "--esp-type-display-font-size",
+      "category": "root-theme",
+      "description": "Fluid display size spanning the large mobile floor through the huge desktop ceiling."
+    },
+    {
+      "name": "--esp-type-display-font-weight",
+      "category": "root-theme",
+      "description": "Heading font weight for opt-in display text."
+    },
+    {
+      "name": "--esp-type-display-letter-spacing",
+      "category": "root-theme",
+      "description": "Letter spacing for opt-in display text."
+    },
+    {
+      "name": "--esp-type-display-line-height",
+      "category": "root-theme",
+      "description": "Line height for opt-in display text."
     },
     {
       "name": "--esp-type-huge",
