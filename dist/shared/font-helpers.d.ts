@@ -45,6 +45,8 @@ export declare function extractWeights(font: GoogleFont | null): string[];
  * @param defaultWeight Fallback when `weight` is falsy.
  */
 export declare function normalizeWeight(weight: string | undefined, defaultWeight: string): string;
+/** Normalize a face weight to the numeric range accepted by Google Fonts and font plans. */
+export declare function normalizeFontFaceWeight(weight: string | number | undefined, defaultWeight?: string | number): number | null;
 /**
  * Find the closest available weight to a desired one.
  *
@@ -73,6 +75,8 @@ export declare function bestAvailableWeight(desired: string, available: string[]
  * ```
  */
 export declare function extractFamily(cssFamily: string): string;
+/** Whether a first-family name is a generic, platform, or conventional web-safe local face. */
+export declare function isLocalFontFamily(family: string): boolean;
 /**
  * Return the generic CSS fallback for a Google Font category.
  *
@@ -83,3 +87,25 @@ export declare function extractFamily(cssFamily: string): string;
  *   `"sans-serif"`
  */
 export declare function getFallbackFont(category: string): string;
+export declare const RUNTIME_GOOGLE_FONT_OWNER_ATTR = "data-esp-google-font-owner";
+export type RuntimeGoogleFontLinkOptions = {
+    /** Stable owner key, for example `root:<id>:body` or `picker:<id>:Roboto`. */
+    owner: string;
+    family: string;
+    weight?: string;
+    enabled?: boolean;
+    /** Compatibility/debug attributes retained on the generated link. */
+    attributes?: Readonly<Record<string, string>>;
+};
+/** Build the canonical Google Fonts CSS2 URL used by roots and pickers. */
+export declare function googleFontStylesheetUrl(family: string, weight?: string): string;
+/**
+ * Create, update, or remove one document-global Google Fonts stylesheet link.
+ * The caller owns only its stable key, so unrelated roots and picker instances
+ * cannot replace or clean up one another's links.
+ */
+export declare function syncRuntimeGoogleFontLink(options: RuntimeGoogleFontLinkOptions): HTMLLinkElement | null;
+/** Remove one shared runtime font link by its exact owner key. */
+export declare function removeRuntimeGoogleFontLink(owner: string): void;
+/** Remove all shared runtime font links whose owner begins with `ownerPrefix`. */
+export declare function removeRuntimeGoogleFontLinks(ownerPrefix: string): void;

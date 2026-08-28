@@ -526,7 +526,10 @@ var M=function(q,e,t,i){var a=arguments.length,s=a<3?e:i===null?i=Object.getOwnP
         overflow-x: clip;
         background: var(--esp-page-background, var(--esp-color-background));
         line-height: 1.5;
-        font-family: var(--esp-font-body);
+        font-family: var(
+          --_esp-font-body-effective,
+          var(--esp-font-body, var(--_esp-font-body-fallback))
+        );
         font-size: var(--esp-type-normal);
         color: var(--esp-color-text);
         position: relative;

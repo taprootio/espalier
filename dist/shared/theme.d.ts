@@ -315,13 +315,33 @@ export interface EspalierTheme {
      * carries an `oklch()` string here.
      */
     seedColor: string;
-    /** CSS `font-family` for body / UI text. */
+    /**
+     * CSS `font-family` for body / UI text. Empty and omitted overrides resolve
+     * to the built-in UI stack.
+     *
+     * @default "system-ui, sans-serif"
+     */
     fontBody: string;
-    /** CSS `font-family` for headings. */
+    /**
+     * CSS `font-family` for headings. When empty, heading recipes fall back to
+     * {@link fontBody} without changing this authored value.
+     *
+     * @default ""
+     */
     fontHeadings: string;
-    /** CSS `font-family` for brand marks and product names. */
+    /**
+     * CSS `font-family` for brand marks and product names. When empty, brand
+     * recipes fall back through {@link fontHeadings} to {@link fontBody}.
+     *
+     * @default ""
+     */
     fontBrand: string;
-    /** CSS `font-family` for code / monospace text. */
+    /**
+     * CSS `font-family` for code / monospace text. Empty and omitted overrides
+     * resolve to the built-in monospace family.
+     *
+     * @default "monospace"
+     */
     fontMonospace: string;
     /**
      * CSS `font-weight` for body / UI text.
@@ -629,6 +649,10 @@ export declare const DEFAULT_DARK_LIGHTNESS: Readonly<LightnessMap>;
  * hue and which lightness key sets the perceived brightness.
  */
 export declare const DEFAULT_SEMANTIC_MAPPINGS: Readonly<SemanticMappings>;
+/** Built-in authored stack for body and UI text. */
+export declare const DEFAULT_BODY_FONT_FAMILY = "system-ui, sans-serif";
+/** Built-in authored family for code and monospace text. */
+export declare const DEFAULT_MONOSPACE_FONT_FAMILY = "monospace";
 /**
  * The built-in **light** theme.
  *

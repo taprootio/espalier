@@ -32,7 +32,10 @@ var o=function(h,e,t,r){var s=arguments.length,i=s<3?e:r===null?r=Object.getOwnP
       </div>
     `}};n.styles=u`
     .form-item {
-      font-family: var(--esp-form-item-font, var(--esp-font-body));
+      font-family: var(
+        --esp-form-item-font,
+        var(--_esp-font-body-effective, var(--esp-font-body, system-ui, sans-serif))
+      );
       font-size: var(--esp-form-item-font-size, var(--esp-size-font));
       display: grid;
       grid-auto-rows: min-content;

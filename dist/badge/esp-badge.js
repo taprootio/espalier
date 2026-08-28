@@ -1,4 +1,4 @@
-var c=function(s,e,t,o){var n=arguments.length,i=n<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,t):o,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(s,e,t,o);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(i=(n<3?a(i):n>3?a(e,t,i):a(e,t))||i);return n>3&&i&&Object.defineProperty(e,t,i),i};import{css as h,html as m,nothing as f}from"lit";import{customElement as g,property as p}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{ref as b}from"lit/directives/ref.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";import{intentSurfaceTokens as z}from"../shared/style-fragments.js";import{syncNormalizedAttribute as v}from"../shared/attribute-helpers.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{SlottedIconController as w}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as S}from"../shared/svgs/render-sprite-icon.js";function _(s){return s==="medium"?"medium":"small"}let r=class extends d{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new w(this),this.sizeBacker="small",this.icon=""}get size(){return this.sizeBacker}set size(e){const t=this.sizeBacker;this.sizeBacker=_(e),this.requestUpdate("size",t),v(this,"size",this.sizeBacker)}render(){const e=y(this.icon,this),t=this.iconSlot.hasSlottedIcon(),o=t||e.length>0,n={badge:!0,[`intent-${this.intent}`]:!0,[`size-${this.size}`]:!0,"has-icon":o};return m`
+var c=function(s,e,t,o){var n=arguments.length,i=n<3?e:o===null?o=Object.getOwnPropertyDescriptor(e,t):o,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(s,e,t,o);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(i=(n<3?a(i):n>3?a(e,t,i):a(e,t))||i);return n>3&&i&&Object.defineProperty(e,t,i),i};import{css as h,html as m,nothing as f}from"lit";import{customElement as g,property as p}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{ref as b}from"lit/directives/ref.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";import{intentSurfaceTokens as v}from"../shared/style-fragments.js";import{syncNormalizedAttribute as z}from"../shared/attribute-helpers.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{SlottedIconController as _}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as w}from"../shared/svgs/render-sprite-icon.js";function S(s){return s==="medium"?"medium":"small"}let r=class extends d{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new _(this),this.sizeBacker="small",this.icon=""}get size(){return this.sizeBacker}set size(e){const t=this.sizeBacker;this.sizeBacker=S(e),this.requestUpdate("size",t),z(this,"size",this.sizeBacker)}render(){const e=y(this.icon,this),t=this.iconSlot.hasSlottedIcon(),o=t||e.length>0,n={badge:!0,[`intent-${this.intent}`]:!0,[`size-${this.size}`]:!0,"has-icon":o};return m`
       <span part="badge" class=${u(n)}>
         <span part="icon" class="icon" aria-hidden="true">
           <slot
@@ -6,11 +6,11 @@ var c=function(s,e,t,o){var n=arguments.length,i=n<3?e:o===null?o=Object.getOwnP
             ${b(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
-          ${!t&&e?S(e):f}
+          ${!t&&e?w(e):f}
         </span>
         <span part="label" class="label"><slot></slot></span>
       </span>
-    `}};r.styles=[...d.styles,z,h`
+    `}};r.styles=[...d.styles,v,h`
       :host {
         display: inline-flex;
         max-width: 100%;
@@ -30,7 +30,10 @@ var c=function(s,e,t,o){var n=arguments.length,i=n<3?e:o===null?o=Object.getOwnP
         border-radius: var(--esp-badge-border-radius, 999px);
         background: var(--_esp-badge-background);
         color: var(--_esp-badge-color);
-        font-family: var(--esp-font-body);
+        font-family: var(
+          --_esp-font-body-effective,
+          var(--esp-font-body, var(--_esp-font-body-fallback))
+        );
         font-weight: var(--esp-font-weight-headings);
         line-height: 1.2;
         white-space: nowrap;

@@ -1,8 +1,11 @@
-import{css as e}from"lit";const o=e`
+import{css as e}from"lit";const r=e`
   
 
   .temporal-error {
-    font-family: var(--esp-font-body);
+    font-family: var(
+      --_esp-font-body-effective,
+      var(--esp-font-body, var(--_esp-font-body-fallback))
+    );
     font-size: var(--esp-type-small);
     color: var(--esp-color-danger-text);
     padding: var(--esp-size-padding);
@@ -45,7 +48,10 @@ import{css as e}from"lit";const o=e`
     background: var(--esp-color-layer-1);
     box-shadow: 0 4px 16px var(--esp-color-shadow);
     color: var(--esp-color-text);
-    font-family: var(--esp-font-body);
+    font-family: var(
+      --_esp-font-body-effective,
+      var(--esp-font-body, var(--_esp-font-body-fallback))
+    );
     font-size: var(--esp-size-font);
     opacity: 0;
     transition: opacity 150ms ease-in;
@@ -256,4 +262,4 @@ import{css as e}from"lit";const o=e`
     color: var(--esp-color-headings);
     padding: 0 2px;
   }
-`;export{o as datePickerStyles};
+`;export{r as datePickerStyles};

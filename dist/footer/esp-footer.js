@@ -1,4 +1,4 @@
-var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnPropertyDescriptor(o,a):e,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,o,a,e);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(o,a,d):l(o,a))||d);return s>3&&d&&Object.defineProperty(o,a,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as _}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as k}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as S,visualOverlayStyles as L}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},w={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let r=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=o=>{if(!(o.target instanceof HTMLSlotElement))return;const a=this.slotRegion(o.target);if(!a)return;const e=h(o.target);this.slotContent[a]!==e&&(this.slotContent={...this.slotContent,[a]:e})}}willUpdate(o){super.willUpdate(o),o.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(o){return o.name?["media","brand","aside","bottom"].includes(o.name)?o.name:null:"groups"}firstUpdated(o){super.firstUpdated(o);const a={...c};for(const e of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(e);s&&(a[s]=h(e))}Object.entries(a).some(([e,s])=>this.slotContent[e]!==s)&&(this.slotContent=a)}render(){const{media:o,brand:a,groups:e,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||e||s,b={primary:!0,"has-brand":p,"has-groups":e,"has-aside":s};return v`
+var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,a):r,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,e,a,r);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(e,a,d):l(e,a))||d);return s>3&&d&&Object.defineProperty(e,a,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as _}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as k}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as S,visualOverlayStyles as L}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},w={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let o=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const a=this.slotRegion(e.target);if(!a)return;const r=h(e.target);this.slotContent[a]!==r&&(this.slotContent={...this.slotContent,[a]:r})}}willUpdate(e){super.willUpdate(e),e.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const a={...c};for(const r of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(r);s&&(a[s]=h(r))}Object.entries(a).some(([r,s])=>this.slotContent[r]!==s)&&(this.slotContent=a)}render(){const{media:e,brand:a,groups:r,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||r||s,b={primary:!0,"has-brand":p,"has-groups":r,"has-aside":s};return v`
       <footer
         part="footer"
         aria-label=${this.landmarkLabel||y}
@@ -7,7 +7,7 @@ var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnP
         ${S({className:"background",rootPart:"background"})}
         <div part="content" class="content-frame">
           <div class="content">
-            <div part="media" class="media" ?hidden=${!o}>
+            <div part="media" class="media" ?hidden=${!e}>
               <slot name="media" @slotchange=${this.handleSlotChange}></slot>
             </div>
 
@@ -18,7 +18,7 @@ var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnP
                 >
               </div>
 
-              <div part="groups" class="groups" ?hidden=${!e}>
+              <div part="groups" class="groups" ?hidden=${!r}>
                 <slot @slotchange=${this.handleSlotChange}></slot>
               </div>
 
@@ -33,7 +33,7 @@ var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnP
           </div>
         </div>
       </footer>
-    `}};r.styles=[...g.styles,f`
+    `}};o.styles=[...g.styles,f`
       :host {
         display: block;
         min-inline-size: 0;
@@ -219,7 +219,22 @@ var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnP
           --_esp-footer-brand-color,
           var(--esp-footer-heading-color, var(--esp-color-headings))
         );
-        font-family: var(--esp-font-brand, var(--esp-font-headings));
+        font-family: var(
+          --_esp-font-brand-effective,
+          var(
+            --esp-font-brand,
+            var(
+              --_esp-font-headings-effective,
+              var(
+                --esp-font-headings,
+                var(
+                  --_esp-font-body-effective,
+                  var(--esp-font-body, var(--_esp-font-body-fallback))
+                )
+              )
+            )
+          )
+        );
         font-size: var(--esp-type-medium);
         font-weight: var(--esp-font-weight-brand, var(--esp-font-weight-headings));
         line-height: 1.1;
@@ -303,4 +318,4 @@ var t=function(i,o,a,e){var s=arguments.length,d=s<3?o:e===null?e=Object.getOwnP
           grid-template-areas: "aside";
         }
       }
-    `,L],t([_()],r.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],r.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],r.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],r.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],r.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],r.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],r.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],r.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],r.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],r.prototype,"darkBrandColor",void 0),t([n({converter:w,reflect:!0})],r.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],r.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],r.prototype,"landmarkLabel",void 0),r=t([x("esp-footer")],r);export{r as EspalierFooter};
+    `,L],t([_()],o.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],o.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],o.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],o.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],o.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],o.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],o.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],o.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],o.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],o.prototype,"darkBrandColor",void 0),t([n({converter:w,reflect:!0})],o.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],o.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],o.prototype,"landmarkLabel",void 0),o=t([x("esp-footer")],o);export{o as EspalierFooter};

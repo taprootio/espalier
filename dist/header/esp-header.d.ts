@@ -178,7 +178,7 @@ export interface EspThemeToggleEventDetail {
  * @cssprop --esp-header-brand-inline-placement - The CSS `justify-content` value for the brand container. Defaults to `start`.
  * @cssprop --esp-header-brand-padding-inline - Inline padding for the brand container. Defaults to `var(--esp-size-small)`.
  * @cssprop --esp-header-brand-color - The configured brand text/logo color. Defaults to `var(--esp-color-headings)`.
- * @cssprop --esp-header-brand-font-family - The configured brand font family. Defaults to `var(--esp-font-brand, var(--esp-font-headings))`.
+ * @cssprop --esp-header-brand-font-family - The configured brand font family. Defaults through `--esp-font-brand` and `--esp-font-headings` to `--esp-font-body`.
  * @cssprop --esp-header-brand-font-size - The configured brand text size. Defaults to `var(--esp-type-medium)`.
  * @cssprop --esp-header-brand-font-weight - The configured brand font weight. Defaults to `var(--esp-font-weight-brand, var(--esp-font-weight-headings))`.
  * @cssprop --esp-header-brand-gap - Space between a configured logo and brand text. Defaults to `var(--esp-size-tiny-to-small)`.
@@ -188,6 +188,7 @@ export interface EspThemeToggleEventDetail {
  * @cssprop --esp-header-brand-hover-color - The configured brand hover color. Defaults to `var(--esp-color-headings-hover)`.
  * @cssprop --esp-header-brand-hover-background - The configured brand hover background. Defaults to `transparent`.
  * @cssprop --esp-header-brand-hover-decoration - The configured brand hover text decoration. Defaults to `none`.
+ * @cssprop --esp-header-brand-hover-transform - The configured brand hover transform. Defaults to `none`.
  * @cssprop --esp-header-transparent-background - Background used before scroll for transparent headers. Defaults to `transparent`.
  * @cssprop --esp-header-transparent-color - Brand/action color used before scroll for transparent headers. Defaults to `var(--esp-color-headings)`.
  * @cssprop --esp-header-scrolled-shadow - Box shadow used by elevated scroll headers. Defaults to `0 2px 8px var(--esp-color-shadow)`.

@@ -75,7 +75,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     font-size: var(--esp-size-big-to-large);
  *     padding: var(--esp-size-padding);
  *     line-height: 1.1;
- *     font-family: var(--esp-font-headings);
+ *     font-family: var(--esp-font-headings, var(--esp-font-body, system-ui, sans-serif));
  *   }
  *   esp-box.card-box div {
  *     padding: var(--esp-size-padding);

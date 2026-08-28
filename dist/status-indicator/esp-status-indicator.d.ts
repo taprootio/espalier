@@ -70,7 +70,7 @@ export type EspalierStatusIndicatorChrome = "pill" | "outline" | "none";
  *
  *   .file-type-indicator svg text {
  *     fill: var(--esp-color-background);
- *     font-family: var(--esp-font-body);
+ *     font-family: var(--esp-font-body, system-ui, sans-serif);
  *     font-size: 14px;
  *     font-weight: 600;
  *     text-anchor: middle;

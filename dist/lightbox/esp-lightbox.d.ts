@@ -72,7 +72,7 @@ export declare class EspalierLightbox extends EspalierElementBase {
     connectedCallback(): void;
     protected updated(changed: PropertyValues): void;
     disconnectedCallback(): void;
-    protected render(): import("lit-html").TemplateResult<1> | typeof nothing;
+    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];
 }
 declare global {

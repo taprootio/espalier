@@ -737,22 +737,24 @@
     {
       "name": "--esp-font-body",
       "category": "root-theme",
-      "description": ""
+      "description": "Always-emitted family for body and UI text. Defaults to `system-ui, sans-serif` when `fontBody` is omitted or empty.",
+      "default": "system-ui, sans-serif"
     },
     {
       "name": "--esp-font-brand",
       "category": "root-theme",
-      "description": ""
+      "description": "Consumer-authored brand family. Emitted only when configured; brand recipes otherwise fall back through headings to `--esp-font-body`."
     },
     {
       "name": "--esp-font-headings",
       "category": "root-theme",
-      "description": ""
+      "description": "Consumer-authored heading family. Emitted only when configured; heading recipes otherwise fall back to `--esp-font-body`."
     },
     {
       "name": "--esp-font-monospace",
       "category": "root-theme",
-      "description": ""
+      "description": "Family for code and monospace text. Defaults to `monospace`.",
+      "default": "monospace"
     },
     {
       "name": "--esp-font-weight-body",
@@ -1126,7 +1128,7 @@
       "name": "--esp-header-brand-font-family",
       "category": "component",
       "component": "esp-header",
-      "description": "The configured brand font family. Defaults to `var(--esp-font-brand, var(--esp-font-headings))`."
+      "description": "The configured brand font family. Defaults through `--esp-font-brand` and `--esp-font-headings` to `--esp-font-body`."
     },
     {
       "name": "--esp-header-brand-font-size",
@@ -1163,6 +1165,12 @@
       "category": "component",
       "component": "esp-header",
       "description": "The configured brand hover text decoration. Defaults to `none`."
+    },
+    {
+      "name": "--esp-header-brand-hover-transform",
+      "category": "component",
+      "component": "esp-header",
+      "description": "The configured brand hover transform. Defaults to `none`."
     },
     {
       "name": "--esp-header-brand-inline-placement",

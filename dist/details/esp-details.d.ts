@@ -87,15 +87,15 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *     <li>Toggle a checkbox, click Apply, and repeat the sort — the viewport should remain stable.</li>
  *   </ol>
  * </esp-info>
- * <div style="height:40vh; background:repeating-linear-gradient(180deg,var(--esp-color-layer-2) 0 1px,transparent 1px 2rem); display:flex; align-items:center; justify-content:center; color:oklch(from var(--esp-color-text) l c h / 0.5); font-family:var(--esp-font-body);">
+ * <div style="height:40vh; background:repeating-linear-gradient(180deg,var(--esp-color-layer-2) 0 1px,transparent 1px 2rem); display:flex; align-items:center; justify-content:center; color:oklch(from var(--esp-color-text) l c h / 0.5); font-family:var(--esp-font-body,system-ui,sans-serif);">
  *   &uarr; Spacer &mdash; scroll down to reach the filter panel &uarr;
  * </div>
  * <esp-details summary="Advanced filters">
  *   <div style="display:flex; flex-direction:column; gap:var(--esp-size-small);">
- *     <label style="display:flex; align-items:center; gap:var(--esp-size-tiny); font-family:var(--esp-font-body); color:var(--esp-color-text);">
+ *     <label style="display:flex; align-items:center; gap:var(--esp-size-tiny); font-family:var(--esp-font-body,system-ui,sans-serif); color:var(--esp-color-text);">
  *       <input type="checkbox" value="active" /> Active only
  *     </label>
- *     <label style="display:flex; align-items:center; gap:var(--esp-size-tiny); font-family:var(--esp-font-body); color:var(--esp-color-text);">
+ *     <label style="display:flex; align-items:center; gap:var(--esp-size-tiny); font-family:var(--esp-font-body,system-ui,sans-serif); color:var(--esp-color-text);">
  *       <input type="checkbox" value="flagged" /> Flagged
  *     </label>
  *     <esp-button id="scroll-test-apply" label="Apply filters"></esp-button>
@@ -106,7 +106,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  *   <esp-grid-column header="Title" field-name="title" sortable width="200px" grow></esp-grid-column>
  *   <esp-grid-column header="Status" field-name="status" width="120px"></esp-grid-column>
  * </esp-grid>
- * <div style="height:60vh; background:repeating-linear-gradient(180deg,var(--esp-color-layer-2) 0 1px,transparent 1px 2rem); display:flex; align-items:center; justify-content:center; color:oklch(from var(--esp-color-text) l c h / 0.5); font-family:var(--esp-font-body);">
+ * <div style="height:60vh; background:repeating-linear-gradient(180deg,var(--esp-color-layer-2) 0 1px,transparent 1px 2rem); display:flex; align-items:center; justify-content:center; color:oklch(from var(--esp-color-text) l c h / 0.5); font-family:var(--esp-font-body,system-ui,sans-serif);">
  *   &darr; Spacer &mdash; extra page length below the grid &darr;
  * </div>
  * <script>

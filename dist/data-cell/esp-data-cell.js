@@ -1,5 +1,5 @@
-var c=function(a,e,s,n){var r=arguments.length,t=r<3?e:n===null?n=Object.getOwnPropertyDescriptor(e,s):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(a,e,s,n);else for(var i=a.length-1;i>=0;i--)(l=a[i])&&(t=(r<3?l(t):r>3?l(e,s,t):l(e,s))||t);return r>3&&t&&Object.defineProperty(e,s,t),t};import{css as h,html as m}from"lit";import{customElement as y,property as f,state as u}from"lit/decorators.js";import{classMap as g}from"lit/directives/class-map.js";import{createRef as S,ref as p}from"lit/directives/ref.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";import{SlottedIconController as v}from"../shared/slotted-icon-controller.js";import{slotHasContent as w}from"../shared/slot-content.js";let o=class extends d{constructor(){super(...arguments),this.iconSlot=new v(this),this.secondarySlot=S(),this.hasSecondary=!1,this.truncate=!1,this.handleSecondarySlotChange=()=>{this.hasSecondary=w(this.secondarySlot.value)}}firstUpdated(e){super.firstUpdated(e),this.iconSlot.handleSlotChange(),this.handleSecondarySlotChange()}render(){const e={cell:!0,"has-icon":this.iconSlot.hasAssignedSlotContent,"has-secondary":this.hasSecondary,truncate:this.truncate};return m`
-      <span part="cell" class=${g(e)}>
+var c=function(a,e,s,n){var r=arguments.length,t=r<3?e:n===null?n=Object.getOwnPropertyDescriptor(e,s):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(a,e,s,n);else for(var i=a.length-1;i>=0;i--)(l=a[i])&&(t=(r<3?l(t):r>3?l(e,s,t):l(e,s))||t);return r>3&&t&&Object.defineProperty(e,s,t),t};import{css as h,html as m}from"lit";import{customElement as y,property as f,state as u}from"lit/decorators.js";import{classMap as v}from"lit/directives/class-map.js";import{createRef as g,ref as p}from"lit/directives/ref.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{slotHasContent as w}from"../shared/slot-content.js";let o=class extends d{constructor(){super(...arguments),this.iconSlot=new S(this),this.secondarySlot=g(),this.hasSecondary=!1,this.truncate=!1,this.handleSecondarySlotChange=()=>{this.hasSecondary=w(this.secondarySlot.value)}}firstUpdated(e){super.firstUpdated(e),this.iconSlot.handleSlotChange(),this.handleSecondarySlotChange()}render(){const e={cell:!0,"has-icon":this.iconSlot.hasAssignedSlotContent,"has-secondary":this.hasSecondary,truncate:this.truncate};return m`
+      <span part="cell" class=${v(e)}>
         <span part="icon" class="icon">
           <slot
             name="icon"
@@ -31,7 +31,10 @@ var c=function(a,e,s,n){var r=arguments.length,t=r<3?e:n===null?n=Object.getOwnP
         min-width: 0;
         gap: var(--esp-size-tiny);
         color: var(--esp-color-text);
-        font-family: var(--esp-font-body);
+        font-family: var(
+          --_esp-font-body-effective,
+          var(--esp-font-body, var(--_esp-font-body-fallback))
+        );
       }
 
       .cell.has-icon {

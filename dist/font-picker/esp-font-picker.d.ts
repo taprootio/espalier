@@ -38,6 +38,7 @@ export declare const getGoogleFonts: () => Promise<Array<GoogleFont>>;
  * on picker items to match the preview `@font-face` name.
  */
 export declare const previewFontFamily: (family: string) => string;
+export declare const getFontPreviewFamily: (font: FontPickerFont) => string;
 /**
  * Font picker component backed by the Google Fonts catalog by default.
  *

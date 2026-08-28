@@ -29,7 +29,10 @@ var i=function(n,e,t,p){var o=arguments.length,s=o<3?e:p===null?p=Object.getOwnP
         gap: var(--esp-size-tiny-to-small);
         min-width: 0;
         max-width: 100%;
-        font-family: var(--esp-font-body);
+        font-family: var(
+          --_esp-font-body-effective,
+          var(--esp-font-body, var(--_esp-font-body-fallback))
+        );
         font-size: var(--esp-size-font);
         color: var(--esp-color-text);
       }

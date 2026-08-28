@@ -91,7 +91,7 @@ var a=function(r,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
       font-weight: 400;
       opacity: 0.7;
       font-size: 0.85em;
-      font-family: var(--esp-font-monospace);
+      font-family: var(--_esp-font-monospace-effective, var(--esp-font-monospace, monospace));
     }
 
     #hue-slider {

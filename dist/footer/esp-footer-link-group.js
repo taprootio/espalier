@@ -1,13 +1,13 @@
-var d=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnPropertyDescriptor(o,r):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(t,o,r,n);else for(var a=t.length-1;a>=0;a--)(l=t[a])&&(e=(s<3?l(e):s>3?l(o,r,e):l(o,r))||e);return s>3&&e&&Object.defineProperty(o,r,e),e};import{css as v,html as f,nothing as p}from"lit";import{customElement as g,property as u}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";const h="esp-footer-link-group-heading";let i=class extends c{constructor(){super(...arguments),this.heading=""}render(){return f`
+var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnPropertyDescriptor(o,r):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(t,o,r,n);else for(var a=t.length-1;a>=0;a--)(l=t[a])&&(e=(s<3?l(e):s>3?l(o,r,e):l(o,r))||e);return s>3&&e&&Object.defineProperty(o,r,e),e};import{css as h,html as d,nothing as p}from"lit";import{customElement as g,property as u}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";const v="esp-footer-link-group-heading";let i=class extends c{constructor(){super(...arguments),this.heading=""}render(){return d`
       <nav
         part="nav"
-        aria-labelledby=${this.heading?h:p}
+        aria-labelledby=${this.heading?v:p}
         aria-label=${this.heading?p:"Footer links"}
       >
-        ${this.heading?f`<h2 part="heading" id=${h}>${this.heading}</h2>`:p}
+        ${this.heading?d`<h2 part="heading" id=${v}>${this.heading}</h2>`:p}
         <div part="links" class="links"><slot></slot></div>
       </nav>
-    `}};i.styles=[...c.styles,v`
+    `}};i.styles=[...c.styles,h`
       :host {
         display: block;
         min-inline-size: 0;
@@ -23,7 +23,13 @@ var d=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnP
       h2 {
         margin: 0;
         color: var(--esp-footer-heading-color, var(--esp-color-headings));
-        font-family: var(--esp-font-headings);
+        font-family: var(
+          --_esp-font-headings-effective,
+          var(
+            --esp-font-headings,
+            var(--_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)))
+          )
+        );
         font-size: var(--esp-type-normal);
         font-weight: var(--esp-font-weight-headings);
         line-height: 1.25;
@@ -54,4 +60,4 @@ var d=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnP
         outline: var(--esp-footer-focus-outline, 2px solid var(--esp-color-link));
         outline-offset: 3px;
       }
-    `],d([u({type:String})],i.prototype,"heading",void 0),i=d([g("esp-footer-link-group")],i);export{i as EspalierFooterLinkGroup};
+    `],f([u({type:String})],i.prototype,"heading",void 0),i=f([g("esp-footer-link-group")],i);export{i as EspalierFooterLinkGroup};

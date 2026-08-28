@@ -1,4 +1,4 @@
-var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnPropertyDescriptor(e,s):t,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(n,e,s,t);else for(var h=n.length-1;h>=0;h--)(c=n[h])&&(i=(o<3?c(i):o>3?c(e,s,i):c(e,s))||i);return o>3&&i&&Object.defineProperty(e,s,i),i};import{css as x,html as m,nothing as p,svg as f}from"lit";import{customElement as y,property as l}from"lit/decorators.js";import{classMap as g}from"lit/directives/class-map.js";import{styleMap as b}from"lit/directives/style-map.js";import{EspalierElementBase as u}from"../shared/esp-element-base.js";const v=15.9155,d=2*Math.PI*v;let r=class extends u{constructor(){super(...arguments),this.value=null,this.max=100,this.label="",this.showValue=!1,this.size="medium",this.mode="bar"}get isIndeterminate(){return this.value===null||this.value===void 0}get clampedValue(){if(this.isIndeterminate)return 0;const e=Math.max(this.max,0);return Math.min(Math.max(this.value,0),e)}get percentage(){return this.isIndeterminate||this.max<=0?0:this.clampedValue/this.max*100}render(){return this.mode==="circle"?this.renderCircle():this.renderBar()}renderBar(){const e=this.isIndeterminate,s={track:!0,indeterminate:e},t=e?{}:{width:`${this.percentage}%`},o=this.showValue&&!e;return m`
+var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnPropertyDescriptor(e,s):t,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")i=Reflect.decorate(n,e,s,t);else for(var h=n.length-1;h>=0;h--)(c=n[h])&&(i=(o<3?c(i):o>3?c(e,s,i):c(e,s))||i);return o>3&&i&&Object.defineProperty(e,s,i),i};import{css as x,html as m,nothing as p,svg as f}from"lit";import{customElement as b,property as l}from"lit/decorators.js";import{classMap as g}from"lit/directives/class-map.js";import{styleMap as y}from"lit/directives/style-map.js";import{EspalierElementBase as u}from"../shared/esp-element-base.js";const v=15.9155,d=2*Math.PI*v;let r=class extends u{constructor(){super(...arguments),this.value=null,this.max=100,this.label="",this.showValue=!1,this.size="medium",this.mode="bar"}get isIndeterminate(){return this.value===null||this.value===void 0}get clampedValue(){if(this.isIndeterminate)return 0;const e=Math.max(this.max,0);return Math.min(Math.max(this.value,0),e)}get percentage(){return this.isIndeterminate||this.max<=0?0:this.clampedValue/this.max*100}render(){return this.mode==="circle"?this.renderCircle():this.renderBar()}renderBar(){const e=this.isIndeterminate,s={track:!0,indeterminate:e},t=e?{}:{width:`${this.percentage}%`},o=this.showValue&&!e;return m`
       <div
         class=${g(s)}
         role="progressbar"
@@ -7,7 +7,7 @@ var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnP
         aria-valuemax=${this.max}
         aria-valuenow=${e?p:this.clampedValue}
       >
-        <div class="fill" style=${b(t)}></div>
+        <div class="fill" style=${y(t)}></div>
       </div>
       ${o?m`<div class="value-text">${Math.round(this.percentage)}%</div>`:p}
     `}renderCircle(){const e=this.isIndeterminate,s=e?d*.75:d-this.percentage/100*d,t=this.showValue&&!e;return m`
@@ -92,7 +92,10 @@ var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnP
       }
 
       .value-text {
-        font-family: var(--esp-font-monospace);
+        font-family: var(
+          --_esp-font-monospace-effective,
+          var(--esp-font-monospace, var(--_esp-font-monospace-fallback))
+        );
         font-size: var(--esp-progress-font-size, var(--esp-type-small));
         color: var(--esp-progress-text-color, var(--esp-color-text));
         text-align: center;
@@ -146,7 +149,10 @@ var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnP
 
       .circle-text {
         fill: var(--esp-progress-text-color, var(--esp-color-text));
-        font-family: var(--esp-font-monospace);
+        font-family: var(
+          --_esp-font-monospace-effective,
+          var(--esp-font-monospace, var(--_esp-font-monospace-fallback))
+        );
         font-size: 8px;
         font-weight: 600;
       }
@@ -180,4 +186,4 @@ var a=function(n,e,s,t){var o=arguments.length,i=o<3?e:t===null?t=Object.getOwnP
           opacity: 0.5;
         }
       }
-    `],a([l({type:Number})],r.prototype,"value",void 0),a([l({type:Number})],r.prototype,"max",void 0),a([l({type:String})],r.prototype,"label",void 0),a([l({attribute:"show-value",type:Boolean})],r.prototype,"showValue",void 0),a([l({type:String,reflect:!0})],r.prototype,"size",void 0),a([l({type:String,reflect:!0})],r.prototype,"mode",void 0),r=a([y("esp-progress")],r);export{r as EspalierProgress};
+    `],a([l({type:Number})],r.prototype,"value",void 0),a([l({type:Number})],r.prototype,"max",void 0),a([l({type:String})],r.prototype,"label",void 0),a([l({attribute:"show-value",type:Boolean})],r.prototype,"showValue",void 0),a([l({type:String,reflect:!0})],r.prototype,"size",void 0),a([l({type:String,reflect:!0})],r.prototype,"mode",void 0),r=a([b("esp-progress")],r);export{r as EspalierProgress};

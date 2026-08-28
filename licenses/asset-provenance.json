@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-22",
+  "updatedAt": "2026-08-28",
   "entries": [
     {
       "id": "google-font-preview-assets",
       "paths": [
-        "css/fonts/**"
+        "css/fonts/*.css",
+        "css/fonts/font-definitions.json"
       ],
       "assetType": "generated font preview assets",
       "classification": "third-party-generated",
@@ -22,6 +23,29 @@
       "noticeRequirement": "required",
       "noticePaths": [
         "licenses/GOOGLE_FONTS_NOTICES.md"
+      ],
+      "reviewStatus": "manifest-gated"
+    },
+    {
+      "id": "capsize-font-fallback-profiles",
+      "paths": [
+        "css/fonts/font-fallback-profiles.json"
+      ],
+      "assetType": "generated font metric profile catalog",
+      "classification": "third-party-derived",
+      "owner": "SEEK for Capsize metrics and calculations; Taproot for catalog serialization",
+      "source": "@capsizecss/metrics 4.2.0 and @capsizecss/core 4.1.3",
+      "license": "MIT License",
+      "transformations": [
+        "Join the committed Google Fonts catalog to Capsize family, variant, and system fallback metrics",
+        "Calculate subset-specific size-adjust and vertical metric overrides",
+        "Encode the selected fallback variants and bounded-precision percentages as deterministic JSON"
+      ],
+      "packageInclusion": "included in npm package for host build tooling; never required by the browser runtime",
+      "docsInclusion": "documented as the build-time source for site-specific inline font plans",
+      "noticeRequirement": "required",
+      "noticePaths": [
+        "licenses/THIRD_PARTY_NOTICES.md"
       ],
       "reviewStatus": "manifest-gated"
     },

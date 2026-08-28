@@ -264,7 +264,10 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
       }
 
       .tree {
-        font-family: var(--esp-font-body);
+        font-family: var(
+          --_esp-font-body-effective,
+          var(--esp-font-body, var(--_esp-font-body-fallback))
+        );
         font-size: var(--esp-size-font);
         color: var(--esp-color-text);
         display: grid;
