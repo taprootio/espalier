@@ -45,6 +45,20 @@ export interface DataPaletteIssue {
     threshold: number;
 }
 /**
+ * Describe one categorical-palette collision in the shared validation
+ * vocabulary. Runtime validation and fit-table lints both use this formatter;
+ * the co-located matcher below deliberately ignores numeric measurements while
+ * preserving the pair and simulation identity.
+ */
+export declare function describePaletteCollision(issue: DataPaletteIssue): string;
+/**
+ * Match a formatted collision by its stable pair and simulation, deliberately
+ * ignoring the displayed measurement. Validation audits authored colors while
+ * fit tables audit emitted gamut-mapped colors, so their rounded distances can
+ * differ without representing two findings.
+ */
+export declare function isPaletteCollisionDescription(description: string, issue: Pick<DataPaletteIssue, "series" | "simulation">): boolean;
+/**
  * Audit every categorical pair after full CVD simulation.
  *
  * Palette values must be concrete CSS colors. Resolve `anchor:` references

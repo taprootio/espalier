@@ -48,6 +48,7 @@
  * report.adjustedTokens;                // ['linkHover']
  * ```
  */
+import { type ColorVisionSimulation, type DataPalette, type DataSeriesKey } from "./data-colors.js";
 import { type EspalierTheme, type LightnessReference, type MappingSource, type PartialTheme, type SemanticColorName } from "./theme.js";
 /** What APCA enforcement did to one token. */
 export interface ThemeFitApcaAction {
@@ -193,6 +194,51 @@ export interface ThemeFitLint {
     /** Human-readable finding, with the remedy phrased as a retune. */
     message: string;
 }
+/** One scheme-level categorical-palette collision. */
+export interface ThemeFitDataPaletteLint {
+    /** Stable lint identifier. */
+    id: "data-palette-cvd-collision";
+    /** The metric is advisory, but the named theme-check lint is gated. */
+    severity: "warning";
+    /** The two stable palette slots whose simulated colors are too close. */
+    series: readonly [DataSeriesKey, DataSeriesKey];
+    /** The simulated color-vision deficiency under which they collide. */
+    simulation: ColorVisionSimulation;
+    /** The measured OKLab distance, rounded for stable JSON. */
+    measured: number;
+    /** The minimum distance the pair was checked against. */
+    threshold: number;
+    /** Human-readable finding with the redundant-coding remedy. */
+    message: string;
+}
+/** Runtime validation/comparison vocabulary used by the exported field descriptors. */
+export type ThemeFitFieldKind = "anchor" | "anchor-record" | "apca" | "boolean" | "data-palette-record" | "explicit" | "fit-lint-id" | "lint-array" | "message" | "number" | "palette-lint-id" | "palette-lint-record" | "report-array" | "scheme" | "semantic" | "semantic-array" | "series-pair" | "simulation" | "string" | "string-array" | "token-array" | "warning";
+/** One runtime field descriptor used by fit-suite validation and comparison. */
+export interface ThemeFitFieldDescriptor<Field extends PropertyKey = PropertyKey> {
+    readonly field: Field;
+    readonly kind: ThemeFitFieldKind;
+    /** Whether drift is already reported by comparison, validation, or an identity key. */
+    readonly compared: boolean;
+}
+/** Every stable surface-lint id, exhaustively checked against {@link ThemeFitLint}. */
+export declare const THEME_FIT_LINT_IDS: readonly ThemeFitLint["id"][];
+/** Every stable palette-lint id, exhaustively checked against the lint interface. */
+export declare const THEME_FIT_DATA_PALETTE_LINT_IDS: readonly ThemeFitDataPaletteLint["id"][];
+/** Every stable explicit-pin provenance value. */
+export declare const THEME_FIT_EXPLICIT_VALUES: readonly NonNullable<ThemeFitToken["explicit"]>[];
+type ThemeFitLintSeverity = ThemeFitLint["severity"] | ThemeFitDataPaletteLint["severity"];
+/** Every stable fit-suite lint severity. */
+export declare const THEME_FIT_LINT_SEVERITIES: readonly ThemeFitLintSeverity[];
+/** Runtime schema for every token field; adding an interface field requires a descriptor. */
+export declare const THEME_FIT_TOKEN_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitToken>[];
+/** Runtime schema for every anchor-detail field. */
+export declare const THEME_FIT_ANCHOR_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitAnchor>[];
+/** Runtime schema for every APCA-detail field. */
+export declare const THEME_FIT_APCA_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitApcaAction>[];
+/** Runtime schema for every surface-lint field. */
+export declare const THEME_FIT_LINT_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitLint>[];
+/** Runtime schema for every categorical-palette lint field. */
+export declare const THEME_FIT_DATA_PALETTE_LINT_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitDataPaletteLint>[];
 /**
  * Cross-token lints over one surface's report (ESP0175).
  *
@@ -232,11 +278,19 @@ export interface ThemeFitSurfaceReport extends ThemeFitReport {
 export interface ThemeFitSuite {
     /** Surface names in report order: {@link ROOT_SURFACE}, then contexts, sorted. */
     surfaces: string[];
+    /** Fully resolved categorical slots, once per scheme rather than per context. */
+    dataPalette: Record<"light" | "dark", DataPalette>;
+    /** Scheme-level CVD findings over {@link dataPalette}. */
+    paletteLints: Record<"light" | "dark", ThemeFitDataPaletteLint[]>;
     /** One report per surface the light theme defines. */
     light: ThemeFitSurfaceReport[];
     /** One report per surface the dark theme defines. */
     dark: ThemeFitSurfaceReport[];
 }
+/** Runtime schema for every surface-report field. */
+export declare const THEME_FIT_REPORT_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitSurfaceReport>[];
+/** Runtime schema for every fit-suite field. */
+export declare const THEME_FIT_SUITE_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitSuite>[];
 /**
  * Fit-report every surface a themed site has (ESP0175): for each scheme,
  * the root plus every declared context, each with its cross-token lints.
@@ -248,5 +302,10 @@ export interface ThemeFitSuite {
  * schemes' context names so an asymmetric pair still reports every
  * surface it can; `validateThemePair` is the gate that rejects the
  * asymmetry itself.
+ *
+ * @throws When a merged scheme emits no root properties (for example, its
+ * seed color is unparseable), because the required palette snapshot cannot be
+ * produced. {@link themeFitReport} retains its narrower empty-report behavior.
  */
 export declare function themeFitReportSuite(lightPartial: PartialTheme, darkPartial: PartialTheme): ThemeFitSuite;
+export {};

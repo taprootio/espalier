@@ -582,6 +582,8 @@ type TokenPairing = Readonly<{
 export declare const TOKEN_PAIRINGS: Readonly<Record<"actionText", TokenPairing> & Partial<Record<SemanticColorName, TokenPairing>>>;
 /** Ordered list of all semantic color token names. */
 export declare const SEMANTIC_COLOR_NAMES: readonly SemanticColorName[];
+/** `true` when `value` is one of the stable semantic color token names. */
+export declare function isSemanticColorName(value: unknown): value is SemanticColorName;
 /** Valid color-source identifiers for {@link SemanticMapping.source}. */
 export declare const COLOR_SOURCES: readonly ColorSource[];
 /** The four fixed status families, matching {@link StatusColorSource}. */
@@ -685,6 +687,8 @@ export declare function parseTheme(base64: string): PartialTheme | null;
  * @returns A Base64-encoded JSON string.
  */
 export declare function encodeTheme(partial: PartialTheme): string;
+/** True for an ordinary record whose entries can be merged by key. */
+export declare function isObjectRecord(value: unknown): value is Record<string, unknown>;
 /**
  * Recover explicit mapping provenance from a resolved theme.
  *
