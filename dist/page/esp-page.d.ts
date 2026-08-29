@@ -555,6 +555,7 @@ export declare class EspalierPage extends EspalierElementBase {
      */
     AddDialog(dialog: EspalierDialog | DocumentFragment | HTMLElement): void;
     protected firstUpdated(changedProperties: PropertyValues): void;
+    protected getUpdateComplete(): Promise<boolean>;
     protected updated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

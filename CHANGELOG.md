@@ -1,3 +1,20 @@
+# 4.5.0
+
+Generated sites can keep infrastructure and optional workspace interactions
+out of their initial component graph.
+
+- New bundle-safe `shared/events` and `shared/toast-events` subpaths expose
+  `ESP_EVENTS` and `showToast`. Together with the existing `shared/bus-events`
+  and `shared/element-base` subpaths for `getEspBus` and
+  `EspalierElementBase`, component leaf imports avoid the full-catalog
+  registration performed by the package root.
+- `esp-page` loads its pointer and keyboard resize session only when
+  `workspace-resizable` is enabled. Resize handles wait for that capability to
+  be ready; non-resizable pages do not fetch the session chunk.
+- Workspace geometry, resize sessions, and page styling now have explicit
+  internal seams with no change to `esp-page` properties, events, separator
+  ARIA, or layout behavior.
+
 # 4.0.0
 
 Consumer-facing API names are deterministic before wider adoption.
