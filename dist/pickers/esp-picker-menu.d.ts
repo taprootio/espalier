@@ -7,8 +7,14 @@ import "../shared/virtualizer/lit-virtualizer.js";
  * @event {CustomEvent<Array<PickerItem>>} esp-picker-menu-selection-changed - Emitted when
  * the user changes the selected item(s). If there are initially selected items,
  * emitted on first update.
- * @event {CustomEvent<Array<PickerItem>>} esp-picker-menu-close-requested - Emitted in single-select mode when the menu should close after a selection is made. Bubbles and is composed so parent pickers can observe it across shadow boundaries.
+ * @event {CustomEvent<Array<PickerItem>>} esp-picker-menu-close-requested - Emitted when the menu should close after a single-select choice. Bubbles and is composed so parent pickers can observe it across shadow boundaries.
+ * @event {CustomEvent<void>} esp-picker-menu-dismiss-requested - Emitted when the mobile dismiss affordance requests a close without changing selection. Bubbles, is composed, and is cancelable so an owner can coordinate state before closing; an uncanceled request closes the standalone menu directly.
  * @event {CustomEvent<{ first: number; last: number; items: Array<PickerItem> }>} esp-picker-menu-range-changed - Emitted when the virtualized visible item range changes.
+ *
+ * Standalone menus do not render owner chrome. Call the public
+ * `requestDismiss()` method from a consumer-provided close affordance.
+ * `updatePosition()` repositions an already-open standalone menu but does not
+ * open one; standalone consumers retain explicit ownership of that lifecycle.
  *
  * ```html
  * <esp-box>
@@ -101,6 +107,8 @@ export declare class EspalierPickerMenu extends LitElement {
      */
     getHighlightedElement(): EspalierPickerItem | null;
     selectItemAtPoint(clientX: number, clientY: number): boolean;
+    /** Request an owner-coordinated close, with a standalone self-close fallback. */
+    requestDismiss(): void;
     /**
      * Position the picker menu above or below the given element depending
      * on whether or not there is more room above or below the element.
@@ -130,6 +138,7 @@ export declare class EspalierPickerMenu extends LitElement {
      * Hide the picker menu popover.
      */
     hideMenu(): void;
+    disconnectedCallback(): void;
     /**
      * Used to perform keyboard actions on the menu. `ArrowDown` and `ArrowUp`
      * change the focused item in the menu. `Enter` toggles selection of the

@@ -85,5 +85,6 @@ export declare const ANCHORED_SURFACE_SCROLL_MARGIN = 8;
  * @param anchor - The trigger element
  * @param surface - The open surface anchored to it
  * @param onReposition - Re-placement callback, invoked only when a scroll happened
+ * @returns The scheduled animation-frame handle, or `null` when no scroll occurred
  */
-export declare function scrollToContainAnchoredSurface(anchor: HTMLElement, surface: HTMLElement, onReposition: () => void): void;
+export declare function scrollToContainAnchoredSurface(anchor: HTMLElement, surface: HTMLElement, onReposition: () => void): number | null;

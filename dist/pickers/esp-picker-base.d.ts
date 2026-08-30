@@ -2,7 +2,7 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
 import { type EspalierPickerMenu } from "./esp-picker-menu.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type PickerItem } from "./esp-picker-item.js";
-import { type PropertyValues } from "lit";
+import { type PropertyValues, type TemplateResult } from "lit";
 import { FormFieldController } from "../shared/form-field-controller.js";
 import type { TypeaheadFetchItems } from "./types.js";
 /** Keys that drive the picker menu rather than the input's text. */
@@ -32,6 +32,7 @@ export declare abstract class EspalierPickerBase extends EspalierElementBase imp
     protected itemsSlot: import("lit-html/directives/ref.js").Ref<HTMLSlotElement>;
     protected pickerMenu: import("lit-html/directives/ref.js").Ref<EspalierPickerMenu>;
     protected theInput: import("lit-html/directives/ref.js").Ref<HTMLInputElement>;
+    protected pickerField: import("lit-html/directives/ref.js").Ref<HTMLDivElement>;
     protected get showOptions(): boolean;
     protected set showOptions(val: boolean);
     protected typeaheadLoading: boolean;
@@ -97,6 +98,14 @@ export declare abstract class EspalierPickerBase extends EspalierElementBase imp
      * click has closed the menu itself, or focus really is gone.
      */
     protected handleInputBlur: (event: FocusEvent) => void;
+    protected closeAndResetTypeahead(): void;
+    /** Close without changing selection, then restore focus to the combobox. */
+    protected dismissMenu(): void;
+    /** Handle the public menu request while preserving owner-level state. */
+    protected readonly handleMenuDismissRequested: (ev: Event) => void;
+    /** Render compact-only chrome outside the listbox accessibility subtree. */
+    protected renderPickerMenuDismissButton(): TemplateResult;
+    disconnectedCallback(): void;
     /**
      * Handle the keys both pickers treat identically.
      *
@@ -203,5 +212,5 @@ export declare abstract class EspalierPickerBase extends EspalierElementBase imp
      * Subclasses spread this into their own `static styles` and add only what is
      * genuinely theirs (`esp-pick-some`'s selection chips, for example).
      */
-    static pickerFieldStyles: import("lit").CSSResult;
+    static pickerFieldStyles: import("lit").CSSResult[];
 }

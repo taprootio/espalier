@@ -11,6 +11,17 @@ export type EspalierFormField = {
  * information about forms, read our
  * [guide for working with forms](/espalier-guides/#forms).
  *
+ * Exactly one element belongs in the default slot. That control may be
+ * replaced or moved to another `esp-form-item` after render: the old binding
+ * is removed before the new one is applied, including form-item-owned name,
+ * description, accessible-label, validation-listener, and help-target state.
+ * Consumer-authored name and description values are preserved. An empty or
+ * multi-control default slot is reported asynchronously from the queued
+ * slotchange reconciliation, after synchronous DOM moves have settled; the
+ * error cannot be caught around the mutation itself. The same invalid initial
+ * assignment is reported synchronously from `firstUpdated` and rejects the
+ * component's first `updateComplete` promise.
+ *
  * ```html
  * <style>
  * esp-box.demo-form::part(box) {

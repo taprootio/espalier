@@ -1,8 +1,8 @@
-import{css as o,unsafeCSS as e}from"lit";const a=o`
+import{css as n,unsafeCSS as e}from"lit";const i=n`
   :host([align]) {
     text-align: inherit;
   }
-`,l=o`
+`,a=n`
   .sr-only {
     position: absolute;
     width: 1px;
@@ -14,17 +14,33 @@ import{css as o,unsafeCSS as e}from"lit";const a=o`
     white-space: nowrap;
     border: 0;
   }
-`;function i(r){const n=r.includes(":host")||r.includes("[disabled]")?r:`:host([disabled]) ${r}`;return o`
-    ${e(n)} {
+`;function l(r){const o=r.includes(":host")||r.includes("[disabled]")?r:`:host([disabled]) ${r}`;return n`
+    ${e(o)} {
       opacity: 0.5;
       cursor: not-allowed;
     }
-  `}function p(r,n,t="0 0 3px",s=""){return o`
+  `}function p(r,o,t="0 0 3px",s=""){return n`
     ${e(r)} {
       box-shadow: ${e(s)} ${e(t)}
-        var(${e(n)}, var(--esp-color-shadow));
+        var(${e(o)}, var(--esp-color-shadow));
     }
-  `}const d=o`
+  `}function d(r,o="var(--esp-size-normal-to-medium)"){return[n`
+      ${e(r)} {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        background: transparent;
+        color: var(--esp-color-text);
+        cursor: pointer;
+        padding: var(--esp-size-tiny);
+
+        svg {
+          inline-size: ${e(o)};
+          block-size: ${e(o)};
+        }
+      }
+    `]}const h=n`
   .intent-neutral {
     --_esp-intent-background: var(--esp-color-layer-2);
     --_esp-intent-border-color: var(--esp-color-border);
@@ -54,4 +70,4 @@ import{css as o,unsafeCSS as e}from"lit";const a=o`
     --_esp-intent-border-color: oklch(from var(--esp-color-info) var(--esp-l-border) c h);
     --_esp-intent-color: oklch(from var(--esp-color-info) var(--esp-l-text) c h);
   }
-`;export{a as alignAttributeTextInheritance,i as disabledControl,p as focusRing,d as intentSurfaceTokens,l as srOnly};
+`;export{i as alignAttributeTextInheritance,l as disabledControl,p as focusRing,h as intentSurfaceTokens,d as quietCloseButton,a as srOnly};

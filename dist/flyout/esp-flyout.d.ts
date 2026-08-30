@@ -21,8 +21,8 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  *    for width with the main well; content narrows but is never
  *    covered.
  * 4. **Overlay drawer** — when the complete sidebar + main + help
- *    minimums do not fit, or below the mobile threshold (`50em`, the
- *    same one the `esp-menu` drawer uses), the panel becomes a fixed
+ *    minimums do not fit, or below `COMPACT_VIEWPORT_MEDIA_QUERY` (the
+ *    same breakpoint the `esp-menu` drawer uses), the panel becomes a fixed
  *    drawer over a vellum backdrop. Set `mode="overlay"` to get this
  *    presentation at every width.
  *
@@ -136,7 +136,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * </script>
  * ```
  *
- * Below the `50em` viewport threshold every flyout becomes a fixed
+ * Below `COMPACT_VIEWPORT_MEDIA_QUERY` every flyout becomes a fixed
  * overlay drawer over a vellum — there is no room for a side-by-side
  * split on a phone. `mode="overlay"` forces that presentation at any
  * width (try it here; `Escape` or the vellum closes it):
@@ -326,7 +326,7 @@ export declare class EspalierFlyout extends EspalierElementBase {
      *
      * - `"auto"` (default) — the page's placement ladder: gutter,
      *   docked sidebar, then overlay drawer when the complete in-grid
-     *   minimums do not fit or below the `50em` viewport threshold.
+     *   minimums do not fit or below `COMPACT_VIEWPORT_MEDIA_QUERY`.
      * - `"overlay"` — always the fixed overlay drawer, at any width.
      *   The page never reserves a grid track for an overlay-mode
      *   flyout.

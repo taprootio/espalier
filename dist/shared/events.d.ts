@@ -101,6 +101,7 @@ export declare const ESP_EVENTS: {
     readonly PAGE_WORKSPACE_RESIZE: "esp-page-workspace-resize";
     readonly PICKER_MENU_SELECTION_CHANGED: "esp-picker-menu-selection-changed";
     readonly PICKER_MENU_CLOSE_REQUESTED: "esp-picker-menu-close-requested";
+    readonly PICKER_MENU_DISMISS_REQUESTED: "esp-picker-menu-dismiss-requested";
     readonly PICKER_MENU_RANGE_CHANGED: "esp-picker-menu-range-changed";
     readonly POPOVER_OPENED: "esp-popover-opened";
     readonly POPOVER_CLOSED: "esp-popover-closed";
@@ -414,6 +415,7 @@ export interface EspalierBurgerEventMap {
 export interface EspalierPickerMenuEventMap {
     [ESP_EVENTS.PICKER_MENU_SELECTION_CHANGED]: CustomEvent<PickerItem[]>;
     [ESP_EVENTS.PICKER_MENU_CLOSE_REQUESTED]: CustomEvent<PickerItem[]>;
+    [ESP_EVENTS.PICKER_MENU_DISMISS_REQUESTED]: CustomEvent<void>;
     [ESP_EVENTS.PICKER_MENU_RANGE_CHANGED]: CustomEvent<{
         first: number;
         last: number;

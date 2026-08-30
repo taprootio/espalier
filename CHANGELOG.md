@@ -1,3 +1,19 @@
+# 4.6.0
+
+Pickers adapt to compact screens, and form items can safely follow dynamic
+field ownership.
+
+- `esp-pick-one` and `esp-pick-some` use a full-viewport option presentation
+  at the shared 50em compact rung, keep the real combobox reachable, and expose
+  `esp-picker-menu-dismiss-requested` for coordinated dismissal.
+- `esp-form-item` supports replacing its slotted field or moving fields between
+  form items in one synchronous DOM update while preserving consumer-authored
+  names and accessible descriptions.
+- Anchored picker menus now position below the trigger field's full rendered
+  height, avoiding overlap when labels, chips, or other field content wrap.
+- `esp-flyout` close buttons show an inset `--esp-color-link` focus ring so
+  keyboard focus remains visible without clipping at the panel edge.
+
 # 4.5.0
 
 Generated sites can keep infrastructure and optional workspace interactions

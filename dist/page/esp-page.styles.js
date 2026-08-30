@@ -1,4 +1,4 @@
-import{css as e}from"lit";import{EspalierElementBase as t}from"../shared/esp-element-base.js";const s=[...t.styles,e`
+import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"../shared/esp-element-base.js";import{COMPACT_VIEWPORT_MEDIA_QUERY as t}from"../shared/responsive.js";const n=[...i.styles,a`
     :host {
       --_esp-page-resolved-max-width: var(
         --esp-page-main-max-width,
@@ -129,7 +129,7 @@ import{css as e}from"lit";import{EspalierElementBase as t}from"../shared/esp-ele
     }
 
     
-    @media (max-width: 50em) {
+    @media ${e(t)} {
       :host([flyout-open]) {
         --_esp-page-flyout-min: 0px;
       }
@@ -442,7 +442,7 @@ import{css as e}from"lit";import{EspalierElementBase as t}from"../shared/esp-ele
         margin-inline-start: var(--_esp-page-preview-used-width);
 
         
-        @media (max-width: 50em) {
+        @media ${e(t)} {
           z-index: var(--esp-flyout-z-index, 3000);
         }
       }
@@ -745,4 +745,4 @@ import{css as e}from"lit";import{EspalierElementBase as t}from"../shared/esp-ele
         transition: none;
       }
     }
-  `];export{s as pageStyles};
+  `];export{n as pageStyles};
