@@ -337,6 +337,14 @@ export interface EspalierTheme {
      */
     fontBrand: string;
     /**
+     * CSS `font-family` for navigation menu items and group labels. When empty,
+     * menu recipes fall back to {@link fontBody} — never to headings — so a
+     * theme that sets only a heading face keeps its navigation unchanged.
+     *
+     * @default ""
+     */
+    fontMenu: string;
+    /**
      * CSS `font-family` for code / monospace text. Empty and omitted overrides
      * resolve to the built-in monospace family.
      *
@@ -376,6 +384,16 @@ export interface EspalierTheme {
      * @default "bold"
      */
     fontWeightBrand: string;
+    /**
+     * CSS `font-weight` for horizontal navigation menu items.
+     *
+     * Accepts the same values as {@link fontWeightBody}.
+     *
+     * Emitted as `--esp-font-weight-menu`.
+     *
+     * @default "bold"
+     */
+    fontWeightMenu: string;
     /**
      * CSS `font-weight` for code / monospace text.
      *

@@ -66,6 +66,8 @@ export type { SchemeEvents } from "../shared/bus-events.js";
  * @cssprop --esp-font-body - Always-emitted family for body and UI text. Defaults to `system-ui, sans-serif` when `fontBody` is omitted or empty.
  * @cssprop --esp-font-headings - Consumer-authored heading family. Emitted only when configured; heading recipes otherwise fall back to `--esp-font-body`.
  * @cssprop --esp-font-brand - Consumer-authored brand family. Emitted only when configured; brand recipes otherwise fall back through headings to `--esp-font-body`.
+ * @cssprop --esp-font-menu - Consumer-authored navigation family. Emitted only when configured; menu items otherwise fall back to `--esp-font-body`, never to headings.
+ * @cssprop --esp-font-weight-menu - Font weight for horizontal navigation menu items. Defaults to `bold`.
  * @cssprop --esp-font-monospace - Family for code and monospace text. Defaults to `monospace`.
  * @cssprop --esp-color-series-1 - First categorical data-series color.
  * @cssprop --esp-color-series-2 - Second categorical data-series color.

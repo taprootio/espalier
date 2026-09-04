@@ -554,6 +554,10 @@
       "description": "Consumer-authored heading family. Emitted only when configured; heading recipes otherwise fall back to `--esp-font-body`."
     },
     {
+      "name": "--esp-font-menu",
+      "description": "Consumer-authored navigation family. Emitted only when configured; menu items otherwise fall back to `--esp-font-body`, never to headings."
+    },
+    {
       "name": "--esp-font-monospace",
       "description": "Family for code and monospace text. Defaults to `monospace`."
     },
@@ -568,6 +572,10 @@
     {
       "name": "--esp-font-weight-headings",
       "description": ""
+    },
+    {
+      "name": "--esp-font-weight-menu",
+      "description": "Font weight for horizontal navigation menu items. Defaults to `bold`."
     },
     {
       "name": "--esp-font-weight-monospace",
@@ -1142,8 +1150,24 @@
       "description": "Border color of menu rails and drawers."
     },
     {
+      "name": "--esp-menu-drawer-brand-color",
+      "description": "Text and logo color of the full-screen drawer's brand. Defaults to the mirrored brand color, then `var(--esp-color-headings)`."
+    },
+    {
+      "name": "--esp-menu-drawer-brand-logo-size",
+      "description": "Logo height of the brand centered in the full-screen drawer. Defaults to `calc(3 * var(--esp-size-medium))`."
+    },
+    {
+      "name": "--esp-menu-drawer-item-font-size",
+      "description": "Item label size in the full-screen drawer. Defaults to `var(--esp-type-large)`."
+    },
+    {
       "name": "--esp-menu-drawer-shadow",
       "description": "Box shadow for the drawer overlay."
+    },
+    {
+      "name": "--esp-menu-drawer-transition-duration",
+      "description": "Duration of the full-screen drawer's transition. Defaults to `0.3s`; reduced motion disables it."
     },
     {
       "name": "--esp-menu-drawer-width",
@@ -1210,6 +1234,10 @@
       "description": "Font weight of the active item. Defaults to `var(--esp-font-weight-headings)`."
     },
     {
+      "name": "--esp-menu-item-active-indicator-color",
+      "description": "Color of the bar drawn under the active horizontal item. Defaults to `--esp-menu-item-active-color`, then `var(--esp-color-link)`."
+    },
+    {
       "name": "--esp-menu-item-background",
       "description": "Background color."
     },
@@ -1222,12 +1250,32 @@
       "description": "Text color."
     },
     {
+      "name": "--esp-menu-item-font-family",
+      "description": "Font family of item labels. Defaults to the theme's `--esp-font-menu`, then `--esp-font-body`."
+    },
+    {
+      "name": "--esp-menu-item-font-size",
+      "description": "Font size of item labels. Defaults to `inherit`."
+    },
+    {
+      "name": "--esp-menu-item-font-weight",
+      "description": "Font weight of horizontal item labels. Defaults to `--esp-font-weight-menu`, then `700`."
+    },
+    {
       "name": "--esp-menu-item-hover-background",
       "description": "Hover background color."
     },
     {
       "name": "--esp-menu-item-hover-color",
       "description": "Hover text color."
+    },
+    {
+      "name": "--esp-menu-item-hover-decoration",
+      "description": "Text decoration of a hovered link item. Defaults to `none`; set `underline` to restore the former underline."
+    },
+    {
+      "name": "--esp-menu-item-hover-indicator-color",
+      "description": "Color of the bar drawn under a hovered horizontal item. Defaults to `--esp-menu-item-hover-color`, then `var(--esp-color-headings-hover)`."
     },
     {
       "name": "--esp-menu-item-icon-background",
@@ -1248,6 +1296,10 @@
     {
       "name": "--esp-menu-item-padding",
       "description": "Padding around the item label."
+    },
+    {
+      "name": "--esp-menu-item-transition-duration",
+      "description": "Duration for color, background, and indicator changes. Defaults to `0.2s`; reduced motion disables the transition."
     },
     {
       "name": "--esp-menu-scrim-color",

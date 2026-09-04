@@ -6,8 +6,18 @@
  * resulting CSS in the document head before `<esp-root>` can paint.
  */
 import type { EspalierTheme } from "./theme.js";
-export type FontPlanTheme = Pick<EspalierTheme, "fontBody" | "fontHeadings" | "fontBrand" | "fontMonospace" | "fontWeightBody" | "fontWeightHeadings" | "fontWeightBrand" | "fontWeightMonospace">;
-export type FontPlanSlot = "body" | "headings" | "brand" | "monospace";
+export type FontPlanTheme = Pick<EspalierTheme, "fontBody" | "fontHeadings" | "fontBrand" | "fontMenu" | "fontMonospace" | "fontWeightBody" | "fontWeightHeadings" | "fontWeightBrand" | "fontWeightMenu" | "fontWeightMonospace">;
+export type FontPlanSlot = "body" | "headings" | "brand" | "menu" | "monospace";
+/**
+ * Per-scheme effective stacks. The `menu` slot is present only when the
+ * theme configures `fontMenu`: an unset menu font resolves to the body slot
+ * at use time, so planning it separately would request the body family at
+ * the menu weight for every site and change compiled output that had no
+ * menu font at all.
+ */
+export type FontPlanStacks = Record<Exclude<FontPlanSlot, "menu">, string> & {
+    menu?: string;
+};
 export type FontPlanScheme = "light" | "dark";
 export type FontPlanStyle = "normal" | "italic";
 export type FontFaceRequest = {
@@ -68,7 +78,7 @@ export type CompiledFontPlan = {
     /** Catalog families that lacked the requested weight/style profile. */
     missingProfiles: FontPlanProfileMiss[];
     /** Scheme/slot stacks represented by the emitted private effective tokens. */
-    effectiveStacks: Record<FontPlanScheme, Record<FontPlanSlot, string>>;
+    effectiveStacks: Record<FontPlanScheme, FontPlanStacks>;
     /** UTF-8 byte size of `css`, convenient for static-site budget checks. */
     byteLength: number;
 };

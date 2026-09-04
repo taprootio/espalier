@@ -1,11 +1,11 @@
-var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnPropertyDescriptor(e,o):l,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(a,e,o,l);else for(var h=a.length-1;h>=0;h--)(d=a[h])&&(r=(p<3?d(r):p>3?d(e,o,r):d(e,o))||r);return p>3&&r&&Object.defineProperty(e,o,r),r},c;import{css as b,html as s,nothing as g}from"lit";import{customElement as y,property as n,state as x}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{createRef as m,ref as u}from"lit/directives/ref.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as w}from"../shared/events.js";import{getIconHrefForHost as z}from"../shared/intent-values.js";import{pathStartsWithSegment as v,pathsMatch as S}from"../shared/path-matching.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as C}from"../shared/svgs/render-sprite-icon.js";import{EspalierMenuItem as E}from"./esp-menu-item.js";let t=c=class extends f{constructor(){super(...arguments),this.itemsSlot=m(),this.toggleButton=m(),this.iconSlot=new $(this),this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!1,this.label="",this.url="",this.icon="",this.open=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1,this.urlPrefix="",this.globalListenersActive=!1,this.handleDocumentClick=e=>{this.open&&(e.composedPath().includes(this)||this.setOpen(!1))},this.handleDocumentKeydown=e=>{!this.open||e.key!=="Escape"||(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}}connectedCallback(){super.connectedCallback(),this.checkActive()}disconnectedCallback(){super.disconnectedCallback(),this.removeGlobalDismissListeners()}firstUpdated(e){super.firstUpdated(e),this.propagateToChildren()}updated(e){super.updated(e),(e.has("mode")||e.has("depth")||e.has("touchDevice"))&&this.propagateToChildren(),(e.has("mode")||e.has("depth")||e.has("urlPrefix"))&&this.syncUrlPrefixExpansion(),e.has("url")&&this.checkActive(),e.has("open")&&!this.open&&(this.openedByUrlPrefix=!1),(e.has("open")||e.has("mode"))&&(this.open&&this.isHorizontalTopLevel?this.addGlobalDismissListeners():this.removeGlobalDismissListeners())}checkActive(){if(!this.url){this.active=!1;return}this.active=S(this.url)}get isHorizontalTopLevel(){return this.mode==="horizontal"&&this.depth===0}get childMode(){return this.mode==="horizontal"?"vertical":this.mode}syncUrlPrefixExpansion(){const e=v(location.pathname,this.urlPrefix);if(e||(this.dismissedUrlPrefix=!1),e&&!this.dismissedUrlPrefix&&!this.isHorizontalTopLevel){this.open||(this.open=!0,this.openedByUrlPrefix=!0);return}this.openedByUrlPrefix&&(this.open=!1,this.openedByUrlPrefix=!1)}getChildren(){return this.itemsSlot.value?Array.from(this.itemsSlot.value.assignedElements()):[]}propagateToChildren(){for(const e of this.getChildren())e instanceof E?(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice):e instanceof c&&(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice)}handleSlotChange(){this.propagateToChildren()}setOpen(e){this.open!==e&&(this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!e&&v(location.pathname,this.urlPrefix),this.open=e,this.dispatchEvent(new CustomEvent(w.MENU_GROUP_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0})))}handleHeaderClick(){this.toggleOpen()}handleLinkClick(e){e.stopPropagation()}handleToggleClick(e){e.stopPropagation(),this.toggleOpen()}toggleOpen(){this.setOpen(!this.open)}handleToggleKeydown(e){e.key==="Escape"&&(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}addGlobalDismissListeners(){this.globalListenersActive||(document.addEventListener("click",this.handleDocumentClick,!0),document.addEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!0)}removeGlobalDismissListeners(){this.globalListenersActive&&(document.removeEventListener("click",this.handleDocumentClick,!0),document.removeEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!1)}renderIcon(){const e=z(this.icon,this),o=this.iconSlot.hasSlottedIcon();return s`
+var i=function(l,e,o,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,o):a,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(l,e,o,a);else for(var h=l.length-1;h>=0;h--)(d=l[h])&&(s=(p<3?d(s):p>3?d(e,o,s):d(e,o))||s);return p>3&&s&&Object.defineProperty(e,o,s),s},c;import{css as b,html as n,nothing as g}from"lit";import{customElement as y,property as r,state as x}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{createRef as f,ref as u}from"lit/directives/ref.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as w}from"../shared/events.js";import{getIconHrefForHost as z}from"../shared/intent-values.js";import{pathStartsWithSegment as v,pathsMatch as S}from"../shared/path-matching.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as C}from"../shared/svgs/render-sprite-icon.js";import{EspalierMenuItem as E}from"./esp-menu-item.js";let t=c=class extends m{constructor(){super(...arguments),this.itemsSlot=f(),this.toggleButton=f(),this.iconSlot=new $(this),this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!1,this.label="",this.url="",this.icon="",this.open=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.fullScreenPresentation=!1,this.active=!1,this.urlPrefix="",this.globalListenersActive=!1,this.handleDocumentClick=e=>{this.open&&(e.composedPath().includes(this)||this.setOpen(!1))},this.handleDocumentKeydown=e=>{!this.open||e.key!=="Escape"||(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}}connectedCallback(){super.connectedCallback(),this.checkActive()}disconnectedCallback(){super.disconnectedCallback(),this.removeGlobalDismissListeners()}firstUpdated(e){super.firstUpdated(e),this.propagateToChildren()}updated(e){super.updated(e),(e.has("mode")||e.has("depth")||e.has("touchDevice"))&&this.propagateToChildren(),(e.has("mode")||e.has("depth")||e.has("urlPrefix"))&&this.syncUrlPrefixExpansion(),e.has("url")&&this.checkActive(),e.has("open")&&!this.open&&(this.openedByUrlPrefix=!1),(e.has("open")||e.has("mode"))&&(this.open&&this.isHorizontalTopLevel?this.addGlobalDismissListeners():this.removeGlobalDismissListeners())}checkActive(){if(!this.url){this.active=!1;return}this.active=S(this.url)}get isHorizontalTopLevel(){return this.mode==="horizontal"&&this.depth===0}get childMode(){return this.mode==="horizontal"?"vertical":this.mode}syncUrlPrefixExpansion(){const e=v(location.pathname,this.urlPrefix);if(e||(this.dismissedUrlPrefix=!1),e&&!this.dismissedUrlPrefix&&!this.isHorizontalTopLevel){this.open||(this.open=!0,this.openedByUrlPrefix=!0);return}this.openedByUrlPrefix&&(this.open=!1,this.openedByUrlPrefix=!1)}getChildren(){return this.itemsSlot.value?Array.from(this.itemsSlot.value.assignedElements()):[]}propagateToChildren(){for(const e of this.getChildren())e instanceof E?(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice):e instanceof c&&(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice)}handleSlotChange(){this.propagateToChildren()}setOpen(e){this.open!==e&&(this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!e&&v(location.pathname,this.urlPrefix),this.open=e,this.dispatchEvent(new CustomEvent(w.MENU_GROUP_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0})))}handleHeaderClick(){this.toggleOpen()}handleLinkClick(e){e.stopPropagation()}handleToggleClick(e){e.stopPropagation(),this.toggleOpen()}toggleOpen(){this.setOpen(!this.open)}handleToggleKeydown(e){e.key==="Escape"&&(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}addGlobalDismissListeners(){this.globalListenersActive||(document.addEventListener("click",this.handleDocumentClick,!0),document.addEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!0)}removeGlobalDismissListeners(){this.globalListenersActive&&(document.removeEventListener("click",this.handleDocumentClick,!0),document.removeEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!1)}renderIcon(){const e=z(this.icon,this),o=this.iconSlot.hasSlottedIcon();return n`
       <slot
         name="icon"
         ${u(this.iconSlot.slotRef)}
         @slotchange=${this.iconSlot.handleSlotChange}
       ></slot>
       ${!o&&e?C(e):g}
-    `}renderToggle(e){return s`<button
+    `}renderToggle(e){return n`<button
       ${u(this.toggleButton)}
       class="group-toggle"
       type="button"
@@ -14,16 +14,16 @@ var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnP
       @keydown=${this.handleToggleKeydown}
     >
       ${e}<span class="indicator" aria-hidden="true"></span>
-    </button>`}render(){const e={group:!0,"is-horizontal":this.isHorizontalTopLevel,"is-vertical":!this.isHorizontalTopLevel,"is-nested":this.depth>0,"is-drawer":this.mode==="drawer","is-open":this.open,"is-active":this.active,"has-icon":this.icon.length>0||this.iconSlot.hasSlottedIcon()},o=s`<span class="group-label-text">${this.label}</span>`,l=this.url?this.active?s`
+    </button>`}render(){const e={group:!0,"is-horizontal":this.isHorizontalTopLevel,"is-vertical":!this.isHorizontalTopLevel,"is-nested":this.depth>0,"is-drawer":this.mode==="drawer","is-open":this.open,"is-active":this.active,"has-icon":this.icon.length>0||this.iconSlot.hasSlottedIcon()},o=n`<span class="group-label-text" part="menu-text">${this.label}</span>`,a=this.url?this.active?n`
             <span class="current-page" aria-current="page">${o}</span>
-            ${this.renderToggle(s`<span class="sr-only">Toggle ${this.label}</span>`)}
-          `:s`
+            ${this.renderToggle(n`<span class="sr-only">Toggle ${this.label}</span>`)}
+          `:n`
             <a class="group-link" href=${this.url} @click=${this.handleLinkClick}>${o}</a>
-            ${this.renderToggle(s`<span class="sr-only">Toggle ${this.label}</span>`)}
-          `:this.renderToggle(o);return s`
+            ${this.renderToggle(n`<span class="sr-only">Toggle ${this.label}</span>`)}
+          `:this.renderToggle(o);return n`
       <div class=${k(e)}>
         <div class="group-header" @click=${this.handleHeaderClick}>
-          <span class="group-label">${l}</span>
+          <span class="group-label">${a}</span>
           <span class="group-icon" aria-hidden="true">${this.renderIcon()}</span>
         </div>
         <div
@@ -37,7 +37,7 @@ var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnP
           </div>
         </div>
       </div>
-    `}};t.styles=[...f.styles,b`
+    `}};t.styles=[...m.styles,b`
       :host {
         display: block;
         position: relative;
@@ -94,10 +94,22 @@ var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnP
         gap: var(--esp-size-tiny);
         min-width: 0;
         border: none;
-        padding: var(--esp-size-small) var(--esp-size-padding);
+        padding: var(--esp-menu-item-padding, var(--esp-size-small) var(--esp-size-padding));
         color: inherit;
         background: none;
         font: inherit;
+        
+        font-size: var(--esp-menu-item-font-size, inherit);
+        font-family: var(
+          --esp-menu-item-font-family,
+          var(
+            --_esp-font-menu-effective,
+            var(
+              --esp-font-menu,
+              var(--_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)))
+            )
+          )
+        );
         font-weight: 600;
         text-align: left;
         text-decoration: none;
@@ -133,6 +145,29 @@ var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnP
       .group-link:hover {
         background: none;
         text-decoration: underline;
+      }
+
+      
+      :host([full-screen-presentation]) .group-label {
+        position: relative;
+      }
+
+      :host([full-screen-presentation]) .group-link,
+      :host([full-screen-presentation]) .current-page {
+        flex: 1 1 auto;
+        width: 100%;
+        justify-content: center;
+        padding: var(--esp-menu-item-padding, var(--esp-size-small) var(--esp-size-padding));
+      }
+
+      :host([full-screen-presentation]) .group-link + .group-toggle,
+      :host([full-screen-presentation]) .current-page + .group-toggle {
+        position: absolute;
+        inset-block: 0;
+        inset-inline-end: 0;
+        flex: none;
+        width: auto;
+        padding-inline: var(--esp-size-small);
       }
 
       .group-toggle:focus-visible,
@@ -235,4 +270,4 @@ var i=function(a,e,o,l){var p=arguments.length,r=p<3?e:l===null?l=Object.getOwnP
           transition: none;
         }
       }
-    `],i([n({type:String})],t.prototype,"label",void 0),i([n({type:String})],t.prototype,"url",void 0),i([n({type:String})],t.prototype,"icon",void 0),i([n({type:Boolean,reflect:!0})],t.prototype,"open",void 0),i([n({attribute:!1,type:String})],t.prototype,"mode",void 0),i([n({attribute:!1,type:Number})],t.prototype,"depth",void 0),i([n({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),i([x()],t.prototype,"active",void 0),i([n({type:String,attribute:"url-prefix"})],t.prototype,"urlPrefix",void 0),t=c=i([y("esp-menu-group")],t);export{t as EspalierMenuGroup};
+    `],i([r({type:String})],t.prototype,"label",void 0),i([r({type:String})],t.prototype,"url",void 0),i([r({type:String})],t.prototype,"icon",void 0),i([r({type:Boolean,reflect:!0})],t.prototype,"open",void 0),i([r({attribute:!1,type:String})],t.prototype,"mode",void 0),i([r({attribute:!1,type:Number})],t.prototype,"depth",void 0),i([r({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),i([r({attribute:"full-screen-presentation",type:Boolean,reflect:!0})],t.prototype,"fullScreenPresentation",void 0),i([x()],t.prototype,"active",void 0),i([r({type:String,attribute:"url-prefix"})],t.prototype,"urlPrefix",void 0),t=c=i([y("esp-menu-group")],t);export{t as EspalierMenuGroup};

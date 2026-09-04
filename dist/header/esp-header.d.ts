@@ -2,7 +2,7 @@ import { type PropertyValues } from "lit";
 import "../burger/esp-burger.js";
 import { type EspalierBurger } from "../burger/esp-burger.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
-declare const HEADER_LAYOUT_VALUES: readonly ["standard", "centered-brand", "extended", "extended-centered", "minimal"];
+declare const HEADER_LAYOUT_VALUES: readonly ["standard", "centered-brand", "centered-menu", "extended", "extended-centered", "minimal"];
 declare const HEADER_BRAND_ALIGN_VALUES: readonly ["start", "center", "end"];
 declare const HEADER_BRAND_WRAP_VALUES: readonly ["truncate", "wrap", "nowrap"];
 declare const HEADER_MENU_DISPLAY_VALUES: readonly ["auto", "inline", "drawer"];
@@ -219,6 +219,8 @@ export declare class EspalierHeader extends EspalierElementBase {
      *
      * - `standard` places brand, menu, and actions on one row.
      * - `centered-brand` centers the brand between left navigation and actions.
+     * - `centered-menu` keeps the brand at the start and actions at the end
+     *   and centers the navigation on the bar between two equal columns.
      * - `extended` puts navigation on a second row on wide screens.
      * - `extended-centered` centers the brand and second-row navigation.
      * - `minimal` keeps only brand/actions inline and uses the drawer menu.
@@ -247,6 +249,7 @@ export declare class EspalierHeader extends EspalierElementBase {
      *       <esp-pick-one>
      *         <esp-picker-item text="Standard" value="standard" selected></esp-picker-item>
      *         <esp-picker-item text="Centered brand" value="centered-brand"></esp-picker-item>
+     *         <esp-picker-item text="Centered menu" value="centered-menu"></esp-picker-item>
      *         <esp-picker-item text="Extended" value="extended"></esp-picker-item>
      *         <esp-picker-item text="Extended centered" value="extended-centered"></esp-picker-item>
      *         <esp-picker-item text="Minimal" value="minimal"></esp-picker-item>

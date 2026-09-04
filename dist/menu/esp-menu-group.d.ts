@@ -26,6 +26,7 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * @cssprop --esp-menu-group-icon-padding - Padding inside the icon rail.
  * @cssprop --esp-menu-group-icon-background - Background color of the icon rail.
  * @cssprop --esp-menu-group-icon-size - Size of generated and slotted group icons.
+ * @cssprop --esp-menu-item-font-family - Font family of the group label, shared with menu items. Defaults to the theme's `--esp-font-menu`, then `--esp-font-body`.
  * @docPageTitle Menu Group
  * @docUrl /components/menu/group
  * @menuGroup Navigation
@@ -46,6 +47,12 @@ export declare class EspalierMenuGroup extends EspalierElementBase {
     depth: number;
     /** Whether the device uses a coarse pointer. Supplied by the parent. */
     touchDevice: boolean;
+    /**
+     * Set by `esp-menu` for groups rendered in its full-screen drawer: the
+     * label centers across the row and the disclosure control keeps the
+     * inline end, so a linked group reads like the centered items around it.
+     */
+    fullScreenPresentation: boolean;
     /**
      * URL prefix for automatic expansion. If `location.pathname`
      * starts with this value, the group opens on connect.

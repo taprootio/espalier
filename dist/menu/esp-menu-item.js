@@ -1,9 +1,9 @@
-var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnPropertyDescriptor(e,r):n,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(p,e,r,n);else for(var d=p.length-1;d>=0;d--)(i=p[d])&&(t=(s<3?i(t):s>3?i(e,r,t):i(e,r))||t);return s>3&&t&&Object.defineProperty(e,r,t),t};import{css as v,html as c,nothing as h}from"lit";import{customElement as m,property as l,state as g}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{ref as f}from"lit/directives/ref.js";import{getIconHrefForHost as k}from"../shared/intent-values.js";import{EspalierElementBase as u}from"../shared/esp-element-base.js";import{ESP_EVENTS as y}from"../shared/events.js";import{pathsMatch as z}from"../shared/path-matching.js";import{SlottedIconController as w}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";let o=class extends u{constructor(){super(...arguments),this.iconSlot=new w(this),this.label="",this.url="",this.icon="",this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}connectedCallback(){super.connectedCallback(),this.checkActive()}updated(e){super.updated(e),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=z(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(y.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=k(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > *"),n=r||e.length>0,s={item:!0,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":n,"is-active":this.active},t=c`<span part="menu-text">${this.label}</span>`,i=c`<span class="icon-area" aria-hidden=${n?"true":h}>
-      <slot ${f(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
+var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,r):a,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(p,e,r,a);else for(var d=p.length-1;d>=0;d--)(i=p[d])&&(t=(s<3?i(t):s>3?i(e,r,t):i(e,r))||t);return s>3&&t&&Object.defineProperty(e,r,t),t};import{css as u,html as c,nothing as h}from"lit";import{customElement as v,property as l,state as f}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{ref as g}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as k}from"../shared/events.js";import{pathsMatch as w}from"../shared/path-matching.js";import{SlottedIconController as z}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";let o=class extends m{constructor(){super(...arguments),this.iconSlot=new z(this),this.label="",this.url="",this.icon="",this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}connectedCallback(){super.connectedCallback(),this.checkActive()}updated(e){super.updated(e),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=w(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(k.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=y(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > *"),a=r||e.length>0,s={item:!0,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":a,"is-active":this.active},t=c`<span part="menu-text">${this.label}</span>`,i=c`<span class="icon-area" aria-hidden=${a?"true":h}>
+      <slot ${g(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
       ${!r&&e?x(e):h}
     </span>`;return c`<div class=${b(s)}>
       ${this.active?c`<span class="current-page" aria-current="page">${t}${i}</span>`:this.url?c`<a href=${this.url}>${t}${i}</a>`:c`<button type="button" @click=${this.handleButtonClick}>${t}${i}</button>`}
-    </div>`}};o.styles=[...u.styles,v`
+    </div>`}};o.styles=[...m.styles,u`
       :host {
         display: block;
       }
@@ -11,6 +11,18 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
       .item {
         color: var(--esp-menu-item-color, var(--esp-color-text));
         background-color: var(--esp-menu-item-background, transparent);
+        
+        font-family: var(
+          --esp-menu-item-font-family,
+          var(
+            --_esp-font-menu-effective,
+            var(
+              --esp-font-menu,
+              var(--_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)))
+            )
+          )
+        );
+        font-size: var(--esp-menu-item-font-size, inherit);
         white-space: nowrap;
       }
 
@@ -40,10 +52,22 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
         cursor: default;
       }
 
+      
+      a,
+      button,
+      .current-page,
+      .item {
+        transition:
+          color var(--esp-menu-item-transition-duration, 0.2s) ease,
+          background-color var(--esp-menu-item-transition-duration, 0.2s) ease,
+          box-shadow var(--esp-menu-item-transition-duration, 0.2s) ease;
+      }
+
       a:hover {
         background: var(--esp-menu-item-hover-background, var(--esp-color-link-hover-bg));
         color: var(--esp-menu-item-hover-color, var(--esp-color-link-hover));
-        text-decoration: underline;
+        
+        text-decoration: var(--esp-menu-item-hover-decoration, none);
       }
 
       a:focus-visible,
@@ -66,13 +90,17 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
       .is-horizontal > .current-page {
         justify-content: center;
         height: var(--esp-header-height, calc(4.5 * var(--esp-size-small)));
-        font-weight: 700;
+        font-weight: var(--esp-menu-item-font-weight, var(--esp-font-weight-menu, 700));
       }
 
       .is-horizontal > a:hover,
       .is-horizontal > button:hover {
         background: var(--esp-menu-item-hover-background, transparent);
-        box-shadow: inset 0 -2px 0 var(--esp-menu-item-hover-color, var(--esp-color-headings-hover));
+        box-shadow: inset 0 -2px 0
+          var(
+            --esp-menu-item-hover-indicator-color,
+            var(--esp-menu-item-hover-color, var(--esp-color-headings-hover))
+          );
       }
 
       .is-horizontal [part="menu-text"] {
@@ -83,7 +111,6 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
         border-right: 1px solid var(--esp-menu-item-border-color, var(--esp-color-border));
         border-bottom: 1px solid var(--esp-menu-item-border-color, var(--esp-color-border));
         background-color: var(--esp-menu-item-background, var(--esp-color-layer-1));
-        transition: background-color 0.2s ease;
       }
 
       .is-vertical:hover,
@@ -116,7 +143,20 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
 
       .is-horizontal.is-active {
         background-color: var(--esp-menu-item-active-background, transparent);
-        box-shadow: inset 0 -2px 0 var(--esp-menu-item-active-color, var(--esp-color-link));
+        box-shadow: inset 0 -2px 0
+          var(
+            --esp-menu-item-active-indicator-color,
+            var(--esp-menu-item-active-color, var(--esp-color-link))
+          );
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        a,
+        button,
+        .current-page,
+        .item {
+          transition: none;
+        }
       }
 
       .icon-area {
@@ -146,4 +186,4 @@ var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnP
         width: var(--esp-menu-item-icon-size, calc(1 * var(--esp-size-font)));
         object-fit: contain;
       }
-    `],a([l({type:String})],o.prototype,"label",void 0),a([l({type:String})],o.prototype,"url",void 0),a([l({type:String})],o.prototype,"icon",void 0),a([l({attribute:!1,type:String})],o.prototype,"mode",void 0),a([l({attribute:!1,type:Number})],o.prototype,"depth",void 0),a([l({attribute:!1,type:Boolean})],o.prototype,"touchDevice",void 0),a([g()],o.prototype,"active",void 0),o=a([m("esp-menu-item")],o);export{o as EspalierMenuItem};
+    `],n([l({type:String})],o.prototype,"label",void 0),n([l({type:String})],o.prototype,"url",void 0),n([l({type:String})],o.prototype,"icon",void 0),n([l({attribute:!1,type:String})],o.prototype,"mode",void 0),n([l({attribute:!1,type:Number})],o.prototype,"depth",void 0),n([l({attribute:!1,type:Boolean})],o.prototype,"touchDevice",void 0),n([f()],o.prototype,"active",void 0),o=n([v("esp-menu-item")],o);export{o as EspalierMenuItem};

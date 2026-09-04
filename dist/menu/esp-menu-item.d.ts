@@ -18,10 +18,17 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * @cssprop --esp-menu-item-border-color - Border color.
  * @cssprop --esp-menu-item-hover-color - Hover text color.
  * @cssprop --esp-menu-item-hover-background - Hover background color.
+ * @cssprop --esp-menu-item-hover-decoration - Text decoration of a hovered link item. Defaults to `none`; set `underline` to restore the former underline.
+ * @cssprop --esp-menu-item-hover-indicator-color - Color of the bar drawn under a hovered horizontal item. Defaults to `--esp-menu-item-hover-color`, then `var(--esp-color-headings-hover)`.
+ * @cssprop --esp-menu-item-transition-duration - Duration for color, background, and indicator changes. Defaults to `0.2s`; reduced motion disables the transition.
  * @cssprop --esp-menu-item-icon-background - Icon area background color.
  * @cssprop --esp-menu-item-active-color - Text color of the active item.
  * @cssprop --esp-menu-item-active-background - Background color of the active item.
+ * @cssprop --esp-menu-item-active-indicator-color - Color of the bar drawn under the active horizontal item. Defaults to `--esp-menu-item-active-color`, then `var(--esp-color-link)`.
  * @cssprop --esp-menu-item-active-font-weight - Font weight of the active item. Defaults to `var(--esp-font-weight-headings)`.
+ * @cssprop --esp-menu-item-font-family - Font family of item labels. Defaults to the theme's `--esp-font-menu`, then `--esp-font-body`.
+ * @cssprop --esp-menu-item-font-weight - Font weight of horizontal item labels. Defaults to `--esp-font-weight-menu`, then `700`.
+ * @cssprop --esp-menu-item-font-size - Font size of item labels. Defaults to `inherit`.
  * @cssprop --esp-menu-item-padding - Padding around the item label.
  * @cssprop --esp-menu-item-icon-min-width - Minimum width of the icon rail.
  * @cssprop --esp-menu-item-icon-padding - Padding inside the icon rail.

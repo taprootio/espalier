@@ -98,6 +98,7 @@ export declare const ESP_EVENTS: {
     readonly MENU_GROUP_TOGGLE: "esp-menu-group-toggle";
     readonly MENU_DRAWER_OPENED: "esp-menu-drawer-opened";
     readonly MENU_DRAWER_CLOSED: "esp-menu-drawer-closed";
+    readonly MENU_DRAWER_PRESENTED: "esp-menu-drawer-presented";
     readonly PAGE_WORKSPACE_RESIZE: "esp-page-workspace-resize";
     readonly PICKER_MENU_SELECTION_CHANGED: "esp-picker-menu-selection-changed";
     readonly PICKER_MENU_CLOSE_REQUESTED: "esp-picker-menu-close-requested";
@@ -315,6 +316,7 @@ export interface EspalierDialogEventMap {
 export interface EspalierMenuEventMap {
     [ESP_EVENTS.MENU_DRAWER_OPENED]: CustomEvent<void>;
     [ESP_EVENTS.MENU_DRAWER_CLOSED]: CustomEvent<void>;
+    [ESP_EVENTS.MENU_DRAWER_PRESENTED]: CustomEvent<void>;
 }
 /** Events fired by `<esp-menu-group>`. */
 export interface EspalierMenuGroupEventMap {
