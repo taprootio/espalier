@@ -76120,6 +76120,48 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/shared/theme-properties.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "computeThemeProperties",
+          "return": {
+            "type": {
+              "text": "Record<string, string>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "theme",
+              "type": {
+                "text": "EspalierTheme"
+              },
+              "description": "A resolved theme."
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "ThemeScheme"
+              },
+              "description": "The scheme to compute, matching the theme it came from."
+            }
+          ],
+          "description": "Compute every CSS custom property for a resolved theme and scheme.\n\nThe result is a flat record keyed by property name including the leading\n`--`, exactly as `esp-root` writes it: scheme indicator, seed, variant and\ndata colors, the lightness ramp, APCA-enforced semantic colors, data\ncompanions, the type and space scales, font families and weights, and the\noptional background-image and vellum properties a theme declares.\n\nPass a **resolved** theme — one merged over `DEFAULT_LIGHT_THEME` or\n`DEFAULT_DARK_THEME` with `mergeTheme` from `./shared/theme`. An unparseable\n`seedColor` yields an empty record rather than throwing, and an unresolvable\ncolor source falls back to the seed with a `console.warn`, so a bad theme\nrenders branded rather than broken; use `validateTheme(encodeTheme(partial))`\nfrom `./shared/theme` to surface those before rendering."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "computeThemeProperties",
+          "declaration": {
+            "name": "computeThemeProperties",
+            "module": "dist/shared/theme-properties.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/shared/theme-swatches.js",
       "declarations": [
         {
