@@ -61,6 +61,19 @@ export type { CalendarDay, DatePickerMode, ParsedValue } from "./helpers/types.j
  * </script>
  * ```
  *
+ * To reach a distant date quickly, click the month or the year in the
+ * calendar header. The month opens a grid of the twelve months and the
+ * year opens a scrolling list of years; choosing one moves the calendar
+ * there without changing the value. The header arrows step by month on
+ * the day grid, by year on the month grid, and by a page on the year
+ * list, and `Escape` returns to the day grid:
+ *
+ * ```html
+ * <esp-form-item label="Date of birth">
+ *   <esp-date-picker value="1985-03-22"></esp-date-picker>
+ * </esp-form-item>
+ * ```
+ *
  * Because the picker is form-associated, its value is included when
  * the form is submitted and it responds to form resets:
  *

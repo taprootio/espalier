@@ -14670,7 +14670,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A date / datetime / time / range picker built on the browser-native\n[Temporal API](https://tc39.es/proposal-temporal/docs/) and the\nnative Popover API. It participates in native `<form>` elements\nvia `ElementInternals`, so its value is submitted with the form\njust like a built-in `<input type=\"date\">`.\n\nWrap the picker in an [esp-form-item](/components/form-item) for a\nlabel, validation messages, and consistent spacing with other\nEspalier form controls.\n\n```html\n<esp-form-item label=\"Birthday\">\n  <esp-date-picker value=\"1990-06-15\"></esp-date-picker>\n</esp-form-item>\n```\n\nThe picker supports four modes. Use the `mode` attribute to switch\nbetween a single date, a date-and-time, a time-only, or a date\nrange:\n\n```html\n<esp-form-item label=\"Appointment\">\n  <esp-date-picker mode=\"datetime\" value=\"2025-09-01T14:30:00\"></esp-date-picker>\n</esp-form-item>\n```\n\nFor date range selection the value uses ISO 8601 interval notation\n(`start/end`). Click once to set the start, then click again to\nset the end. If the second click is before the first, the dates\nare automatically swapped:\n\n```html\n<esp-form-item label=\"Trip dates\">\n  <esp-date-picker mode=\"range\" value=\"2025-07-01/2025-07-14\"></esp-date-picker>\n</esp-form-item>\n```\n\nConstrain the selectable range with `min` and `max`. Dates outside\nthe range are greyed out and cannot be selected. The picker also\nreports `rangeUnderflow` / `rangeOverflow` through the Constraint\nValidation API:\n\n```html\n<esp-form-item label=\"Check-in (next 30 days)\">\n  <esp-date-picker id=\"checkin-picker\"></esp-date-picker>\n</esp-form-item>\n<script>\n  const picker = document.getElementById(\"checkin-picker\");\n  const today = Temporal.Now.plainDateISO();\n  picker.min = today.toString();\n  picker.max = today.add({ days: 30 }).toString();\n</script>\n```\n\nBecause the picker is form-associated, its value is included when\nthe form is submitted and it responds to form resets:\n\n```html\n<form id=\"booking-form\">\n  <esp-form-item label=\"Departure\">\n    <esp-date-picker name=\"departure\" required></esp-date-picker>\n  </esp-form-item>\n  <esp-button label=\"Submit\"></esp-button>\n</form>\n<script>\n  const form = document.getElementById(\"booking-form\");\n  const picker = findByTagName(\"esp-date-picker\")[0];\n  picker.addEventListener(\"esp-value-changed\", (event) => {\n    console.log(\"Selected:\", event.detail);\n  });\n</script>\n```\n\n> **Runtime requirement:** The Temporal API must be available. If\n> target browsers do not yet ship it natively, load a polyfill such\n> as `temporal-polyfill` in the document `<head>` before using this\n> component.",
+          "description": "A date / datetime / time / range picker built on the browser-native\n[Temporal API](https://tc39.es/proposal-temporal/docs/) and the\nnative Popover API. It participates in native `<form>` elements\nvia `ElementInternals`, so its value is submitted with the form\njust like a built-in `<input type=\"date\">`.\n\nWrap the picker in an [esp-form-item](/components/form-item) for a\nlabel, validation messages, and consistent spacing with other\nEspalier form controls.\n\n```html\n<esp-form-item label=\"Birthday\">\n  <esp-date-picker value=\"1990-06-15\"></esp-date-picker>\n</esp-form-item>\n```\n\nThe picker supports four modes. Use the `mode` attribute to switch\nbetween a single date, a date-and-time, a time-only, or a date\nrange:\n\n```html\n<esp-form-item label=\"Appointment\">\n  <esp-date-picker mode=\"datetime\" value=\"2025-09-01T14:30:00\"></esp-date-picker>\n</esp-form-item>\n```\n\nFor date range selection the value uses ISO 8601 interval notation\n(`start/end`). Click once to set the start, then click again to\nset the end. If the second click is before the first, the dates\nare automatically swapped:\n\n```html\n<esp-form-item label=\"Trip dates\">\n  <esp-date-picker mode=\"range\" value=\"2025-07-01/2025-07-14\"></esp-date-picker>\n</esp-form-item>\n```\n\nConstrain the selectable range with `min` and `max`. Dates outside\nthe range are greyed out and cannot be selected. The picker also\nreports `rangeUnderflow` / `rangeOverflow` through the Constraint\nValidation API:\n\n```html\n<esp-form-item label=\"Check-in (next 30 days)\">\n  <esp-date-picker id=\"checkin-picker\"></esp-date-picker>\n</esp-form-item>\n<script>\n  const picker = document.getElementById(\"checkin-picker\");\n  const today = Temporal.Now.plainDateISO();\n  picker.min = today.toString();\n  picker.max = today.add({ days: 30 }).toString();\n</script>\n```\n\nTo reach a distant date quickly, click the month or the year in the\ncalendar header. The month opens a grid of the twelve months and the\nyear opens a scrolling list of years; choosing one moves the calendar\nthere without changing the value. The header arrows step by month on\nthe day grid, by year on the month grid, and by a page on the year\nlist, and `Escape` returns to the day grid:\n\n```html\n<esp-form-item label=\"Date of birth\">\n  <esp-date-picker value=\"1985-03-22\"></esp-date-picker>\n</esp-form-item>\n```\n\nBecause the picker is form-associated, its value is included when\nthe form is submitted and it responds to form resets:\n\n```html\n<form id=\"booking-form\">\n  <esp-form-item label=\"Departure\">\n    <esp-date-picker name=\"departure\" required></esp-date-picker>\n  </esp-form-item>\n  <esp-button label=\"Submit\"></esp-button>\n</form>\n<script>\n  const form = document.getElementById(\"booking-form\");\n  const picker = findByTagName(\"esp-date-picker\")[0];\n  picker.addEventListener(\"esp-value-changed\", (event) => {\n    console.log(\"Selected:\", event.detail);\n  });\n</script>\n```\n\n> **Runtime requirement:** The Temporal API must be available. If\n> target browsers do not yet ship it natively, load a polyfill such\n> as `temporal-polyfill` in the document `<head>` before using this\n> component.",
           "name": "EspalierDatePicker",
           "members": [
             {
@@ -14723,6 +14723,11 @@
             {
               "kind": "field",
               "name": "timePickerRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "yearListRef",
               "privacy": "private"
             },
             {
@@ -14871,6 +14876,46 @@
               },
               "privacy": "protected",
               "description": "The date that has keyboard focus inside the grid."
+            },
+            {
+              "kind": "field",
+              "name": "_surface",
+              "type": {
+                "text": "CalendarSurface"
+              },
+              "privacy": "private",
+              "default": "\"days\"",
+              "description": "Which surface the calendar body is showing."
+            },
+            {
+              "kind": "field",
+              "name": "_jumpFocus",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "The month (1–12) or year holding the roving tabindex on the jump\nsurface, so keyboard movement there never disturbs `focusedDate`."
+            },
+            {
+              "kind": "field",
+              "name": "_yearWindow",
+              "type": {
+                "text": "number[]"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "description": "The years the year surface lists, generated each time it opens."
+            },
+            {
+              "kind": "field",
+              "name": "_pinnedBodySize",
+              "type": {
+                "text": "{ width: number; height: number } | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "description": "The day grid's measured box while a jump surface is showing. The body\nis pinned to it so the popover keeps its footprint and position: the\npopover is sized `min-content`, so without the pin the narrower month\ngrid or year list would shrink it, and `_positionPopover` measures on\nopen and on scroll/resize tracking, never on a content swap."
             },
             {
               "kind": "field",
@@ -15453,6 +15498,269 @@
             },
             {
               "kind": "method",
+              "name": "_setViewMonth",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "month",
+                  "type": {
+                    "text": "Temporal.PlainYearMonth"
+                  }
+                }
+              ],
+              "description": "Show `month`, carrying the focused day across: clamped to the month's\nlength, then into `min` / `max` when the bound falls in this month, so\nthe roving day is one that can take focus — a disabled day cell\nrefuses it and focus would fall to the document."
+            },
+            {
+              "kind": "method",
+              "name": "_navigateHeader",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "-1 | 1"
+                  }
+                }
+              ],
+              "description": "The header arrows act on whichever surface is showing."
+            },
+            {
+              "kind": "method",
+              "name": "_toggleSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "surface",
+                  "type": {
+                    "text": "CalendarSurface"
+                  }
+                }
+              ],
+              "description": "Open `surface`, or return to the day grid when it is already showing."
+            },
+            {
+              "kind": "method",
+              "name": "_showSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "surface",
+                  "type": {
+                    "text": "CalendarSurface"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_openYearWindow",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "preferred",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Generate the year list around the view year and put the roving\ntabindex on `preferred`, clamped into the window: the view year when\nthe surface opens, the current keyboard position when a bound change\nrebuilds the list underneath it."
+            },
+            {
+              "kind": "method",
+              "name": "_applySurfaceChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "previous",
+                  "type": {
+                    "text": "CalendarSurface | undefined"
+                  }
+                }
+              ],
+              "description": "Runs from `updated()` once the new surface is in the DOM: pin or\nrelease the body height, centre the year list, and move focus into\nthe surface. Focus is left alone on the first render and while the\npopover is closed."
+            },
+            {
+              "kind": "method",
+              "name": "_focusSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Focus the element holding the roving tabindex on the current surface."
+            },
+            {
+              "kind": "method",
+              "name": "_chooseMonth",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "month",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_chooseYear",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "year",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleMonthKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "description": "Keyboard handler for the month surface.\n\n| Key                   | Action                          |\n|-----------------------|---------------------------------|\n| `ArrowLeft` / `Right` | Previous / next month           |\n| `ArrowUp` / `Down`    | Same column, previous / next row |\n| `Home` / `End`        | January / December              |\n| `PageUp` / `PageDown` | Previous / next year            |\n| `Enter` / `Space`     | Choose the focused month        |\n| `Escape`              | Return to the day grid          |"
+            },
+            {
+              "kind": "method",
+              "name": "_handleYearKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "description": "Keyboard handler for the year surface.\n\n| Key                   | Action                          |\n|-----------------------|---------------------------------|\n| `ArrowUp` / `Down`    | Previous / next year            |\n| `PageUp` / `PageDown` | One visible page up / down      |\n| `Home` / `End`        | First / last listed year        |\n| `Enter` / `Space`     | Choose the focused year         |\n| `Escape`              | Return to the day grid          |"
+            },
+            {
+              "kind": "method",
+              "name": "_moveYearFocus",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "delta",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Move the year surface's roving tabindex by `delta` entries, kept in view. Returns whether it moved."
+            },
+            {
+              "kind": "method",
+              "name": "_focusSurfaceAfterUpdate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_yearPageSize",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "description": "Years that fit in the list's visible height; the arrows and PageUp/PageDown move by this."
+            },
+            {
+              "kind": "method",
+              "name": "_scrollYearIntoView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "year",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "block",
+                  "type": {
+                    "text": "\"center\" | \"nearest\""
+                  }
+                }
+              ],
+              "description": "Scroll the year list so `year` is centred or just inside the visible\nbox. The list's own `scrollTop` is set rather than `scrollIntoView`,\nwhich would also scroll every ancestor — including the document\nbehind the top-layer popover."
+            },
+            {
+              "kind": "method",
               "name": "_moveFocus",
               "privacy": "protected",
               "return": {
@@ -15652,7 +15960,7 @@
                   }
                 }
               ],
-              "description": "Full keyboard handler for the calendar grid following the\nWAI-ARIA Grid / Date Picker pattern.\n\n| Key               | Action                                    |\n|-------------------|-------------------------------------------|\n| `ArrowLeft`       | Previous day                              |\n| `ArrowRight`      | Next day                                  |\n| `ArrowUp`         | Same weekday, previous week               |\n| `ArrowDown`       | Same weekday, next week                   |\n| `Home`            | First day of the current week (Monday)    |\n| `End`             | Last day of the current week (Sunday)     |\n| `PageUp`          | Same day, previous month (Shift: prev yr) |\n| `PageDown`        | Same day, next month (Shift: next yr)     |\n| `Enter` / `Space` | Select focusedDate                        |\n| `Escape`          | Close popup, return focus to trigger       |"
+              "description": "Full keyboard handler for the calendar grid following the\nWAI-ARIA Grid / Date Picker pattern.\n\n| Key               | Action                                    |\n|-------------------|-------------------------------------------|\n| `ArrowLeft`       | Previous day                              |\n| `ArrowRight`      | Next day                                  |\n| `ArrowUp`         | Same weekday, previous week               |\n| `ArrowDown`       | Same weekday, next week                   |\n| `Home`            | First day of the current week (Monday)    |\n| `End`             | Last day of the current week (Sunday)     |\n| `PageUp`          | Same day, previous month (Shift: prev yr) |\n| `PageDown`        | Same day, next month (Shift: next yr)     |\n| `Enter` / `Space` | Select focusedDate                        |\n| `Escape`          | Close popup, return focus to trigger       |\n\nThe handler is bound on the whole calendar so a focused header arrow\nor title control still navigates the grid with these keys (and the\ngrid takes focus back). The one exception is native activation:\n`Enter` / `Space` on a header button must click it, not select the\nfocused date, so those two keys are left to the button. While a jump\nsurface is showing, that surface owns its keys (`_handleMonthKeyDown`\n/ `_handleYearKeyDown`) and only `Escape` — from the header — is\nhandled here, returning to the day grid."
             },
             {
               "kind": "method",
@@ -15674,6 +15982,18 @@
               "description": "Called on `pointerenter` for each day cell when in range mode\nduring the `start` phase."
             },
             {
+              "kind": "field",
+              "name": "ARROW_LABELS",
+              "type": {
+                "text": "Record<CalendarSurface, [string, string]>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ days: [\"Previous month\", \"Next month\"], months: [\"Previous year\", \"Next year\"], years: [\"Earlier years\", \"Later years\"], }",
+              "description": "Accessible names for the header arrows on each surface."
+            },
+            {
               "kind": "method",
               "name": "_renderCalendar",
               "privacy": "private",
@@ -15682,6 +16002,49 @@
                   "text": "TemplateResult"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "_renderTitle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "description": "The month and year title. Both parts are controls that open a jump\nsurface, rendered as the plain heading text the title has always\nbeen; users discover them by clicking. Native `<button>`s rather\nthan `esp-button`: its chrome, padding, and focus surface would\nchange the header's footprint, and the `.cal-title-part` reset keeps\nthe typography identical to the former span. Each part stays\nrendered while its own surface is showing, carrying\n`aria-expanded=\"true\"` and `aria-controls` for it, so pressing it\nagain returns to the day grid. The single space between the parts\nis literal so the title keeps its width."
+            },
+            {
+              "kind": "method",
+              "name": "_renderDaySurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_renderMonthSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "description": "The twelve months of the title's year as a 3×4 listbox. A month with\nno selectable day under `min` / `max` is marked disabled but stays\nfocusable, so the roving tabindex can never land on an element that\nrefuses focus. The cells are native `<button>`s like the day cells:\nthey share `.day-cell`'s rest, hover, selected, disabled, and focus\nrules so the surfaces read as the same calendar, which `esp-button`'s\nown chrome would break."
+            },
+            {
+              "kind": "method",
+              "name": "_renderYearSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "description": "The year window as a vertically scrolling listbox. Native `<button>`\ncells for the same reason as the month surface."
             },
             {
               "kind": "method",
@@ -16683,6 +17046,14 @@
               }
             }
           ]
+        },
+        {
+          "kind": "variable",
+          "name": "selected"
+        },
+        {
+          "kind": "variable",
+          "name": "disabled"
         }
       ],
       "exports": [
@@ -92590,6 +92961,104 @@
         },
         {
           "kind": "function",
+          "name": "isMonthDisabled",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "month",
+              "type": {
+                "text": "Temporal.PlainYearMonth"
+              }
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            }
+          ],
+          "description": "Return `true` when no day of the month is selectable under min/max.\nInverted bounds (`min` after `max`) leave no selectable day anywhere,\nso every month is disabled rather than only those outside both."
+        },
+        {
+          "kind": "function",
+          "name": "clampMonthToBounds",
+          "return": {
+            "type": {
+              "text": "Temporal.PlainYearMonth"
+            }
+          },
+          "parameters": [
+            {
+              "name": "month",
+              "type": {
+                "text": "Temporal.PlainYearMonth"
+              }
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            }
+          ],
+          "description": "Clamp a year-month into the selectable range, so jumping to a year\nwhose first or last months fall outside `min` / `max` lands on the\nnearest month that still has a selectable day."
+        },
+        {
+          "kind": "function",
+          "name": "generateYearWindow",
+          "return": {
+            "type": {
+              "text": "number[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "viewYear",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "Temporal.PlainDate | null"
+              }
+            },
+            {
+              "name": "before",
+              "default": "YEAR_WINDOW_BEFORE"
+            },
+            {
+              "name": "after",
+              "default": "YEAR_WINDOW_AFTER"
+            }
+          ],
+          "description": "The years the year jump surface lists: a window around `viewYear`,\nclipped to `min` / `max` when they are set. Every year inside a\nclipped window has at least one selectable day, so nothing in it\nneeds disabling. When the view sits entirely outside the bounds the\nwindow opens at the nearer bound instead of coming back empty. Inverted\nbounds have no selectable year at all and yield an empty window; the\ncomponent keeps focus on a header control in that case."
+        },
+        {
+          "kind": "function",
           "name": "getSelectedDate",
           "return": {
             "type": {
@@ -92710,6 +93179,30 @@
         },
         {
           "kind": "js",
+          "name": "isMonthDisabled",
+          "declaration": {
+            "name": "isMonthDisabled",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "clampMonthToBounds",
+          "declaration": {
+            "name": "clampMonthToBounds",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateYearWindow",
+          "declaration": {
+            "name": "generateYearWindow",
+            "module": "dist/date-picker/helpers/calendar-grid.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "getSelectedDate",
           "declaration": {
             "name": "getSelectedDate",
@@ -92778,6 +93271,41 @@
         },
         {
           "kind": "variable",
+          "name": "MONTH_SHORT_NAMES",
+          "type": {
+            "text": "array"
+          },
+          "default": "[ \"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\", ]",
+          "description": "Three-letter month labels for the month jump surface's 3×4 grid."
+        },
+        {
+          "kind": "variable",
+          "name": "MONTH_GRID_COLS",
+          "type": {
+            "text": "number"
+          },
+          "default": "3",
+          "description": "Columns in the month jump surface."
+        },
+        {
+          "kind": "variable",
+          "name": "YEAR_WINDOW_BEFORE",
+          "type": {
+            "text": "number"
+          },
+          "default": "100",
+          "description": "Years the year jump surface lists before and after the view year when\n`min` / `max` do not bound it. A hundred years back covers every\nrealistic birth date; fifty forward covers expiry and planning dates."
+        },
+        {
+          "kind": "variable",
+          "name": "YEAR_WINDOW_AFTER",
+          "type": {
+            "text": "number"
+          },
+          "default": "50"
+        },
+        {
+          "kind": "variable",
           "name": "HOURS_12",
           "description": "Hours 1–12 for the 12-hour clock picker."
         },
@@ -92825,6 +93353,38 @@
           "name": "MONTH_NAMES",
           "declaration": {
             "name": "MONTH_NAMES",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MONTH_SHORT_NAMES",
+          "declaration": {
+            "name": "MONTH_SHORT_NAMES",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MONTH_GRID_COLS",
+          "declaration": {
+            "name": "MONTH_GRID_COLS",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "YEAR_WINDOW_BEFORE",
+          "declaration": {
+            "name": "YEAR_WINDOW_BEFORE",
+            "module": "dist/date-picker/helpers/constants.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "YEAR_WINDOW_AFTER",
+          "declaration": {
+            "name": "YEAR_WINDOW_AFTER",
             "module": "dist/date-picker/helpers/constants.js"
           }
         },
@@ -92971,7 +93531,7 @@
         {
           "kind": "variable",
           "name": "datePickerStyles",
-          "default": "css` /* ── Error state ─────────────────────────────────── */ .temporal-error { font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-type-small); color: var(--esp-color-danger-text); padding: var(--esp-size-padding); } /* ── Trigger field ───────────────────────────────── */ .esp-field { display: grid; grid-template-columns: 1fr min-content; cursor: pointer; > input.esp-input { cursor: pointer; width: auto; } > .field-icon { display: grid; place-content: center; cursor: pointer; > svg { height: calc(1.2 * var(--esp-size-font)); width: calc(1.2 * var(--esp-size-font)); margin: 0 var(--esp-size-tiny); } } } /* ── Popover shell (native top-layer) ────────────── */ .picker-popover { position: fixed; inset: unset; margin: 0; padding: var(--esp-size-small); border-radius: var(--esp-size-border-radius); border: 1px solid var(--esp-color-border); background: var(--esp-color-layer-1); box-shadow: 0 4px 16px var(--esp-color-shadow); color: var(--esp-color-text); font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-size-font); opacity: 0; transition: opacity 150ms ease-in; overflow: visible; } .picker-popover.visible { opacity: 1; } /* ── Calendar ────────────────────────────────────── */ .calendar { display: flex; flex-direction: column; gap: var(--esp-size-tiny); user-select: none; overflow: hidden; } .cal-body { will-change: transform; } .cal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--esp-size-tiny); } .cal-title { font-weight: bold; font-size: var(--esp-type-normal); color: var(--esp-color-headings); } .nav-btn { display: grid; place-content: center; background: none; border: none; cursor: pointer; padding: var(--esp-size-tiny); border-radius: var(--esp-size-border-radius); color: var(--esp-color-text); transition: background-color 120ms ease; > svg { height: var(--esp-size-normal); width: var(--esp-size-normal); } &:hover { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; } } /* ── Weekday labels ──────────────────────────────── */ .weekday-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; } .weekday-label { font-size: var(--esp-type-tiny); font-weight: 600; color: var(--esp-color-headings); text-decoration: none; padding: var(--esp-size-tiny) 0; } /* ── Day grid ────────────────────────────────────── */ .day-grid { display: flex; flex-direction: column; } /* Show the focused-day ring only when the grid itself contains focus, so it disappears when the user tabs to the nav arrows or time picker. */ .day-grid:focus-within .day-cell.focused { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } .day-row { display: grid; grid-template-columns: repeat(7, 1fr); } /* ── Day cell ────────────────────────────────────── */ .day-cell { --_cell-size: 2.4em; position: relative; display: grid; place-content: center; width: var(--_cell-size); height: var(--_cell-size); border: none; border-radius: var(--esp-size-border-radius); background: none; cursor: pointer; font-family: inherit; font-size: inherit; color: var(--esp-color-text); transition: background-color 100ms ease, color 100ms ease; &:hover:not(.disabled):not(.selected) { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } /* Outside month — dim */ &.outside-month { opacity: 0.38; } /* Today ring */ &.today { font-weight: bold; box-shadow: inset 0 0 0 1px var(--esp-color-border); border-radius: var(--esp-size-border-radius); } /* Selected / range endpoints */ &.selected { background-color: var(--esp-color-layer-3); color: var(--esp-color-action-text); font-weight: bold; } /* Range span highlight — washed-out brand colour */ &.in-range { background-color: oklch(from var(--esp-color-layer-3) calc(l + 0.15) calc(c * 0.4) h); border-radius: 0; } &.range-start { border-radius: var(--esp-size-border-radius) 0 0 var(--esp-size-border-radius); } &.range-end { border-radius: 0 var(--esp-size-border-radius) var(--esp-size-border-radius) 0; } /* Disabled */ &.disabled { opacity: 0.3; cursor: not-allowed; } } /* ── Time picker ─────────────────────────────────── */ .time-picker { display: flex; align-items: center; flex-wrap: nowrap; gap: var(--esp-size-tiny); padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); white-space: nowrap; /* Push the action buttons to the right edge */ > esp-button:first-of-type { margin-left: auto; } } /* Only-time mode: no top border */ :host([mode=\"time\"]) .time-picker { border-top: none; margin-top: 0; padding-top: 0; } .popover-actions { display: flex; gap: var(--esp-size-tiny); align-items: center; justify-content: flex-end; padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); } .time-sep { font-size: var(--esp-type-medium); font-weight: bold; color: var(--esp-color-headings); padding: 0 2px; } `",
+          "default": "css` /* ── Error state ─────────────────────────────────── */ .temporal-error { font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-type-small); color: var(--esp-color-danger-text); padding: var(--esp-size-padding); } /* ── Trigger field ───────────────────────────────── */ .esp-field { display: grid; grid-template-columns: 1fr min-content; cursor: pointer; > input.esp-input { cursor: pointer; width: auto; } > .field-icon { display: grid; place-content: center; cursor: pointer; > svg { height: calc(1.2 * var(--esp-size-font)); width: calc(1.2 * var(--esp-size-font)); margin: 0 var(--esp-size-tiny); } } } /* ── Popover shell (native top-layer) ────────────── */ .picker-popover { position: fixed; inset: unset; margin: 0; padding: var(--esp-size-small); border-radius: var(--esp-size-border-radius); border: 1px solid var(--esp-color-border); background: var(--esp-color-layer-1); box-shadow: 0 4px 16px var(--esp-color-shadow); color: var(--esp-color-text); font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-size-font); opacity: 0; transition: opacity 150ms ease-in; overflow: visible; } .picker-popover.visible { opacity: 1; } /* ── Calendar ────────────────────────────────────── */ .calendar { --_cell-size: 2.4em; display: flex; flex-direction: column; gap: var(--esp-size-tiny); user-select: none; /* Clip the swiping body, but with a margin so the title controls' outset focus ring (2px offset + 2px width) paints above the header: the header has no padding above the title, so a hard clip at the box edge cut the ring's top. Browsers without overflow-clip-margin clip at the edge, as hidden did. */ overflow: clip; overflow-clip-margin: 4px; } .cal-body { will-change: transform; } .cal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--esp-size-tiny); } .cal-title { font-weight: bold; font-size: var(--esp-type-normal); color: var(--esp-color-headings); } /* The month and year are buttons that open the jump surfaces, but the title must look exactly as it did as a span: every native button default is reset and the typography is inherited from .cal-title. Users discover the controls by clicking; the pointer cursor is the only pointer affordance, and the focus ring shows for keyboard focus only. No hover or expanded treatment, by design. */ .cal-title-part { appearance: none; display: inline; margin: 0; padding: 0; border: 0; border-radius: var(--esp-size-border-radius); background: none; font: inherit; letter-spacing: inherit; color: inherit; cursor: pointer; /* Outset, unlike .nav-btn's inset ring: an inset ring would cross the glyphs of a padding-less control. The ring's top lies outside the calendar box; .calendar's overflow-clip-margin lets it paint. */ &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: 2px; } } .nav-btn { display: grid; place-content: center; background: none; border: none; cursor: pointer; padding: var(--esp-size-tiny); border-radius: var(--esp-size-border-radius); color: var(--esp-color-text); transition: background-color 120ms ease; > svg { height: var(--esp-size-normal); width: var(--esp-size-normal); } &:hover { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; } } /* ── Weekday labels ──────────────────────────────── */ .weekday-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; } .weekday-label { font-size: var(--esp-type-tiny); font-weight: 600; color: var(--esp-color-headings); text-decoration: none; padding: var(--esp-size-tiny) 0; } /* ── Day grid ────────────────────────────────────── */ .day-grid { display: flex; flex-direction: column; } /* Show the focused-day ring only when the grid itself contains focus, so it disappears when the user tabs to the nav arrows or time picker. */ .day-grid:focus-within .day-cell.focused { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } .day-row { display: grid; grid-template-columns: repeat(7, 1fr); } /* ── Day, month, and year cells ──────────────────── */ /* The month and year surfaces reuse the day cell's rest, hover, selected, disabled, and focus treatments so they read as the same calendar; only the geometry and the day-specific states differ. */ .day-cell, .jump-cell { position: relative; display: grid; place-content: center; border: none; border-radius: var(--esp-size-border-radius); background: none; cursor: pointer; font-family: inherit; font-size: inherit; color: var(--esp-color-text); transition: background-color 100ms ease, color 100ms ease; &:hover:not(.disabled):not(.selected) { background-color: var(--esp-color-layer-3); } &:focus-visible { outline: 2px solid var(--esp-color-action-text); outline-offset: -2px; z-index: 1; } /* Selected / range endpoints */ &.selected { background-color: var(--esp-color-layer-3); color: var(--esp-color-action-text); font-weight: bold; } } .day-cell { width: var(--_cell-size); height: var(--_cell-size); /* Outside month — dim */ &.outside-month { opacity: 0.38; } /* Today ring */ &.today { font-weight: bold; box-shadow: inset 0 0 0 1px var(--esp-color-border); border-radius: var(--esp-size-border-radius); } /* Range span highlight — washed-out brand colour */ &.in-range { background-color: oklch(from var(--esp-color-layer-3) calc(l + 0.15) calc(c * 0.4) h); border-radius: 0; } &.range-start { border-radius: var(--esp-size-border-radius) 0 0 var(--esp-size-border-radius); } &.range-end { border-radius: 0 var(--esp-size-border-radius) var(--esp-size-border-radius) 0; } } /* Disabled — declared after the day-specific states at the same specificity, so a disabled day that is also outside the month keeps the disabled opacity, as it did before the surfaces shared the cell rules. */ .day-cell.disabled, .jump-cell.disabled { opacity: 0.3; cursor: not-allowed; } /* ── Month and year jump surfaces ────────────────── */ /* A surface fills the body, which is pinned to the day grid's measured height while the surface is showing (see _applySurfaceChange), so the popover keeps its footprint and position. */ .jump-surface { box-sizing: border-box; block-size: 100%; } .month-surface { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: var(--esp-size-tiny); } .year-surface { /* Relative so each year's offsetTop is measured against the list, which is what _scrollYearIntoView positions by. */ position: relative; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; } .year-cell { flex: 0 0 auto; min-block-size: var(--_cell-size); } /* ── Time picker ─────────────────────────────────── */ .time-picker { display: flex; align-items: center; flex-wrap: nowrap; gap: var(--esp-size-tiny); padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); white-space: nowrap; /* Push the action buttons to the right edge */ > esp-button:first-of-type { margin-left: auto; } } /* Only-time mode: no top border */ :host([mode=\"time\"]) .time-picker { border-top: none; margin-top: 0; padding-top: 0; } .popover-actions { display: flex; gap: var(--esp-size-tiny); align-items: center; justify-content: flex-end; padding-top: var(--esp-size-small); border-top: 1px solid var(--esp-color-border); margin-top: var(--esp-size-small); } .time-sep { font-size: var(--esp-type-medium); font-weight: bold; color: var(--esp-color-headings); padding: 0 2px; } `",
           "description": "Component-specific styles for `esp-date-picker`."
         }
       ],

@@ -1,3 +1,59 @@
+# 4.9.0
+
+The date picker reaches distant dates in a few taps.
+
+- `esp-date-picker` makes the month and year in its calendar header
+  tappable: the month opens a grid of the twelve months and the year opens a
+  scrolling list of years, each replacing the day grid in place without
+  changing the popover's footprint or the picker's value. Both surfaces are
+  keyboard-operable, respect `min` / `max`, and return to the day grid on
+  `Escape`. The title keeps its existing heading look; users discover the
+  controls by clicking.
+
+# 4.8.0
+
+Non-browser tooling can read Espalier's shared vocabularies, and Linux
+visitors get metric-matched serif and monospace fallbacks.
+
+- New side-effect-free `shared/image-texture-registry` subpath exposes
+  `BUILT_IN_IMAGE_TEXTURES`, `registerImageTexture`, and
+  `registeredImageTextures` without registering `esp-root`, so generators and
+  servers can read the built-in texture vocabulary without a DOM.
+- New `shared/theme-properties` subpath resolves, from a theme and a scheme,
+  the same `--esp-*` record `esp-root` hydrates, so a generator or server can
+  compute semantic scheme colors outside the browser.
+- Fallback font profiles add Liberation Serif aliases to the Times New Roman
+  base and Liberation Mono aliases to the Courier New base, so serif and
+  monospace text on Linux first paints in a metric-matched local face instead
+  of reflowing from a generic font when the webfont arrives.
+
+# 4.7.0
+
+Published-site headers gain a centered menu, a full-screen drawer, and their
+own navigation font.
+
+- `esp-header` adds `layout="centered-menu"`: the brand at the inline start,
+  the action buttons at the inline end, and the horizontal menu centered on
+  the bar, with `brand-align` support and the existing compact-width and
+  drawer fallbacks.
+- `esp-menu` adds `drawer-presentation="full-screen"`: the drawer covers the
+  viewport, centers the owning header's brand above large centered items,
+  keeps the header's menu toggle usable on the top layer, and animates with a
+  configurable `full-screen-transition`. The side panel stays the default.
+- Themes can set `fontMenu` and `fontWeightMenu`, emitted as
+  `--esp-font-menu` (only when configured) and `--esp-font-weight-menu`,
+  loaded like the brand font and included in the metric-matched font plan
+  only when set. Menu items and group labels read
+  `--esp-menu-item-font-family` through the menu font to the body font, and
+  horizontal items read `--esp-menu-item-font-weight` through
+  `--esp-font-weight-menu`.
+- Menu items no longer underline on hover; `--esp-menu-item-hover-decoration`
+  restores it. The horizontal hover and active indicators take
+  `--esp-menu-item-hover-indicator-color` and
+  `--esp-menu-item-active-indicator-color`, and
+  `--esp-menu-item-transition-duration` times color, background, and
+  indicator changes, disabled under reduced motion.
+
 # 4.6.0
 
 Pickers adapt to compact screens, and form items can safely follow dynamic

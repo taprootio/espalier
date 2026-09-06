@@ -65,11 +65,15 @@ import{css as e}from"lit";const r=e`
   
 
   .calendar {
+    --_cell-size: 2.4em;
+
     display: flex;
     flex-direction: column;
     gap: var(--esp-size-tiny);
     user-select: none;
-    overflow: hidden;
+    
+    overflow: clip;
+    overflow-clip-margin: 4px;
   }
 
   .cal-body {
@@ -87,6 +91,27 @@ import{css as e}from"lit";const r=e`
     font-weight: bold;
     font-size: var(--esp-type-normal);
     color: var(--esp-color-headings);
+  }
+
+  
+  .cal-title-part {
+    appearance: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--esp-size-border-radius);
+    background: none;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    
+    &:focus-visible {
+      outline: 2px solid var(--esp-color-action-text);
+      outline-offset: 2px;
+    }
   }
 
   .nav-btn {
@@ -152,14 +177,12 @@ import{css as e}from"lit";const r=e`
 
   
 
-  .day-cell {
-    --_cell-size: 2.4em;
-
+  
+  .day-cell,
+  .jump-cell {
     position: relative;
     display: grid;
     place-content: center;
-    width: var(--_cell-size);
-    height: var(--_cell-size);
     border: none;
     border-radius: var(--esp-size-border-radius);
     background: none;
@@ -182,6 +205,18 @@ import{css as e}from"lit";const r=e`
     }
 
     
+    &.selected {
+      background-color: var(--esp-color-layer-3);
+      color: var(--esp-color-action-text);
+      font-weight: bold;
+    }
+  }
+
+  .day-cell {
+    width: var(--_cell-size);
+    height: var(--_cell-size);
+
+    
     &.outside-month {
       opacity: 0.38;
     }
@@ -191,13 +226,6 @@ import{css as e}from"lit";const r=e`
       font-weight: bold;
       box-shadow: inset 0 0 0 1px var(--esp-color-border);
       border-radius: var(--esp-size-border-radius);
-    }
-
-    
-    &.selected {
-      background-color: var(--esp-color-layer-3);
-      color: var(--esp-color-action-text);
-      font-weight: bold;
     }
 
     
@@ -213,12 +241,43 @@ import{css as e}from"lit";const r=e`
     &.range-end {
       border-radius: 0 var(--esp-size-border-radius) var(--esp-size-border-radius) 0;
     }
+  }
 
+  
+  .day-cell.disabled,
+  .jump-cell.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  
+
+  
+  .jump-surface {
+    box-sizing: border-box;
+    block-size: 100%;
+  }
+
+  .month-surface {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: var(--esp-size-tiny);
+  }
+
+  .year-surface {
     
-    &.disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .year-cell {
+    flex: 0 0 auto;
+    min-block-size: var(--_cell-size);
   }
 
   
