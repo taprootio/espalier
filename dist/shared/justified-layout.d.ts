@@ -17,6 +17,49 @@ export interface PhotoRow<T extends LayoutImage = LayoutImage> {
     images: T[];
     height: number;
 }
+/** One image's explicit cell geometry in an album row. */
+export interface AlbumLayoutItem<T extends LayoutImage = LayoutImage> {
+    /** The source image, retained by reference. */
+    image: T;
+    /** The rendered cell width in CSS pixels. */
+    width: number;
+}
+/**
+ * A row in a bounded album layout.
+ *
+ * `fillsContainer` is true for completed rows, including rows whose cells
+ * widen proportionally at a height ceiling and therefore crop their images.
+ * `isPartial` identifies the final, under-filled max-count row, which keeps
+ * its image proportions and intentionally leaves its trailing space empty.
+ */
+export interface AlbumLayoutRow<T extends LayoutImage = LayoutImage> {
+    items: AlbumLayoutItem<T>[];
+    height: number;
+    isPartial: boolean;
+    fillsContainer: boolean;
+}
+/** Options for {@link calculateAlbumLayout}. */
+export interface AlbumLayoutOptions {
+    /** Available row width in CSS pixels, before gaps. */
+    containerWidth: number;
+    /** Preferred row height used while grouping images. Defaults to 220. */
+    targetRowHeight?: number;
+    /** Horizontal gap between cells. Defaults to 8. */
+    gap?: number;
+    /** Maximum rendered row height in CSS pixels. Defaults to no ceiling. */
+    maxRowHeight?: number;
+    /** Positive-integer image count that makes a completed row. */
+    maxImagesPerRow?: number;
+}
+/** The default viewport-height ceiling used by bounded album consumers. */
+export declare const DEFAULT_ALBUM_MAX_ROW_HEIGHT_VH = 90;
+/**
+ * Normalize the public album viewport-height ceiling.
+ *
+ * The value is deliberately a percentage rather than an arbitrary pixel
+ * count, so a consumer can apply the same policy across responsive layouts.
+ */
+export declare function normalizeAlbumMaxRowHeightVh(value: unknown): number;
 /**
  * Resolve a consumer-provided image-row ceiling to a usable positive integer.
  * Values outside `1…maximum`, including non-numbers and non-finite values,
@@ -55,3 +98,20 @@ export declare function normalizeMaxImagesPerRow(value: unknown, fallback?: numb
  * length.
  */
 export declare function calculatePhotoLayout<T extends LayoutImage>(images: T[], containerWidth: number, targetRowHeight?: number, gap?: number, maxRowHeight?: number, maxImagesPerRow?: number): PhotoRow<T>[];
+/**
+ * Compute bounded album geometry with explicit cell widths.
+ *
+ * This is the opt-in counterpart to {@link calculatePhotoLayout}. Completed
+ * rows always span the available width. When their justified height exceeds
+ * `maxRowHeight`, their cells retain their relative widths while expanding to
+ * the row width at the ceiling; a renderer can use `object-fit: cover` to crop
+ * the resulting cells. A final row below a finite `maxImagesPerRow` instead
+ * remains partial and preserves its image proportions. Its height is capped by
+ * the tallest preceding row (or the target height when it is the only row) and
+ * by `maxRowHeight`.
+ *
+ * With an omitted or invalid `maxImagesPerRow`, every row remains completed.
+ * That preserves the legacy unlimited-row distribution for callers that have
+ * not opted into bounded albums.
+ */
+export declare function calculateAlbumLayout<T extends LayoutImage>(images: T[], options: AlbumLayoutOptions): AlbumLayoutRow<T>[];

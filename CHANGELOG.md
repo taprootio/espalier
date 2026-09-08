@@ -1,3 +1,11 @@
+# 4.11.0
+
+Album previews support taller justified rows and restrained partial rows.
+
+- Configure maximum album row height as a percentage of the viewport, defaulting to 90%.
+- Fill completed rows across the available width; preserve partial-row photo proportions without enlarging them beyond earlier rows.
+- Share explicit album cell geometry with published gallery consumers and update it on viewport resize.
+
 # 4.10.0
 
 Photo galleries can keep preview rows compact and predictable.

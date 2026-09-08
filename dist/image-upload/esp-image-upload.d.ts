@@ -165,6 +165,13 @@ export declare class EspalierImageUpload extends EspalierElementBase {
      * @type {number}
      */
     maxImagesPerRow?: number;
+    /**
+     * Maximum preview-row height as a percentage of the layout viewport. Values
+     * outside the inclusive integer range `1…100` fall back to 90.
+     *
+     * @type {number}
+     */
+    maxRowHeightVh: number;
     connectedCallback(): void;
     disconnectedCallback(): void;
     /**
