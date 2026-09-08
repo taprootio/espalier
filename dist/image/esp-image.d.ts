@@ -75,6 +75,12 @@ export declare function parseImageRatio(value: string): string | null;
  * </esp-image>
  * ```
  *
+ * For a long projected lazy-image list, `defer-offscreen` keeps the served
+ * `sizes` hint until an image approaches the viewport. This avoids replacing a
+ * small fallback selection with a larger candidate before the image can be
+ * seen. Eager projected images and every non-projected source keep the normal
+ * immediate measured-size behavior.
+ *
  * Banner mode gives all three source modes the same focal position, scrim,
  * texture, and semantic overlay stack. `ratio` applies at wide widths and
  * `compact-ratio` below the component-relative compact threshold.
@@ -284,6 +290,13 @@ export declare class EspalierImage extends EspalierElementBase {
      * retain the consumer's own loading attributes.
      */
     loading: "eager" | "lazy";
+    /**
+     * For lazy projected images, defer measured `sizes` upgrades until the image
+     * approaches the viewport. A 200px prefetch margin keeps the full-size
+     * candidate ready before it is visible. Eager projections and internally
+     * rendered images keep their normal immediate measurements.
+     */
+    deferOffscreen: boolean;
     /** Enable borderless banner defaults and the decorative/content layer stack. */
     banner: boolean;
     /**

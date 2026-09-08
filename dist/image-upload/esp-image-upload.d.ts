@@ -157,6 +157,14 @@ export declare class EspalierImageUpload extends EspalierElementBase {
      * are skipped and reported via the `esp-image-upload-files-rejected` event.
      */
     accept: string;
+    /**
+     * Maximum number of image previews in each justified row. Positive integers
+     * create a hard row boundary; omitted, non-finite, non-integer, and
+     * nonpositive values leave rows unlimited.
+     *
+     * @type {number}
+     */
+    maxImagesPerRow?: number;
     connectedCallback(): void;
     disconnectedCallback(): void;
     /**

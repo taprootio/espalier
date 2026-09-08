@@ -18,6 +18,17 @@ export interface PhotoRow<T extends LayoutImage = LayoutImage> {
     height: number;
 }
 /**
+ * Resolve a consumer-provided image-row ceiling to a usable positive integer.
+ * Values outside `1…maximum`, including non-numbers and non-finite values,
+ * return `fallback`. The default fallback and maximum leave row lengths
+ * unlimited.
+ *
+ * @param value Consumer-provided row ceiling to validate
+ * @param fallback Value returned when `value` is invalid
+ * @param maximum Largest accepted row ceiling
+ */
+export declare function normalizeMaxImagesPerRow(value: unknown, fallback?: number, maximum?: number): number;
+/**
  * Compute justified layout rows for a list of images.
  *
  * Algorithm:
@@ -39,5 +50,8 @@ export interface PhotoRow<T extends LayoutImage = LayoutImage> {
  * @param gap Horizontal gap in px between images within a row
  * @param maxRowHeight Ceiling for row heights — keeps a stretched final row
  * (or a single image) from ballooning past e.g. half the viewport height
+ * @param maxImagesPerRow Optional positive-integer ceiling for the number of
+ * images in each row. Omit it, or pass an invalid value, for an unlimited row
+ * length.
  */
-export declare function calculatePhotoLayout<T extends LayoutImage>(images: T[], containerWidth: number, targetRowHeight?: number, gap?: number, maxRowHeight?: number): PhotoRow<T>[];
+export declare function calculatePhotoLayout<T extends LayoutImage>(images: T[], containerWidth: number, targetRowHeight?: number, gap?: number, maxRowHeight?: number, maxImagesPerRow?: number): PhotoRow<T>[];

@@ -1,3 +1,17 @@
+# 4.10.0
+
+Photo galleries can keep preview rows compact and predictable.
+
+- `calculatePhotoLayout()` accepts an optional `maxImagesPerRow` argument, and
+  `esp-image-upload` exposes the matching `max-images-per-row` property and
+  attribute. Set a positive integer to cap each justified row; leave it unset
+  for the existing unlimited layout.
+- `normalizeMaxImagesPerRow(value, fallback, maximum)` is available to apply
+  the same bounded positive-integer contract in gallery consumers.
+- Projected lazy images can opt into `defer-offscreen`, which keeps their
+  server-rendered `sizes` hint until the image approaches the viewport and
+  avoids fetching a larger responsive candidate far below the fold.
+
 # 4.9.1
 
 Album previews recover from temporary image delivery failures.
