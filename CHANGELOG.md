@@ -1,3 +1,9 @@
+# 4.9.1
+
+Album previews recover from temporary image delivery failures.
+
+- Load nearby image previews with bounded concurrency, retry temporary failures, and offer Retry image without re-uploading a photo.
+
 # 4.9.0
 
 The date picker reaches distant dates in a few taps.
