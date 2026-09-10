@@ -1,3 +1,9 @@
+# 4.12.0
+
+Image selections can now use a reusable, accessible image picker.
+
+- `esp-image-picker` presents large uncropped image choices with optional labels, a large selected-image preview above the control by default (or a compact beside layout), an Automatic choice, loading and empty states, and form participation while reporting the selected image ID through `esp-value-changed`.
+
 # 4.11.0
 
 Album previews support taller justified rows and restrained partial rows.

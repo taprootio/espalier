@@ -1010,6 +1010,18 @@
       "description": "Overlay text shadow; defaults to a soft polarity-matched halo. Set to `none` to disable."
     },
     {
+      "name": "--esp-image-picker-option-height",
+      "description": "Height of dropdown images. Images retain their aspect ratio. Default 8rem."
+    },
+    {
+      "name": "--esp-image-picker-option-width",
+      "description": "Width of dropdown images, capped at 40vw on narrow screens. Default 12rem."
+    },
+    {
+      "name": "--esp-image-picker-preview-height",
+      "description": "Height of the large preview above the control. Default 16rem."
+    },
+    {
       "name": "--esp-image-preview-border-color",
       "description": "The border color of the preview."
     },

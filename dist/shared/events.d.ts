@@ -269,6 +269,11 @@ export interface EspalierColorPickerEventMap {
 export interface EspalierFontPickerEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<FontPickerValueChangedDetail>;
 }
+/** Events fired by `<esp-image-picker>`. */
+export interface EspalierImagePickerEventMap {
+    [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<string>;
+    [ESP_EVENTS.VALIDITY_CHANGED]: CustomEvent<ValidityChangedDetail>;
+}
 /** Events fired by `<esp-date-picker>`. */
 export interface EspalierDatePickerEventMap {
     [ESP_EVENTS.VALUE_CHANGED]: CustomEvent<string>;

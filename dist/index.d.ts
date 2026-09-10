@@ -28,6 +28,7 @@ export * from "./popover/esp-popover.js";
 export * from "./dialog/esp-dialog.js";
 export * from "./empty-state/esp-empty-state.js";
 export * from "./image-upload/esp-image-upload.js";
+export * from "./image-picker/esp-image-picker.js";
 export * from "./file-upload/esp-file-upload.js";
 export * from "./font-picker/esp-font-picker.js";
 export * from "./focus-picker/esp-focus-picker.js";
