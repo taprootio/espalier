@@ -51,7 +51,7 @@ export declare class EspalierHelpButton extends EspalierElementBase {
     /** Forward focus to the composed native control. */
     focus(options?: FocusOptions): void;
     protected updated(changed: PropertyValues): void;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    protected render(): import("lit-html").TemplateResult<1> | typeof nothing;
     static styles: import("lit").CSSResult[];
 }
 declare global {

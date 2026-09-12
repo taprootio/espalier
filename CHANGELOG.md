@@ -1,3 +1,32 @@
+# 4.13.0
+
+Full-screen menu drawers keep long second-level labels on screen, and the font
+picker offers device font stacks alongside the Google catalog.
+
+- `esp-font-picker` gains `font-source="all"`: System Sans, System Serif, and
+  System Monospace lead the list, then the classic web-safe stacks, then the
+  Google catalog; every row carries a kind icon with a tooltip (a desktop for
+  a device font, Google's mark for a catalog font) and selecting a device
+  row fetches nothing. A stored device stack that differs from a
+  preset's text still shows as that preset, and one that matches no preset
+  shows as its own custom row; `value` is never rewritten by recognition.
+- `extractWeights` accepts a web-safe font and reports the weights its device
+  faces carry (300–700 for the System text stacks, 400 and 700 elsewhere).
+  New `matchWebSafeFont`, `customWebSafeFont`, `isDeviceFontStack`,
+  `classifyFontStack`, `parseFontStack`, and `canonicalFontStack` helpers
+  expose the same recognition to consumers.
+
+- Labels nested inside a group share one measured size in the full-screen
+  drawer: it starts at 90% of the top-level size and shrinks only as far as the
+  widest nested label needs to fit the viewport on one line. Top-level items
+  keep their size.
+- Below the readable floor, nested labels wrap instead of clipping. The cap and
+  floor are tunable through `--esp-menu-drawer-nested-item-max-font-size` and
+  `--esp-menu-drawer-nested-item-min-font-size`; the floor defaults to
+  `max(14px, 0.875rem)`.
+- The measurement runs from an idle callback after the page mounts, never on
+  the first paint, and repeats on resize, item changes, and font loading.
+
 # 4.12.0
 
 Image selections can now use a reusable, accessible image picker.

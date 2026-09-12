@@ -240,6 +240,11 @@ var i=function(l,e,o,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnP
         min-width: max-content;
       }
 
+      
+      :host([full-screen-presentation]) .group-items-inner {
+        min-width: 0;
+      }
+
       .is-horizontal > .group-items {
         position: absolute;
         top: 100%;

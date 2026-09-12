@@ -1,28 +1,10 @@
 import "../pickers/esp-pick-one.js";
+import "../tooltip/esp-tooltip.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierFormField } from "../form-item/esp-form-item.js";
 import { type PropertyValues } from "lit";
-export type GoogleFont = {
-    family: string;
-    variants: string[];
-    subsets: string[];
-    version: string;
-    lastModified: string;
-    files?: Record<string, string>;
-    category: FontCategory;
-    kind: string;
-};
-export type FontCategory = "serif" | "sans-serif" | "display" | "handwriting" | "monospace" | "not-display";
-export type FontSource = "google" | "web-safe";
-export type WebSafeFont = {
-    family: string;
-    stack: string;
-    category: Extract<FontCategory, "serif" | "sans-serif" | "monospace">;
-    kind: "web-safe";
-};
-export type FontPickerFont = GoogleFont | WebSafeFont;
-export type FontPickerValueChangedDetail = FontPickerFont | undefined;
-export declare const WEB_SAFE_FONTS: Array<WebSafeFont>;
+import { type FontCategory, type FontPickerFont, type FontSource, type GoogleFont } from "./font-types.js";
+export { DEVICE_DEFAULT_WEIGHTS, SYSTEM_TEXT_WEIGHTS, WEB_SAFE_FONTS, type FontCategory, type FontPickerFont, type FontPickerValueChangedDetail, type FontSource, type GoogleFont, type WebSafeCategory, type WebSafeFont, } from "./font-types.js";
 /**
  * Load the font catalog from the build-generated `font-definitions.json`
  * file served alongside the font CSS files.  The JSON is fetched from
@@ -30,6 +12,8 @@ export declare const WEB_SAFE_FONTS: Array<WebSafeFont>;
  * the nearest `<esp-root>` element's `font-css-root` attribute.
  *
  * Results are cached at the module level so only one fetch occurs per page.
+ * A failed request is not cached: it rejects every caller waiting on it,
+ * and the next call retries.
  */
 export declare const getGoogleFonts: () => Promise<Array<GoogleFont>>;
 /**
@@ -97,7 +81,11 @@ export declare class EspalierFontPicker extends EspalierElementBase implements E
     /**
      * Source of fonts to display. `google` preserves the default Google
      * Fonts catalog behavior. `web-safe` shows email-safe/system CSS
-     * font stacks and does not load Google font assets.
+     * font stacks and does not load Google font assets. `all` lists the
+     * device stacks above the Google catalog; every row carries a kind
+     * icon, a desktop for a device font and Google's mark for a catalog
+     * font, with a tooltip (ESP0206). Selecting a device row loads no
+     * preview CSS and no Google stylesheet.
      *
      * ```html
      * <esp-box>
@@ -115,7 +103,13 @@ export declare class EspalierFontPicker extends EspalierElementBase implements E
      * In the default Google Fonts mode this is the font family name, such
      * as `"Aclonica"`. In `font-source="web-safe"` mode this is the full CSS
      * font stack, such as `"Arial, Helvetica, sans-serif"`, so pre-selection
-     * via the `value` attribute must use the stack value.
+     * via the `value` attribute must use the stack value. In
+     * `font-source="all"` either form works: a catalog family (or a stack
+     * leading with one) selects the Google font, and a device stack selects
+     * the preset it is equivalent to — `system-ui, "Segoe UI", sans-serif`
+     * shows System Sans — or, when it matches no preset, shows as its own
+     * custom-stack row. Recognition never rewrites this value; only a user
+     * selection does.
      *
      * ```html
      * <esp-box>

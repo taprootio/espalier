@@ -698,5 +698,20 @@ const o="esp-icons",l=`<svg id="esp-icons" data-esp-icon-sprite="" aria-hidden="
       <path d="M17 8l4 4l-4 4" />
       <path d="M14 4l-4 16" />
     </symbol>
+    <symbol id="device-desktop" viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
+      <path d="M7 20h10" />
+      <path d="M9 16v4" />
+      <path d="M15 16v4" />
+    </symbol>
+    <symbol id="brand-google" viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" />
+    </symbol>
   </defs>
 </svg>`;export{l as ICON_SPRITE,o as ICON_SPRITE_ID};

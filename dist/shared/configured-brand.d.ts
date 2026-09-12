@@ -30,4 +30,4 @@ export declare function resolveConfiguredBrand({ scheme, brandLogo, brandColor, 
  * Plain anchors and images are intentional: a brand identity should not gain
  * the interaction chrome of Espalier's application-navigation controls.
  */
-export declare function renderConfiguredBrand({ brandLogo, brandText, brandHref, brandAlt, }: ConfiguredBrandOptions): typeof nothing | import("lit-html").TemplateResult<1>;
+export declare function renderConfiguredBrand({ brandLogo, brandText, brandHref, brandAlt, }: ConfiguredBrandOptions): import("lit-html").TemplateResult<1> | typeof nothing;

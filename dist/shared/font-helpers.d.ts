@@ -11,7 +11,7 @@
  * None of these functions touch the DOM or network — they operate
  * entirely on data.
  */
-import type { GoogleFont } from "../font-picker/esp-font-picker.js";
+import type { FontPickerFont } from "../font-picker/font-types.js";
 /**
  * Human-readable labels for the nine standard CSS `font-weight`
  * values (100–900).
@@ -21,18 +21,22 @@ import type { GoogleFont } from "../font-picker/esp-font-picker.js";
  */
 export declare const WEIGHT_LABELS: Readonly<Record<string, string>>;
 /**
- * Extract available non-italic weights from a {@link GoogleFont},
+ * Extract available non-italic weights from a `GoogleFont`,
  * sorted numerically.
  *
  * Google Fonts encodes weights as variant strings: `"regular"` maps
  * to `"400"`, italic variants (e.g. `"300italic"`) are excluded,
  * and every other variant string is its numeric weight.
  *
- * @param font A Google Font entry, or `null`.
+ * A device (web-safe) font reports the weights its stack's faces are
+ * expected to carry (ESP0206); the platform snaps to the nearest weight it
+ * actually has.
+ *
+ * @param font A Google Font entry, a web-safe font, or `null`.
  * @returns Sorted weight strings.  Defaults to `["400"]` when the
  *   font is `null` or has no non-italic variants.
  */
-export declare function extractWeights(font: GoogleFont | null): string[];
+export declare function extractWeights(font: FontPickerFont | null): string[];
 /**
  * Normalize a CSS `font-weight` keyword to its numeric equivalent.
  *

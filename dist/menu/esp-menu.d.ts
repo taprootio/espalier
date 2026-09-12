@@ -71,6 +71,19 @@ export interface EspalierMenuDrawerBrand extends ConfiguredBrandOptions {
  * </esp-header>
  * ```
  *
+ * Top-level items in the full-screen panel keep `--esp-menu-drawer-item-font-size`.
+ * Items and groups nested inside a group share one smaller size, chosen so the
+ * widest nested label fits the viewport on a single line: it starts at
+ * `--esp-menu-drawer-nested-item-max-font-size` (90% of the top-level size)
+ * and shrinks only as far as that label needs, never below
+ * `--esp-menu-drawer-nested-item-min-font-size` (14px, or 0.875rem when the
+ * reader's default font is larger). When the floor still cannot fit the widest
+ * label, nested labels wrap instead of clipping. The size is measured against
+ * hidden probes once the page is idle after mounting — never on the first
+ * paint — and again when the viewport resizes, the slotted items change, or
+ * web fonts finish loading; a panel opened before the idle pass measures on
+ * the spot.
+ *
  * @customElement esp-menu
  * @slot - `esp-menu-item` and `esp-menu-group` children.
  * @slot drawer-brand - Custom brand markup for the full-screen drawer. When empty, the brand an owning `esp-header` mirrors in renders instead.
@@ -86,6 +99,8 @@ export interface EspalierMenuDrawerBrand extends ConfiguredBrandOptions {
  * @cssprop --esp-menu-drawer-shadow - Box shadow for the drawer overlay.
  * @cssprop --esp-menu-drawer-width - Drawer width. Defaults to `min(22rem, 86vw)`.
  * @cssprop --esp-menu-drawer-item-font-size - Item label size in the full-screen drawer. Defaults to `var(--esp-type-large)`.
+ * @cssprop --esp-menu-drawer-nested-item-max-font-size - Largest size for labels nested inside a group in the full-screen drawer; the measured fit starts here. Defaults to `calc(0.9 * var(--esp-menu-drawer-item-font-size, var(--esp-type-large)))`.
+ * @cssprop --esp-menu-drawer-nested-item-min-font-size - Smallest size nested full-screen drawer labels shrink to before they wrap. Defaults to `max(14px, 0.875rem)`: above the ~12-13px critical print size at phone distance (Legge & Bigelow, 2011) and Material's 14sp body minimum, and it rises with a larger default font.
  * @cssprop --esp-menu-drawer-transition-duration - Duration of the full-screen drawer's transition. Defaults to `0.3s`; reduced motion disables it.
  * @cssprop --esp-menu-drawer-brand-logo-size - Logo height of the brand centered in the full-screen drawer. Defaults to `calc(3 * var(--esp-size-medium))`.
  * @cssprop --esp-menu-drawer-brand-color - Text and logo color of the full-screen drawer's brand. Defaults to the mirrored brand color, then `var(--esp-color-headings)`.

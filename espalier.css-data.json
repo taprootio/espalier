@@ -1174,6 +1174,14 @@
       "description": "Item label size in the full-screen drawer. Defaults to `var(--esp-type-large)`."
     },
     {
+      "name": "--esp-menu-drawer-nested-item-max-font-size",
+      "description": "Largest size for labels nested inside a group in the full-screen drawer; the measured fit starts here. Defaults to `calc(0.9 * var(--esp-menu-drawer-item-font-size, var(--esp-type-large)))`."
+    },
+    {
+      "name": "--esp-menu-drawer-nested-item-min-font-size",
+      "description": "Smallest size nested full-screen drawer labels shrink to before they wrap. Defaults to `max(14px, 0.875rem)`: above the ~12-13px critical print size at phone distance (Legge & Bigelow, 2011) and Material's 14sp body minimum, and it rises with a larger default font."
+    },
+    {
       "name": "--esp-menu-drawer-shadow",
       "description": "Box shadow for the drawer overlay."
     },
