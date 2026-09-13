@@ -1,3 +1,12 @@
+# 4.13.2
+
+Fullscreen mobile navigation keeps its close control within reach, and published
+documentation includes discoverable pages and stable site icons.
+
+- The fullscreen menu close button stays visible after page scrolling and viewport resizing, and closing restores the page scroll position.
+
+- Documentation builds now include a production sitemap, a robots file referencing it, and stable favicon and touch-icon URLs for exact-site publishing.
+
 # 4.13.0
 
 Full-screen menu drawers keep long second-level labels on screen, and the font
