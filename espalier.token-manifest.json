@@ -2185,19 +2185,19 @@
       "name": "--esp-repeater-grid-column-gap",
       "category": "component",
       "component": "esp-repeater",
-      "description": "Horizontal gap between grid columns."
+      "description": "Horizontal gap between grid or masonry columns."
     },
     {
       "name": "--esp-repeater-grid-columns",
       "category": "component",
       "component": "esp-repeater",
-      "description": "Grid column count when `layout=\"grid\"`. Supports media-query overrides."
+      "description": "Column count when `layout=\"grid\"` or `layout=\"masonry\"`. Supports media-query overrides."
     },
     {
       "name": "--esp-repeater-grid-row-gap",
       "category": "component",
       "component": "esp-repeater",
-      "description": "Vertical gap between grid rows."
+      "description": "Vertical gap between grid rows or stacked masonry cards."
     },
     {
       "name": "--esp-repeater-padding",

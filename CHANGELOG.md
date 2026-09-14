@@ -1,3 +1,20 @@
+# 4.14.0
+
+The repeater packs uneven cards into masonry columns, and page-scroll paging no
+longer snaps the window back to the top.
+
+- `esp-repeater` gains `layout="masonry"`: cards keep their order and flow into
+  the same responsive column count as `grid` (`grid-columns` and
+  `--esp-repeater-grid-columns`), but each card takes only the height it needs
+  and the next card starts directly under the shortest column, so portrait and
+  landscape images no longer leave blank space beside each other. Masonry
+  keeps every loaded item in the DOM and pages from the trailing cards, so pair
+  it with cursor paging for large collections.
+
+- In `scroll-model="page"`, loading the next page no longer collapses the list
+  for a frame; the window keeps its scroll position instead of jumping to the
+  top when new items arrive.
+
 # 4.13.2
 
 Fullscreen mobile navigation keeps its close control within reach, and published

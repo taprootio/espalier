@@ -2,7 +2,7 @@ import { nothing, type PropertyValues, type TemplateResult } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type CursorPageRequest, type CursorPageResult } from "../shared/cursor-pagination.js";
 import "../shared/virtualizer/lit-virtualizer.js";
-export type RepeaterLayout = "list" | "grid";
+export type RepeaterLayout = "list" | "grid" | "masonry";
 export type RepeaterScrollModel = "contained" | "page";
 export type RepeaterRenderValue = TemplateResult | Node | string | number | boolean | typeof nothing | null | undefined;
 export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => RepeaterRenderValue;
@@ -18,6 +18,15 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  * Use `layout="grid"` to opt into responsive card layouts. Consumers can
  * provide a fixed fallback with `grid-columns` and override the live column
  * count with `--esp-repeater-grid-columns` in media queries.
+ *
+ * Use `layout="masonry"` for cards of uneven height, such as an image library
+ * mixing portrait and landscape photos. Items keep their document order and
+ * flow into the same responsive column count as `grid`, but each card takes
+ * only the height it needs and the next card starts directly below it, so
+ * columns pack tightly instead of leaving blank space under shorter cards.
+ * Masonry measures every card, so it keeps all loaded items in the DOM
+ * instead of virtualizing them; pair it with cursor paging for large
+ * collections.
  *
  * Use `scroll-model="page"` when the repeater should participate in the
  * document's natural page scroll instead of owning a nested scrolling
@@ -35,9 +44,9 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  * @cssprop --esp-repeater-gap - Space between repeated items.
  * @cssprop --esp-repeater-padding - Padding used by repeater state panels and the loading/error footer.
  * @cssprop --esp-repeater-content-padding - Padding inside the virtualized content region. Defaults to `0`.
- * @cssprop --esp-repeater-grid-columns - Grid column count when `layout="grid"`. Supports media-query overrides.
- * @cssprop --esp-repeater-grid-column-gap - Horizontal gap between grid columns.
- * @cssprop --esp-repeater-grid-row-gap - Vertical gap between grid rows.
+ * @cssprop --esp-repeater-grid-columns - Column count when `layout="grid"` or `layout="masonry"`. Supports media-query overrides.
+ * @cssprop --esp-repeater-grid-column-gap - Horizontal gap between grid or masonry columns.
+ * @cssprop --esp-repeater-grid-row-gap - Vertical gap between grid rows or stacked masonry cards.
  *
  * @docPageTitle Repeater
  * @docUrl /components/repeater
@@ -268,6 +277,74 @@ export type RepeaterRenderItem<T = unknown> = (item: T, index: number) => Repeat
  *   };
  * </script>
  * ```
+ *
+ * @example Masonry gallery with mixed portrait and landscape cards
+ * ```html
+ * <style>
+ *   esp-repeater[layout="masonry"] {
+ *     --esp-repeater-grid-columns: 1;
+ *     --esp-repeater-grid-column-gap: var(--esp-size-padding);
+ *     --esp-repeater-grid-row-gap: var(--esp-size-padding);
+ *   }
+ *
+ *   @media (min-width: 48rem) {
+ *     esp-repeater[layout="masonry"] {
+ *       --esp-repeater-grid-columns: 2;
+ *     }
+ *   }
+ *
+ *   @media (min-width: 72rem) {
+ *     esp-repeater[layout="masonry"] {
+ *       --esp-repeater-grid-columns: 3;
+ *     }
+ *   }
+ * </style>
+ *
+ * <esp-repeater
+ *   id="masonry-gallery"
+ *   layout="masonry"
+ *   scroll-model="page"
+ *   grid-columns="1"
+ *   page-size="9"
+ *   aria-label="Masonry image gallery"
+ * ></esp-repeater>
+ * <script>
+ *   const repeater = findByTagName("esp-repeater")[0];
+ *   const allImages = Array.from({ length: 30 }, (_, index) => {
+ *     const portrait = index % 3 === 1;
+ *     return {
+ *       id: index + 1,
+ *       title: `Image ${index + 1}`,
+ *       ratio: portrait ? "2 / 3" : "3 / 2",
+ *       thumbnail: portrait
+ *         ? `https://picsum.photos/seed/masonry-${index + 1}/320/480`
+ *         : `https://picsum.photos/seed/masonry-${index + 1}/480/320`,
+ *     };
+ *   });
+ *
+ *   repeater.renderItem = (image) => {
+ *     const card = document.createElement("esp-box");
+ *     card.innerHTML = `
+ *       <article style="display:grid; gap:var(--esp-size-small);">
+ *         <img src="${image.thumbnail}" alt="" style="width:100%; aspect-ratio:${image.ratio}; object-fit:cover; border-radius:var(--esp-size-border-radius);" />
+ *         <h3 style="margin:0;">${image.title}</h3>
+ *       </article>
+ *     `;
+ *     return card;
+ *   };
+ *
+ *   repeater.fetchPage = async ({ cursor, limit }) => {
+ *     const start = cursor ? Number(cursor) : 0;
+ *     const items = allImages.slice(start, start + limit);
+ *     const nextStart = start + limit;
+ *
+ *     return {
+ *       items,
+ *       nextCursor: nextStart < allImages.length ? String(nextStart) : null,
+ *     };
+ *   };
+ * </script>
+ * ```
  */
 export declare class EspalierRepeater extends EspalierElementBase {
     /**
@@ -288,9 +365,11 @@ export declare class EspalierRepeater extends EspalierElementBase {
      * Visual layout mode for the rendered content.
      *
      * Use `grid` to opt into responsive card-style rows while
-     * preserving virtualization and paging behavior.
+     * preserving virtualization and paging behavior. Use `masonry` to
+     * pack cards of uneven height into the same responsive columns;
+     * masonry keeps every loaded item in the DOM rather than virtualizing.
      *
-     * @type {"list" | "grid"}
+     * @type {"list" | "grid" | "masonry"}
      */
     layout: RepeaterLayout;
     /**
@@ -304,9 +383,9 @@ export declare class EspalierRepeater extends EspalierElementBase {
      */
     scrollModel: RepeaterScrollModel;
     /**
-     * Fixed grid column count fallback used when `layout="grid"`
-     * and no `--esp-repeater-grid-columns` custom property override
-     * is applied.
+     * Fixed column count fallback used when `layout="grid"` or
+     * `layout="masonry"` and no `--esp-repeater-grid-columns` custom
+     * property override is applied.
      *
      * @type {number}
      */
