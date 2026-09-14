@@ -418,7 +418,8 @@ import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"..
         grid-column: main;
         grid-row: content;
         position: relative;
-        overflow: hidden;
+        
+        overflow: clip;
         
         background: var(--esp-page-main-background, transparent);
         

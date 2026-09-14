@@ -137,6 +137,9 @@ var n=function(t,e,o,a){var l=arguments.length,i=l<3?e:a===null?a=Object.getOwnP
       }
 
       .status-popover {
+        
+        white-space: normal;
+        overflow-wrap: anywhere;
         max-width: var(--esp-status-indicator-popover-max-width, 32ch);
         border: 1px solid var(--esp-color-border);
         border-radius: var(--esp-size-border-radius);

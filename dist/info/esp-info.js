@@ -1,4 +1,4 @@
-var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnPropertyDescriptor(t,e):s,c;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(r,t,e,s);else for(var a=r.length-1;a>=0;a--)(c=r[a])&&(o=(i<3?c(o):i>3?c(t,e,o):c(t,e))||o);return i>3&&o&&Object.defineProperty(t,e,o),o};import{css as f,html as l}from"lit";import{customElement as v,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as h}from"../shared/events.js";import{intentSurfaceTokens as u}from"../shared/style-fragments.js";import{classMap as b}from"lit/directives/class-map.js";import{trashSVG as g}from"../shared/svgs/trash.js";import{ref as y}from"lit/directives/ref.js";import{getIconHrefForHost as S}from"../shared/intent-values.js";import{SlottedIconController as E}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let n=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new E(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=S(this.icon,this),e=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return l`
+var p=function(s,t,o,n){var i=arguments.length,e=i<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,o):n,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(s,t,o,n);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(e=(i<3?a(e):i>3?a(t,o,e):a(t,o))||e);return i>3&&e&&Object.defineProperty(t,o,e),e};import{css as f,html as c}from"lit";import{customElement as u,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as h}from"../shared/events.js";import{intentSurfaceTokens as v}from"../shared/style-fragments.js";import{classMap as b}from"lit/directives/class-map.js";import{trashSVG as g}from"../shared/svgs/trash.js";import{ref as y}from"lit/directives/ref.js";import{getIconHrefForHost as S}from"../shared/intent-values.js";import{SlottedIconController as E}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let r=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new E(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=S(this.icon,this),o=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return c`
       <section class=${b({[`intent-${this.intent}`]:!0})}>
         <div class="icon">
           <slot
@@ -6,21 +6,21 @@ var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnP
             ${y(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
-          ${!e&&t?_(t):l``}
+          ${!o&&t?_(t):c``}
         </div>
         <div class="message">
           <slot></slot>
         </div>
-        ${this.destroyable?l`<esp-button
+        ${this.destroyable?c`<esp-button
               class="destroy-button"
               intent="danger"
               icon-only
               @esp-clicked=${()=>{this.dispatchEvent(new CustomEvent(h.INFO_DESTROY,{detail:{toDestroy:this}}))}}
             >
               ${g}
-            </esp-button>`:l``}
+            </esp-button>`:c``}
       </section>
-    `}};n.styles=[...m.styles,u,f`
+    `}};r.styles=[...m.styles,v,f`
       :host {
         display: block;
       }
@@ -37,6 +37,9 @@ var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnP
         div.icon {
           display: grid;
           place-content: center;
+          
+          border-start-start-radius: max(0px, calc(var(--esp-size-border-radius) - 1px));
+          border-end-start-radius: max(0px, calc(var(--esp-size-border-radius) - 1px));
           padding: var(--esp-size-tiny);
           background: var(--esp-info-color-border, var(--_esp-intent-border-color));
           color: var(--esp-info-color-background, var(--_esp-intent-background));
@@ -58,4 +61,4 @@ var p=function(r,t,e,s){var i=arguments.length,o=i<3?t:s===null?s=Object.getOwnP
           margin: var(--esp-size-tiny);
         }
       }
-    `],p([d({type:String})],n.prototype,"icon",void 0),p([d({type:Boolean})],n.prototype,"destroyable",void 0),n=p([v("esp-info")],n);export{n as EspalierInfo};
+    `],p([d({type:String})],r.prototype,"icon",void 0),p([d({type:Boolean})],r.prototype,"destroyable",void 0),r=p([u("esp-info")],r);export{r as EspalierInfo};

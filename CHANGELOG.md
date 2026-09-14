@@ -1,3 +1,11 @@
+# 4.14.1
+
+Page motion and floating feedback retain their intended layout in real pages.
+
+- Preserve document-driven scroll timelines through the page content well.
+- Keep info icons inside rounded notice corners without clipping content.
+- Wrap tooltip and status-indicator help independently of grid cell whitespace.
+
 # 4.14.0
 
 The repeater packs uneven cards into masonry columns, and page-scroll paging no
