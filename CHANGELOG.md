@@ -1,3 +1,9 @@
+# 4.14.2
+
+Documentation recovers from interrupted asset loading.
+
+- Retry a failed documentation module load once and show a reload control if initialization cannot finish, instead of leaving a blank page.
+
 # 4.14.1
 
 Page motion and floating feedback retain their intended layout in real pages.
