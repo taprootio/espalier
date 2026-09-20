@@ -1,3 +1,14 @@
+# 4.15.0
+
+Lightbox slides show their photo instead of an empty box, and the bottom panel
+is optional in both halves.
+
+- The full-screen view loads its own copy of a gallery photo eagerly instead of inheriting the article image's lazy loading, which deferred every slide's request until after the next lazy pass.
+- Paging warms the next and previous slides at their own contained width, so navigating to a photo no longer waits for a cold fetch.
+- `esp-lightbox` gains `hide-comments`, which removes the comment count and the `comments` slot, and `hide-caption`, which removes the image caption. Both default to off, so existing galleries are unchanged.
+- With only the caption showing, the bar puts it on one line with an ellipsis and slides up only when that line is actually clipped; a caption that already fits has no caret and takes no tab stop.
+- With both hidden the bar is gone, while navigation dots remain for a multi-image gallery.
+
 # 4.14.2
 
 Documentation recovers from interrupted asset loading.

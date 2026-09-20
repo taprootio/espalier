@@ -15,6 +15,18 @@ import "../button/esp-button.js";
  * A subtle caret at the bottom of the screen reveals a drawer
  * overlay containing the image caption and a `comments` slot.
  *
+ * Both halves of that panel are optional. `hide-comments` drops the
+ * comment count and the `comments` slot; `hide-caption` drops the
+ * image caption. With only the caption left, the bar shows it on one
+ * line and slides up only when the line is actually clipped — a
+ * caption that already fits has no caret and no tab stop. With both
+ * hidden there is no bar, though navigation dots remain for a
+ * multi-image gallery.
+ *
+ * ```html
+ * <esp-lightbox for=".gallery" hide-comments></esp-lightbox>
+ * ```
+ *
  * ```html
  * <div class="gallery">
  *   <esp-image caption="A mountain lake" original-width="1200" original-height="800" low-res="https://picsum.photos/id/29/300/200">
@@ -65,6 +77,18 @@ export declare class EspalierLightbox extends EspalierElementBase {
      * @type {number}
      */
     commentCount: number;
+    /**
+     * Remove the comment affordance: no comment count, no caret driven by it,
+     * and no `comments` slot. The caption can still open a drawer when it is too
+     * long for one line.
+     * @type {boolean}
+     */
+    hideComments: boolean;
+    /**
+     * Remove the image caption from the bar and the drawer.
+     * @type {boolean}
+     */
+    hideCaption: boolean;
     /** Open the lightbox at the given image index. */
     open(index: number): void;
     /** Close the lightbox. */
