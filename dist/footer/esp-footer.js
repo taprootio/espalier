@@ -1,10 +1,10 @@
-var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,a):r,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,e,a,r);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(e,a,d):l(e,a))||d);return s>3&&d&&Object.defineProperty(e,a,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as x,property as n,state as _}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as k}from"lit/directives/style-map.js";import{renderConfiguredBrand as z,resolveConfiguredBrand as B}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as S,visualOverlayStyles as L}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},w={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let o=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const a=this.slotRegion(e.target);if(!a)return;const r=h(e.target);this.slotContent[a]!==r&&(this.slotContent={...this.slotContent,[a]:r})}}willUpdate(e){super.willUpdate(e),e.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const a={...c};for(const r of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(r);s&&(a[s]=h(r))}Object.entries(a).some(([r,s])=>this.slotContent[r]!==s)&&(this.slotContent=a)}render(){const{media:e,brand:a,groups:r,aside:s,bottom:d}=this.slotContent,l=B({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||r||s,b={primary:!0,"has-brand":p,"has-groups":r,"has-aside":s};return v`
+var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,a):r,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,e,a,r);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(e,a,d):l(e,a))||d);return s>3&&d&&Object.defineProperty(e,a,d),d};import{css as f,html as v,nothing as y}from"lit";import{customElement as _,property as n,state as x}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as k}from"lit/directives/style-map.js";import{CONFIGURED_BRAND_LOGO_ASPECT_RATIO as z,configuredBrandLogoGeometry as B,renderConfiguredBrand as S,resolveConfiguredBrand as L}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as w,visualOverlayStyles as $}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},O={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let o=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const a=this.slotRegion(e.target);if(!a)return;const r=h(e.target);this.slotContent[a]!==r&&(this.slotContent={...this.slotContent,[a]:r})}}willUpdate(e){super.willUpdate(e),e.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const a={...c};for(const r of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(r);s&&(a[s]=h(r))}Object.entries(a).some(([r,s])=>this.slotContent[r]!==s)&&(this.slotContent=a)}render(){const{media:e,brand:a,groups:r,aside:s,bottom:d}=this.slotContent,l=L({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||r||s,b={primary:!0,"has-brand":p,"has-groups":r,"has-aside":s};return v`
       <footer
         part="footer"
         aria-label=${this.landmarkLabel||y}
         style=${k({"--_esp-footer-brand-color":l.brandColor||null})}
       >
-        ${S({className:"background",rootPart:"background"})}
+        ${w({className:"background",rootPart:"background"})}
         <div part="content" class="content-frame">
           <div class="content">
             <div part="media" class="media" ?hidden=${!e}>
@@ -14,7 +14,7 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
             <div part="primary" class=${C(b)} ?hidden=${!u}>
               <div part="brand" class="brand" ?hidden=${!p}>
                 <slot name="brand" @slotchange=${this.handleSlotChange}
-                  >${z({brandLogo:l.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
+                  >${S({brandLogo:l.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
                 >
               </div>
 
@@ -33,7 +33,7 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
           </div>
         </div>
       </footer>
-    `}};o.styles=[...g.styles,f`
+    `}};o.styles=[...g.styles,B,f`
       :host {
         display: block;
         min-inline-size: 0;
@@ -255,6 +255,9 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
       }
 
       .brand-logo {
+        
+        aspect-ratio: auto
+          var(--esp-footer-brand-logo-aspect-ratio, ${z});
         display: block;
         inline-size: auto;
         max-inline-size: min(var(--esp-footer-brand-logo-max-width, 12rem), 100%);
@@ -318,4 +321,4 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
           grid-template-areas: "aside";
         }
       }
-    `,L],t([_()],o.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],o.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],o.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],o.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],o.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],o.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],o.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],o.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],o.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],o.prototype,"darkBrandColor",void 0),t([n({converter:w,reflect:!0})],o.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],o.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],o.prototype,"landmarkLabel",void 0),o=t([x("esp-footer")],o);export{o as EspalierFooter};
+    `,$],t([x()],o.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],o.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],o.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],o.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],o.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],o.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],o.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],o.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],o.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],o.prototype,"darkBrandColor",void 0),t([n({converter:O,reflect:!0})],o.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],o.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],o.prototype,"landmarkLabel",void 0),o=t([_("esp-footer")],o);export{o as EspalierFooter};

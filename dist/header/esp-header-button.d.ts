@@ -33,6 +33,17 @@ import { LitElement } from "lit";
  * </esp-header>
  * ```
  *
+ * The host carries no role of its own. The native `<button>` in its shadow
+ * root is the single interactive owner of the action, so `aria-label`,
+ * `aria-controls` and `aria-expanded` set on the host are forwarded to it
+ * rather than announced twice.
+ *
+ * `aria-controls` is an id reference, and a browser resolves one only inside
+ * the tree its referring element belongs to. The forwarded value therefore
+ * names a relationship only when the target is in the same shadow root as this
+ * button; pointed at an element in the document it is inert. `aria-label` and
+ * `aria-expanded` carry values rather than references and are unaffected.
+ *
  * @event {CustomEvent} esp-clicked - Dispatched when the button is clicked. The event bubbles and is composed.
  * @cssprop --esp-header-button-background - The background color of the button. Defaults to `var(--esp-color-layer-3)`.
  * @cssprop --esp-header-button-background-hover - The background color of the button on hover. Defaults to `var(--esp-color-layer-4)`.
@@ -51,6 +62,32 @@ export declare class EspalierHeaderButton extends LitElement {
      * the button's purpose instead of silence.
      */
     ariaLabel: string | null;
+    /**
+     * Id of the region this button controls, forwarded to the inner
+     * `<button>`.
+     *
+     * The host is not the control — it has no tabindex and no key handling, so
+     * the native button inside the shadow root is what assistive technology and
+     * role-based locators resolve to. State set on the host has no path to it
+     * unless the component carries it across, which is what this does.
+     *
+     * Forwarding the string is not the same as forwarding the relationship: an
+     * id reference resolves only within the referring element's own tree, so a
+     * target outside this button's shadow root stays unresolved. ESP0222 tracks
+     * carrying a resolved element reference instead.
+     *
+     * `ariaControls` is deliberately not an `override`: `ARIAMixin` carries
+     * `ariaControlsElements`, not a string reflection, so there is no base
+     * member to override. If a future lib adds one, `noImplicitOverride` will
+     * say so here.
+     */
+    ariaControls: string | null;
+    /**
+     * Whether the region this button controls is expanded, forwarded to the
+     * inner `<button>`. See {@link ariaControls} for why the host cannot carry
+     * it itself.
+     */
+    ariaExpanded: string | null;
     /**
      * Optional icon name from the configured Espalier SVG sprite.
      * Slotted SVG content remains supported and overrides this value.

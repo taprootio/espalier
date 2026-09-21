@@ -1,4 +1,8 @@
-import{html as r,nothing as t}from"lit";function u({scheme:o,brandLogo:n,brandColor:s,lightBrandLogo:e,darkBrandLogo:c,lightBrandColor:a,darkBrandColor:l}){return{brandLogo:(o==="dark"?c:e)||n,brandColor:(o==="dark"?l:a)||s}}function f({brandLogo:o,brandText:n,brandHref:s,brandAlt:e}){if(!o&&!n)return t;const a=r`
-    ${o?r`<img class="brand-logo" src=${o} alt=${e||(n?"":"Site logo")} />`:t}
-    ${n?r`<span class="brand-text">${n}</span>`:t}
-  `;return s?r`<a class="configured-brand" href=${s}>${a}</a>`:r`<span class="configured-brand">${a}</span>`}export{f as renderConfiguredBrand,u as resolveConfiguredBrand};
+import{css as l,html as n,nothing as a}from"lit";function p({scheme:o,brandLogo:r,brandColor:e,lightBrandLogo:t,darkBrandLogo:c,lightBrandColor:s,darkBrandColor:d}){return{brandLogo:(o==="dark"?c:t)||r,brandColor:(o==="dark"?d:s)||e}}const u=l`3 / 1`,m=l`
+  .brand-logo {
+    overflow-wrap: anywhere;
+  }
+`;function B({brandLogo:o,brandText:r,brandHref:e,brandAlt:t}){if(!o&&!r)return a;const s=n`
+    ${o?n`<img class="brand-logo" src=${o} alt=${t||(r?"":"Site logo")} />`:a}
+    ${r?n`<span class="brand-text">${r}</span>`:a}
+  `;return e?n`<a class="configured-brand" href=${e}>${s}</a>`:n`<span class="configured-brand">${s}</span>`}export{u as CONFIGURED_BRAND_LOGO_ASPECT_RATIO,m as configuredBrandLogoGeometry,B as renderConfiguredBrand,p as resolveConfiguredBrand};

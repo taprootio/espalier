@@ -847,6 +847,12 @@
       "description": "Block-start footer border. Defaults to `1px solid var(--esp-color-border)`."
     },
     {
+      "name": "--esp-footer-brand-logo-aspect-ratio",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`."
+    },
+    {
       "name": "--esp-footer-brand-logo-max-width",
       "category": "component",
       "component": "esp-footer",
@@ -1199,6 +1205,12 @@
       "category": "component",
       "component": "esp-header",
       "description": "The CSS `justify-content` value for the brand container. Defaults to `start`."
+    },
+    {
+      "name": "--esp-header-brand-logo-aspect-ratio",
+      "category": "component",
+      "component": "esp-header",
+      "description": "The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`."
     },
     {
       "name": "--esp-header-brand-logo-max-width",

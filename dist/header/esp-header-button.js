@@ -1,7 +1,12 @@
-var n=function(a,e,o,i){var s=arguments.length,t=s<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,o):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(a,e,o,i);else for(var c=a.length-1;c>=0;c--)(l=a[c])&&(t=(s<3?l(t):s>3?l(e,o,t):l(e,o))||t);return s>3&&t&&Object.defineProperty(e,o,t),t};import{LitElement as d,css as u,html as b,nothing as p}from"lit";import{customElement as v,eventOptions as m,property as h}from"lit/decorators.js";import{ref as f}from"lit/directives/ref.js";import{getIconHrefForHost as g}from"../shared/intent-values.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as w}from"../shared/svgs/render-sprite-icon.js";import{DocumentSpriteController as y}from"../shared/document-sprite.js";import{ESP_EVENTS as x}from"../shared/events.js";let r=class extends d{constructor(){super(),this.iconSlot=new S(this),this.ariaLabel=null,this.icon="",new y(this,{reactToSpriteChanges:!0})}handleClick(e){this.dispatchEvent(new CustomEvent(x.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=g(this.icon,this),o=this.iconSlot.hasSlottedIcon(":scope > *");return b`<button @click=${this.handleClick} aria-label=${this.ariaLabel??p}>
+var a=function(i,e,r,n){var s=arguments.length,o=s<3?e:n===null?n=Object.getOwnPropertyDescriptor(e,r):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(i,e,r,n);else for(var d=i.length-1;d>=0;d--)(l=i[d])&&(o=(s<3?l(o):s>3?l(e,r,o):l(e,r))||o);return s>3&&o&&Object.defineProperty(e,r,o),o};import{LitElement as h,css as u,html as b,nothing as p}from"lit";import{customElement as v,eventOptions as m,property as c}from"lit/decorators.js";import{ref as f}from"lit/directives/ref.js";import{getIconHrefForHost as g}from"../shared/intent-values.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";import{DocumentSpriteController as y}from"../shared/document-sprite.js";import{ESP_EVENTS as C}from"../shared/events.js";let t=class extends h{constructor(){super(),this.iconSlot=new S(this),this.ariaLabel=null,this.ariaControls=null,this.ariaExpanded=null,this.icon="",new y(this,{reactToSpriteChanges:!0})}handleClick(e){this.dispatchEvent(new CustomEvent(C.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=g(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > *");return b`<button
+      @click=${this.handleClick}
+      aria-label=${this.ariaLabel??p}
+      aria-controls=${this.ariaControls??p}
+      aria-expanded=${this.ariaExpanded??p}
+    >
       <slot ${f(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
-      ${!o&&e?w(e):p}
-    </button>`}};r.styles=u`
+      ${!r&&e?x(e):p}
+    </button>`}};t.styles=u`
     :host {
       position: relative;
       display: block;
@@ -35,4 +40,4 @@ var n=function(a,e,o,i){var s=arguments.length,t=s<3?e:i===null?i=Object.getOwnP
         background: var(--esp-header-button-background-hover, var(--esp-color-layer-4));
       }
     }
-  `,n([h({attribute:"aria-label",type:String})],r.prototype,"ariaLabel",void 0),n([h({type:String})],r.prototype,"icon",void 0),n([m({capture:!1,passive:!0})],r.prototype,"handleClick",null),r=n([v("esp-header-button")],r);export{r as EspalierHeaderButton};
+  `,a([c({attribute:"aria-label",type:String})],t.prototype,"ariaLabel",void 0),a([c({attribute:"aria-controls",type:String})],t.prototype,"ariaControls",void 0),a([c({attribute:"aria-expanded",type:String})],t.prototype,"ariaExpanded",void 0),a([c({type:String})],t.prototype,"icon",void 0),a([m({capture:!1,passive:!0})],t.prototype,"handleClick",null),t=a([v("esp-header-button")],t);export{t as EspalierHeaderButton};

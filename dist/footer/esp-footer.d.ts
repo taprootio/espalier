@@ -174,6 +174,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * @cssprop --esp-footer-link-group-gap - Space between a link-group heading and its links. Defaults to `var(--esp-size-small)`.
  * @cssprop --esp-footer-brand-logo-size - Configured logo block size. Defaults to `3rem`.
  * @cssprop --esp-footer-brand-logo-max-width - Configured logo maximum inline size. Defaults to `12rem`.
+ * @cssprop --esp-footer-brand-logo-aspect-ratio - The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`.
  * @cssprop --esp-footer-background-image - Decorative image or gradient layer. Defaults to `none`.
  * @cssprop --esp-footer-background-image-opacity - Decorative layer opacity. Defaults to `1`.
  * @cssprop --esp-footer-background-repeat - Decorative layer repeat behavior. Defaults to `repeat`.

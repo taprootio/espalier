@@ -184,6 +184,7 @@ export interface EspThemeToggleEventDetail {
  * @cssprop --esp-header-brand-gap - Space between a configured logo and brand text. Defaults to `var(--esp-size-tiny-to-small)`.
  * @cssprop --esp-header-brand-logo-size - The configured logo block size. Defaults to `calc(0.72 * var(--esp-header-height, calc(4.5 * var(--esp-size-small))))`.
  * @cssprop --esp-header-brand-logo-max-width - The configured logo maximum inline size. Defaults to `12rem`.
+ * @cssprop --esp-header-brand-logo-aspect-ratio - The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`.
  * @cssprop --esp-header-brand-max-width - The maximum inline size of configured brand content. Defaults to `min(36ch, 45vw)`.
  * @cssprop --esp-header-brand-hover-color - The configured brand hover color. Defaults to `var(--esp-color-headings-hover)`.
  * @cssprop --esp-header-brand-hover-background - The configured brand hover background. Defaults to `transparent`.
