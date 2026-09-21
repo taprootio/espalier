@@ -16,6 +16,17 @@ export * from "./esp-breadcrumb.js";
  * </esp-breadcrumbs>
  * ```
  *
+ * Every crumb with a `url` is a link, including the last one — a trail
+ * may end at the deepest folder rather than at the current page. Leave
+ * `url` off a crumb to render it as the italic current-page label:
+ *
+ * ```html
+ * <esp-breadcrumbs>
+ *   <esp-breadcrumb label="Code" url="/code"></esp-breadcrumb>
+ *   <esp-breadcrumb label="This page"></esp-breadcrumb>
+ * </esp-breadcrumbs>
+ * ```
+ *
  * Custom separators can be specified in the `<esp-breadcrumb>`:
  *
  * ```html
@@ -34,8 +45,11 @@ export * from "./esp-breadcrumb.js";
  *
  * @customElement esp-breadcrumbs
  * @slot - `<esp-breadcrumb>` items to display.
- * @cssprop --esp-breadcrumb-separator-color - Set the color of the separator. It defaults
- * to the semantic heading color so navigation structure stays visible in light and dark themes.
+ * @cssprop --esp-breadcrumb-separator-color - The color of the separator icons. Defaults to
+ * `oklch(from var(--esp-color-link) l c calc(h + 90))`, an accent that takes the link ink's
+ * scheme-adapted lightness and chroma at a different hue, so the arrows are their own color
+ * rather than the heading color. Set it on `esp-breadcrumbs` to recolor a whole trail, or on
+ * one `esp-breadcrumb` to recolor a single arrow.
  *
  * ```html
  * <style>

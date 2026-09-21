@@ -79,15 +79,23 @@
     },
     {
       "name": "--esp-breadcrumb-color",
-      "description": "The text color of the breadcrumb link."
+      "description": "The text color of the breadcrumb link. Defaults to `var(--esp-color-link)`, so a trail reads as navigation in the same ink as the links in the surrounding content."
+    },
+    {
+      "name": "--esp-breadcrumb-current-color",
+      "description": "The text color of the current-page crumb, which is not a link. Defaults to `--esp-breadcrumb-color` when that is set, then to `var(--esp-color-headings)`, keeping the current page distinct from the links beside it."
+    },
+    {
+      "name": "--esp-breadcrumb-hover-background",
+      "description": "The background behind a hovered link. Defaults to `var(--esp-color-link-hover-bg)`."
     },
     {
       "name": "--esp-breadcrumb-hover-color",
-      "description": "The text color on hover."
+      "description": "The text color on hover. Defaults to `var(--esp-color-link-hover)`."
     },
     {
       "name": "--esp-breadcrumb-separator-color",
-      "description": "Set the color of the separator. It defaults to the semantic heading color so navigation structure stays visible in light and dark themes."
+      "description": "The color of the separator icons. Defaults to `oklch(from var(--esp-color-link) l c calc(h + 90))`, an accent that takes the link ink's scheme-adapted lightness and chroma at a different hue, so the arrows are their own color rather than the heading color. Set it on `esp-breadcrumbs` to recolor a whole trail, or on one `esp-breadcrumb` to recolor a single arrow."
     },
     {
       "name": "--esp-button-group-divider",

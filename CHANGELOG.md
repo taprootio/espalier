@@ -1,3 +1,15 @@
+# 4.16.0
+
+Breadcrumbs read as navigation, and a tab strip stays inside its own rounded corners.
+
+- Breadcrumb links now take the same ink as the links in page content (`--esp-color-link`, with the matching hover color and hover background) instead of the heading color, so a trail no longer looks like a stray heading fragment.
+- **Behavior change:** a crumb is a link whenever it has a `url`, including the last one, which previously always rendered as an inert italic label. A trail can now end at its deepest folder and stay clickable. If you have a final crumb that must not be clickable — a current-page crumb, say — remove its `url` and it renders the italic label exactly as before. Nothing else about the trail changes.
+- The current-page crumb keeps the heading ink and is reachable on its own through `--esp-breadcrumb-current-color`, so it stays visibly distinct from the links beside it.
+- Separator arrows have their own color — an accent derived from the link ink at a different hue — instead of matching headings, and `--esp-breadcrumb-separator-color` now works on a single `esp-breadcrumb` as well as on the whole trail.
+- A breadcrumb that supplies its own separator is no longer skipped when the trail decides which crumb is last, and trails whose crumbs are added or removed after first render re-point their arrows.
+- `esp-tab-group`'s tab strip rounds its own top corners to match the container instead of relying on the container's overflow clip, which WebKit drops over a scrolling tab strip — the strip no longer paints a square corner across the group's rounded border and shadow.
+- A button with both a label and an icon no longer doubles the space between them. The label cell and the icon cell each carried a full `--esp-button-padding`, so the seam between them was twice the spacing every outer edge gets; the gap is now a single padding, matching the rest of the button. Buttons with an icon get correspondingly narrower. The incognito treatment sets its own spacing and is unchanged.
+
 # 4.15.0
 
 Lightbox slides show their photo instead of an empty box, and the bottom panel
