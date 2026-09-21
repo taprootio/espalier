@@ -1043,7 +1043,19 @@
     },
     {
       "name": "--esp-image-scrim-color",
-      "description": "Scrim ink; defaults to the theme background when the banner polarity matches the scheme, else a polarity-pinned derivation."
+      "description": "Scrim ink; defaults to the theme background when the banner polarity matches the scheme, else a polarity-pinned derivation. A `scrim-edge=\"flush\"` join is seamless only while the ink is the adjoining band's own color, so an explicit cross-scheme `banner-scheme` (or an override to any other color) makes the edge a deliberate color break rather than a dissolve."
+    },
+    {
+      "name": "--esp-image-scrim-edge-depth",
+      "description": "How far a `scrim-edge=\"flush\"` edge takes to relax from full alpha to the ordinary scrim strength, along the gradient axis; defaults to `12%`."
+    },
+    {
+      "name": "--esp-image-scrim-edge-image",
+      "description": "Background image painted over the flush edge and faded out with it — the adjoining band's seamless tile; defaults to `none`. Inert unless `scrim-edge=\"flush\"` resolves onto a directional scrim."
+    },
+    {
+      "name": "--esp-image-scrim-edge-size",
+      "description": "Background size for `--esp-image-scrim-edge-image`; defaults to `auto`. Match the adjoining band's own `background-size` for a continuous tile."
     },
     {
       "name": "--esp-image-scrim-opacity",

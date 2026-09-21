@@ -4,6 +4,7 @@ import { type FocusPoint } from "./image-focus.js";
 import "./esp-image-option.js";
 export type ImageScrim = "auto" | "none" | "flat" | "top" | "bottom" | "left" | "right" | "radial";
 export type ImageScrimStrength = "soft" | "medium" | "strong";
+export type ImageScrimEdge = "none" | "flush";
 export type ImageTexture = "none" | "dots" | "halftone" | "paper" | "grain" | "grunge" | "scanlines" | "duotone";
 export type ImageTextureScale = "fine" | "medium" | "coarse";
 export type ImageBannerScheme = "auto" | "light" | "dark";
@@ -115,6 +116,66 @@ export declare function parseImageRatio(value: string): string | null;
  *   <h2 slot="overlay">Dark banner: light ink on a deepened image</h2>
  * </esp-image>
  * ```
+ *
+ * ### Meeting an adjoining band
+ *
+ * A directional scrim is capped by `scrim-strength`, so even `strong` leaves
+ * roughly a quarter of the photograph showing at the very edge it is anchored
+ * to. `scrim-edge="flush"` paints that edge at full alpha and relaxes to the
+ * ordinary strength over `--esp-image-scrim-edge-depth` (12% of the gradient
+ * axis by default), so a banner dissolves into a section band directly beneath
+ * it with no seam. Above that band the scrim is unchanged — `flush` is an edge
+ * treatment, not a heavier veil over the subject.
+ *
+ * The join is exact because both sides paint the same token: when
+ * `banner-scheme` resolves to the page scheme the scrim ink *is*
+ * `--esp-color-background`, which is what [esp-section](/components/section)
+ * paints its band with. Put the banner in a section with no padding, directly
+ * above a section in the same context:
+ *
+ * ```html
+ * <esp-section style="--esp-section-max-width: none; --esp-section-padding-inline: 0; --esp-section-padding-block: 0;">
+ *   <esp-image banner ratio="3/1" scrim="bottom" scrim-strength="strong" scrim-edge="flush" focus="0.65 0.4">
+ *     <img src="/assets/focus-picker-unsplash.jpg" alt="A woman standing in a sunlit field with her back to the camera" />
+ *     <h2 slot="overlay">Grow somewhere wonderful</h2>
+ *   </esp-image>
+ * </esp-section>
+ * <esp-section>
+ *   <p>The banner's bottom edge and this band are the same color, so the photograph fades into the page rather than stopping at a line.</p>
+ * </esp-section>
+ * ```
+ *
+ * `flush` is inert unless the *resolved* scrim is directional — an `auto`
+ * scrim that resolves to `top` or `bottom` picks it up, while `none`, `flat`,
+ * and `radial` ignore it, having no anchored edge for it to close.
+ *
+ * It is its own attribute rather than a fourth `scrim-strength` because the two
+ * are independent: `scrim-strength` is how much veil sits over the subject,
+ * `scrim-edge` is whether the anchored edge completes. A light veil with a
+ * closed edge is exactly the composition this exists for, and a strength step
+ * could not express it.
+ *
+ * A seamless tile can bleed across the join too — any `background-image` value,
+ * a tile the application serves, a data URI, or a gradient. Hand the edge the
+ * same background the adjoining section paints and it tiles up over the
+ * photograph, fading out over the same band:
+ *
+ * ```html
+ * <esp-image
+ *   banner
+ *   ratio="3/1"
+ *   scrim="bottom"
+ *   scrim-edge="flush"
+ *   style="--esp-image-scrim-edge-image: repeating-linear-gradient(45deg, oklch(0.55 0.08 255 / 0.18) 0 6px, transparent 6px 18px); --esp-image-scrim-edge-size: 18px 18px; --esp-image-scrim-edge-depth: 22%;"
+ * >
+ *   <img src="/assets/focus-picker-unsplash.jpg" alt="A woman standing in a sunlit field with her back to the camera" />
+ * </esp-image>
+ * ```
+ *
+ * The component anchors its own side of the tile to the scrim's edge, so the
+ * banner's last tile row ends exactly at the join. Continuity into the section
+ * below is the consumer's half of the contract: the same `background-size`,
+ * and a `top`-anchored `background-position` on the adjoining band.
  *
  * Every procedural preset supports `fine`, `medium`, and `coarse` scales.
  *
@@ -232,8 +293,11 @@ export declare function parseImageRatio(value: string): string | null;
  * @cssprop --esp-image-border-radius - Corner radius; defaults to `var(--esp-size-border-radius)` or zero in banner mode.
  * @cssprop --esp-image-object-position - Final object-position override.
  * @cssprop --esp-image-compact-width - Component-width threshold; defaults to `40rem`.
- * @cssprop --esp-image-scrim-color - Scrim ink; defaults to the theme background when the banner polarity matches the scheme, else a polarity-pinned derivation.
+ * @cssprop --esp-image-scrim-color - Scrim ink; defaults to the theme background when the banner polarity matches the scheme, else a polarity-pinned derivation. A `scrim-edge="flush"` join is seamless only while the ink is the adjoining band's own color, so an explicit cross-scheme `banner-scheme` (or an override to any other color) makes the edge a deliberate color break rather than a dissolve.
  * @cssprop --esp-image-scrim-opacity - Scrim-strength opacity override.
+ * @cssprop --esp-image-scrim-edge-depth - How far a `scrim-edge="flush"` edge takes to relax from full alpha to the ordinary scrim strength, along the gradient axis; defaults to `12%`.
+ * @cssprop --esp-image-scrim-edge-image - Background image painted over the flush edge and faded out with it — the adjoining band's seamless tile; defaults to `none`. Inert unless `scrim-edge="flush"` resolves onto a directional scrim.
+ * @cssprop --esp-image-scrim-edge-size - Background size for `--esp-image-scrim-edge-image`; defaults to `auto`. Match the adjoining band's own `background-size` for a continuous tile.
  * @cssprop --esp-image-texture-color - Procedural texture ink; defaults to a theme-derived color following `banner-scheme`.
  * @cssprop --esp-image-texture-opacity - Procedural texture opacity override.
  * @cssprop --esp-image-texture-scale - CSS-gradient texture pitch override.
@@ -309,6 +373,14 @@ export declare class EspalierImage extends EspalierElementBase {
     scrim: ImageScrim;
     /** Preset opacity for the scrim. */
     scrimStrength: ImageScrimStrength;
+    /**
+     * Edge treatment for a directional scrim. `flush` paints the scrim ink at
+     * full alpha along the edge the scrim is anchored to, relaxing to the
+     * ordinary strength over `--esp-image-scrim-edge-depth`, so a banner can
+     * dissolve into a section band it adjoins. Inert unless the resolved scrim
+     * is `top`, `bottom`, `left`, or `right`.
+     */
+    scrimEdge: ImageScrimEdge;
     /**
      * Optional texture: a built-in procedural preset, or the name of a
      * texture registered with `registerImageTexture`. Unknown names render

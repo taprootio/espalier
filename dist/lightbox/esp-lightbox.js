@@ -73,6 +73,7 @@ var d=function(c,e,t,i){var s=arguments.length,r=s<3?e:i===null?i=Object.getOwnP
         aria-modal="true"
         aria-label="Image lightbox"
         tabindex="-1"
+        data-no-swipe
         @keydown=${this._handleKeyDown}
         @click=${this._handleLightboxClick}
         @touchstart=${this._handleTouchStart}

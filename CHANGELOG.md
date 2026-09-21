@@ -1,3 +1,13 @@
+# 4.17.0
+
+A banner can dissolve into the section beneath it, and a lightbox swipe stays in the lightbox.
+
+- `esp-image` gains `scrim-edge`. Set it to `flush` on a banner with a directional scrim and the scrim reaches full opacity along the edge it is anchored to, relaxing to the ordinary `scrim-strength` over a short band — so a full-bleed banner sitting directly above an `esp-section` in the same context meets that band with no seam, instead of showing a quarter of the photograph through a visible line. It defaults to `none`, and is inert for `scrim="none"`, `scrim="flat"` and `scrim="radial"`, where a full-opacity edge has no meaning.
+- The join works because both sides paint the same token: when a banner's polarity matches the page scheme its scrim ink *is* `--esp-color-background`, which is what a section paints its band with. A banner pinned to the opposite polarity with `banner-scheme` keeps that polarity, so its flush edge reads as a deliberate colour break rather than a dissolve.
+- `--esp-image-scrim-edge-depth` sets how far the edge takes to relax (12% of the gradient axis by default), and `--esp-image-scrim-edge-image` with `--esp-image-scrim-edge-size` let a flush edge carry the adjoining band's own seamless tile up over the photograph, fading out with it. The component anchors its side of the tile to the scrim's edge; match the band's `background-size` and anchor its background to the top to keep the pattern continuous.
+- Nothing about the existing scrim changes: `scrim-strength`, `--esp-image-scrim-color`, `--esp-image-scrim-opacity` and the reduced-transparency treatment all behave exactly as before, and a banner without `scrim-edge` renders pixel for pixel what it did in 4.16.0.
+- Swiping inside an open `esp-lightbox` no longer opens the navigation drawer as well. A right-swipe for the previous image that started near the screen edge used to trigger both, dropping the menu over the photograph it had just turned to.
+
 # 4.16.0
 
 Breadcrumbs read as navigation, and a tab strip stays inside its own rounded corners.
