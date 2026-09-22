@@ -270,6 +270,32 @@ export declare const ROLE_NAMES: readonly RoleName[];
  */
 export declare const ROLE_TOKEN_PLAN: Readonly<Record<RoleName, Readonly<Record<string, ReadonlyArray<[SemanticColorName, LightnessKey]>>>>>;
 /**
+ * Role slots whose ink lightness is derived from the surface that role
+ * actually painted, rather than taken from {@link ROLE_TOKEN_PLAN}.
+ *
+ * {@link resolvePairedInkStop} used to run only for a slot the theme
+ * left *undeclared*, so naming `action.ink` took the plan's `surface`
+ * stop verbatim. In a light ramp both rules answer `surface` and the
+ * difference never showed. In a dark ramp the plan's stop is the
+ * near-black page ground, which is the wrong side of a mid-dark action
+ * surface: enforcement had to walk the label the whole way across the
+ * ramp and stopped at the first value that cleared the target, emitting
+ * a weaker ink than the ramp could give. ADR-016 is explicit that the
+ * model's job is to hand enforcement the strongest available starting
+ * point on the correct side, so the derivation now runs for a declared
+ * slot too (ESP0223).
+ *
+ * The source still comes from the theme: naming `action.ink` chooses
+ * the family, exactly as ADR-015 says an anchor supplies hue and chroma
+ * while the ramp supplies lightness.
+ *
+ * Every entry here must also appear in {@link ROLE_PAIRED_INK}: the
+ * compile branch is gated on `paired` first, and
+ * {@link roleInkProvenance} walks the pairing table, so an entry in only
+ * this set would be silently inert in both.
+ */
+export declare const ROLE_DERIVED_INK: ReadonlySet<string>;
+/**
  * Ink slots that derive from another role when the theme does not
  * declare them.
  *
@@ -293,6 +319,8 @@ interface CompileRoleOptions {
     actionSurfaceContrast?: (source: MappingSource, stop: LightnessKey) => number;
     /** ΔE-OK between an action surface candidate and the theme's background. */
     actionSurfaceSeparation?: (source: MappingSource, stop: LightnessKey) => number;
+    /** Which ink pole reads better on a finished action surface at a lightness. */
+    actionSurfacePole?: (source: MappingSource, lightness: number) => "dark" | "light";
 }
 /**
  * Compile roles into semantic mappings.
@@ -304,6 +332,23 @@ interface CompileRoleOptions {
  * reach.
  */
 export declare function compileRoles(roles: ThemeRoles, lightness: LightnessMap, baseMappings: SemanticMappings, options?: CompileRoleOptions): Partial<SemanticMappings>;
+/**
+ * Whether each role-paired ink token's *source* was named by the theme
+ * or paired off another role (ESP0223).
+ *
+ * The distinction matters to anything judging how far a token landed
+ * from the swatch it names. `action.ink` defaults to the canvas colour,
+ * so an undeclared ink IS the page ground by contract — it is re-lit to
+ * the opposite end of the ramp on purpose, and the large anchor ΔE that
+ * follows describes the contract working, not a theme missing its
+ * brand. A theme that names the slot has made a separate claim about
+ * the label's family, and the same ΔE then describes a claim that did
+ * not survive.
+ *
+ * A pure read of `roles`: the compile is not re-run, and a role the
+ * theme never declared reports nothing rather than guessing.
+ */
+export declare function roleInkProvenance(roles: ThemeRoles): Partial<Record<SemanticColorName, "declared" | "derived">>;
 /** The complete, resolved Espalier theme. */
 export interface EspalierTheme {
     /**
@@ -665,6 +710,11 @@ export declare const DEFAULT_DARK_LIGHTNESS: Readonly<LightnessMap>;
  *
  * Each entry tells the color engine which variant supplies the
  * hue and which lightness key sets the perceived brightness.
+ *
+ * `actionBackground` carries the **light** scheme's stop; the dark
+ * theme overrides it through {@link buildDefaultSemanticMappings}. See
+ * {@link DEFAULT_ACTION_BACKGROUND_STOP} for why that one mapping
+ * cannot share a name across schemes.
  */
 export declare const DEFAULT_SEMANTIC_MAPPINGS: Readonly<SemanticMappings>;
 /** Built-in authored stack for body and UI text. */

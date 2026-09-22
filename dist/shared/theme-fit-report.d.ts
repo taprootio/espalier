@@ -114,6 +114,19 @@ export interface ThemeFitToken {
      * since a zone's unexpected value then traces to a root theme line.
      */
     explicit?: "declared" | "inherited";
+    /**
+     * Present on a role-paired ink the role layer compiled (ESP0223).
+     * `"declared"` means the theme named the slot — a separate claim about
+     * this token's family. `"derived"` means it paired off another role,
+     * which for `action.ink` is the canvas: the token IS the page ground
+     * by contract, and its distance from the anchor it reports describes
+     * that contract rather than a theme that missed its brand.
+     *
+     * Absent when no such role is declared, and absent on a token an
+     * explicit mapping pinned — there the pin, not the role, chose the
+     * value, and {@link explicit} is the mark that says so.
+     */
+    pairing?: "declared" | "derived";
 }
 /**
  * A theme's fit report — the stable JSON shape the docs site renders.
@@ -184,7 +197,7 @@ export declare function printThemeFitReport(report: ThemeFitReport): void;
 /** One cross-token finding over a single surface's emitted values. */
 export interface ThemeFitLint {
     /** Stable lint identifier. */
-    id: "action-canvas-separation" | "link-hover-ordering";
+    id: "action-anchor-inversion" | "action-canvas-separation" | "apca-target-unmet" | "link-hover-ordering";
     /** Lints describe design-quality hazards, not validation failures. */
     severity: "warning";
     /** The tokens the finding is about, recommended retune target first. */
@@ -212,7 +225,7 @@ export interface ThemeFitDataPaletteLint {
     message: string;
 }
 /** Runtime validation/comparison vocabulary used by the exported field descriptors. */
-export type ThemeFitFieldKind = "anchor" | "anchor-record" | "apca" | "boolean" | "data-palette-record" | "explicit" | "fit-lint-id" | "lint-array" | "message" | "number" | "palette-lint-id" | "palette-lint-record" | "report-array" | "scheme" | "semantic" | "semantic-array" | "series-pair" | "simulation" | "string" | "string-array" | "token-array" | "warning";
+export type ThemeFitFieldKind = "anchor" | "anchor-record" | "apca" | "boolean" | "data-palette-record" | "explicit" | "fit-lint-id" | "lint-array" | "message" | "number" | "pairing" | "palette-lint-id" | "palette-lint-record" | "report-array" | "scheme" | "semantic" | "semantic-array" | "series-pair" | "simulation" | "string" | "string-array" | "token-array" | "warning";
 /** One runtime field descriptor used by fit-suite validation and comparison. */
 export interface ThemeFitFieldDescriptor<Field extends PropertyKey = PropertyKey> {
     readonly field: Field;
@@ -226,6 +239,8 @@ export declare const THEME_FIT_LINT_IDS: readonly ThemeFitLint["id"][];
 export declare const THEME_FIT_DATA_PALETTE_LINT_IDS: readonly ThemeFitDataPaletteLint["id"][];
 /** Every stable explicit-pin provenance value. */
 export declare const THEME_FIT_EXPLICIT_VALUES: readonly NonNullable<ThemeFitToken["explicit"]>[];
+/** Every stable role-paired-ink provenance value. */
+export declare const THEME_FIT_PAIRING_VALUES: readonly NonNullable<ThemeFitToken["pairing"]>[];
 type ThemeFitLintSeverity = ThemeFitLint["severity"] | ThemeFitDataPaletteLint["severity"];
 /** Every stable fit-suite lint severity. */
 export declare const THEME_FIT_LINT_SEVERITIES: readonly ThemeFitLintSeverity[];
@@ -256,6 +271,27 @@ export declare const THEME_FIT_DATA_PALETTE_LINT_FIELDS: readonly ThemeFitFieldD
  *   wash itself signals the state and the ink must clear the text tier
  *   there; when the wash equals the background (no visible wash), hover
  *   must not read weaker than rest — a dimming hover feels disabled.
+ * - **action-anchor-inversion** (ESP0223) — the filled action rendered
+ *   the *opposite way round* from the swatches it names: a surface whose
+ *   swatch wants dark ink took light ink instead, or a declared pair's
+ *   rendered lightness order reversed. Anchor drift on its own is by
+ *   design — a stop supplies lightness (ADR-015) — and a raw distance
+ *   cannot tell "a deeper rose" from "the gold became brown": a coral
+ *   action drifts ΔE 0.29 and reads correctly, while a gold one drifts
+ *   0.34 and reads as a different design. The sign does tell them
+ *   apart, and needs no threshold. This is also the one anchor drift an
+ *   author cannot chase down: the action's stop is chosen by the engine,
+ *   so seating the ramp — the remedy the lightness-ramps guide gives for
+ *   every other token — cannot move it, and the fix is a pin.
+ * - **apca-target-unmet** (ESP0223) — enforcement moved a text token as
+ *   far as its ramp allows and the pair still misses the legibility
+ *   floor. The per-token `apca` block has always carried the numbers;
+ *   nothing read them, so a theme could pin a surface no ink can carry
+ *   and check clean.
+ *
+ * The two ESP0223 lints read `anchor`, `pairing` and `apca` rather than
+ * only `resolved`, because both findings are about how a token got where
+ * it is, which a colour alone cannot say.
  */
 export declare function themeFitLints(report: ThemeFitReport): ThemeFitLint[];
 /**

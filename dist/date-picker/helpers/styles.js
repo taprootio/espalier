@@ -1,4 +1,4 @@
-import{css as e}from"lit";const r=e`
+import{css as e}from"lit";const t=e`
   
 
   .temporal-error {
@@ -109,7 +109,7 @@ import{css as e}from"lit";const r=e`
 
     
     &:focus-visible {
-      outline: 2px solid var(--esp-color-action-text);
+      outline: 2px solid var(--esp-color-text);
       outline-offset: 2px;
     }
   }
@@ -135,7 +135,7 @@ import{css as e}from"lit";const r=e`
     }
 
     &:focus-visible {
-      outline: 2px solid var(--esp-color-action-text);
+      outline: 2px solid var(--esp-color-text);
       outline-offset: -2px;
     }
   }
@@ -165,7 +165,7 @@ import{css as e}from"lit";const r=e`
 
   
   .day-grid:focus-within .day-cell.focused {
-    outline: 2px solid var(--esp-color-action-text);
+    outline: 2px solid var(--esp-color-text);
     outline-offset: -2px;
     z-index: 1;
   }
@@ -199,17 +199,27 @@ import{css as e}from"lit";const r=e`
     }
 
     &:focus-visible {
-      outline: 2px solid var(--esp-color-action-text);
+      outline: 2px solid var(--esp-color-text);
       outline-offset: -2px;
       z-index: 1;
     }
 
     
     &.selected {
-      background-color: var(--esp-color-layer-3);
+      background-color: var(--esp-color-action-background);
       color: var(--esp-color-action-text);
       font-weight: bold;
     }
+  }
+
+  
+  .day-grid:focus-within .day-cell.focused.selected,
+  .jump-cell.selected:focus-visible {
+    outline-color: var(--esp-color-action-text);
+  }
+
+  .day-cell.today.selected {
+    box-shadow: inset 0 0 0 1px var(--esp-color-action-text);
   }
 
   .day-cell {
@@ -321,4 +331,4 @@ import{css as e}from"lit";const r=e`
     color: var(--esp-color-headings);
     padding: 0 2px;
   }
-`;export{r as datePickerStyles};
+`;export{t as datePickerStyles};
