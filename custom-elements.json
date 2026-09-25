@@ -13659,52 +13659,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/cli/espalier.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/cli/theme-check.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "runEspalierCli",
-          "return": {
-            "type": {
-              "text": "number"
-            }
-          },
-          "parameters": [
-            {
-              "name": "argv",
-              "type": {
-                "text": "string[]"
-              }
-            },
-            {
-              "name": "io",
-              "type": {
-                "text": "ThemeCheckIo"
-              }
-            }
-          ],
-          "description": "Run the CLI for the given argv (everything after the executable and\nscript). Returns the process exit code."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "runEspalierCli",
-          "declaration": {
-            "name": "runEspalierCli",
-            "module": "dist/cli/theme-check.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/color-picker/esp-color-picker.js",
       "declarations": [
         {
@@ -13873,6 +13827,52 @@
           "declaration": {
             "name": "EspalierColorPicker",
             "module": "dist/color-picker/esp-color-picker.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/cli/espalier.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/cli/theme-check.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "runEspalierCli",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "argv",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "name": "io",
+              "type": {
+                "text": "ThemeCheckIo"
+              }
+            }
+          ],
+          "description": "Run the CLI for the given argv (everything after the executable and\nscript). Returns the process exit code."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "runEspalierCli",
+          "declaration": {
+            "name": "runEspalierCli",
+            "module": "dist/cli/theme-check.js"
           }
         }
       ]
@@ -36650,7 +36650,7 @@
         },
         {
           "kind": "class",
-          "description": "A responsive image with a native `<picture>` and an optional\nfocal-point-aware banner mode.\n\n`esp-image` accepts two authoring shapes:\n\n1. **Project a light-DOM `<picture>`** — the recommended form for published /\n   server-rendered markup. Provide a real `<picture>` (or a bare `<img>`) as\n   a child and `esp-image` projects it through a `<slot>`, adding only the\n   layout box, border, and lightbox wiring. Because the image lives in the\n   served HTML it is discoverable by the preload scanner and visible to\n   crawlers, and it is fetched exactly once.\n2. **Declare [esp-image-option](/components/image/image-option) children** —\n   the editor / fallback form. `esp-image` builds a shadow `<picture>` and\n   `srcset` from them. Use `local-image` when an editor needs a blob preview.\n\nSource precedence is `local-image` → a projected `<picture>` / `<img>` →\n`esp-image-option` children. In every mode the host reserves its layout box\nup front from `original-width` / `original-height`, when supplied.\n\n```html\n<!-- Projected native <picture> — published markup, crawlable + preloadable -->\n<esp-image original-width=\"1200\" original-height=\"800\" caption=\"A scenic mountain lake\">\n  <picture>\n    <source\n      srcset=\"https://picsum.photos/600/400 400w, https://picsum.photos/900/600 800w, https://picsum.photos/1200/800 1200w\"\n      sizes=\"100vw\"\n    />\n    <img src=\"https://picsum.photos/1200/800\" alt=\"A scenic mountain lake\" />\n  </picture>\n</esp-image>\n```\n\n```html\n<!-- esp-image-option children — editor / fallback form -->\n<esp-image\n  original-width=\"1200\"\n  original-height=\"800\"\n  low-res=\"https://picsum.photos/300/200\"\n  caption=\"A scenic mountain lake\"\n  sizes=\"100vw\"\n>\n  <esp-image-option width=\"400\" url=\"https://picsum.photos/600/400\"></esp-image-option>\n  <esp-image-option width=\"800\" url=\"https://picsum.photos/900/600\"></esp-image-option>\n  <esp-image-option width=\"1200\" url=\"https://picsum.photos/1200/800\"></esp-image-option>\n</esp-image>\n```\n\nOnce upgraded, the component measures its own width and updates `sizes` so a\ncard or gallery column does not over-fetch. The `sizes` attribute covers the\nserver-rendered initial fetch and the brief window before measurement:\n\n```html\n<esp-image\n  original-width=\"1200\"\n  original-height=\"800\"\n  low-res=\"https://picsum.photos/300/200\"\n  sizes=\"(max-width: 600px) 100vw, 320px\"\n  style=\"max-width: 320px;\"\n>\n  <esp-image-option width=\"320\" url=\"https://picsum.photos/640/427\"></esp-image-option>\n  <esp-image-option width=\"640\" url=\"https://picsum.photos/960/640\"></esp-image-option>\n</esp-image>\n```\n\nFor a long projected lazy-image list, `defer-offscreen` keeps the served\n`sizes` hint until an image approaches the viewport. This avoids replacing a\nsmall fallback selection with a larger candidate before the image can be\nseen. Eager projected images and every non-projected source keep the normal\nimmediate measured-size behavior.\n\nBanner mode gives all three source modes the same focal position, scrim,\ntexture, and semantic overlay stack. `ratio` applies at wide widths and\n`compact-ratio` below the component-relative compact threshold.\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  compact-ratio=\"3/2\"\n  focus=\"0.65 0.4\"\n  scrim=\"auto\"\n  scrim-strength=\"medium\"\n  content-position=\"bottom-start\"\n>\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Grow somewhere wonderful</h2>\n</esp-image>\n```\n\n`banner-scheme` sets the banner's polarity and defaults to the active\nscheme: a light page lightens the image behind dark text, a dark page\ndarkens it behind light text. Fix either polarity explicitly when a banner\nmust not follow the page scheme:\n\n```html\n<esp-image banner ratio=\"3/1\" banner-scheme=\"light\" focus=\"0.65 0.4\">\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Light banner: dark ink on a lifted image</h2>\n</esp-image>\n<esp-image banner ratio=\"3/1\" banner-scheme=\"dark\" focus=\"0.65 0.4\">\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Dark banner: light ink on a deepened image</h2>\n</esp-image>\n```\n\n### Meeting an adjoining band\n\nA directional scrim is capped by `scrim-strength`, so even `strong` leaves\nroughly a quarter of the photograph showing at the very edge it is anchored\nto. `scrim-edge=\"flush\"` paints that edge at full alpha and relaxes to the\nordinary strength over `--esp-image-scrim-edge-depth` (12% of the gradient\naxis by default), so a banner dissolves into a section band directly beneath\nit with no seam. Above that band the scrim is unchanged — `flush` is an edge\ntreatment, not a heavier veil over the subject.\n\nThe join is exact because both sides paint the same token: when\n`banner-scheme` resolves to the page scheme the scrim ink *is*\n`--esp-color-background`, which is what [esp-section](/components/section)\npaints its band with. Put the banner in a section with no padding, directly\nabove a section in the same context:\n\n```html\n<esp-section style=\"--esp-section-max-width: none; --esp-section-padding-inline: 0; --esp-section-padding-block: 0;\">\n  <esp-image banner ratio=\"3/1\" scrim=\"bottom\" scrim-strength=\"strong\" scrim-edge=\"flush\" focus=\"0.65 0.4\">\n    <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n    <h2 slot=\"overlay\">Grow somewhere wonderful</h2>\n  </esp-image>\n</esp-section>\n<esp-section>\n  <p>The banner's bottom edge and this band are the same color, so the photograph fades into the page rather than stopping at a line.</p>\n</esp-section>\n```\n\n`flush` is inert unless the *resolved* scrim is directional — an `auto`\nscrim that resolves to `top` or `bottom` picks it up, while `none`, `flat`,\nand `radial` ignore it, having no anchored edge for it to close.\n\nIt is its own attribute rather than a fourth `scrim-strength` because the two\nare independent: `scrim-strength` is how much veil sits over the subject,\n`scrim-edge` is whether the anchored edge completes. A light veil with a\nclosed edge is exactly the composition this exists for, and a strength step\ncould not express it.\n\nA seamless tile can bleed across the join too — any `background-image` value,\na tile the application serves, a data URI, or a gradient. Hand the edge the\nsame background the adjoining section paints and it tiles up over the\nphotograph, fading out over the same band:\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  scrim=\"bottom\"\n  scrim-edge=\"flush\"\n  style=\"--esp-image-scrim-edge-image: repeating-linear-gradient(45deg, oklch(0.55 0.08 255 / 0.18) 0 6px, transparent 6px 18px); --esp-image-scrim-edge-size: 18px 18px; --esp-image-scrim-edge-depth: 22%;\"\n>\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n</esp-image>\n```\n\nThe component anchors its own side of the tile to the scrim's edge, so the\nbanner's last tile row ends exactly at the join. Continuity into the section\nbelow is the consumer's half of the contract: the same `background-size`,\nand a `top`-anchored `background-position` on the adjoining band.\n\nEvery procedural preset supports `fine`, `medium`, and `coarse` scales.\n\n### Dots\n\nA uniform tiled ink screen (shown at `fine`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"dots\" texture-scale=\"fine\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Halftone\n\nThe dot screen ramping toward the content edge (shown at `medium`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"halftone\" texture-scale=\"medium\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Paper\n\nSoft fractal-noise mottle, like printed stock (shown at `coarse`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"paper\" texture-scale=\"coarse\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Grain\n\nHigh-frequency film grain that also kills banding (shown at `fine`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"grain\" texture-scale=\"fine\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Grunge\n\nThresholded turbulence, a distressed ink wash (shown at `medium`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"grunge\" texture-scale=\"medium\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Scanlines\n\nHairline rules along the block axis (shown at `coarse`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"scanlines\" texture-scale=\"coarse\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Duotone\n\nThe photo mapped onto two theme-derived hues:\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"duotone\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Consumer texture tokens\n\nAny `background-image` value — a tile the application serves, a data URI,\nor a gradient — can be wired directly through the public consumer-image\ntoken path (the optional `@taprootio/espalier/textures/banner-textures.css`\nstylesheet ships `.esp-texture-paper`/`-grain`/`-grunge` classes with the\ntiles inlined as data URIs, so nothing needs asset configuration):\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  style=\"--esp-image-texture-image: repeating-linear-gradient(45deg, oklch(0.1 0 0 / 0.2) 0 2px, transparent 2px 7px); --esp-image-texture-blend-mode: multiply;\"\n>\n  <img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" />\n</esp-image>\n```\n\n### Registered textures\n\nWiring those tokens on every banner is verbose and not reusable. The\napplication's texture vocabulary lives on [esp-root](/components/root):\nregister the look once — `registerImageTexture(name, definition)` from\nthe module, or the root's `registerTexture` static in script-only\ncontexts — and any banner under the root selects it by name. Live\nbanners re-render on registration, so markup order and registration\norder never race, and the root's `registeredTextures()` enumerates the\npresets for an editor's texture picker:\n\n```html\n<esp-image id=\"registered-texture-banner\" banner ratio=\"3/1\" texture=\"pressed-paper\">\n  <img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" />\n</esp-image>\n<script>\n  const banner = findById(\"registered-texture-banner\");\n  const root = banner.closest(\"esp-root\");\n  root.constructor.registerTexture(\"pressed-paper\", {\n    image:\n      \"repeating-linear-gradient(-45deg, oklch(1 0 0 / 0.3) 0 3px, transparent 3px 9px)\",\n    blendMode: \"soft-light\",\n    opacity: 0.9,\n  });\n</script>\n```",
+          "description": "A responsive image with a native `<picture>` and an optional\nfocal-point-aware banner mode.\n\n`esp-image` accepts two authoring shapes:\n\n1. **Project a light-DOM `<picture>`** — the recommended form for published /\n   server-rendered markup. Provide a real `<picture>` (or a bare `<img>`) as\n   a child and `esp-image` projects it through a `<slot>`, adding only the\n   layout box, border, and lightbox wiring. Because the image lives in the\n   served HTML it is discoverable by the preload scanner and visible to\n   crawlers, and it is fetched exactly once.\n2. **Declare [esp-image-option](/components/image/image-option) children** —\n   the editor / fallback form. `esp-image` builds a shadow `<picture>` and\n   `srcset` from them. Use `local-image` when an editor needs a blob preview.\n\nSource precedence is `local-image` → a projected `<picture>` / `<img>` →\n`esp-image-option` children. In every mode the host reserves its layout box\nup front from `original-width` / `original-height`, when supplied.\n\n```html\n<!-- Projected native <picture> — published markup, crawlable + preloadable -->\n<esp-image original-width=\"1200\" original-height=\"800\" caption=\"A scenic mountain lake\">\n  <picture>\n    <source\n      srcset=\"https://picsum.photos/600/400 400w, https://picsum.photos/900/600 800w, https://picsum.photos/1200/800 1200w\"\n      sizes=\"100vw\"\n    />\n    <img src=\"https://picsum.photos/1200/800\" alt=\"A scenic mountain lake\" />\n  </picture>\n</esp-image>\n```\n\n```html\n<!-- esp-image-option children — editor / fallback form -->\n<esp-image\n  original-width=\"1200\"\n  original-height=\"800\"\n  low-res=\"https://picsum.photos/300/200\"\n  caption=\"A scenic mountain lake\"\n  sizes=\"100vw\"\n>\n  <esp-image-option width=\"400\" url=\"https://picsum.photos/600/400\"></esp-image-option>\n  <esp-image-option width=\"800\" url=\"https://picsum.photos/900/600\"></esp-image-option>\n  <esp-image-option width=\"1200\" url=\"https://picsum.photos/1200/800\"></esp-image-option>\n</esp-image>\n```\n\nOnce upgraded, the component measures its own width and updates `sizes` so a\ncard or gallery column does not over-fetch. The `sizes` attribute covers the\nserver-rendered initial fetch and the brief window before measurement:\n\n```html\n<esp-image\n  original-width=\"1200\"\n  original-height=\"800\"\n  low-res=\"https://picsum.photos/300/200\"\n  sizes=\"(max-width: 600px) 100vw, 320px\"\n  style=\"max-width: 320px;\"\n>\n  <esp-image-option width=\"320\" url=\"https://picsum.photos/640/427\"></esp-image-option>\n  <esp-image-option width=\"640\" url=\"https://picsum.photos/960/640\"></esp-image-option>\n</esp-image>\n```\n\nFor a long projected lazy-image list, `defer-offscreen` keeps the served\n`sizes` hint until an image approaches the viewport. This avoids replacing a\nsmall fallback selection with a larger candidate before the image can be\nseen. Eager projected images and every non-projected source keep the normal\nimmediate measured-size behavior.\n\nBanner mode gives all three source modes the same focal position, scrim,\ntexture, and semantic overlay stack. `ratio` applies at wide widths and\n`compact-ratio` below the component-relative compact threshold.\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  compact-ratio=\"3/2\"\n  focus=\"0.65 0.4\"\n  scrim=\"auto\"\n  scrim-strength=\"medium\"\n  content-position=\"bottom-start\"\n>\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Grow somewhere wonderful</h2>\n</esp-image>\n```\n\n`banner-scheme` sets the banner's polarity and defaults to the active\nscheme: a light page lightens the image behind dark text, a dark page\ndarkens it behind light text. Fix either polarity explicitly when a banner\nmust not follow the page scheme:\n\n```html\n<esp-image banner ratio=\"3/1\" banner-scheme=\"light\" focus=\"0.65 0.4\">\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Light banner: dark ink on a lifted image</h2>\n</esp-image>\n<esp-image banner ratio=\"3/1\" banner-scheme=\"dark\" focus=\"0.65 0.4\">\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n  <h2 slot=\"overlay\">Dark banner: light ink on a deepened image</h2>\n</esp-image>\n```\n\n### The scrim follows its content\n\nA directional scrim holds full strength over at least the first 20% of the\nframe, and further when the overlay content reaches past it, so every line\nof a long heading on a short card cover sits on the full-strength scrim. A\nradial scrim grows an opaque core that covers centered content. Overlays\nthat already fit the 20% band render exactly as before.\n\n```html\n<div style=\"max-width: 24rem\">\n  <esp-image banner ratio=\"3/1\" compact-ratio=\"16/9\" focus=\"0.65 0.4\">\n    <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n    <h3 slot=\"overlay\">A three-line title stays on the scrim however short the cover gets</h3>\n  </esp-image>\n</div>\n```\n\n### Meeting an adjoining band\n\nA directional scrim is capped by `scrim-strength`, so even `strong` leaves\nroughly a quarter of the photograph showing at the very edge it is anchored\nto. `scrim-edge=\"flush\"` paints that edge at full alpha and relaxes to the\nordinary strength over `--esp-image-scrim-edge-depth` (12% of the gradient\naxis by default), so a banner dissolves into a section band directly beneath\nit with no seam. Above that band the scrim is unchanged — `flush` is an edge\ntreatment, not a heavier veil over the subject.\n\nThe join is exact because both sides paint the same token: when\n`banner-scheme` resolves to the page scheme the scrim ink *is*\n`--esp-color-background`, which is what [esp-section](/components/section)\npaints its band with. Put the banner in a section with no padding, directly\nabove a section in the same context:\n\n```html\n<esp-section style=\"--esp-section-max-width: none; --esp-section-padding-inline: 0; --esp-section-padding-block: 0;\">\n  <esp-image banner ratio=\"3/1\" scrim=\"bottom\" scrim-strength=\"strong\" scrim-edge=\"flush\" focus=\"0.65 0.4\">\n    <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n    <h2 slot=\"overlay\">Grow somewhere wonderful</h2>\n  </esp-image>\n</esp-section>\n<esp-section>\n  <p>The banner's bottom edge and this band are the same color, so the photograph fades into the page rather than stopping at a line.</p>\n</esp-section>\n```\n\n`flush` is inert unless the *resolved* scrim is directional — an `auto`\nscrim that resolves to `top` or `bottom` picks it up, while `none`, `flat`,\nand `radial` ignore it, having no anchored edge for it to close.\n\nIt is its own attribute rather than a fourth `scrim-strength` because the two\nare independent: `scrim-strength` is how much veil sits over the subject,\n`scrim-edge` is whether the anchored edge completes. A light veil with a\nclosed edge is exactly the composition this exists for, and a strength step\ncould not express it.\n\nA seamless tile can bleed across the join too — any `background-image` value,\na tile the application serves, a data URI, or a gradient. Hand the edge the\nsame background the adjoining section paints and it tiles up over the\nphotograph, fading out over the same band:\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  scrim=\"bottom\"\n  scrim-edge=\"flush\"\n  style=\"--esp-image-scrim-edge-image: repeating-linear-gradient(45deg, oklch(0.55 0.08 255 / 0.18) 0 6px, transparent 6px 18px); --esp-image-scrim-edge-size: 18px 18px; --esp-image-scrim-edge-depth: 22%;\"\n>\n  <img src=\"/assets/focus-picker-unsplash.jpg\" alt=\"A woman standing in a sunlit field with her back to the camera\" />\n</esp-image>\n```\n\nThe component anchors its own side of the tile to the scrim's edge, so the\nbanner's last tile row ends exactly at the join. Continuity into the section\nbelow is the consumer's half of the contract: the same `background-size`,\nand a `top`-anchored `background-position` on the adjoining band.\n\nEvery procedural preset supports `fine`, `medium`, and `coarse` scales.\n\n### Dots\n\nA uniform tiled ink screen (shown at `fine`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"dots\" texture-scale=\"fine\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Halftone\n\nThe dot screen ramping toward the content edge (shown at `medium`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"halftone\" texture-scale=\"medium\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Paper\n\nSoft fractal-noise mottle, like printed stock (shown at `coarse`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"paper\" texture-scale=\"coarse\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Grain\n\nHigh-frequency film grain that also kills banding (shown at `fine`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"grain\" texture-scale=\"fine\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Grunge\n\nThresholded turbulence, a distressed ink wash (shown at `medium`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"grunge\" texture-scale=\"medium\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Scanlines\n\nHairline rules along the block axis (shown at `coarse`):\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"scanlines\" texture-scale=\"coarse\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Duotone\n\nThe photo mapped onto two theme-derived hues:\n\n```html\n<esp-image banner ratio=\"3/1\" texture=\"duotone\"><img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" /></esp-image>\n```\n\n### Consumer texture tokens\n\nAny `background-image` value — a tile the application serves, a data URI,\nor a gradient — can be wired directly through the public consumer-image\ntoken path (the optional `@taprootio/espalier/textures/banner-textures.css`\nstylesheet ships `.esp-texture-paper`/`-grain`/`-grunge` classes with the\ntiles inlined as data URIs, so nothing needs asset configuration):\n\n```html\n<esp-image\n  banner\n  ratio=\"3/1\"\n  style=\"--esp-image-texture-image: repeating-linear-gradient(45deg, oklch(0.1 0 0 / 0.2) 0 2px, transparent 2px 7px); --esp-image-texture-blend-mode: multiply;\"\n>\n  <img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" />\n</esp-image>\n```\n\n### Registered textures\n\nWiring those tokens on every banner is verbose and not reusable. The\napplication's texture vocabulary lives on [esp-root](/components/root):\nregister the look once — `registerImageTexture(name, definition)` from\nthe module, or the root's `registerTexture` static in script-only\ncontexts — and any banner under the root selects it by name. Live\nbanners re-render on registration, so markup order and registration\norder never race, and the root's `registeredTextures()` enumerates the\npresets for an editor's texture picker:\n\n```html\n<esp-image id=\"registered-texture-banner\" banner ratio=\"3/1\" texture=\"pressed-paper\">\n  <img src=\"/assets/canvas-bg.jpg\" alt=\"A colorful floral pattern\" />\n</esp-image>\n<script>\n  const banner = findById(\"registered-texture-banner\");\n  const root = banner.closest(\"esp-root\");\n  root.constructor.registerTexture(\"pressed-paper\", {\n    image:\n      \"repeating-linear-gradient(-45deg, oklch(1 0 0 / 0.3) 0 3px, transparent 3px 9px)\",\n    blendMode: \"soft-light\",\n    opacity: 0.9,\n  });\n</script>\n```",
           "name": "EspalierImage",
           "cssProperties": [
             {
@@ -37101,6 +37101,26 @@
             },
             {
               "kind": "field",
+              "name": "scrimObserver",
+              "type": {
+                "text": "ResizeObserver | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "description": "Watches everything the scrim's geometry depends on; see `observeScrimTargets`."
+            },
+            {
+              "kind": "field",
+              "name": "appliedScrimReach",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "The reach last written to the frame, so an unchanged measurement writes nothing."
+            },
+            {
+              "kind": "field",
               "name": "offscreenObserver",
               "type": {
                 "text": "IntersectionObserver | null"
@@ -37223,6 +37243,38 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "observeScrimTargets",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "(Re)arm the observer the scrim geometry depends on: the overlay region,\nwhose content box tracks the frame (it is inset to it) and shrinks with\n`--esp-image-overlay-padding`, and every element assigned to the overlay\nslot, which is what resizes when fonts load or text changes.\n\nObserving a target always delivers a first notification after the next\nlayout, so re-arming is also how a change that moves content without\nresizing anything (`content-position`, `scrim`) schedules a measurement,\nwithout reading layout here."
+            },
+            {
+              "kind": "method",
+              "name": "overlayElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "measureScrimReach",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Measure the overlay content against the frame and hand the result to CSS\nas `--_esp-image-scrim-reach`. This only runs from the observer's\ncallback, after layout, so the reads force nothing; the one write moves\ngradient stops and cannot resize anything observed, so it cannot loop."
             },
             {
               "kind": "method",
@@ -38569,6 +38621,103 @@
           "declaration": {
             "name": "imageTextureFilterId",
             "module": "dist/image/image-texture-filters.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/image/scrim-reach.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isMeasuredScrim",
+          "return": {
+            "type": {
+              "text": "scrim is MeasuredScrim"
+            }
+          },
+          "parameters": [
+            {
+              "name": "scrim",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "unionScrimBox",
+          "return": {
+            "type": {
+              "text": "ScrimBox | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "boxes",
+              "type": {
+                "text": "Iterable<ScrimBox | null>"
+              }
+            }
+          ],
+          "description": "The smallest box containing every non-empty box given, or `null` when none is."
+        },
+        {
+          "kind": "function",
+          "name": "scrimReach",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "scrim",
+              "type": {
+                "text": "MeasuredScrim"
+              }
+            },
+            {
+              "name": "frame",
+              "type": {
+                "text": "ScrimBox"
+              }
+            },
+            {
+              "name": "content",
+              "type": {
+                "text": "ScrimBox | null"
+              }
+            }
+          ],
+          "description": "How far a scrim's full-strength region must reach to cover `content` inside\n`frame`, as a percentage of the scrim's own gradient line: the frame's block\nor inline size for a directional scrim, the center-to-corner ray for\n`radial`. `0` leaves the recipe exactly as authored.\n\nA directional scrim only follows content that starts in its own half of the\nframe, and a radial scrim only content that covers the frame's center, so an\nexplicit `top` scrim over bottom-anchored content, or `radial` over a corner,\nkeeps its authored shape instead of turning into a full-frame veil. The result is rounded\nup so the covered region never falls a fraction of a pixel short."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isMeasuredScrim",
+          "declaration": {
+            "name": "isMeasuredScrim",
+            "module": "dist/image/scrim-reach.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "unionScrimBox",
+          "declaration": {
+            "name": "unionScrimBox",
+            "module": "dist/image/scrim-reach.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "scrimReach",
+          "declaration": {
+            "name": "scrimReach",
+            "module": "dist/image/scrim-reach.js"
           }
         }
       ]

@@ -117,6 +117,23 @@ export declare function parseImageRatio(value: string): string | null;
  * </esp-image>
  * ```
  *
+ * ### The scrim follows its content
+ *
+ * A directional scrim holds full strength over at least the first 20% of the
+ * frame, and further when the overlay content reaches past it, so every line
+ * of a long heading on a short card cover sits on the full-strength scrim. A
+ * radial scrim grows an opaque core that covers centered content. Overlays
+ * that already fit the 20% band render exactly as before.
+ *
+ * ```html
+ * <div style="max-width: 24rem">
+ *   <esp-image banner ratio="3/1" compact-ratio="16/9" focus="0.65 0.4">
+ *     <img src="/assets/focus-picker-unsplash.jpg" alt="A woman standing in a sunlit field with her back to the camera" />
+ *     <h3 slot="overlay">A three-line title stays on the scrim however short the cover gets</h3>
+ *   </esp-image>
+ * </div>
+ * ```
+ *
  * ### Meeting an adjoining band
  *
  * A directional scrim is capped by `scrim-strength`, so even `strong` leaves

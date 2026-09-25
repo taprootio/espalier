@@ -1,3 +1,12 @@
+# 4.20.1
+
+An image banner's scrim now follows the overlay content it protects, so every line of a long heading stays legible on a short banner.
+
+- **Fixed: text on a short or wide `esp-image` banner could run off its scrim.** Directional scrims held full strength over a fixed 20% of the frame and faded out by 78%, whatever the overlay contained, so a three-line heading on a 16:9 card cover put its first line where the scrim had nearly faded away, and that line's contrast depended on the photograph. The banner now measures its overlay content and holds the scrim at full strength until the content is covered, with the fade keeping its shape in the space beyond. This holds for the `top`, `bottom`, `left`, and `right` scrims, with any overlay padding, at the `compact-ratio`, with `scrim-edge="flush"`, and as the content changes size when fonts load, the text changes, or the banner resizes. The measurement watches the elements slotted into the overlay, so slot a changing heading directly rather than through a `display: contents` wrapper. An overlay that already fits inside the 20% band renders exactly as before.
+- **The radial scrim now covers centered content.** Its full-strength region used to be the exact center point, so centered text always sat on a fading scrim. It now grows an opaque core out to the overlay content's farthest corner. **Banners with centered overlay text look darker (or lighter, on a light banner) around the text as a result.**
+- An explicit scrim that does not sit behind the content, such as `scrim="top"` or `scrim="radial"` over `bottom-start` content, keeps its original shape rather than stretching into a veil over the whole photograph.
+- `prefers-reduced-transparency`, forced colors, and print treat the scrim as before.
+
 # 4.20.0
 
 Sections and pages stop failing accessibility audits they should pass: section decoration becomes an explicit opt-in, and page asides become landmarks only when they have content, each with its own name.
