@@ -62,8 +62,12 @@ export interface PageWorkspaceResizeDetail {
  * auxiliary panes contract and before main is reclaimed. The rail returns
  * only when doing so preserves the settled pane allocation.
  *
- * @slot sidebar - Contextual navigation placed in the left aside.
- * @slot right - Content to place in the right aside.
+ * @slot sidebar - Contextual navigation placed in the left aside. While the
+ * slot is empty the aside is not exposed as a landmark; with content it is a
+ * complementary landmark named by `sidebar-label`.
+ * @slot right - Content to place in the right aside. While the slot is empty
+ * the aside is not exposed as a landmark; with content it is a complementary
+ * landmark named by `right-label`.
  * @slot preview - Persistent preview content placed after the main surface and
  * before help. It grows from `--esp-page-preview-min-width` to
  * `--esp-page-preview-max-width`, starting at
@@ -516,6 +520,18 @@ export declare class EspalierPage extends EspalierElementBase {
      * actual presentation and the preview restores automatically when room returns.
      */
     previewOpen: boolean;
+    /**
+     * Accessible name for the sidebar's complementary landmark. The aside is
+     * exposed as a landmark only while the `sidebar` slot has content; keep
+     * the name distinct from `right-label` so the two can be told apart.
+     */
+    sidebarLabel: string;
+    /**
+     * Accessible name for the right aside's complementary landmark. The aside
+     * is exposed as a landmark only while the `right` slot has content; keep
+     * the name distinct from `sidebar-label` so the two can be told apart.
+     */
+    rightLabel: string;
     /** Accessible name for the preview's complementary landmark. */
     previewLabel: string;
     /**

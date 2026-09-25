@@ -1635,7 +1635,7 @@
     },
     {
       "name": "--esp-section-decoration-image",
-      "description": "Raster alpha mask painted behind the well. Defaults to `none`."
+      "description": "Raster alpha mask painted behind the well when `decoration` is set. Defaults to `none`."
     },
     {
       "name": "--esp-section-decoration-opacity",

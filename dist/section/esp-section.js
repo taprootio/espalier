@@ -1,11 +1,11 @@
-var c=function(i,o,t,n){var a=arguments.length,e=a<3?o:n===null?n=Object.getOwnPropertyDescriptor(o,t):n,s;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(i,o,t,n);else for(var l=i.length-1;l>=0;l--)(s=i[l])&&(e=(a<3?s(e):a>3?s(o,t,e):s(o,t))||e);return a>3&&e&&Object.defineProperty(o,t,e),e};import{css as d,html as v}from"lit";import{customElement as m}from"lit/decorators.js";import{EspalierElementBase as p}from"../shared/esp-element-base.js";import{renderVisualOverlay as u,visualOverlayStyles as y}from"../shared/visual-overlay.js";let r=class extends p{render(){return v`
+var p=function(r,t,o,n){var s=arguments.length,e=s<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,o):n,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(r,t,o,n);else for(var l=r.length-1;l>=0;l--)(a=r[l])&&(e=(s<3?a(e):s>3?a(t,o,e):a(t,o))||e);return s>3&&e&&Object.defineProperty(t,o,e),e};import{css as d,html as v,nothing as m}from"lit";import{customElement as u,property as h}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";import{renderVisualOverlay as y,visualOverlayStyles as f}from"../shared/visual-overlay.js";let i=class extends c{constructor(){super(...arguments),this.decoration=!1}render(){return v`
       <div class="esp-section" part="section">
-        ${u({className:"decoration"})}
+        ${this.decoration?y({className:"decoration"}):m}
         <div class="esp-section-well" part="well">
           <slot></slot>
         </div>
       </div>
-    `}};r.styles=[...p.styles,d`
+    `}};i.styles=[...c.styles,d`
       :host {
         display: block;
       }
@@ -40,4 +40,4 @@ var c=function(i,o,t,n){var a=arguments.length,e=a<3?o:n===null?n=Object.getOwnP
         position: relative;
         z-index: 1;
       }
-    `,y],r=c([m("esp-section")],r);export{r as EspalierSection};
+    `,f],p([h({type:Boolean,reflect:!0})],i.prototype,"decoration",void 0),i=p([u("esp-section")],i);export{i as EspalierSection};
