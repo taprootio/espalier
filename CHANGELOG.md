@@ -1,3 +1,12 @@
+# 4.20.2
+
+Explore the range of Espalier themes directly in the Theming guide.
+
+- The Theming guide now includes a gallery of twelve example light/dark theme pairs with copyable configurations (documentation only), distinct Google Fonts, color palettes, spacing, and surfaces. Color presets share the default categorical palette; monochrome presets use scheme-specific data colors. Choose a theme and apply it across the documentation, or reset to the documentation default. Saved gallery selections receive updated presets automatically, while later custom edits are preserved.
+- Monochrome gallery themes preserve green success, amber warning, red danger, and blue information colors so status intent remains recognizable.
+- The selected theme's description and copyable light/dark configuration appear immediately, including after applying a theme or reloading the guide.
+- Expanding `esp-details` with long code lines or wide content keeps the disclosure within its grid or flex container; overflowing content remains scrollable inside the disclosure.
+
 # 4.20.1
 
 An image banner's scrim now follows the overlay content it protects, so every line of a long heading stays legible on a short banner.

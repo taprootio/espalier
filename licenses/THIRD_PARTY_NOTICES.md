@@ -231,3 +231,12 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+## Documentation theme gallery fonts
+
+The documentation theme gallery self-hosts Google Fonts under the SIL Open
+Font License 1.1. Each family's original copyright and complete license notice
+is distributed beside its WOFF2 files in `assets/theme-gallery-fonts/*-OFL.txt`.
+Exact upstream URLs and SHA-256 checksums are recorded in
+`assets/theme-gallery-fonts/sources.json`. The font bytes are unmodified.
+These assets are documentation-only and are excluded from the npm package.
