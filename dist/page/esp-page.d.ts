@@ -174,8 +174,6 @@ export interface PageWorkspaceResizeDetail {
  * @cssprop --esp-page-well-max-width - The shared content-column width in
  * `kind="site"`: the header and footer alignment contract and every
  * `esp-section` well default to it. Defaults to `72rem`.
- * @cssprop --esp-page-max-width - Legacy fallback for
- * `--esp-page-main-max-width`.
  * @cssprop --esp-page-background-image - The background image to
  * display behind page content. Defaults to `none`.
  * @cssprop --esp-page-background-image-opacity - The opacity of the
@@ -236,12 +234,6 @@ export interface PageWorkspaceResizeDetail {
  * height. Defaults to `2px dashed var(--esp-color-link)`.
  * @cssprop --esp-page-resize-focus-shadow - Glow cast by the focused seam
  * line, in the line's color. Defaults to `0 0 0.75rem var(--esp-color-link)`.
- * @cssprop --esp-page-preview-width - Legacy fixed-width alias that pins both
- * preview bounds.
- * @cssprop --esp-page-flyout-width - Legacy fixed-width alias that pins both
- * help bounds.
- * @cssprop --esp-page-preview-min-main-width - Legacy fallback for
- * `--esp-page-main-min-width`.
  * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
  * headers. Defaults to `var(--esp-header-height)`.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
@@ -285,14 +277,14 @@ export interface PageWorkspaceResizeDetail {
  * ```
  *
  * Use `align` to place the surface within the page once it hits its cap,
- * and the canvas tokens to style the gutters. A low `--esp-page-max-width`
+ * and the canvas tokens to style the gutters. A low `--esp-page-main-max-width`
  * is set here only so the gutters are visible inside the narrow demo
  * frame; the surface edge shadow is on by default.
  *
  * ```html
  * <style>
  * esp-page.align-demo {
- *   --esp-page-max-width: 520px;
+ *   --esp-page-main-max-width: 520px;
  *   --esp-page-canvas-background: var(--esp-color-layer-1);
  * }
  * </style>
@@ -505,15 +497,8 @@ export declare class EspalierPage extends EspalierElementBase {
      * - `normal` lets the header scroll with content.
      * - `sticky` keeps the header stuck to the top after it reaches it.
      * - `fixed` pins the header to the viewport and offsets page content.
-     *
-     * `fixed-menus` remains as a compatibility alias for `fixed`.
      */
     headerPosition: HeaderPosition;
-    /**
-     * Compatibility alias for the original fixed header/sidebar behavior.
-     * Prefer `header-position="fixed"` for new code.
-     */
-    fixedMenus: boolean;
     /**
      * Whether the persistent preview is logically open. The page may keep the
      * preview hidden while space is unavailable; `preview-visible` reflects its

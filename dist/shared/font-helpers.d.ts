@@ -98,8 +98,6 @@ export type RuntimeGoogleFontLinkOptions = {
     family: string;
     weight?: string;
     enabled?: boolean;
-    /** Compatibility/debug attributes retained on the generated link. */
-    attributes?: Readonly<Record<string, string>>;
 };
 /** Build the canonical Google Fonts CSS2 URL used by roots and pickers. */
 export declare function googleFontStylesheetUrl(family: string, weight?: string): string;

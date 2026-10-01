@@ -37,6 +37,40 @@ export type EspalierFormField = {
  * </esp-box>
  * ```
  *
+ * ### Errors and assistive technology
+ *
+ * While an error shows — from `error`, the bound `errorPool`, or the
+ * control's own validation — the control's real focus target carries
+ * `aria-invalid="true"` and the error joins its accessible description,
+ * after the hint. A new or changed error is announced once through a polite
+ * status message; re-renders and clearing the error announce nothing. A
+ * warning joins the description the same way, without `aria-invalid` or an
+ * announcement. None of this changes how the error looks, and the required
+ * marker is unchanged.
+ *
+ * Choice controls (the radio-button and checkbox groups, `esp-checkbox`,
+ * `esp-switch`, and the pickers) clear an error from `error` or `errorPool`
+ * as soon as the visitor changes them, because the change answers the
+ * question the error asked. Text controls, the date picker, and the slider
+ * keep it until its owner changes it.
+ *
+ * ```html
+ * <esp-box class="demo-form">
+ *   <esp-form-item
+ *     label="Employer ID"
+ *     hint="Use the format XX-XXXXXXX."
+ *     error="Enter the ID in the format XX-XXXXXXX.">
+ *     <esp-input value="12345"></esp-input>
+ *   </esp-form-item>
+ * </esp-box>
+ * ```
+ *
+ * A screen reader on that field hears its name, "Employer ID", that it is
+ * invalid, and the description "Use the format XX-XXXXXXX. Enter the ID in
+ * the format XX-XXXXXXX." Plain native fields get the same treatment
+ * through IDREFs in their own tree; Espalier controls get it on the element
+ * inside their shadow root that takes focus.
+ *
  * @slot - The single form control the item wraps.
  * @slot hint - Rich hint content; replaces the `hint` attribute text when present.
  *
@@ -201,6 +235,7 @@ export declare class EspalierFormItem extends LitElement {
     get errorPool(): Array<ValidationError>;
     set errorPool(errors: Array<ValidationError>);
     protected firstUpdated(): void;
+    protected willUpdate(changed: PropertyValues): void;
     protected updated(changed: PropertyValues): void;
     connectedCallback(): void;
     disconnectedCallback(): void;

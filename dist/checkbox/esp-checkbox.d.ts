@@ -31,6 +31,30 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  * </esp-box>
  * ```
  *
+ * ### Errors
+ *
+ * Inside an `esp-form-item`, a checkbox that shows an error is
+ * `aria-invalid="true"`, the error joins its description after any hint,
+ * and the error is announced once. In an `esp-checkbox-group`, the group
+ * carries all of this instead, and takes the form item's `label` as its
+ * accessible name. Checking or unchecking clears an error set through the
+ * form item's `error` or `errorPool`; a `required` checkbox or group raises
+ * its own error again when it is left empty.
+ *
+ * ```html
+ * <esp-box>
+ *   <esp-form-item label="Terms" error="Accept the terms to continue.">
+ *     <esp-checkbox value="agree">I agree to the terms</esp-checkbox>
+ *   </esp-form-item>
+ *   <esp-form-item label="Pizza toppings" hint="Pick up to three." error="Choose at least one topping.">
+ *     <esp-checkbox-group required>
+ *       <esp-checkbox value="cheese">Cheese</esp-checkbox>
+ *       <esp-checkbox value="basil">Basil</esp-checkbox>
+ *     </esp-checkbox-group>
+ *   </esp-form-item>
+ * </esp-box>
+ * ```
+ *
  * @slot - The label text for the checkbox.
  *
  * @event {CustomEvent<{ checked: boolean; value: string }>} esp-value-changed -

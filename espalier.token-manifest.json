@@ -1996,12 +1996,6 @@
       "description": "Minimum in-grid help width. Defaults to `20rem`."
     },
     {
-      "name": "--esp-page-flyout-width",
-      "category": "component",
-      "component": "esp-page",
-      "description": "Legacy fixed-width alias that pins both help bounds."
-    },
-    {
       "name": "--esp-page-header-z-index",
       "category": "component",
       "component": "esp-page",
@@ -2024,12 +2018,6 @@
       "category": "component",
       "component": "esp-page",
       "description": "Minimum width of the main content well while preview or in-grid help competes for space. Defaults to `30rem`."
-    },
-    {
-      "name": "--esp-page-max-width",
-      "category": "component",
-      "component": "esp-page",
-      "description": "Legacy fallback for `--esp-page-main-max-width`."
     },
     {
       "name": "--esp-page-preview-background",
@@ -2056,12 +2044,6 @@
       "description": "Maximum preview width. Defaults to `48rem`. Preview receives flexible trailing space before help grows."
     },
     {
-      "name": "--esp-page-preview-min-main-width",
-      "category": "component",
-      "component": "esp-page",
-      "description": "Legacy fallback for `--esp-page-main-min-width`."
-    },
-    {
       "name": "--esp-page-preview-min-width",
       "category": "component",
       "component": "esp-page",
@@ -2072,12 +2054,6 @@
       "category": "component",
       "component": "esp-page",
       "description": "Shadow cast from the preview's trailing edge. Defaults to the page surface edge shadow. Set to `none` for a flat additive surface."
-    },
-    {
-      "name": "--esp-page-preview-width",
-      "category": "component",
-      "component": "esp-page",
-      "description": "Legacy fixed-width alias that pins both preview bounds."
     },
     {
       "name": "--esp-page-resize-focus-outline",
@@ -3023,6 +2999,66 @@
       "name": "--esp-vellum-opacity",
       "category": "root-theme",
       "description": ""
+    },
+    {
+      "name": "--esp-video-accent",
+      "category": "component",
+      "component": "esp-video",
+      "description": "`accent-color` for the native controls, where the browser honors it. Defaults to `var(--esp-color-primary)`."
+    },
+    {
+      "name": "--esp-video-border-radius",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Corner radius. Defaults to `var(--esp-size-border-radius)`."
+    },
+    {
+      "name": "--esp-video-focus-outline",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Focus-visible outline on the play button, the video, and the error message. Defaults to `3px solid var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-video-message-background",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Error message background. Defaults to `var(--esp-color-background)`."
+    },
+    {
+      "name": "--esp-video-message-color",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Error message text color. Defaults to `var(--esp-color-text)`."
+    },
+    {
+      "name": "--esp-video-object-fit",
+      "category": "component",
+      "component": "esp-video",
+      "description": "How the video fills its box. Defaults to `contain`; the poster always covers."
+    },
+    {
+      "name": "--esp-video-play-background",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Fill of the play disc. Defaults to `var(--esp-color-background)` at 90% opacity."
+    },
+    {
+      "name": "--esp-video-play-color",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Play glyph and loading-indicator color. Defaults to `var(--esp-color-text)`."
+    },
+    {
+      "name": "--esp-video-play-size",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Diameter of the play disc. Defaults to `var(--esp-size-huge)`."
+    },
+    {
+      "name": "--esp-video-surface",
+      "category": "component",
+      "component": "esp-video",
+      "description": "Background behind the video and an absent poster. Defaults to a near-black derived from `--esp-color-text`."
     }
   ],
   "patterns": [

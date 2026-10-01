@@ -19,7 +19,7 @@ var l=function(u,e,t,s){var o=arguments.length,r=o<3?e:s===null?s=Object.getOwnP
   inset-inline-end: 0;
   block-size: auto;
   max-block-size: none;
-  width: min(var(--esp-page-flyout-width, var(--esp-page-flyout-max-width, 30rem)), 85vw);
+  width: min(var(--esp-page-flyout-max-width, 30rem), 85vw);
   overflow-y: auto;
   
   border-start-end-radius: 0;
@@ -58,10 +58,7 @@ var l=function(u,e,t,s){var o=arguments.length,r=o<3?e:s===null?s=Object.getOwnP
       :host([open]) {
         display: block;
         
-        width: var(
-          --_esp-flyout-used-width,
-          var(--esp-page-flyout-width, var(--esp-page-flyout-min-width, 20rem))
-        );
+        width: var(--_esp-flyout-used-width, var(--esp-page-flyout-min-width, 20rem));
         margin-block-start: calc(
           var(--_esp-flyout-anchor-offset, 0px) - var(--_esp-flyout-viewport-shift, 0px)
         );
@@ -74,10 +71,7 @@ var l=function(u,e,t,s){var o=arguments.length,r=o<3?e:s===null?s=Object.getOwnP
       .panel {
         background: var(--esp-flyout-background, var(--esp-color-background));
         
-        width: var(
-          --_esp-flyout-used-width,
-          var(--esp-page-flyout-width, var(--esp-page-flyout-min-width, 20rem))
-        );
+        width: var(--_esp-flyout-used-width, var(--esp-page-flyout-min-width, 20rem));
         display: flex;
         flex-direction: column;
         position: relative;

@@ -63,6 +63,23 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * </esp-box>
  * ```
  *
+ * ### Decimal numbers
+ *
+ * A number input's native step defaults to `1`, which rejects every decimal.
+ * Set `step="any"` to accept any decimal, or a numeric step such as `0.01`
+ * to limit precision.
+ *
+ * ```html
+ * <esp-box>
+ *   <esp-form-item label="Weight (kg)" hint="Any decimal, such as 2.75.">
+ *     <esp-input input-type="number" step="any" min="0"></esp-input>
+ *   </esp-form-item>
+ *   <esp-form-item label="Price" hint="To the cent.">
+ *     <esp-input input-type="number" step="0.01" min="0"></esp-input>
+ *   </esp-form-item>
+ * </esp-box>
+ * ```
+ *
  * ### Telephone with locale-aware formatting
  *
  * The `tel` type uses phone localities to parse and format phone
@@ -368,11 +385,20 @@ export declare class EspalierInput extends EspalierElementBase implements Espali
      */
     max: string | undefined;
     /**
-     * Step value for `input-type="number"`.
+     * Step value for `input-type="number"`. `"any"` (as an attribute or the
+     * property) allows any decimal: without it the native default step of `1`
+     * flags every decimal as a step mismatch. Numeric steps are passed through
+     * unchanged.
      *
-     * @type {number | undefined}
+     * ```html
+     * <esp-form-item label="Weight (kg)">
+     *   <esp-input input-type="number" step="any" min="0"></esp-input>
+     * </esp-form-item>
+     * ```
+     *
+     * @type {number | "any" | undefined}
      */
-    step: number | undefined;
+    step: number | "any" | undefined;
     /**
      * Hint the browser about which virtual keyboard to show.
      * When not set, a sensible default is chosen based on

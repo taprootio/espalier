@@ -1,6 +1,7 @@
 import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type FocusPoint } from "./image-focus.js";
+import { parseImageRatio } from "./image-ratio.js";
 import "./esp-image-option.js";
 export type ImageScrim = "auto" | "none" | "flat" | "top" | "bottom" | "left" | "right" | "radial";
 export type ImageScrimStrength = "soft" | "medium" | "strong";
@@ -9,8 +10,7 @@ export type ImageTexture = "none" | "dots" | "halftone" | "paper" | "grain" | "g
 export type ImageTextureScale = "fine" | "medium" | "coarse";
 export type ImageBannerScheme = "auto" | "light" | "dark";
 export type ImageContentPosition = "bottom-start" | "bottom" | "bottom-end" | "center" | "top-start" | "top" | "top-end";
-/** Resolve a supported CSS aspect-ratio string, or null when it is invalid. */
-export declare function parseImageRatio(value: string): string | null;
+export { parseImageRatio };
 /**
  * A responsive image with a native `<picture>` and an optional
  * focal-point-aware banner mode.

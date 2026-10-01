@@ -31,6 +31,12 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  * </esp-box>
  * ```
  *
+ * Inside an `esp-form-item`, the group's `radiogroup` element takes the form
+ * item's `label` as its accessible name and its hint as its description.
+ * While the form item shows an error, that element is `aria-invalid="true"`
+ * and the error joins its description after the hint. Each option keeps its
+ * own label and is not described separately.
+ *
  * @slot - Place `esp-radio-button` elements in the default slot.
  *
  * @event {CustomEvent<string>} esp-value-changed - Fired when the

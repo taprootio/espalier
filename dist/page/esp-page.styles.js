@@ -1,29 +1,11 @@
 import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"../shared/esp-element-base.js";import{COMPACT_VIEWPORT_MEDIA_QUERY as t}from"../shared/responsive.js";const n=[...i.styles,a`
     :host {
-      --_esp-page-resolved-max-width: var(
-        --esp-page-main-max-width,
-        var(--esp-page-max-width, 1536px)
-      );
-      --_esp-page-main-min-width: var(
-        --esp-page-main-min-width,
-        var(--esp-page-preview-min-main-width, 30rem)
-      );
-      --_esp-page-preview-resolved-min-width: var(
-        --esp-page-preview-width,
-        var(--esp-page-preview-min-width, 22.5rem)
-      );
-      --_esp-page-preview-resolved-max-width: var(
-        --esp-page-preview-width,
-        var(--esp-page-preview-max-width, 48rem)
-      );
-      --_esp-page-flyout-resolved-min-width: var(
-        --esp-page-flyout-width,
-        var(--esp-page-flyout-min-width, 20rem)
-      );
-      --_esp-page-flyout-resolved-max-width: var(
-        --esp-page-flyout-width,
-        var(--esp-page-flyout-max-width, 30rem)
-      );
+      --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 1536px);
+      --_esp-page-main-min-width: var(--esp-page-main-min-width, 30rem);
+      --_esp-page-preview-resolved-min-width: var(--esp-page-preview-min-width, 22.5rem);
+      --_esp-page-preview-resolved-max-width: var(--esp-page-preview-max-width, 48rem);
+      --_esp-page-flyout-resolved-min-width: var(--esp-page-flyout-min-width, 20rem);
+      --_esp-page-flyout-resolved-max-width: var(--esp-page-flyout-max-width, 30rem);
       --_esp-page-preview-used-width: 0px;
       --_esp-page-flyout-used-width: 0px;
       --_esp-page-workspace-track: minmax(
@@ -57,10 +39,7 @@ import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"..
     }
 
     :host([kind="narrow"]) {
-      --_esp-page-resolved-max-width: var(
-        --esp-page-main-max-width,
-        var(--esp-page-max-width, 768px)
-      );
+      --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 768px);
     }
 
     :host([align="center"]) {
@@ -75,10 +54,7 @@ import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"..
 
     
     :host([kind="full"]) {
-      --_esp-page-resolved-max-width: var(
-        --esp-page-main-max-width,
-        var(--esp-page-max-width, none)
-      );
+      --_esp-page-resolved-max-width: var(--esp-page-main-max-width, none);
     }
 
     :host([kind="full"]:not([data-main-max-configured])) {

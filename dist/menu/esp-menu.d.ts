@@ -173,9 +173,6 @@ export declare class EspalierMenu extends EspalierElementBase {
      */
     get sliding(): boolean;
     set sliding(value: boolean);
-    /** Compatibility alias for the old vertical menu drawer state. */
-    get collapsed(): boolean;
-    set collapsed(value: boolean);
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected firstUpdated(props: PropertyValues): void;
@@ -191,8 +188,6 @@ export declare class EspalierMenu extends EspalierElementBase {
     closeDrawer(): void;
     /** Toggle the drawer overlay open or closed. */
     toggleDrawer(trigger?: HTMLElement | null): void;
-    /** Compatibility alias used by the old header menu integration. */
-    toggleOpened(): void;
     /** Whether the drawer is currently open. */
     get isDrawerOpen(): boolean;
     /** Width needed by the inline rail, used by `esp-header`. */

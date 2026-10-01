@@ -36,6 +36,7 @@ export * from "./footer/index.js";
 export * from "./grid/esp-grid.js";
 export * from "./image/esp-image.js";
 export * from "./image/image-focus.js";
+export * from "./video/esp-video.js";
 export * from "./lightbox/esp-lightbox.js";
 export * from "./info/esp-info.js";
 export * from "./input/esp-input.js";
@@ -72,7 +73,7 @@ export { requestHelp, type HelpRequest, type HelpState } from "./shared/help-eve
 export { getEspBus, type EspBusEventMap, type SchemeEvents, type ToastEvents, type FlyoutEvents, type HelpEvents, type PopoverEvents, type SizeEvents, type PageEventMap, type SeedColorRoot, } from "./shared/bus-events.js";
 export * from "./shared/events.js";
 export { getImageDetails, releasePreviewUrl, type EspalierUploadImage, type ImageDetailsOptions, type SelectedUploadImage, type ExistingUploadImage, type ExistingImage, type ResponsiveImageUrl, type UploadCallbacks, type UploadEventDetail, } from "./image-upload/image-helpers.js";
-export { calculateAlbumLayout, calculatePhotoLayout, DEFAULT_ALBUM_MAX_ROW_HEIGHT_VH, normalizeAlbumMaxRowHeightVh, normalizeMaxImagesPerRow, type AlbumLayoutItem, type AlbumLayoutOptions, type AlbumLayoutRow, type LayoutImage, type PhotoRow, } from "./shared/justified-layout.js";
+export { calculateAlbumLayout, DEFAULT_ALBUM_MAX_ROW_HEIGHT_VH, normalizeAlbumMaxRowHeightVh, normalizeMaxImagesPerRow, type AlbumLayoutItem, type AlbumLayoutOptions, type AlbumLayoutRow, type LayoutImage, } from "./shared/justified-layout.js";
 export { type TypeaheadFetchItems } from "./pickers/types.js";
 export { type EspalierTheme, type LightnessKey, type LightnessReference, type PartialTheme, type PartialThemeContexts, type PartialThemeTones, type ThemeContext, type ThemeContexts, type ThemeTones, type ToneReference, type VariantColorSource, encodeTheme, parseTheme, mergePartials, layerThemes, validateThemePair, resolveContextTheme, isObjectRecord, isSemanticColorName, buildTaprootLightTheme, buildTaprootDarkTheme, NESTED_THEME_KEYS, } from "./shared/theme.js";
 export { auditDataPalette, describePaletteCollision, generateSequentialRamp, generateDivergingRamp, COLOR_VISION_SIMULATIONS, DATA_SERIES_KEYS, DEFAULT_DATA_PALETTE, DEFAULT_DATA_RAMP_STEPS, DEFAULT_DIVERGING_NEUTRAL, MAX_DATA_RAMP_STEPS, MIN_DATA_COLOR_DISTANCE, MIN_DATA_RAMP_LIGHTNESS_STEP, MIN_DATA_RAMP_STEPS, type ColorVisionSimulation, type DataPalette, type DataPaletteIssue, type DataRamp, type DataRamps, type DataSeriesKey, type DivergingDataRamp, type DivergingRampOptions, type PartialDataRamp, type PartialDataRamps, type SequentialDataRamp, type SequentialRampOptions, } from "./shared/data-colors.js";

@@ -124,7 +124,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * footer's content should also span the entire bar:
  *
  * ```html
- * <esp-page align="center" style="--esp-page-max-width: 36rem;">
+ * <esp-page align="center" style="--esp-page-main-max-width: 36rem;">
  *   <main>Surface-aligned page content</main>
  *   <esp-footer slot="footer" brand-text="Aligned Studio" columns="3">
  *     <esp-footer-link-group heading="Explore">

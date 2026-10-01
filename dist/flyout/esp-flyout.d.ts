@@ -193,7 +193,7 @@ import { type FlyoutCloseReason } from "../shared/flyout-events.js";
  * ```html
  * <style>
  * esp-page.flyout-bus-demo {
- *   --esp-page-max-width: 420px;
+ *   --esp-page-main-max-width: 420px;
  *   &::part(wrapper) {
  *     min-height: 320px;
  *   }

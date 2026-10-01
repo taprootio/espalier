@@ -29,6 +29,28 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  * </esp-box>
  * ```
  *
+ * ### Group name and errors
+ *
+ * Inside an `esp-form-item`, the group's `radiogroup` takes the form item's
+ * `label` as its accessible name and its hint as its description, so no
+ * wrapper `role="group"` or `aria-labelledby` is needed. While the form item
+ * shows an error, the `radiogroup` is `aria-invalid="true"`, the error joins
+ * its description after the hint, and the error is announced once. Each
+ * radio button keeps its own label. A choice clears an error set through the
+ * form item's `error` or `errorPool`, since a radio choice cannot be undone;
+ * pick an option below to see it.
+ *
+ * ```html
+ * <esp-box>
+ *   <esp-form-item label="Delivery speed" hint="Express ships the same day." error="Choose a delivery speed.">
+ *     <esp-radio-button-group required>
+ *       <esp-radio-button value="standard">Standard</esp-radio-button>
+ *       <esp-radio-button value="express">Express</esp-radio-button>
+ *     </esp-radio-button-group>
+ *   </esp-form-item>
+ * </esp-box>
+ * ```
+ *
  * @slot - The label text for the radio button.
  *
  * @event {CustomEvent<{ checked: boolean; value: string }>} esp-value-changed -

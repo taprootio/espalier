@@ -1,0 +1,1 @@
+function s(i){const r=(i??"").trim();if(!r)return null;const n=r.split("/").map(e=>e.trim());if(n.length>2||n.some(e=>e.length===0))return null;const t=n.map(Number);return t.some(e=>!Number.isFinite(e)||e<=0)?null:t.length===1?String(t[0]):`${t[0]} / ${t[1]}`}export{s as parseImageRatio};

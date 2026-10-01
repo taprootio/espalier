@@ -1398,10 +1398,6 @@
       "description": "Minimum in-grid help width. Defaults to `20rem`."
     },
     {
-      "name": "--esp-page-flyout-width",
-      "description": "Legacy fixed-width alias that pins both help bounds."
-    },
-    {
       "name": "--esp-page-header-z-index",
       "description": "Z-index for fixed/sticky header regions. Defaults to `20`."
     },
@@ -1416,10 +1412,6 @@
     {
       "name": "--esp-page-main-min-width",
       "description": "Minimum width of the main content well while preview or in-grid help competes for space. Defaults to `30rem`."
-    },
-    {
-      "name": "--esp-page-max-width",
-      "description": "Legacy fallback for `--esp-page-main-max-width`."
     },
     {
       "name": "--esp-page-preview-background",
@@ -1438,20 +1430,12 @@
       "description": "Maximum preview width. Defaults to `48rem`. Preview receives flexible trailing space before help grows."
     },
     {
-      "name": "--esp-page-preview-min-main-width",
-      "description": "Legacy fallback for `--esp-page-main-min-width`."
-    },
-    {
       "name": "--esp-page-preview-min-width",
       "description": "Minimum preview width. Defaults to `22.5rem` (360px, a reasonable mobile-device surface)."
     },
     {
       "name": "--esp-page-preview-shadow",
       "description": "Shadow cast from the preview's trailing edge. Defaults to the page surface edge shadow. Set to `none` for a flat additive surface."
-    },
-    {
-      "name": "--esp-page-preview-width",
-      "description": "Legacy fixed-width alias that pins both preview bounds."
     },
     {
       "name": "--esp-page-resize-focus-outline",
@@ -2120,6 +2104,46 @@
     {
       "name": "--esp-vellum-opacity",
       "description": ""
+    },
+    {
+      "name": "--esp-video-accent",
+      "description": "`accent-color` for the native controls, where the browser honors it. Defaults to `var(--esp-color-primary)`."
+    },
+    {
+      "name": "--esp-video-border-radius",
+      "description": "Corner radius. Defaults to `var(--esp-size-border-radius)`."
+    },
+    {
+      "name": "--esp-video-focus-outline",
+      "description": "Focus-visible outline on the play button, the video, and the error message. Defaults to `3px solid var(--esp-color-link)`."
+    },
+    {
+      "name": "--esp-video-message-background",
+      "description": "Error message background. Defaults to `var(--esp-color-background)`."
+    },
+    {
+      "name": "--esp-video-message-color",
+      "description": "Error message text color. Defaults to `var(--esp-color-text)`."
+    },
+    {
+      "name": "--esp-video-object-fit",
+      "description": "How the video fills its box. Defaults to `contain`; the poster always covers."
+    },
+    {
+      "name": "--esp-video-play-background",
+      "description": "Fill of the play disc. Defaults to `var(--esp-color-background)` at 90% opacity."
+    },
+    {
+      "name": "--esp-video-play-color",
+      "description": "Play glyph and loading-indicator color. Defaults to `var(--esp-color-text)`."
+    },
+    {
+      "name": "--esp-video-play-size",
+      "description": "Diameter of the play disc. Defaults to `var(--esp-size-huge)`."
+    },
+    {
+      "name": "--esp-video-surface",
+      "description": "Background behind the video and an absent poster. Defaults to a near-black derived from `--esp-color-text`."
     }
   ]
 }

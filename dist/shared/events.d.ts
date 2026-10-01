@@ -32,6 +32,7 @@ export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
 export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
+export { type VideoAdapter, type VideoErrorDetail, type VideoErrorReason, type VideoPlayDetail, type VideoReadyDetail, type VideoSourceMode, } from "../video/esp-video.js";
 export { type PageWorkspaceResizeDetail, type PageWorkspaceResizeSource, type PageWorkspaceSeparator, } from "../page/esp-page.js";
 import type { EspalierDetails } from "../details/esp-details.js";
 import type { ActionMenuSelectDetail } from "../action-menu/esp-action-menu.js";
@@ -40,6 +41,7 @@ import type { FlyoutCloseReason } from "./flyout-events.js";
 import { type ValidityChangedDetail } from "./validation.js";
 import type { GridClickedEvent, GridItemsChangedEventDetail, GridLoadErrorEventDetail, GridLoadStartEventDetail, GridLoadSuccessEventDetail } from "../grid/esp-grid.js";
 import type { DestroyEspalierInfo } from "../info/esp-info.js";
+import type { VideoErrorDetail, VideoPlayDetail, VideoReadyDetail } from "../video/esp-video.js";
 import type { PickerItem } from "../pickers/esp-picker-item.js";
 import type { EspalierUploadImage, UploadEventDetail } from "../image-upload/image-helpers.js";
 export type { UploadEventDetail } from "../image-upload/image-helpers.js";
@@ -121,6 +123,9 @@ export declare const ESP_EVENTS: {
     readonly TREE_CUT: "esp-tree-cut";
     readonly TREE_PASTE_CHILD: "esp-tree-paste-child";
     readonly TREE_GRAFT_INPUT: "esp-tree-graft-input";
+    readonly VIDEO_READY: "esp-video-ready";
+    readonly VIDEO_PLAY: "esp-video-play";
+    readonly VIDEO_ERROR: "esp-video-error";
 };
 /**
  * Detail for `esp-value-changed` on toggle controls
@@ -476,4 +481,10 @@ export interface EspalierTreeEventMap {
     [ESP_EVENTS.TREE_CUT]: CustomEvent<EspTreeNodeActionDetail>;
     [ESP_EVENTS.TREE_PASTE_CHILD]: CustomEvent<EspTreeNodeActionDetail>;
     [ESP_EVENTS.TREE_GRAFT_INPUT]: CustomEvent<EspTreeGraftInputDetail>;
+}
+/** Events fired by `<esp-video>`. */
+export interface EspalierVideoEventMap {
+    [ESP_EVENTS.VIDEO_READY]: CustomEvent<VideoReadyDetail>;
+    [ESP_EVENTS.VIDEO_PLAY]: CustomEvent<VideoPlayDetail>;
+    [ESP_EVENTS.VIDEO_ERROR]: CustomEvent<VideoErrorDetail>;
 }
