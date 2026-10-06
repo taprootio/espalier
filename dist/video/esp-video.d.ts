@@ -8,25 +8,16 @@ export type VideoPreload = "none" | "metadata" | "auto";
 export type VideoControls = "native" | "none";
 export type VideoCrossOrigin = "" | "anonymous" | "use-credentials";
 /**
- * Attaches a stream the browser cannot play natively to the element's
- * `<video>`. Called with the video element and the `src` URL; returns, or
- * resolves to, a teardown function the element calls when the source goes
- * away. A rejection (or a synchronous throw) is a failed attach.
+ * How the playing source reached the video: `native` is playing `src`, and
+ * `fallback` is playing `fallback-src`.
  */
-export type VideoAdapter = (video: HTMLVideoElement, src: string) => Promise<() => void> | (() => void);
+export type VideoSourceMode = "native" | "fallback";
 /**
- * How the playing source reached the video: `native` set `src` directly,
- * `adapter` went through the host's adapter, and `fallback` is playing
- * `fallback-src`.
+ * Why playback failed: `unsupported` when no `src` is set, or the browser
+ * cannot play `type`, and there is no fallback; `media` when the video element
+ * reported an error while loading or playing.
  */
-export type VideoSourceMode = "native" | "adapter" | "fallback";
-/**
- * Why playback failed: `unsupported` when no `src` is set (and no fallback),
- * or nothing could play `type` (no native support, no adapter, no fallback), `adapter` when the adapter rejected or
- * threw, and `media` when the video element reported an error while loading
- * or playing.
- */
-export type VideoErrorReason = "unsupported" | "adapter" | "media";
+export type VideoErrorReason = "unsupported" | "media";
 /**
  * Detail of `esp-video-ready` on `esp-video`.
  *
@@ -97,26 +88,13 @@ export interface VideoErrorDetail {
  * ></esp-video>
  * ```
  *
- * ### Streaming
+ * ### Sources
  *
- * `src` is an HLS master playlist by default. Where the browser plays HLS
- * natively (Safari, iOS, current Chrome) the element sets `src` and plays.
- * Where it does not, the element calls the host's `adapter` once, on first
- * play intent, and the host attaches a streaming library such as hls.js.
- * Espalier itself carries no player dependency. Without an adapter,
- * `fallback-src` (an MP4) plays instead. The Video guide has a copy-ready
- * hls.js adapter, with error handling, and the full lifecycle.
- *
- * ```js
- * import { EspalierVideo } from "@taprootio/espalier/video";
- * EspalierVideo.defaultAdapter = async (video, src) => {
- *   const { default: Hls } = await import("hls.js");
- *   const hls = new Hls();
- *   hls.loadSource(src);
- *   hls.attachMedia(video);
- *   return () => hls.destroy();
- * };
- * ```
+ * The element plays `src` only where the browser reports it can play `type`.
+ * `type` is an HLS master playlist by default, which Safari, iOS, and current
+ * Chrome play natively; elsewhere `fallback-src` (an MP4) plays instead.
+ * Espalier attaches no streaming library, so for a source every browser can
+ * play, set `type="video/mp4"`.
  *
  * ### Captions
  *
@@ -176,17 +154,11 @@ export interface VideoErrorDetail {
  * @menuIcon photo
  */
 export declare class EspalierVideo extends EspalierElementBase {
-    /**
-     * The adapter used by every `esp-video` whose own `adapter` is unset.
-     * Register it once, before any video can receive a play intent — in the
-     * same module that imports Espalier is early enough, even for `autoplay`.
-     */
-    static defaultAdapter: VideoAdapter | null;
     /** The media URL: an HLS master playlist by default, or a file matching `type`. */
     src: string;
     /**
      * The media type of `src`, checked with `canPlayType` to choose between
-     * native playback and the adapter. `video/mp4` plays as a plain file.
+     * `src` and `fallback-src`. `video/mp4` plays as a plain file.
      */
     type: string;
     /** Poster image URL, shown until playback starts and behind error messages. */
@@ -206,9 +178,8 @@ export declare class EspalierVideo extends EspalierElementBase {
     /**
      * How much media to load before play intent. `none` (the default) loads
      * only the poster. `metadata` and `auto` apply where the browser plays
-     * `type` natively; an adapter stream, and the choice of the fallback over
-     * it, still wait for play intent. A natively preloaded source that fails
-     * switches to `fallback-src` at once.
+     * `type`; the choice of the fallback over it still waits for play intent.
+     * A preloaded source that fails switches to `fallback-src` at once.
      */
     preload: VideoPreload;
     /** Start muted playback once admitted. Implies `muted`. */
@@ -237,8 +208,8 @@ export declare class EspalierVideo extends EspalierElementBase {
      */
     deferOffscreen: boolean;
     /**
-     * An MP4 played when `type` cannot play natively and no adapter is
-     * available, and tried once when the primary source fails.
+     * An MP4 played when the browser cannot play `type`, and tried once when
+     * the primary source fails.
      */
     fallbackSrc: string;
     /**
@@ -246,12 +217,6 @@ export declare class EspalierVideo extends EspalierElementBase {
      * for caption tracks served from another origin.
      */
     crossOrigin: VideoCrossOrigin;
-    /**
-     * Attaches a stream the browser cannot play natively; see `VideoAdapter`.
-     * Called once per source, on first play intent, only when `canPlayType`
-     * reports `type` unplayable. Falls back to `EspalierVideo.defaultAdapter`.
-     */
-    adapter: VideoAdapter | null;
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected willUpdate(changedProperties: PropertyValues): void;

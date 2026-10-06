@@ -37,6 +37,10 @@ import { EspalierPickerBase } from "./esp-picker-base.js";
  * </esp-box>
  * ```
  *
+ * An item's `text`, `icon`, and `styles` may change after it is selected (a
+ * placeholder label replaced once its data loads, say), and the picker shows
+ * the new label; the selection follows the item's `value`.
+ *
  * ### Variable-height items
  *
  * Items with longer text wrap naturally. The menu sizes itself

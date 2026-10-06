@@ -32,7 +32,7 @@ export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
 export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
-export { type VideoAdapter, type VideoErrorDetail, type VideoErrorReason, type VideoPlayDetail, type VideoReadyDetail, type VideoSourceMode, } from "../video/esp-video.js";
+export { type VideoErrorDetail, type VideoErrorReason, type VideoPlayDetail, type VideoReadyDetail, type VideoSourceMode, } from "../video/esp-video.js";
 export { type PageWorkspaceResizeDetail, type PageWorkspaceResizeSource, type PageWorkspaceSeparator, } from "../page/esp-page.js";
 import type { EspalierDetails } from "../details/esp-details.js";
 import type { ActionMenuSelectDetail } from "../action-menu/esp-action-menu.js";
