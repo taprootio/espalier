@@ -1,3 +1,13 @@
+# 6.2.0
+
+Banners gain a soft height contract, so a banner capped to the first fold or filling the viewport never clips its copy.
+
+- **New: `--esp-image-banner-max-block-size`**, a soft cap. A banner is the smaller of its ratio height and the cap while its copy fits, exactly as with the same `max-block-size`, and grows past the cap when the copy (with its spacing) would not fit, giving the cap back once it does.
+- **New: `--esp-image-banner-block-size`**, a soft target that replaces the ratio as the banner height (viewport-fill banners), and that copy grows the banner past in the same way.
+- In the compact band (`compact-placement="below"`), the soft properties size only the image box and the band adds below it, so band copy is never clipped.
+- `@taprootio/espalier/image/banner-static.css` reads both properties, so server-rendered banners lay out the same before and after upgrade (where container style queries exist: Chrome and Safari 18+; elsewhere a soft height applies at upgrade).
+- **Fixed: a banner nested in another banner's overlay inherited the outer banner's ratio** when it had none of its own; it now keeps its image's own size. A real `max-block-size`, `block-size`, or `min-block-size` keeps its hard meaning, alongside a soft property too, and banners that set neither soft property are unchanged.
+
 # 6.1.0
 
 Banner overlays gain a copy-stack layout contract (supporting copy, one action, middle positions, a compact band, and a static first-paint layout), and pickers no longer pick the option a finger lands on when it starts scrolling.

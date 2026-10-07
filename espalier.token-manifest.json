@@ -1399,6 +1399,18 @@
       "description": "The z-index of the header host. Defaults to `20`."
     },
     {
+      "name": "--esp-image-banner-block-size",
+      "category": "component",
+      "component": "esp-image",
+      "description": "A soft height target for a banner: it replaces the ratio as the banner height (viewport-fill banners), and copy that would not fit grows the banner past it. In the compact band it sizes only the image box. Unlike `block-size`, it never clips copy. Defaults to none."
+    },
+    {
+      "name": "--esp-image-banner-max-block-size",
+      "category": "component",
+      "component": "esp-image",
+      "description": "A soft height cap for a banner: the ratio-sized height is the smaller of the ratio height and this length, and copy that would not fit (spacing included) grows the banner past it. In the compact band it caps only the image box. Unlike `max-block-size`, it never clips copy. Defaults to none."
+    },
+    {
       "name": "--esp-image-border",
       "category": "component",
       "component": "esp-image",

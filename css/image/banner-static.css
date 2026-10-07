@@ -16,6 +16,10 @@
  *   --esp-image-static-compact-ratio  the `compact-ratio` value, if any
  *   --esp-image-object-position       the focal point, e.g. `65% 40%`
  *
+ * It also reads the element's own soft height properties, exactly as the
+ * upgraded element does: --esp-image-banner-max-block-size (a soft cap) and
+ * --esp-image-banner-block-size (a soft target).
+ *
  * Limits, all documented in the image banners guide: the compact switch uses
  * the default 40rem width (a custom `--esp-image-compact-width` cannot apply
  * before upgrade); no scrim or texture paints until upgrade; copy must be
@@ -41,8 +45,20 @@ esp-image[banner]:not(:defined) {
   container-type: inline-size;
 }
 
-/* The image spans every row at the banner ratio, so the banner is as tall as
-   the ratio or the copy, whichever is taller, and the image covers it all. */
+/* The image spans every row at the banner ratio (its own natural size when
+   there is none), so the banner is as tall as the ratio or the copy,
+   whichever is taller, and the image stretches to cover it all. An empty
+   spacer spans the rows too; it carries the soft height (below). */
+esp-image[banner]:not(:defined)::before {
+  content: "";
+  grid-row: 1 / -1;
+  grid-column: 1;
+  align-self: start;
+  justify-self: stretch;
+  aspect-ratio: var(--esp-image-static-ratio, auto);
+  block-size: var(--esp-image-banner-block-size, auto);
+  max-block-size: var(--esp-image-banner-max-block-size, none);
+}
 esp-image[banner]:not(:defined) > picture,
 esp-image[banner]:not(:defined) > img {
   display: block;
@@ -202,8 +218,29 @@ esp-image[banner][compact-placement="below"][banner-scheme="dark"]:not(:defined)
   esp-image[banner]:not(:defined) > :is(picture, img) {
     aspect-ratio: var(--esp-image-static-compact-ratio, var(--esp-image-static-ratio, auto));
   }
+  /* At compact widths a compact ratio alone is enough for a soft cap (see
+     the soft height rule below). */
+  @container (style(--esp-image-static-compact-ratio) and style(--esp-image-banner-max-block-size) and (not style(--esp-image-banner-max-block-size: none)) and (not style(--esp-image-banner-max-block-size: auto))) {
+    esp-image[banner]:not(:defined) > :is(picture, img) {
+      contain: size;
+      aspect-ratio: auto;
+    }
+  }
+  /* A pseudo-element can query its own originating element. */
+  esp-image[banner]:not(:defined)::before {
+    aspect-ratio: var(--esp-image-static-compact-ratio, var(--esp-image-static-ratio, auto));
+  }
+  /* The band: the image box takes the first row, sized like the spacer (the
+     soft height sizes only the image box), and the copy follows below. */
+  esp-image[banner][compact-placement="below"]:not(:defined)::before {
+    display: none;
+  }
   esp-image[banner][compact-placement="below"]:not(:defined) > :is(picture, img) {
     grid-row: 1;
+    contain: none;
+    aspect-ratio: var(--esp-image-static-compact-ratio, var(--esp-image-static-ratio, auto));
+    block-size: var(--esp-image-banner-block-size, auto);
+    max-block-size: var(--esp-image-banner-max-block-size, none);
   }
   esp-image[banner][compact-placement="below"]:not(:defined)
     > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
@@ -223,6 +260,21 @@ esp-image[banner][compact-placement="below"][banner-scheme="dark"]:not(:defined)
       --esp-image-overlay-color,
       oklch(from var(--esp-color-headings, oklch(0.2 0 0)) 0.97 c h)
     );
+  }
+}
+
+/* Soft height, matching the element: a soft target, or a soft cap on a
+   banner with a static ratio, hands sizing to the spacer, so the image gives
+   up its own size (size containment, no ratio) and stretches over whatever
+   the spacer or the copy sets. none and auto count as unset. This needs
+   container style queries (Chrome, Safari 18+); elsewhere the soft height
+   applies at upgrade, and banners without it are unaffected. It follows the
+   compact rules so it wins over their image ratio; the band's image rule is
+   more specific and keeps its own sizing. */
+@container (style(--esp-image-banner-block-size) and (not style(--esp-image-banner-block-size: none)) and (not style(--esp-image-banner-block-size: auto))) or (style(--esp-image-static-ratio) and style(--esp-image-banner-max-block-size) and (not style(--esp-image-banner-max-block-size: none)) and (not style(--esp-image-banner-max-block-size: auto))) {
+  esp-image[banner]:not(:defined) > :is(picture, img) {
+    contain: size;
+    aspect-ratio: auto;
   }
 }
 

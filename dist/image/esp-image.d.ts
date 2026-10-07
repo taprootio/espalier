@@ -381,6 +381,8 @@ export { parseImageRatio };
  * @cssprop --esp-image-overlay-padding - Overlay content padding.
  * @cssprop --esp-image-overlay-measure - Maximum line length of the overlay copy; defaults to `36rem` for a copy stack and `none` for a headline on its own.
  * @cssprop --esp-image-overlay-gap - Space between the headline and supporting copy in a copy stack; the action sits twice as far below. Defaults to `var(--esp-size-small)`.
+ * @cssprop --esp-image-banner-max-block-size - A soft height cap for a banner: the ratio-sized height is the smaller of the ratio height and this length, and copy that would not fit (spacing included) grows the banner past it. In the compact band it caps only the image box. Unlike `max-block-size`, it never clips copy. Defaults to none.
+ * @cssprop --esp-image-banner-block-size - A soft height target for a banner: it replaces the ratio as the banner height (viewport-fill banners), and copy that would not fit grows the banner past it. In the compact band it sizes only the image box. Unlike `block-size`, it never clips copy. Defaults to none.
  * @cssprop --esp-image-static-ratio - Read only by the static `banner-static.css` stylesheet before upgrade: the `ratio` value, e.g. `3 / 1`. A server sets it inline beside the attribute.
  * @cssprop --esp-image-static-compact-ratio - Read only by the static `banner-static.css` stylesheet before upgrade: the `compact-ratio` value, if any.
  * @cssprop --esp-image-overlay-color - Overlay text color; defaults to the theme heading color when the banner polarity matches the scheme.
