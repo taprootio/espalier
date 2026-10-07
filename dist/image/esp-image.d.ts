@@ -9,7 +9,8 @@ export type ImageScrimEdge = "none" | "flush";
 export type ImageTexture = "none" | "dots" | "halftone" | "paper" | "grain" | "grunge" | "scanlines" | "duotone";
 export type ImageTextureScale = "fine" | "medium" | "coarse";
 export type ImageBannerScheme = "auto" | "light" | "dark";
-export type ImageContentPosition = "bottom-start" | "bottom" | "bottom-end" | "center" | "top-start" | "top" | "top-end";
+export type ImageContentPosition = "bottom-start" | "bottom" | "bottom-end" | "center" | "middle-start" | "middle-end" | "top-start" | "top" | "top-end";
+export type ImageCompactPlacement = "overlay" | "below";
 export { parseImageRatio };
 /**
  * A responsive image with a native `<picture>` and an optional
@@ -116,6 +117,55 @@ export { parseImageRatio };
  *   <h2 slot="overlay">Dark banner: light ink on a deepened image</h2>
  * </esp-image>
  * ```
+ *
+ * ### Headline, supporting copy, and one action
+ *
+ * The overlay takes a headline in `slot="overlay"`, an optional supporting
+ * sentence in `slot="overlay-supporting"`, and at most one native link or
+ * button in `slot="overlay-action"`. Together they form one copy stack:
+ * grouped spacing, the supporting sentence on the lead type role so the
+ * headline stays prominent, line length bounded by
+ * `--esp-image-overlay-measure` (`36rem`), and an action drawn in the
+ * overlay ink with a focus ring that reads over any photograph. The scrim
+ * covers the whole stack. `middle-start` and `middle-end` center the copy
+ * against an inline edge, and an `auto` scrim follows it to that edge:
+ *
+ * ```html
+ * <esp-image banner ratio="3/1" compact-ratio="4/3" content-position="middle-start" focus="0.75 0.4">
+ *   <img src="/assets/focus-picker-unsplash.jpg" alt="A woman standing in a sunlit field with her back to the camera" />
+ *   <h2 slot="overlay">Grow somewhere wonderful</h2>
+ *   <p slot="overlay-supporting">Plan a garden around the light you already have, from the first frost to the last harvest.</p>
+ *   <a slot="overlay-action" href="#start">Start planning</a>
+ * </esp-image>
+ * ```
+ *
+ * A headline on its own lays out exactly as it always has.
+ *
+ * ### Copy below the image at compact widths
+ *
+ * A crop that keeps the subject at narrow widths can lose the quiet region
+ * the copy sat on. `compact-placement="below"` moves the copy into a band
+ * under the image below the compact width, painted with the banner scheme's
+ * own surface and ink. Narrow this example's container to see it switch:
+ *
+ * ```html
+ * <div style="max-width: 24rem">
+ *   <esp-image banner ratio="3/1" compact-ratio="3/2" compact-placement="below" focus="0.65 0.4">
+ *     <img src="/assets/focus-picker-unsplash.jpg" alt="A woman standing in a sunlit field with her back to the camera" />
+ *     <h2 slot="overlay">Grow somewhere wonderful</h2>
+ *     <p slot="overlay-supporting">The band keeps the copy off the photograph.</p>
+ *     <a slot="overlay-action" href="#start">Start planning</a>
+ *   </esp-image>
+ * </div>
+ * ```
+ *
+ * Long copy, long words, and enlarged text grow the banner rather than being
+ * clipped. Copy never moves with the image: motion applied to the projected
+ * image or `::part(image)` stays inside the image box, and stops under
+ * `prefers-reduced-motion`. Server-rendered banners can lay all of this out
+ * before the component upgrades with the static stylesheet
+ * `@taprootio/espalier/image/banner-static.css`; the Image banners guide
+ * covers its inputs and limits.
  *
  * ### The scrim follows its content
  *
@@ -300,7 +350,9 @@ export { parseImageRatio };
  * @slot - A projected native image, or `esp-image-option` children. When
  * projecting, `alt` lives on the consumer's `<img>`; `caption` remains the
  * lightbox text.
- * @slot overlay - Semantic banner content above the image and decorative layers.
+ * @slot overlay - The banner headline (or any semantic overlay content) above the image and decorative layers.
+ * @slot overlay-supporting - One supporting sentence under the headline. With it, or an action, the overlay becomes a copy stack.
+ * @slot overlay-action - One native `a` or `button` under the copy. More than one logs a warning.
  * @csspart frame - The stable banner/image frame.
  * @csspart image - The stable media-box wrapper in every source mode.
  * @csspart scrim - The decorative legibility layer.
@@ -327,6 +379,10 @@ export { parseImageRatio };
  * @cssprop --esp-image-duotone-shadow-color - Duotone shadow stop; defaults to a dark stop derived from the theme primary.
  * @cssprop --esp-image-duotone-highlight-color - Duotone highlight stop; defaults to a light stop derived from the theme complementary.
  * @cssprop --esp-image-overlay-padding - Overlay content padding.
+ * @cssprop --esp-image-overlay-measure - Maximum line length of the overlay copy; defaults to `36rem` for a copy stack and `none` for a headline on its own.
+ * @cssprop --esp-image-overlay-gap - Space between the headline and supporting copy in a copy stack; the action sits twice as far below. Defaults to `var(--esp-size-small)`.
+ * @cssprop --esp-image-static-ratio - Read only by the static `banner-static.css` stylesheet before upgrade: the `ratio` value, e.g. `3 / 1`. A server sets it inline beside the attribute.
+ * @cssprop --esp-image-static-compact-ratio - Read only by the static `banner-static.css` stylesheet before upgrade: the `compact-ratio` value, if any.
  * @cssprop --esp-image-overlay-color - Overlay text color; defaults to the theme heading color when the banner polarity matches the scheme.
  * @cssprop --esp-image-overlay-text-shadow - Overlay text shadow; defaults to a soft polarity-matched halo. Set to `none` to disable.
  * @docPageTitle Image
@@ -406,8 +462,19 @@ export declare class EspalierImage extends EspalierElementBase {
     texture: string;
     /** CSS pitch or discrete SVG-filter variant for the selected texture. */
     textureScale: ImageTextureScale;
-    /** Logical position for semantic banner content. */
+    /**
+     * Logical position for semantic banner content. `middle-start` and
+     * `middle-end` center the copy vertically against the inline start or end
+     * edge, mirroring in right-to-left text.
+     */
     contentPosition: ImageContentPosition;
+    /**
+     * Where the overlay copy goes below the compact width. `overlay` (the
+     * default) keeps it over the image. `below` moves it into a band under the
+     * image, painted in the banner scheme's own surface and ink, for crops that
+     * lose their quiet region at narrow widths.
+     */
+    compactPlacement: ImageCompactPlacement;
     /** Normalized focal point used for cover cropping. */
     focusPoint: FocusPoint;
     /** Banner target aspect ratio, as a positive number or `number / number`. */

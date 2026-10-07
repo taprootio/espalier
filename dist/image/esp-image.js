@@ -1,40 +1,49 @@
-var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,t):r,o;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(m,e,t,r);else for(var l=m.length-1;l>=0;l--)(o=m[l])&&(a=(s<3?o(a):s>3?o(e,t,a):o(e,t))||a);return s>3&&a&&Object.defineProperty(e,t,a),a},p;import{css as I,html as h,nothing as P}from"lit";import{customElement as E,property as c,state as u}from"lit/decorators.js";import{EspalierElementBase as y}from"../shared/esp-element-base.js";import{slotHasContent as b}from"../shared/slot-content.js";import{renderVisualOverlay as $,visualOverlayStyles as A}from"../shared/visual-overlay.js";import{focusConverter as N,normalizeFocus as W}from"./image-focus.js";import{ensureImageTextureFilters as D,imageTextureFilterId as M}from"./image-texture-filters.js";import{getImageTexture as x,isBuiltInImageTexture as _,subscribeToImageTextureRegistry as B}from"../shared/image-texture-registry.js";import{validImageDimensions as k}from"./image-dimensions.js";import{parseImageRatio as f}from"./image-ratio.js";import{isMeasuredScrim as q,scrimReach as H,unionScrimBox as U}from"./scrim-reach.js";import"./esp-image-option.js";import{enumConverter as d}from"../shared/enum-converter.js";const w=new Set(["auto","none","flat","top","bottom","left","right","radial"]),S=new Set(["soft","medium","strong"]),z=new Set(["none","flush"]),O=new Set(["fine","medium","coarse"]),j=new Set(["auto","light","dark"]),R=new Set(["bottom-start","bottom","bottom-end","center","top-start","top","top-end"]);function T(m){const e=[];for(const t of m)getComputedStyle(t).display==="contents"?e.push(...T(t.children)):e.push(t);return e}function F(m){const e=m.getBoundingClientRect();if(e.width>0||e.height>0)return e;const t=m.ownerDocument.createRange();t.selectNodeContents(m);const r=t.getBoundingClientRect();return r.width>0||r.height>0?r:null}let i=p=class extends y{constructor(){super(...arguments),this.originalHeight=0,this.originalWidth=0,this.imageUrl="",this.localImage="",this.caption="",this.sizes="100vw",this.loading="eager",this.deferOffscreen=!1,this.banner=!1,this.bannerScheme="auto",this.scrim="auto",this.scrimStrength="medium",this.scrimEdge="none",this.texture="none",this.textureScale="medium",this.contentPosition="bottom-start",this.focusPoint={x:.5,y:.5},this.ratio="",this.compactRatio="",this.renderedWidth=0,this.measuredWidth=0,this.compact=!1,this.overlayHasContent=!1,this.resizeObserver=null,this.scrimObserver=null,this.appliedScrimReach=0,this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null,this.unsubscribeTextures=null,this.handleSlotChange=e=>{if(e.target instanceof HTMLSlotElement){if(e.target.name==="overlay"){const t=b(e.target);t!==this.overlayHasContent&&(this.overlayHasContent=t),this.observeScrimTargets();return}this.requestUpdate()}}}get isPortrait(){const e=k(this.originalWidth,this.originalHeight);return e!==null&&e.height>e.width}findProjected(){for(const e of this.children)if(e.tagName==="PICTURE"||e.tagName==="IMG")return e;return null}findProjectedImage(e=this.findProjected()){return e?e.tagName==="IMG"?e:e.querySelector("img"):null}requiresOffscreenDeferral(e=this.findProjectedImage()){return this.deferOffscreen&&e?.getAttribute("loading")?.toLowerCase()==="lazy"}shouldDeferProjectedSizes(){return this.requiresOffscreenDeferral()&&!this.offscreenAdmitted}applyMeasuredWidth(){this.measuredWidth>0&&this.measuredWidth!==this.renderedWidth&&(this.renderedWidth=this.measuredWidth)}syncOffscreenDeferral(){const e=this.findProjectedImage();if(e!==this.deferredProjectedImage&&(this.offscreenAdmitted=!1,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.deferredProjectedImage=e),!this.requiresOffscreenDeferral(e)){this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null,this.applyMeasuredWidth();return}if(!this.offscreenAdmitted){if(typeof IntersectionObserver>"u"){this.offscreenAdmitted=!0,this.applyMeasuredWidth();return}if(!this.offscreenObserver){const t=e,r=new IntersectionObserver(s=>{if(this.offscreenObserver===r){if(this.findProjectedImage()!==t){this.syncOffscreenDeferral();return}s.some(a=>a.isIntersecting)&&(this.offscreenAdmitted=!0,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.applyMeasuredWidth(),this.requestUpdate())}},{rootMargin:"200px"});this.offscreenObserver=r}this.offscreenObserver.observe(this)}}connectedCallback(){super.connectedCallback(),p.ensureProjectionStyles(this.getRootNode()),this.unsubscribeTextures??=B(()=>this.requestUpdate()),this.resizeObserver??=new ResizeObserver(e=>{const t=e[0]?.contentBoxSize?.[0],r=Math.round(t?t.inlineSize:e[0]?.contentRect.width??0);r<=0||(this.measuredWidth=r,this.syncOffscreenDeferral(),this.applyMeasuredWidth())}),this.resizeObserver.observe(this),this.syncOffscreenDeferral(),this.hasUpdated&&this.observeScrimTargets()}disconnectedCallback(){super.disconnectedCallback(),this.unsubscribeTextures?.(),this.unsubscribeTextures=null,this.resizeObserver?.disconnect(),this.resizeObserver=null,this.scrimObserver?.disconnect(),this.scrimObserver=null,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null}observeScrimTargets(){if(!this.shadowRoot)return;this.scrimObserver??=new ResizeObserver(()=>this.measureScrimReach()),this.scrimObserver.disconnect();const e=this.shadowRoot?.querySelector(".overlay");e&&this.scrimObserver.observe(e);const t=this.shadowRoot?.querySelector('[part="scrim"]');t&&this.scrimObserver.observe(t);for(const r of T(this.overlayElements()))this.scrimObserver.observe(r,{box:"border-box"})}overlayElements(){return this.shadowRoot?.querySelector('slot[name="overlay"]')?.assignedElements({flatten:!0})??[]}measureScrimReach(){const e=this.shadowRoot?.querySelector(".frame");if(!e)return;const t=this.resolvedScrim();let r=0;const s=this.shadowRoot?.querySelector('[part="scrim"]');if(this.banner&&this.overlayHasContent&&s&&q(t)){const a=s.getBoundingClientRect();if(a.width<=0||a.height<=0)return;const o=U(this.overlayElements().map(F));r=H(t,a,o)}r!==this.appliedScrimReach&&(this.appliedScrimReach=r,r>0?e.style.setProperty("--_esp-image-scrim-reach",`${r}%`):e.style.removeProperty("--_esp-image-scrim-reach"))}effectiveSizes(){return this.renderedWidth>0?`${this.renderedWidth}px`:this.sizes}buildSources(){const e=new Map;for(const t of this.querySelectorAll("esp-image-option")){const r=t.getAttribute("url"),s=Number(t.getAttribute("width"));if(!r||!Number.isFinite(s)||s<=0)continue;const a=t.getAttribute("type")??"",o=e.get(a)??[];o.push({url:r,width:s}),e.set(a,o)}return Array.from(e,([t,r])=>({type:t,srcset:r.sort((s,a)=>s.width-a.width).map(s=>`${s.url} ${s.width}w`).join(", ")})).filter(t=>t.srcset.length>0)}resolvedBannerScheme(){return this.bannerScheme!=="auto"?this.bannerScheme:this.scheme==="dark"?"dark":"light"}resolvedTexture(){return _(this.texture)?this.texture:x(this.texture)?this.texture:"none"}resolvedScrim(){return this.scrim!=="auto"?this.scrim:this.overlayHasContent?this.contentPosition.startsWith("top")?"top":this.contentPosition.startsWith("bottom")?"bottom":"radial":"none"}resolvedAspectRatio(){const e=k(this.originalWidth,this.originalHeight);if(!this.banner)return e?`${e.width} / ${e.height}`:null;const t=f(this.ratio);return(this.compact?f(this.compactRatio):null)??t??(e?`${e.width} / ${e.height}`:null)}normalizeEnums(e){e.has("scrim")&&!w.has(this.scrim)&&(this.scrim="auto"),e.has("bannerScheme")&&!j.has(this.bannerScheme)&&(this.bannerScheme="auto"),e.has("scrimStrength")&&!S.has(this.scrimStrength)&&(this.scrimStrength="medium"),e.has("scrimEdge")&&!z.has(this.scrimEdge)&&(this.scrimEdge="none"),e.has("textureScale")&&!O.has(this.textureScale)&&(this.textureScale="medium"),e.has("contentPosition")&&!R.has(this.contentPosition)&&(this.contentPosition="bottom-start")}willUpdate(e){super.willUpdate(e),this.normalizeEnums(e);const t=W(this.focusPoint),r=Number((t.x*100).toFixed(4)),s=Number((t.y*100).toFixed(4));this.style.setProperty("--_esp-image-object-position",`${r}% ${s}%`);const a=this.resolvedAspectRatio();a?this.style.setProperty("--_esp-image-aspect-ratio",a):this.style.removeProperty("--_esp-image-aspect-ratio");const o=this.resolvedTexture();if(["paper","grain","grunge"].includes(o)){const g=o==="grunge"&&this.resolvedBannerScheme()==="light"?"grunge-light":o;this.style.setProperty("--_esp-image-texture-filter",`url(#${M(g,this.textureScale)})`)}else this.style.removeProperty("--_esp-image-texture-filter");const l=_(o)?void 0:x(o),C=[["--_esp-image-registered-image",l?.image],["--_esp-image-registered-size",l?.size],["--_esp-image-registered-repeat",l?.repeat],["--_esp-image-registered-position",l?.position],["--_esp-image-registered-opacity",l?.opacity?.toString()],["--_esp-image-registered-blend-mode",l?.blendMode]];for(const[g,v]of C)v===void 0?this.style.removeProperty(g):this.style.setProperty(g,v)}firstUpdated(e){super.firstUpdated(e);const t=this.shadowRoot?.querySelector('slot[name="overlay"]');t&&(this.overlayHasContent=b(t)),this.observeScrimTargets()}updated(e){if(super.updated(e),this.syncOffscreenDeferral(),(e.has("banner")||e.has("scrim")||e.has("contentPosition")||e.has("overlayHasContent")||e.has("compact"))&&this.observeScrimTargets(),["paper","grain","grunge"].includes(this.resolvedTexture())&&this.renderRoot&&D(this.renderRoot),this.renderedWidth>0){const o=this.shadowRoot?.querySelector(".compact-sentinel")?.getBoundingClientRect().width??0,l=o>0&&this.renderedWidth<o;l!==this.compact&&(this.compact=l)}if(this.renderedWidth<=0||this.shouldDeferProjectedSizes())return;const t=this.findProjected();if(!t)return;const r=this.effectiveSizes();if(t.tagName==="PICTURE")for(const a of t.querySelectorAll("source"))a.setAttribute("sizes",r);const s=this.findProjectedImage(t);s?.hasAttribute("srcset")&&s.setAttribute("sizes",r)}renderMedia(){if(this.localImage)return h`<img
+var l=function(m,e,t,r){var i=arguments.length,a=i<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,t):r,s;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(m,e,t,r);else for(var n=m.length-1;n>=0;n--)(s=m[n])&&(a=(i<3?s(a):i>3?s(e,t,a):s(e,t))||a);return i>3&&a&&Object.defineProperty(e,t,a),a},y;import{css as q,html as b,nothing as F}from"lit";import{customElement as U,property as c,state as u}from"lit/decorators.js";import{EspalierElementBase as C}from"../shared/esp-element-base.js";import{slotHasContent as G}from"../shared/slot-content.js";import{renderVisualOverlay as L,visualOverlayStyles as V}from"../shared/visual-overlay.js";import{focusConverter as K,normalizeFocus as X}from"./image-focus.js";import{ensureImageTextureFilters as Y,imageTextureFilterId as J}from"./image-texture-filters.js";import{getImageTexture as R,isBuiltInImageTexture as T,subscribeToImageTextureRegistry as Q}from"../shared/image-texture-registry.js";import{validImageDimensions as O}from"./image-dimensions.js";import{parseImageRatio as z}from"./image-ratio.js";import{isMeasuredScrim as Z,scrimReach as ee,unionScrimBox as j}from"./scrim-reach.js";import"./esp-image-option.js";import{enumConverter as v}from"../shared/enum-converter.js";import{RafThrottle as te}from"../shared/raf-throttle.js";const P=new Set(["auto","none","flat","top","bottom","left","right","radial"]),I=new Set(["soft","medium","strong"]),E=new Set(["none","flush"]),A=new Set(["fine","medium","coarse"]),H=new Set(["auto","light","dark"]),N=new Set(["bottom-start","bottom","bottom-end","center","middle-start","middle-end","top-start","top","top-end"]),B=new Set(["overlay","below"]),W=["overlay","overlay-supporting","overlay-action"];function re(m){if(!m)return null;const[e,t=1]=m.split("/").map(i=>Number(i.trim())),r=e/t;return Number.isFinite(r)&&r>0?r:null}const f=new Set;let w=null;const ae={attributeFilter:["dir"],subtree:!0};function $(m,e){if(!(e?!f.has(m)&&!!f.add(m):f.delete(m))||typeof MutationObserver>"u")return;if(w?.disconnect(),f.size===0){w=null;return}w??=new MutationObserver(()=>{for(const i of f)i.requestUpdate()});const r=new Set([document.documentElement]);for(const i of f){let a=i;for(;a;){const s=a.getRootNode();s instanceof ShadowRoot&&r.add(s),a=a instanceof Element&&a.assignedSlot?a.assignedSlot:a.parentNode instanceof ShadowRoot?a.parentNode.host:a.parentNode}}for(const i of r)w.observe(i,ae)}function _(m){const e=[];for(const t of m)getComputedStyle(t).display==="contents"?e.push(..._(t.children)):e.push(t);return e}function ie(m){const e=m.getBoundingClientRect();if(e.width>0||e.height>0)return e;const t=m.ownerDocument.createRange();t.selectNodeContents(m);const r=t.getBoundingClientRect();return r.width>0||r.height>0?r:null}let o=y=class extends C{constructor(){super(...arguments),this.originalHeight=0,this.originalWidth=0,this.imageUrl="",this.localImage="",this.caption="",this.sizes="100vw",this.loading="eager",this.deferOffscreen=!1,this.banner=!1,this.bannerScheme="auto",this.scrim="auto",this.scrimStrength="medium",this.scrimEdge="none",this.texture="none",this.textureScale="medium",this.contentPosition="bottom-start",this.compactPlacement="overlay",this.focusPoint={x:.5,y:.5},this.ratio="",this.compactRatio="",this.renderedWidth=0,this.measuredWidth=0,this.compact=!1,this.overlayHasContent=!1,this.overlayHasStack=!1,this.overlayHasHeadline=!1,this.overlayHasSupporting=!1,this.renderedScrim=null,this.measuredScrim=null,this.grown=!1,this.growthWidth=null,this.growthCheckPending=!1,this.growthBlock=null,this.growthRollback=new te(()=>{this.grown&&(this.grown=!1,this.growthWidth=null)}),this.resizeObserver=null,this.scrimObserver=null,this.appliedScrimReach=0,this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null,this.unsubscribeTextures=null,this.handleSlotChange=e=>{if(e.target instanceof HTMLSlotElement){if(W.includes(e.target.name)){this.syncOverlaySlots(),this.observeScrimTargets();return}this.requestUpdate()}},this.handleWindowResize=()=>{!this.banner||!this.overlayHasContent||(this.measureScrimReach(),this.growthBlock&&(clearTimeout(this.growthRetryTimer),this.growthRetryTimer=setTimeout(()=>{!this.growthBlock||!this.isConnected||(this.growthBlock=null,this.measureScrimReach())},150)))}}get isPortrait(){const e=O(this.originalWidth,this.originalHeight);return e!==null&&e.height>e.width}overlaySlot(e){return this.shadowRoot?.querySelector(`slot[name="${e}"]`)??null}syncOverlaySlots(){const e=n=>{const d=this.overlaySlot(n);return d?G(d):!1},t=e("overlay"),r=e("overlay-supporting"),i=r||e("overlay-action"),a=i||t;t!==this.overlayHasHeadline&&(this.overlayHasHeadline=t),r!==this.overlayHasSupporting&&(this.overlayHasSupporting=r),a!==this.overlayHasContent&&(this.overlayHasContent=a),i!==this.overlayHasStack&&(this.overlayHasStack=i);const s=this.overlaySlot("overlay-action")?.assignedElements({flatten:!0})??[];s.length>1&&console.warn(`<esp-image> takes one overlay action; ${s.length} elements are slotted into "overlay-action".`,this)}findProjected(){for(const e of this.children)if(e.tagName==="PICTURE"||e.tagName==="IMG")return e;return null}findProjectedImage(e=this.findProjected()){return e?e.tagName==="IMG"?e:e.querySelector("img"):null}requiresOffscreenDeferral(e=this.findProjectedImage()){return this.deferOffscreen&&e?.getAttribute("loading")?.toLowerCase()==="lazy"}shouldDeferProjectedSizes(){return this.requiresOffscreenDeferral()&&!this.offscreenAdmitted}applyMeasuredWidth(){this.measuredWidth>0&&this.measuredWidth!==this.renderedWidth&&(this.renderedWidth=this.measuredWidth)}syncOffscreenDeferral(){const e=this.findProjectedImage();if(e!==this.deferredProjectedImage&&(this.offscreenAdmitted=!1,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.deferredProjectedImage=e),!this.requiresOffscreenDeferral(e)){this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null,this.applyMeasuredWidth();return}if(!this.offscreenAdmitted){if(typeof IntersectionObserver>"u"){this.offscreenAdmitted=!0,this.applyMeasuredWidth();return}if(!this.offscreenObserver){const t=e,r=new IntersectionObserver(i=>{if(this.offscreenObserver===r){if(this.findProjectedImage()!==t){this.syncOffscreenDeferral();return}i.some(a=>a.isIntersecting)&&(this.offscreenAdmitted=!0,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.applyMeasuredWidth(),this.requestUpdate())}},{rootMargin:"200px"});this.offscreenObserver=r}this.offscreenObserver.observe(this)}}connectedCallback(){super.connectedCallback(),y.ensureProjectionStyles(this.getRootNode()),this.unsubscribeTextures??=Q(()=>this.requestUpdate()),this.resizeObserver??=new ResizeObserver(e=>{(this.grown||this.growthBlock)&&this.measureScrimReach();const t=e[0]?.contentBoxSize?.[0],r=Math.round(t?t.inlineSize:e[0]?.contentRect.width??0);r<=0||(this.measuredWidth=r,this.syncOffscreenDeferral(),this.applyMeasuredWidth())}),this.resizeObserver.observe(this),window.addEventListener("resize",this.handleWindowResize,{passive:!0}),this.syncOffscreenDeferral(),this.hasUpdated&&(this.observeScrimTargets(),this.syncDirectionTracking())}disconnectedCallback(){super.disconnectedCallback(),$(this,!1),window.removeEventListener("resize",this.handleWindowResize),this.growthRollback.cancel(),clearTimeout(this.growthRetryTimer),this.unsubscribeTextures?.(),this.unsubscribeTextures=null,this.resizeObserver?.disconnect(),this.resizeObserver=null,this.scrimObserver?.disconnect(),this.scrimObserver=null,this.offscreenObserver?.disconnect(),this.offscreenObserver=null,this.offscreenAdmitted=!1,this.deferredProjectedImage=null}observeScrimTargets(){if(!this.shadowRoot)return;this.scrimObserver??=new ResizeObserver(()=>this.measureScrimReach()),this.scrimObserver.disconnect();const e=this.shadowRoot?.querySelector(".overlay");e&&this.scrimObserver.observe(e);const t=this.shadowRoot?.querySelector('[part="scrim"]');t&&this.scrimObserver.observe(t);const r=this.shadowRoot?.querySelector(".stack");r&&this.overlayHasStack&&this.scrimObserver.observe(r);for(const i of _(this.overlayElements()))this.scrimObserver.observe(i,{box:"border-box"})}overlayElements(){return W.flatMap(e=>this.overlaySlot(e)?.assignedElements({flatten:!0})??[])}measureScrimReach(){const e=this.shadowRoot?.querySelector(".frame");if(!e||this.syncGrowth(e))return;const t=this.resolvedScrim();if(this.renderedScrim!==null&&t!==this.renderedScrim){this.requestUpdate();return}let r=0;const i=this.shadowRoot?.querySelector('[part="scrim"]');if(this.banner&&this.overlayHasContent&&!this.bandActive()&&i&&Z(t)){const a=i.getBoundingClientRect();if(a.width<=0||a.height<=0)return;const s=j(this.overlayElements().map(ie));r=ee(t,a,s)}r!==this.appliedScrimReach&&(this.appliedScrimReach=r,r>0?e.style.setProperty("--_esp-image-scrim-reach",`${r}%`):e.style.removeProperty("--_esp-image-scrim-reach"))}effectiveSizes(){return this.renderedWidth>0?`${this.renderedWidth}px`:this.sizes}buildSources(){const e=new Map;for(const t of this.querySelectorAll("esp-image-option")){const r=t.getAttribute("url"),i=Number(t.getAttribute("width"));if(!r||!Number.isFinite(i)||i<=0)continue;const a=t.getAttribute("type")??"",s=e.get(a)??[];s.push({url:r,width:i}),e.set(a,s)}return Array.from(e,([t,r])=>({type:t,srcset:r.sort((i,a)=>i.width-a.width).map(i=>`${i.url} ${i.width}w`).join(", ")})).filter(t=>t.srcset.length>0)}resolvedBannerScheme(){return this.bannerScheme!=="auto"?this.bannerScheme:this.scheme==="dark"?"dark":"light"}resolvedTexture(){return T(this.texture)?this.texture:R(this.texture)?this.texture:"none"}overlayContentHeight(){const e=this.shadowRoot?.querySelector(".overlay");if(!e||e.hidden)return null;const t=getComputedStyle(e),r=(Number.parseFloat(t.paddingTop)||0)+(Number.parseFloat(t.paddingBottom)||0);if(this.overlayHasStack){const s=this.shadowRoot?.querySelector(".stack");return s?r+s.getBoundingClientRect().height:null}let i=1/0,a=-1/0;for(const s of _(this.overlayElements())){const n=s.getBoundingClientRect();if(n.width<=0&&n.height<=0)continue;const d=getComputedStyle(s);i=Math.min(i,n.top-(Number.parseFloat(d.marginTop)||0)),a=Math.max(a,n.bottom+(Number.parseFloat(d.marginBottom)||0))}return a>i?r+a-i:null}syncGrowth(e){const t=re(this.resolvedAspectRatio());let r=!1;if(this.banner&&this.overlayHasContent&&!this.bandActive()&&t!==null){const i=e.getBoundingClientRect(),a=this.overlayContentHeight();if(i.width<=0||a===null)return!1;const s=getComputedStyle(this).maxBlockSize,n=this.growthBlock;n&&(Math.abs(i.width-n.width)>1||s!==n.cap||a<n.need-.5)&&(this.growthBlock=null);const d=this.getBoundingClientRect(),h=getComputedStyle(this),p=[h.borderTopWidth,h.borderBottomWidth,h.paddingTop,h.paddingBottom].reduce((x,S)=>x+(Number.parseFloat(S)||0),0),g=d.width/t,k=getComputedStyle(e),M=(Number.parseFloat(k.borderTopWidth)||0)+(Number.parseFloat(k.borderBottomWidth)||0),D=g-p-M;if(this.grown){const x=this.growthCheckPending&&this.growthWidth!==null&&i.width>this.growthWidth+1;this.growthCheckPending=!1;const S=d.height-p<i.height-.5;if(x||S)return this.growthBlock={width:x?this.growthWidth:i.width,cap:s,need:a},this.scheduleGrowthRollback(),!1;r=a>D+.5}else r=this.growthBlock===null&&this.copyClipped(i,k)&&Math.abs(d.height-g)<=1,r&&(this.growthWidth=i.width,this.growthCheckPending=!0)}return r===this.grown?!1:(this.grown=r,r||(this.growthWidth=null),!0)}scheduleGrowthRollback(){this.growthRollback.schedule()}copyClipped(e,t){const r=e.top+(Number.parseFloat(t.borderTopWidth)||0),i=e.bottom-(Number.parseFloat(t.borderBottomWidth)||0),a=[],s=this.overlayHasStack?this.shadowRoot?.querySelector(".stack"):null;if(s)a.push(s.getBoundingClientRect());else for(const d of _(this.overlayElements())){const h=d.getBoundingClientRect();(h.width>0||h.height>0)&&a.push(h)}const n=j(a);return n!==null&&(n.top<r-.5||n.bottom>i+.5)}grownActive(){return this.grown&&this.banner&&!this.bandActive()}syncDirectionTracking(){$(this,this.isConnected&&this.banner&&this.scrim==="auto"&&this.contentPosition.startsWith("middle"))}bandActive(){return this.banner&&this.compact&&this.compactPlacement==="below"&&this.overlayHasContent}resolvedScrim(){if(this.scrim!=="auto")return this.scrim;if(!this.overlayHasContent||this.bandActive())return"none";if(this.contentPosition.startsWith("top"))return"top";if(this.contentPosition.startsWith("bottom"))return"bottom";if(this.contentPosition.startsWith("middle")){const e=getComputedStyle(this).direction==="rtl";return this.contentPosition==="middle-start"!==e?"left":"right"}return"radial"}resolvedAspectRatio(){const e=O(this.originalWidth,this.originalHeight);if(!this.banner)return e?`${e.width} / ${e.height}`:null;const t=z(this.ratio);return(this.compact?z(this.compactRatio):null)??t??(e?`${e.width} / ${e.height}`:null)}normalizeEnums(e){e.has("scrim")&&!P.has(this.scrim)&&(this.scrim="auto"),e.has("bannerScheme")&&!H.has(this.bannerScheme)&&(this.bannerScheme="auto"),e.has("scrimStrength")&&!I.has(this.scrimStrength)&&(this.scrimStrength="medium"),e.has("scrimEdge")&&!E.has(this.scrimEdge)&&(this.scrimEdge="none"),e.has("textureScale")&&!A.has(this.textureScale)&&(this.textureScale="medium"),e.has("contentPosition")&&!N.has(this.contentPosition)&&(this.contentPosition="bottom-start"),e.has("compactPlacement")&&!B.has(this.compactPlacement)&&(this.compactPlacement="overlay")}willUpdate(e){super.willUpdate(e),this.normalizeEnums(e);const t=X(this.focusPoint),r=Number((t.x*100).toFixed(4)),i=Number((t.y*100).toFixed(4));this.style.setProperty("--_esp-image-object-position",`${r}% ${i}%`);const a=this.resolvedAspectRatio(),s=this.grownActive()||this.bandActive();for(const[p,g]of[["--_esp-image-aspect-ratio",!s],["--_esp-image-frame-aspect-ratio",s]])a&&g?this.style.setProperty(p,a):this.style.removeProperty(p);this.syncDirectionTracking();const n=this.resolvedTexture();if(["paper","grain","grunge"].includes(n)){const p=n==="grunge"&&this.resolvedBannerScheme()==="light"?"grunge-light":n;this.style.setProperty("--_esp-image-texture-filter",`url(#${J(p,this.textureScale)})`)}else this.style.removeProperty("--_esp-image-texture-filter");const d=T(n)?void 0:R(n),h=[["--_esp-image-registered-image",d?.image],["--_esp-image-registered-size",d?.size],["--_esp-image-registered-repeat",d?.repeat],["--_esp-image-registered-position",d?.position],["--_esp-image-registered-opacity",d?.opacity?.toString()],["--_esp-image-registered-blend-mode",d?.blendMode]];for(const[p,g]of h)g===void 0?this.style.removeProperty(p):this.style.setProperty(p,g)}firstUpdated(e){super.firstUpdated(e),this.syncOverlaySlots(),this.observeScrimTargets()}updated(e){if(super.updated(e),this.syncOffscreenDeferral(),(e.has("banner")||e.has("scrim")||e.has("contentPosition")||e.has("overlayHasContent")||e.has("overlayHasStack")||e.has("compactPlacement")||e.has("grown")||e.has("compact")||this.renderedScrim!==this.measuredScrim)&&(this.measuredScrim=this.renderedScrim,this.observeScrimTargets()),["paper","grain","grunge"].includes(this.resolvedTexture())&&this.renderRoot&&Y(this.renderRoot),this.renderedWidth>0){const s=this.shadowRoot?.querySelector(".compact-sentinel")?.getBoundingClientRect().width??0,n=s>0&&this.renderedWidth<s;n!==this.compact&&(this.compact=n)}if(this.renderedWidth<=0||this.shouldDeferProjectedSizes())return;const t=this.findProjected();if(!t)return;const r=this.effectiveSizes();if(t.tagName==="PICTURE")for(const a of t.querySelectorAll("source"))a.setAttribute("sizes",r);const i=this.findProjectedImage(t);i?.hasAttribute("srcset")&&i.setAttribute("sizes",r)}renderMedia(){if(this.localImage)return b`<img
         src=${this.localImage}
         alt=${this.caption}
         decoding="async"
         loading=${this.loading}
-      />`;const e=h`<slot @slotchange=${this.handleSlotChange}></slot>`;if(this.findProjected())return e;const t=this.buildSources();return h`
+      />`;const e=b`<slot @slotchange=${this.handleSlotChange}></slot>`;if(this.findProjected())return e;const t=this.buildSources();return b`
       <picture>
-        ${t.map(r=>h`
+        ${t.map(r=>b`
             <source
               srcset=${r.srcset}
               sizes=${this.effectiveSizes()}
-              type=${r.type||P}
+              type=${r.type||F}
             />
           `)}
         <img src=${this.imageUrl} alt=${this.caption} decoding="async" loading=${this.loading} />
       </picture>
       ${e}
-    `}render(){return h`
+    `}render(){const e=this.resolvedScrim();return this.renderedScrim=e,b`
       <div
         part="frame"
         class="frame"
         data-banner-scheme=${this.resolvedBannerScheme()}
-        data-scrim=${this.resolvedScrim()}
+        data-scrim=${e}
         data-scrim-strength=${this.scrimStrength}
         data-scrim-edge=${this.scrimEdge}
         data-texture=${this.resolvedTexture()}
         data-texture-scale=${this.textureScale}
         data-content-position=${this.contentPosition}
+        data-placement=${this.bandActive()?"band":"overlay"}
+        ?data-grown=${this.grownActive()}
+        ?data-overlay-stack=${this.overlayHasStack}
+        ?data-overlay-headline=${this.overlayHasHeadline}
+        ?data-overlay-supporting=${this.overlayHasSupporting}
       >
         <div part="image" class="image">${this.renderMedia()}</div>
-        ${$({className:"banner-layers",imagePart:"texture",scrimPart:"scrim",texturePart:"texture"})}
+        ${L({className:"banner-layers",imagePart:"texture",scrimPart:"scrim",texturePart:"texture"})}
         <div part="overlay" class="overlay" ?hidden=${!this.banner||!this.overlayHasContent}>
-          <slot name="overlay" @slotchange=${this.handleSlotChange}></slot>
+          <div class="stack">
+            <slot name="overlay" @slotchange=${this.handleSlotChange}></slot>
+            <slot name="overlay-supporting" @slotchange=${this.handleSlotChange}></slot>
+            <slot name="overlay-action" @slotchange=${this.handleSlotChange}></slot>
+          </div>
         </div>
         <span class="compact-sentinel" aria-hidden="true"></span>
       </div>
-    `}static ensureProjectionStyles(e){const t=e.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&"host"in e?e:e.nodeType===Node.DOCUMENT_NODE?e.head:e.ownerDocument?.head??document.head,r=Array.from(t.querySelectorAll("style[data-esp-image-projection-styles]")),s=r.find(o=>o.textContent===p.projectionStyles);if(s){for(const o of r)o!==s&&o.remove();return}for(const o of r)o.remove();const a=t.ownerDocument.createElement("style");a.dataset.espImageProjectionStyles="",a.textContent=p.projectionStyles,t.append(a)}};i.projectionStyles=`
+    `}static ensureProjectionStyles(e){const t=e.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&"host"in e?e:e.nodeType===Node.DOCUMENT_NODE?e.head:e.ownerDocument?.head??document.head,r=Array.from(t.querySelectorAll("style[data-esp-image-projection-styles]")),i=r.find(s=>s.textContent===y.projectionStyles);if(i){for(const s of r)s!==i&&s.remove();return}for(const s of r)s.remove();const a=t.ownerDocument.createElement("style");a.dataset.espImageProjectionStyles="",a.textContent=y.projectionStyles,t.append(a)}};o.projectionStyles=`
     esp-image > picture,
     esp-image > img {
       display: block;
@@ -50,7 +59,15 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
       object-fit: var(--_esp-image-object-fit, cover);
       object-position: var(--esp-image-object-position, var(--_esp-image-object-position, center));
     }
-  `,i.styles=[...y.styles,I`
+    @media (prefers-reduced-motion: reduce) {
+      esp-image[banner] > picture,
+      esp-image[banner] > picture > img,
+      esp-image[banner] > img {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  `,o.styles=[...C.styles,q`
       :host {
         display: block;
         aspect-ratio: var(--_esp-image-aspect-ratio, auto);
@@ -108,6 +125,26 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
       .image {
         position: relative;
         z-index: 0;
+      }
+
+      
+      :host([banner]) .image {
+        overflow: clip;
+      }
+
+      
+      :host([banner]) .frame:is([data-grown], [data-placement="band"]) {
+        display: grid;
+        grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+      }
+      :host([banner]) .frame[data-grown]::before {
+        content: "";
+        grid-area: 1 / 1;
+        aspect-ratio: var(--_esp-image-frame-aspect-ratio, auto);
+      }
+      :host([banner]) .frame[data-grown] .image {
+        position: absolute;
+        inset: 0;
       }
 
       img {
@@ -441,6 +478,8 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
         z-index: 2;
         inset: 0;
         display: flex;
+        
+        overflow-wrap: anywhere;
         align-items: flex-end;
         justify-content: flex-start;
         padding: var(--esp-image-overlay-padding, var(--esp-size-padding-page));
@@ -452,9 +491,89 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
         );
         pointer-events: none;
       }
+      :host([banner]) .frame:is([data-grown], [data-placement="band"]) .overlay {
+        position: relative;
+        inset: auto;
+        grid-area: 1 / 1;
+      }
       .overlay slot::slotted(*) {
         color: inherit !important;
         pointer-events: auto;
+      }
+      
+      .stack {
+        display: contents;
+      }
+      .overlay slot[name="overlay"]::slotted(*) {
+        max-inline-size: var(--esp-image-overlay-measure, none);
+      }
+      
+      .frame[data-overlay-stack] .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        min-inline-size: 0;
+        max-inline-size: var(--esp-image-overlay-measure, 36rem);
+      }
+      .frame[data-overlay-stack][data-content-position="bottom"] .stack,
+      .frame[data-overlay-stack][data-content-position="center"] .stack,
+      .frame[data-overlay-stack][data-content-position="top"] .stack {
+        align-items: center;
+      }
+      .frame[data-overlay-stack][data-content-position$="-end"] .stack {
+        align-items: end;
+      }
+      .frame[data-overlay-stack] .stack slot::slotted(*) {
+        max-inline-size: 100%;
+        margin-block: 0 !important;
+      }
+      
+      .frame[data-overlay-stack][data-overlay-headline]
+        .stack
+        slot[name="overlay-supporting"]::slotted(*) {
+        margin-block-start: var(--esp-image-overlay-gap, var(--esp-size-small, 0.75rem)) !important;
+      }
+      .frame[data-overlay-stack]:is([data-overlay-headline], [data-overlay-supporting])
+        .stack
+        slot[name="overlay-action"]::slotted(*) {
+        margin-block-start: calc(
+          2 * var(--esp-image-overlay-gap, var(--esp-size-small, 0.75rem))
+        ) !important;
+      }
+      
+      .overlay slot[name="overlay-supporting"]::slotted(*) {
+        font-family: var(--esp-font-body, inherit);
+        font-weight: var(--esp-type-lead-font-weight, var(--esp-font-weight-body, 400));
+        font-size: var(--esp-type-lead-font-size, 1.25rem);
+        line-height: 1.4;
+      }
+      
+      .overlay slot[name="overlay-action"]::slotted(a),
+      .overlay slot[name="overlay-action"]::slotted(button) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-block-size: 2.75rem;
+        padding: 0.5em 1.25em;
+        border: 2px solid currentColor;
+        border-radius: var(--esp-size-border-radius, 0.375rem);
+        background: transparent;
+        font-family: var(--esp-font-body, inherit);
+        font-size: var(--esp-type-normal, 1rem);
+        font-weight: 600;
+        line-height: 1.2;
+        text-align: center;
+        cursor: pointer;
+      }
+      .overlay slot[name="overlay-action"]::slotted(a:hover),
+      .overlay slot[name="overlay-action"]::slotted(button:hover) {
+        background: color-mix(in oklch, currentColor 14%, transparent);
+      }
+      .overlay slot[name="overlay-action"]::slotted(:focus-visible) {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 7px var(--_esp-image-scrim-resolved);
       }
       .frame[data-content-position="bottom"] .overlay {
         justify-content: center;
@@ -469,6 +588,14 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
         justify-content: center;
         text-align: center;
       }
+      .frame[data-content-position="middle-start"] .overlay {
+        align-items: center;
+      }
+      .frame[data-content-position="middle-end"] .overlay {
+        align-items: center;
+        justify-content: flex-end;
+        text-align: end;
+      }
       .frame[data-content-position="top-start"] .overlay {
         align-items: flex-start;
       }
@@ -481,6 +608,32 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
         align-items: flex-start;
         justify-content: flex-end;
         text-align: end;
+      }
+
+      
+      :host([banner]) .frame[data-placement="band"] {
+        grid-template: minmax(0, 1fr) auto / minmax(0, 1fr);
+      }
+      :host([banner]) .frame[data-placement="band"]::before {
+        display: none;
+      }
+      :host([banner]) .frame[data-placement="band"] .image {
+        position: relative;
+        inset: auto;
+        grid-area: 1 / 1;
+        align-self: stretch;
+        block-size: auto;
+        aspect-ratio: var(--_esp-image-frame-aspect-ratio, auto);
+      }
+      :host([banner]) .frame[data-placement="band"] .banner-layers {
+        position: relative;
+        inset: auto;
+        grid-area: 1 / 1;
+      }
+      :host([banner]) .frame[data-placement="band"] .overlay {
+        grid-area: 2 / 1;
+        background: var(--_esp-image-scrim-resolved);
+        text-shadow: none;
       }
 
       .compact-sentinel {
@@ -516,17 +669,23 @@ var n=function(m,e,t,r){var s=arguments.length,a=s<3?e:r===null?r=Object.getOwnP
           display: none;
         }
         
-        .overlay {
+        
+        .overlay,
+        :host([banner]) .frame[data-placement="band"] .overlay {
           background: white;
           color: black;
         }
       }
 
+      
       @media (prefers-reduced-motion: reduce) {
         .banner-layers,
+        .image,
+        .image picture,
+        .image img,
         .overlay {
           animation: none !important;
           transition: none !important;
         }
       }
-    `,A],n([c({attribute:"original-height",type:Number})],i.prototype,"originalHeight",void 0),n([c({attribute:"original-width",type:Number})],i.prototype,"originalWidth",void 0),n([c({attribute:"low-res",type:String})],i.prototype,"imageUrl",void 0),n([c({attribute:"local-image",type:String})],i.prototype,"localImage",void 0),n([c({type:String})],i.prototype,"caption",void 0),n([c({attribute:"sizes",type:String})],i.prototype,"sizes",void 0),n([c({attribute:"loading",type:String})],i.prototype,"loading",void 0),n([c({attribute:"defer-offscreen",type:Boolean})],i.prototype,"deferOffscreen",void 0),n([c({type:Boolean,reflect:!0})],i.prototype,"banner",void 0),n([c({attribute:"banner-scheme",converter:d(j,"auto"),reflect:!0})],i.prototype,"bannerScheme",void 0),n([c({converter:d(w,"auto"),reflect:!0})],i.prototype,"scrim",void 0),n([c({attribute:"scrim-strength",converter:d(S,"medium"),reflect:!0})],i.prototype,"scrimStrength",void 0),n([c({attribute:"scrim-edge",converter:d(z,"none"),reflect:!0})],i.prototype,"scrimEdge",void 0),n([c({type:String,reflect:!0})],i.prototype,"texture",void 0),n([c({attribute:"texture-scale",converter:d(O,"medium"),reflect:!0})],i.prototype,"textureScale",void 0),n([c({attribute:"content-position",converter:d(R,"bottom-start"),reflect:!0})],i.prototype,"contentPosition",void 0),n([c({attribute:"focus",converter:N,reflect:!0})],i.prototype,"focusPoint",void 0),n([c({type:String})],i.prototype,"ratio",void 0),n([c({attribute:"compact-ratio",type:String})],i.prototype,"compactRatio",void 0),n([u()],i.prototype,"renderedWidth",void 0),n([u()],i.prototype,"compact",void 0),n([u()],i.prototype,"overlayHasContent",void 0),i=p=n([E("esp-image")],i);export{i as EspalierImage,f as parseImageRatio};
+    `,V],l([c({attribute:"original-height",type:Number})],o.prototype,"originalHeight",void 0),l([c({attribute:"original-width",type:Number})],o.prototype,"originalWidth",void 0),l([c({attribute:"low-res",type:String})],o.prototype,"imageUrl",void 0),l([c({attribute:"local-image",type:String})],o.prototype,"localImage",void 0),l([c({type:String})],o.prototype,"caption",void 0),l([c({attribute:"sizes",type:String})],o.prototype,"sizes",void 0),l([c({attribute:"loading",type:String})],o.prototype,"loading",void 0),l([c({attribute:"defer-offscreen",type:Boolean})],o.prototype,"deferOffscreen",void 0),l([c({type:Boolean,reflect:!0})],o.prototype,"banner",void 0),l([c({attribute:"banner-scheme",converter:v(H,"auto"),reflect:!0})],o.prototype,"bannerScheme",void 0),l([c({converter:v(P,"auto"),reflect:!0})],o.prototype,"scrim",void 0),l([c({attribute:"scrim-strength",converter:v(I,"medium"),reflect:!0})],o.prototype,"scrimStrength",void 0),l([c({attribute:"scrim-edge",converter:v(E,"none"),reflect:!0})],o.prototype,"scrimEdge",void 0),l([c({type:String,reflect:!0})],o.prototype,"texture",void 0),l([c({attribute:"texture-scale",converter:v(A,"medium"),reflect:!0})],o.prototype,"textureScale",void 0),l([c({attribute:"content-position",converter:v(N,"bottom-start"),reflect:!0})],o.prototype,"contentPosition",void 0),l([c({attribute:"compact-placement",converter:v(B,"overlay"),reflect:!0})],o.prototype,"compactPlacement",void 0),l([c({attribute:"focus",converter:K,reflect:!0})],o.prototype,"focusPoint",void 0),l([c({type:String})],o.prototype,"ratio",void 0),l([c({attribute:"compact-ratio",type:String})],o.prototype,"compactRatio",void 0),l([u()],o.prototype,"renderedWidth",void 0),l([u()],o.prototype,"compact",void 0),l([u()],o.prototype,"overlayHasContent",void 0),l([u()],o.prototype,"overlayHasStack",void 0),l([u()],o.prototype,"overlayHasHeadline",void 0),l([u()],o.prototype,"overlayHasSupporting",void 0),l([u()],o.prototype,"grown",void 0),o=y=l([U("esp-image")],o);export{o as EspalierImage,z as parseImageRatio};

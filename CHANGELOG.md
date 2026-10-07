@@ -1,3 +1,16 @@
+# 6.1.0
+
+Banner overlays gain a copy-stack layout contract (supporting copy, one action, middle positions, a compact band, and a static first-paint layout), and pickers no longer pick the option a finger lands on when it starts scrolling.
+
+- **New: middle content positions.** `esp-image`'s `content-position` takes `middle-start` and `middle-end`, centering the copy against the inline start or end edge and mirroring in right-to-left text. An `auto` scrim follows the copy to that edge.
+- **New: a banner copy stack.** Beside `slot="overlay"` (the headline), banners take `slot="overlay-supporting"` for one supporting sentence and `slot="overlay-action"` for one native link or button. Together they lay out as one stack: grouped spacing (`--esp-image-overlay-gap`), the supporting sentence on the lead type role, a line length bounded by `--esp-image-overlay-measure` (`36rem` by default), and an action with a comfortable target and a two-tone focus ring that reads over any photograph. The scrim now covers every piece of overlay copy, not just the headline. A headline on its own lays out exactly as before.
+- **New: `compact-placement="below"`.** Below the compact width the copy moves into a band under the image, on the banner scheme's own surface and ink, for crops that lose their quiet region at narrow widths. The default, `overlay`, keeps today's behavior.
+- **New: `@taprootio/espalier/image/banner-static.css`.** A stylesheet that lays server-rendered banners out before `esp-image` upgrades, from the same attributes plus `--esp-image-static-ratio` and `--esp-image-static-compact-ratio`, so nothing shifts at hydration. The Image banners guide lists its inputs and limits.
+- **Fixed: banner copy could be clipped.** Copy taller than the ratio's frame (text enlarged to 200%, long localized labels, a narrow column) was cut off; the banner now grows to fit it, the image covers the grown frame, and words too long for a line wrap. A banner whose copy fits keeps exactly its current geometry, and an explicit, capped, or stretched block size still wins.
+- **Banner copy never moves with the image.** A transform or animation on a banner's projected image or `::part(image)` stays inside the image box, and under `prefers-reduced-motion` those animations and transitions stop.
+- **Fixed: swiping a picker's option list picked the first option touched.** Pickers picked on the press, before the browser could tell a tap from a scroll, so on a phone every swipe chose an option and closed the menu; `esp-pick-one` also picked a hidden option behind its input when the input was tapped after scrolling. Options are now picked by the tap that ends on them, a press keeps focus (and a typeahead query) in the input, and a tap on the input only focuses it. This applies to `esp-pick-one`, `esp-pick-some`, and `esp-font-picker`, with or without typeahead.
+- **Fixed: typing a typeahead filter after scrolling a long picker list could throw** while the list shrank.
+
 # 6.0.0
 
 Espalier 6 removes `esp-video`'s unused streaming adapter, and pickers now show an item's new label when its text changes after it was selected.

@@ -1,0 +1,237 @@
+/*
+ * Espalier esp-image banner: static layout before the component upgrades.
+ *
+ * Server-rendered `<esp-image banner>` markup paints with page styles alone
+ * until Espalier's module defines the element. This sheet lays the same
+ * markup out from its attributes in that window, matching the upgraded
+ * banner's geometry so nothing shifts at hydration: the frame ratio, focal
+ * cropping, every `content-position`, the copy stack and its measure, growth
+ * for long or enlarged copy, and `compact-placement="below"`.
+ *
+ * Every rule is scoped to `esp-image[banner]:not(:defined)`, so it stops
+ * applying the moment the element upgrades.
+ *
+ * Inputs the server sets inline (CSS cannot read a ratio from an attribute):
+ *   --esp-image-static-ratio          the `ratio` value, e.g. `3 / 1`
+ *   --esp-image-static-compact-ratio  the `compact-ratio` value, if any
+ *   --esp-image-object-position       the focal point, e.g. `65% 40%`
+ *
+ * Limits, all documented in the image banners guide: the compact switch uses
+ * the default 40rem width (a custom `--esp-image-compact-width` cannot apply
+ * before upgrade); no scrim or texture paints until upgrade; copy must be
+ * emitted in stack order (headline, supporting, action); and a custom
+ * `--esp-image-overlay-padding` must be a single length for the compact band.
+ */
+
+esp-image[banner]:not(:defined) {
+  --_esp-image-static-pad: var(--esp-image-overlay-padding, var(--esp-size-padding-page, 1rem));
+  --_esp-image-static-gap: var(--esp-image-overlay-gap, var(--esp-size-small, 0.75rem));
+  --_esp-image-static-before: 1fr;
+  --_esp-image-static-after: 0fr;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* media | space before | headline | supporting | action | space after */
+  grid-template-rows:
+    auto minmax(0, var(--_esp-image-static-before)) auto auto auto
+    minmax(0, var(--_esp-image-static-after));
+  justify-items: start;
+  text-align: start;
+  overflow: clip;
+  overflow-wrap: anywhere;
+  container-type: inline-size;
+}
+
+/* The image spans every row at the banner ratio, so the banner is as tall as
+   the ratio or the copy, whichever is taller, and the image covers it all. */
+esp-image[banner]:not(:defined) > picture,
+esp-image[banner]:not(:defined) > img {
+  display: block;
+  grid-row: 1 / -1;
+  grid-column: 1;
+  align-self: stretch;
+  justify-self: stretch;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: var(--esp-image-static-ratio, auto);
+  object-fit: cover;
+  object-position: var(--esp-image-object-position, center);
+}
+esp-image[banner]:not(:defined) > picture > img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: var(--esp-image-object-position, center);
+}
+esp-image[banner]:not(:defined) > esp-image-option {
+  display: none;
+}
+
+/* Vertical placement: which side of the copy takes the free space. */
+esp-image[banner]:not(:defined):is(
+    [content-position="top-start"],
+    [content-position="top"],
+    [content-position="top-end"]
+  ) {
+  --_esp-image-static-before: 0fr;
+  --_esp-image-static-after: 1fr;
+}
+esp-image[banner]:not(:defined):is(
+    [content-position="middle-start"],
+    [content-position="center"],
+    [content-position="middle-end"]
+  ) {
+  --_esp-image-static-before: 1fr;
+  --_esp-image-static-after: 1fr;
+}
+/* Inline placement, logical so right-to-left mirrors. */
+esp-image[banner]:not(:defined):is(
+    [content-position="top"],
+    [content-position="center"],
+    [content-position="bottom"]
+  ) {
+  justify-items: center;
+  text-align: center;
+}
+esp-image[banner]:not(:defined):is(
+    [content-position="top-end"],
+    [content-position="middle-end"],
+    [content-position="bottom-end"]
+  ) {
+  justify-items: end;
+  text-align: end;
+}
+
+/* The copy. The upgraded overlay pads the copy as a block; here each piece of
+   copy carries that padding itself, as a margin, so the image stays
+   full-bleed. A headline on its own keeps its own margins, as it does once
+   upgraded, by taking the padding as padding instead. */
+esp-image[banner]:not(:defined) > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
+  grid-column: 1;
+  min-inline-size: 0;
+}
+esp-image[banner]:not(:defined) > [slot="overlay"] {
+  grid-row: 3;
+  max-inline-size: var(--esp-image-overlay-measure, none);
+  padding: var(--_esp-image-static-pad);
+}
+/* A lone headline carries the overlay padding here; content-box keeps a
+   measure bounding its text, as after upgrade, where that padding belongs to
+   the overlay rather than the headline. */
+esp-image[banner]:not(:defined):not(:has(> [slot="overlay-supporting"], > [slot="overlay-action"]))
+  > [slot="overlay"] {
+  box-sizing: content-box;
+}
+esp-image[banner]:not(:defined) > [slot="overlay-supporting"] {
+  grid-row: 4;
+}
+esp-image[banner]:not(:defined) > [slot="overlay-action"] {
+  grid-row: 5;
+}
+
+/* A copy stack: supporting copy or an action is present. */
+esp-image[banner]:not(:defined):has(> [slot="overlay-supporting"], > [slot="overlay-action"])
+  > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
+  max-inline-size: var(--esp-image-overlay-measure, 36rem);
+  margin: var(--_esp-image-static-pad) !important;
+}
+esp-image[banner]:not(:defined):has(> [slot="overlay-supporting"], > [slot="overlay-action"])
+  > [slot="overlay"] {
+  padding: 0;
+}
+esp-image[banner]:not(:defined):has(> [slot="overlay-supporting"], > [slot="overlay-action"])
+  > [slot="overlay"]:has(~ [slot="overlay-supporting"], ~ [slot="overlay-action"]) {
+  margin-block-end: 0 !important;
+}
+esp-image[banner]:not(:defined) > [slot="overlay"] ~ [slot="overlay-supporting"] {
+  margin-block-start: var(--_esp-image-static-gap) !important;
+}
+esp-image[banner]:not(:defined) > [slot="overlay-supporting"]:has(~ [slot="overlay-action"]) {
+  margin-block-end: 0 !important;
+}
+esp-image[banner]:not(:defined)
+  > :is([slot="overlay"], [slot="overlay-supporting"])
+  ~ [slot="overlay-action"] {
+  margin-block-start: calc(2 * var(--_esp-image-static-gap)) !important;
+}
+
+/* Defaults the upgraded overlay gives its supporting copy and action. They
+   carry no specificity, so page styles win here exactly as they do after
+   upgrade. */
+:where(esp-image[banner]:not(:defined)) > :where([slot="overlay-supporting"]) {
+  font-family: var(--esp-font-body, inherit);
+  font-weight: var(--esp-type-lead-font-weight, var(--esp-font-weight-body, 400));
+  font-size: var(--esp-type-lead-font-size, 1.25rem);
+  line-height: 1.4;
+}
+:where(esp-image[banner]:not(:defined)) > :where(a[slot="overlay-action"], button[slot="overlay-action"]) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-block-size: 2.75rem;
+  padding: 0.5em 1.25em;
+  border: 2px solid currentColor;
+  border-radius: var(--esp-size-border-radius, 0.375rem);
+  background: transparent;
+  font-family: var(--esp-font-body, inherit);
+  font-size: var(--esp-type-normal, 1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Compact band: below the default compact width the image keeps the compact
+   ratio in its own row and the copy follows on the banner scheme's surface. */
+esp-image[banner][compact-placement="below"]:not(:defined) {
+  background-color: var(--esp-image-scrim-color, var(--esp-color-background, oklch(0.98 0 0)));
+}
+esp-image[banner][compact-placement="below"][banner-scheme="light"]:not(:defined) {
+  background-color: var(
+    --esp-image-scrim-color,
+    oklch(from var(--esp-color-background, oklch(0.98 0 0)) 0.97 c h)
+  );
+}
+esp-image[banner][compact-placement="below"][banner-scheme="dark"]:not(:defined) {
+  background-color: var(
+    --esp-image-scrim-color,
+    oklch(from var(--esp-color-background, oklch(0.98 0 0)) 0.13 c h)
+  );
+}
+@container (width < 40rem) {
+  esp-image[banner]:not(:defined) > :is(picture, img) {
+    aspect-ratio: var(--esp-image-static-compact-ratio, var(--esp-image-static-ratio, auto));
+  }
+  esp-image[banner][compact-placement="below"]:not(:defined) > :is(picture, img) {
+    grid-row: 1;
+  }
+  esp-image[banner][compact-placement="below"]:not(:defined)
+    > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
+    color: var(--esp-image-overlay-color, var(--esp-color-headings, oklch(0.2 0 0)));
+    text-shadow: none;
+  }
+  esp-image[banner][compact-placement="below"][banner-scheme="light"]:not(:defined)
+    > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
+    color: var(
+      --esp-image-overlay-color,
+      oklch(from var(--esp-color-headings, oklch(0.2 0 0)) 0.2 c h)
+    );
+  }
+  esp-image[banner][compact-placement="below"][banner-scheme="dark"]:not(:defined)
+    > :is([slot="overlay"], [slot="overlay-supporting"], [slot="overlay-action"]) {
+    color: var(
+      --esp-image-overlay-color,
+      oklch(from var(--esp-color-headings, oklch(0.2 0 0)) 0.97 c h)
+    );
+  }
+}
+
+/* The image never moves under reduced motion, before upgrade as after. */
+@media (prefers-reduced-motion: reduce) {
+  esp-image[banner]:not(:defined) > picture,
+  esp-image[banner]:not(:defined) > picture > img,
+  esp-image[banner]:not(:defined) > img {
+    animation: none !important;
+    transition: none !important;
+  }
+}

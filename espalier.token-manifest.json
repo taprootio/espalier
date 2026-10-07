@@ -1441,6 +1441,18 @@
       "description": "Overlay text color; defaults to the theme heading color when the banner polarity matches the scheme."
     },
     {
+      "name": "--esp-image-overlay-gap",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Space between the headline and supporting copy in a copy stack; the action sits twice as far below. Defaults to `var(--esp-size-small)`."
+    },
+    {
+      "name": "--esp-image-overlay-measure",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Maximum line length of the overlay copy; defaults to `36rem` for a copy stack and `none` for a headline on its own."
+    },
+    {
       "name": "--esp-image-overlay-padding",
       "category": "component",
       "component": "esp-image",
@@ -1517,6 +1529,18 @@
       "category": "component",
       "component": "esp-image",
       "description": "Scrim-strength opacity override."
+    },
+    {
+      "name": "--esp-image-static-compact-ratio",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Read only by the static `banner-static.css` stylesheet before upgrade: the `compact-ratio` value, if any."
+    },
+    {
+      "name": "--esp-image-static-ratio",
+      "category": "component",
+      "component": "esp-image",
+      "description": "Read only by the static `banner-static.css` stylesheet before upgrade: the `ratio` value, e.g. `3 / 1`. A server sets it inline beside the attribute."
     },
     {
       "name": "--esp-image-texture-blend-mode",

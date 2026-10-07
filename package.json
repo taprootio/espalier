@@ -1,6 +1,6 @@
 {
   "name": "@taprootio/espalier",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "packageManager": "bun@1.3.12",
   "description": "Espalier — a themeable, accessible, framework-agnostic, enterprise-grade design system built on web standards and love.",
   "customElements": "custom-elements.json",
@@ -368,6 +368,7 @@
     "./espalier.token-manifest.json": "./espalier.token-manifest.json",
     "./css/fonts/font-definitions.json": "./css/fonts/font-definitions.json",
     "./css/fonts/font-fallback-profiles.json": "./css/fonts/font-fallback-profiles.json",
+    "./image/banner-static.css": "./css/image/banner-static.css",
     "./textures/banner-textures.css": "./css/textures/banner-textures.css",
     "./textures/espalier-paper.png": "./css/textures/espalier-paper.png",
     "./textures/espalier-grain.png": "./css/textures/espalier-grain.png",
@@ -383,7 +384,8 @@
     "dist/footer/index.js",
     "dist/header/index.js",
     "dist/menu/index.js",
-    "dist/shared/virtualizer/lit-virtualizer.js"
+    "dist/shared/virtualizer/lit-virtualizer.js",
+    "css/**/*.css"
   ],
   "files": [
     "dist/**/*.js",
@@ -392,6 +394,7 @@
     "css/fonts/**/*.css",
     "css/fonts/font-definitions.json",
     "css/fonts/font-fallback-profiles.json",
+    "css/image/banner-static.css",
     "css/textures/banner-textures.css",
     "css/textures/*.png",
     "custom-elements.json",
