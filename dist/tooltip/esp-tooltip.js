@@ -44,6 +44,7 @@ var o=function(a,e,t,n){var p=arguments.length,r=p<3?e:n===null?n=Object.getOwnP
       }
 
       .tooltip-content {
+        --_esp-surface-layer: 1;
         
         white-space: normal;
         overflow-wrap: anywhere;

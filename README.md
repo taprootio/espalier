@@ -1,6 +1,6 @@
 # Espalier
 
-Espalier is Taproot's enterprise-grade web component design system. It ships as
+Espalier is Taproot's web-component design system. It ships as
 standard ES modules built on Lit, custom elements, Shadow DOM, CSS custom
 properties, and native form participation.
 
@@ -16,10 +16,10 @@ included in this package or in the public artifact repository.
 ## Installation
 
 ```bash
-npm install @taprootio/espalier
+npm install @taprootio/espalier lit
 ```
 
-## Basic Usage
+## Basic usage
 
 Import the root element and the components you use:
 
@@ -42,7 +42,7 @@ You can also import the full component bundle:
 import "@taprootio/espalier";
 ```
 
-## Public Metadata
+## Public metadata
 
 The package includes machine-readable public API metadata:
 
@@ -58,7 +58,7 @@ Espalier is proprietary software. See `LICENSE` for the package license and
 Production use requires a paid order form or another written agreement with
 Taproot unless the license expressly allows the use case.
 
-## Source Access
+## Source access
 
 No source code rights are granted by this package. Source access, source escrow,
 or source snapshot transactions require a separate written agreement.

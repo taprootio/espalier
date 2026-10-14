@@ -1,16 +1,16 @@
-var n=function(t,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(t,e,r,i);else for(var p=t.length-1;p>=0;p--)(l=t[p])&&(o=(a<3?l(o):a>3?l(e,r,o):l(e,r))||o);return a>3&&o&&Object.defineProperty(e,r,o),o};import{css as c,html as v}from"lit";import{customElement as b,property as h}from"lit/decorators.js";import{classMap as f}from"lit/directives/class-map.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";let s=class extends d{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return v`
-      <div class=${f({"esp-box":!0,"full-screen":e})}>
+var n=function(t,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnPropertyDescriptor(e,r):i,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(t,e,r,i);else for(var p=t.length-1;p>=0;p--)(l=t[p])&&(o=(a<3?l(o):a>3?l(e,r,o):l(e,r))||o);return a>3&&o&&Object.defineProperty(e,r,o),o};import{paintedSurface as c}from"../shared/surface-layer.js";import{css as b,html as v}from"lit";import{customElement as h,property as f}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as d}from"../shared/esp-element-base.js";let s=class extends d{constructor(){super(...arguments),this.fullScreen=!1}render(){const{fullScreen:e}=this;return v`
+      <div class=${u({"esp-box":!0,"full-screen":e})}>
         <div part="box">
           <slot></slot>
         </div>
       </div>
-    `}};s.styles=[...d.styles,c`
+    `}};s.styles=[...d.styles,c(1),b`
       :host {
         display: block;
       }
 
       .esp-box {
-        background-color: var(--esp-color-box-background, var(--esp-color-layer-1));
+        background-color: var(--esp-color-box-background, var(--_esp-surface-background));
         border-radius: var(--esp-size-border-radius);
         box-shadow: var(--esp-box-shadow, var(--esp-shadow-1, 1px 1px 4px var(--esp-color-shadow)));
         overflow: visible;
@@ -61,4 +61,4 @@ var n=function(t,e,r,i){var a=arguments.length,o=a<3?e:i===null?i=Object.getOwnP
           }
         }
       }
-    `],n([h({attribute:"full-screen",type:Boolean})],s.prototype,"fullScreen",void 0),s=n([b("esp-box")],s);export{s as EspalierBox};
+    `],n([f({attribute:"full-screen",type:Boolean})],s.prototype,"fullScreen",void 0),s=n([h("esp-box")],s);export{s as EspalierBox};

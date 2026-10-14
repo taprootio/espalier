@@ -84,6 +84,7 @@ var s=function(r,i,t,n){var a=arguments.length,e=a<3?i:n===null?n=Object.getOwnP
 
       :host(:not([disabled]):hover) .item,
       :host(:not([disabled]):focus-visible) .item {
+        --_esp-surface-layer: 2;
         background: var(--esp-action-menu-item-hover-background, var(--esp-color-layer-2));
       }
 

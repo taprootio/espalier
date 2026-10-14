@@ -4,8 +4,7 @@ import "./esp-picker-menu.js";
 import { type PickerItem } from "./esp-picker-item.js";
 import { EspalierPickerBase } from "./esp-picker-base.js";
 /**
- * Component for selecting a single option from a list of
- * options. For selecting multiple options, see
+ * Selects one option from a list. For selecting multiple options, see
  * [esp-pick-some](/components/pickers/pick-some/).
  *
  * ```html

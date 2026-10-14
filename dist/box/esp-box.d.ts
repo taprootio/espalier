@@ -1,8 +1,10 @@
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 /**
- * Used as a base to group context visually. `esp-box`
- * has a css part of `box` that can be styled to create cards,
- * forms, and other UI elements.
+ * Groups related content in a themed container. Style its `box` CSS part
+ * to create cards, forms, or other grouped regions.
+ *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
  *
  * ```html
  * <esp-box>
@@ -19,6 +21,15 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * with nothing to neutralize. Keep boxes for what they are for — cards,
  * panels, and form surfaces — and replace any pre-3.2 "neutralized box"
  * band with a bare section.
+ *
+ * Select a raised form surface with `surface-layer`; fields follow it automatically.
+ *
+ * ```html
+ * <esp-box surface-layer="2">
+ *   <esp-input placeholder="Search"></esp-input>
+ *   <esp-input readonly value="A read-only value"></esp-input>
+ * </esp-box>
+ * ```
  *
  * @customElement esp-box
  * @slot - The default slot holds elements to display in the box.

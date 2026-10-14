@@ -8,7 +8,10 @@ import { type EspalierIntentVariant } from "./intent-values.js";
  * pickers, date pickers, buttons, and similar controls exposes the
  * following shared styling hooks:
  *
- * @cssprop --esp-field-background - Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`.
+ * A field fills one layer above the surface it sits on.
+ *
+ * @attr {"1"|"2"|"3"|"4"} surface-layer - Declares the painted surface depth. Fields use the next local layer, capped at layer 4.
+ * @cssprop --esp-field-background - Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins.
  * @cssprop --esp-field-border-color - Border color of the shared field shell. Defaults to `var(--esp-color-border)`.
  * @cssprop --esp-field-border-width - Border width of the shared field shell. Defaults to `1px`.
  * @cssprop --esp-field-text-color - Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.

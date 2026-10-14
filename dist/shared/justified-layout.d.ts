@@ -67,25 +67,13 @@ export declare function normalizeAlbumMaxRowHeightVh(value: unknown): number;
  */
 export declare function normalizeMaxImagesPerRow(value: unknown, fallback?: number, maximum?: number): number;
 /**
- * Compute justified album rows with explicit cell widths.
+ * Compute justified album rows and the geometry a renderer needs for cropping.
  *
- * Algorithm:
- * 1. Add images to a row one at a time, scaled to the target row height.
- * 2. When the combined width overflows the container, the row breaks either
- *    before or after the overflowing image — whichever leaves the row height
- *    closer to the target. Keeping the image shrinks the row slightly below
- *    target; pushing it to the next row stretches the row above target.
- * 3. Scale the finished row so it fills the container width exactly.
+ * Completed rows fill the available width. A row capped by `maxRowHeight` keeps
+ * relative cell widths, allowing `object-fit: cover` to crop its images. A final
+ * row below a finite `maxImagesPerRow` remains partial and preserves proportions;
+ * its height is capped by the preceding rows or target height and `maxRowHeight`.
  *
- * Completed rows always span the available width. When their justified height exceeds
- * `maxRowHeight`, their cells retain their relative widths while expanding to
- * the row width at the ceiling; a renderer can use `object-fit: cover` to crop
- * the resulting cells. A final row below a finite `maxImagesPerRow` instead
- * remains partial and preserves its image proportions. Its height is capped by
- * the tallest preceding row (or the target height when it is the only row) and
- * by `maxRowHeight`.
- *
- * With an omitted or invalid `maxImagesPerRow`, rows are unlimited in length
- * and every row is completed.
+ * An omitted or invalid `maxImagesPerRow` means unlimited, completed rows.
  */
 export declare function calculateAlbumLayout<T extends LayoutImage>(images: T[], options: AlbumLayoutOptions): AlbumLayoutRow<T>[];

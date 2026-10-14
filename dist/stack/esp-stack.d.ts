@@ -7,8 +7,7 @@ declare const STACK_ALIGNS: readonly ["start", "center", "end", "stretch"];
 export type EspalierAlign = (typeof STACK_ALIGNS)[number];
 export { STACK_GAPS, STACK_ALIGNS };
 /**
- * A vertical flow: children stack in a column with a themed gap —
- * "column, gap X" without writing flexbox (ADR-010's micro half).
+ * Stacks children vertically with a themed gap.
  *
  * ```html
  * <esp-stack gap="medium">

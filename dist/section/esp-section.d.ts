@@ -6,7 +6,7 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * `esp-section` paints the local `--esp-color-background` edge to edge
  * and centers its content in a capped well. It carries no card identity:
  * no raised surface, no border radius, no shadow. Give it a `context`
- * (see the theming guide, `/guides/color/theming` on the docs site) and
+ * (see [theme overview](/espalier-guides/#foundations)) and
  * the band renders the zone's complete token table with nothing to
  * neutralize:
  *

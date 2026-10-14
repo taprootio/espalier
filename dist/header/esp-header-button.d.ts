@@ -63,23 +63,14 @@ export declare class EspalierHeaderButton extends LitElement {
      */
     ariaLabel: string | null;
     /**
-     * Id of the region this button controls, forwarded to the inner
-     * `<button>`.
+     * Id of the controlled region, forwarded to the inner native button.
      *
-     * The host is not the control — it has no tabindex and no key handling, so
-     * the native button inside the shadow root is what assistive technology and
-     * role-based locators resolve to. State set on the host has no path to it
-     * unless the component carries it across, which is what this does.
+     * Assistive technology and role locators target that button, so host state must
+     * be forwarded. A string id reference still cannot resolve a target outside
+     * its shadow root; ESP0222 tracks forwarding a resolved element reference.
      *
-     * Forwarding the string is not the same as forwarding the relationship: an
-     * id reference resolves only within the referring element's own tree, so a
-     * target outside this button's shadow root stays unresolved. ESP0222 tracks
-     * carrying a resolved element reference instead.
-     *
-     * `ariaControls` is deliberately not an `override`: `ARIAMixin` carries
-     * `ariaControlsElements`, not a string reflection, so there is no base
-     * member to override. If a future lib adds one, `noImplicitOverride` will
-     * say so here.
+     * `ariaControls` has no base string member in the current DOM types. Keep it
+     * without `override`; `noImplicitOverride` will flag a future base declaration.
      */
     ariaControls: string | null;
     /**

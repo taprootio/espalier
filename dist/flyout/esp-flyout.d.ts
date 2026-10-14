@@ -2,8 +2,8 @@ import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type FlyoutCloseReason } from "../shared/flyout-events.js";
 /**
- * A transient panel for help and more-info content that claims designed spare
- * width before ever covering the page.
+ * A panel for help and additional information. Uses spare page width when
+ * available and switches to an overlay when the workspace cannot fit it.
  *
  * Place one `esp-flyout` in an `esp-page`'s `flyout` slot. The panel
  * lives on the canvas after any persistent preview, outside the content

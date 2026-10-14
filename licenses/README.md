@@ -1,36 +1,39 @@
-# Espalier Commercial Licensing Drafts
+# Licensing and commercial documents
 
-These files are draft business/legal documents for attorney review. They are
-intended to support a proprietary public package containing compiled and
-obfuscated Espalier artifacts, without publishing source code.
+The [binary license](ESPALIER_PROPRIETARY_BINARY_LICENSE.md) governs the public
+compiled package. Its approved text is recorded in
+[LICENSE_APPROVAL.json](LICENSE_APPROVAL.json); the publish gate verifies that
+the shipped text matches that approval.
 
-They are not legal advice and should not be used with customers or partners
-until reviewed and adapted by qualified IP and technology-transactions counsel.
+The order form, term sheets, and escrow addendum are commercial templates for
+attorney review. Have counsel review and adapt them before customer or partner
+use. Notices and provenance records document the assets distributed with
+Espalier.
 
 ## Documents
 
-- `ESPALIER_PROPRIETARY_BINARY_LICENSE.md` - default license for the public
+- [ESPALIER_PROPRIETARY_BINARY_LICENSE.md](ESPALIER_PROPRIETARY_BINARY_LICENSE.md) - default license for the public
   compiled package and for paid production use by direct enterprise customers.
-- `ESPALIER_ENTERPRISE_ORDER_FORM_TEMPLATE.md` - short commercial order form to
+- [ESPALIER_ENTERPRISE_ORDER_FORM_TEMPLATE.md](ESPALIER_ENTERPRISE_ORDER_FORM_TEMPLATE.md) - short commercial order form to
   pair with the binary license for direct customers.
-- `ESPALIER_STRATEGIC_PARTNER_LICENSE_TERM_SHEET.md` - draft terms for a
+- [ESPALIER_STRATEGIC_PARTNER_LICENSE_TERM_SHEET.md](ESPALIER_STRATEGIC_PARTNER_LICENSE_TERM_SHEET.md) - draft terms for a
   strategic enterprise reseller/OEM/private-label deal with a $3M+ annual
   minimum guarantee.
-- `ESPALIER_SOURCE_ESCROW_ADDENDUM.md` - source escrow terms for enterprise
+- [ESPALIER_SOURCE_ESCROW_ADDENDUM.md](ESPALIER_SOURCE_ESCROW_ADDENDUM.md) - source escrow terms for enterprise
   reassurance without giving source away in the ordinary case.
-- `ESPALIER_SOURCE_SNAPSHOT_PURCHASE_TERM_SHEET.md` - draft terms for a
+- [ESPALIER_SOURCE_SNAPSHOT_PURCHASE_TERM_SHEET.md](ESPALIER_SOURCE_SNAPSHOT_PURCHASE_TERM_SHEET.md) - draft terms for a
   $20M+ one-time source snapshot transaction while preserving Taproot's
   continuing ownership and future development rights unless counsel negotiates
   a broader sale.
-- `ESPALIER_DEAL_READINESS_CHECKLIST.md` - practical readiness checklist for
+- [ESPALIER_DEAL_READINESS_CHECKLIST.md](ESPALIER_DEAL_READINESS_CHECKLIST.md) - practical readiness checklist for
   lawyer review, diligence, packaging, and outreach.
-- `THIRD_PARTY_NOTICES.md` - third-party open-source notices for materials
+- [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) - third-party open-source notices for materials
   copied into Espalier distribution artifacts, including Lit Virtualizer,
   Tabler Icons, and the self-hosted documentation shell fonts.
-- `asset-provenance.json` and `ASSET_PROVENANCE.md` - machine-readable and
+- [asset-provenance.json](asset-provenance.json) and [ASSET_PROVENANCE.md](ASSET_PROVENANCE.md) - machine-readable and
   human-readable provenance records for generated fonts, icons, vendored
   runtime source, textures, demo datasets, and docs assets.
-- `open-source-audit/` - preserved dependency/license audit material for
+- [open-source-audit/](open-source-audit/) - preserved dependency/license audit material for
   open-source diligence, SBOM planning, and third-party notice review.
 
 ## Commercial Position

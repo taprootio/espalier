@@ -39,6 +39,7 @@ import{css as e}from"lit";const t=e`
   
 
   .picker-popover {
+    --_esp-surface-layer: 1;
     position: fixed;
     inset: unset;
     margin: 0;

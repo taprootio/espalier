@@ -6,6 +6,9 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * generated automatically from each child's `label` attribute.
  * Only one tab panel is visible at a time.
  *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
+ *
  * ```html
  * <esp-tab-group>
  *   <esp-tab label="Overview">

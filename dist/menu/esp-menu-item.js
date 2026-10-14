@@ -1,9 +1,9 @@
-var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,r):a,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(p,e,r,a);else for(var d=p.length-1;d>=0;d--)(i=p[d])&&(t=(s<3?i(t):s>3?i(e,r,t):i(e,r))||t);return s>3&&t&&Object.defineProperty(e,r,t),t};import{css as u,html as c,nothing as h}from"lit";import{customElement as v,property as l,state as f}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{ref as g}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as k}from"../shared/events.js";import{pathsMatch as w}from"../shared/path-matching.js";import{SlottedIconController as z}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";let o=class extends m{constructor(){super(...arguments),this.iconSlot=new z(this),this.label="",this.url="",this.icon="",this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}connectedCallback(){super.connectedCallback(),this.checkActive()}updated(e){super.updated(e),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=w(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(k.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=y(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > *"),a=r||e.length>0,s={item:!0,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":a,"is-active":this.active},t=c`<span part="menu-text">${this.label}</span>`,i=c`<span class="icon-area" aria-hidden=${a?"true":h}>
+var a=function(p,e,r,n){var s=arguments.length,t=s<3?e:n===null?n=Object.getOwnPropertyDescriptor(e,r):n,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")t=Reflect.decorate(p,e,r,n);else for(var d=p.length-1;d>=0;d--)(i=p[d])&&(t=(s<3?i(t):s>3?i(e,r,t):i(e,r))||t);return s>3&&t&&Object.defineProperty(e,r,t),t};import{css as m,html as c,nothing as h}from"lit";import{customElement as v,property as l,state as f}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{ref as g}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{EspalierElementBase as u}from"../shared/esp-element-base.js";import{ESP_EVENTS as k}from"../shared/events.js";import{pathsMatch as w}from"../shared/path-matching.js";import{SlottedIconController as z}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";let o=class extends u{constructor(){super(...arguments),this.iconSlot=new z(this),this.label="",this.url="",this.icon="",this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}connectedCallback(){super.connectedCallback(),this.checkActive()}updated(e){super.updated(e),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=w(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(k.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=y(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > *"),n=r||e.length>0,s={item:!0,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":n,"is-active":this.active},t=c`<span part="menu-text">${this.label}</span>`,i=c`<span class="icon-area" aria-hidden=${n?"true":h}>
       <slot ${g(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
       ${!r&&e?x(e):h}
     </span>`;return c`<div class=${b(s)}>
       ${this.active?c`<span class="current-page" aria-current="page">${t}${i}</span>`:this.url?c`<a href=${this.url}>${t}${i}</a>`:c`<button type="button" @click=${this.handleButtonClick}>${t}${i}</button>`}
-    </div>`}};o.styles=[...m.styles,u`
+    </div>`}};o.styles=[...u.styles,m`
       :host {
         display: block;
       }
@@ -108,6 +108,7 @@ var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnP
       }
 
       .is-vertical {
+        --_esp-surface-layer: 1;
         border-right: 1px solid var(--esp-menu-item-border-color, var(--esp-color-border));
         border-bottom: 1px solid var(--esp-menu-item-border-color, var(--esp-color-border));
         background-color: var(--esp-menu-item-background, var(--esp-color-layer-1));
@@ -115,11 +116,13 @@ var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnP
 
       .is-vertical:hover,
       .is-vertical:focus-within {
+        --_esp-surface-layer: 2;
         color: var(--esp-menu-item-hover-color, var(--esp-color-headings-hover));
         background-color: var(--esp-menu-item-hover-background, var(--esp-color-layer-2));
       }
 
       .is-nested {
+        --_esp-surface-layer: 1;
         border-bottom: none;
         background-color: var(--esp-menu-item-background, var(--esp-color-layer-1));
       }
@@ -131,6 +134,7 @@ var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnP
       }
 
       .is-active {
+        --_esp-surface-layer: 2;
         color: var(--esp-menu-item-active-color, var(--esp-color-link));
         background-color: var(--esp-menu-item-active-background, var(--esp-color-layer-2));
       }
@@ -186,4 +190,4 @@ var n=function(p,e,r,a){var s=arguments.length,t=s<3?e:a===null?a=Object.getOwnP
         width: var(--esp-menu-item-icon-size, calc(1 * var(--esp-size-font)));
         object-fit: contain;
       }
-    `],n([l({type:String})],o.prototype,"label",void 0),n([l({type:String})],o.prototype,"url",void 0),n([l({type:String})],o.prototype,"icon",void 0),n([l({attribute:!1,type:String})],o.prototype,"mode",void 0),n([l({attribute:!1,type:Number})],o.prototype,"depth",void 0),n([l({attribute:!1,type:Boolean})],o.prototype,"touchDevice",void 0),n([f()],o.prototype,"active",void 0),o=n([v("esp-menu-item")],o);export{o as EspalierMenuItem};
+    `],a([l({type:String})],o.prototype,"label",void 0),a([l({type:String})],o.prototype,"url",void 0),a([l({type:String})],o.prototype,"icon",void 0),a([l({attribute:!1,type:String})],o.prototype,"mode",void 0),a([l({attribute:!1,type:Number})],o.prototype,"depth",void 0),a([l({attribute:!1,type:Boolean})],o.prototype,"touchDevice",void 0),a([f()],o.prototype,"active",void 0),o=a([v("esp-menu-item")],o);export{o as EspalierMenuItem};

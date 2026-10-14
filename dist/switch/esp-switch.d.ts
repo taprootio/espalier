@@ -1,10 +1,8 @@
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierFormField } from "../form-item/esp-form-item.js";
 /**
- * A toggle switch for boolean on/off values. Uses a CSS-only
- * track-and-thumb design with a smooth sliding transition.
- * Functionally equivalent to a checkbox but visually communicates
- * an immediate state change rather than a deferred selection.
+ * An on/off switch for settings that take effect immediately. Use a
+ * checkbox when the choice should be applied with a later form submission.
  *
  * ```html
  * <esp-box>

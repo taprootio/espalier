@@ -5,8 +5,7 @@ declare const ROW_JUSTIFIES: readonly ["start", "center", "end", "between"];
 export type EspalierJustify = (typeof ROW_JUSTIFIES)[number];
 export { ROW_JUSTIFIES };
 /**
- * A horizontal flow: children sit in a wrapping row with a themed gap —
- * "row, wrap, gap Y" without writing flexbox (ADR-010's micro half).
+ * Arranges children in a wrapping row with a themed gap.
  *
  * ```html
  * <esp-row gap="small" justify="between">

@@ -2,7 +2,7 @@ import { type TemplateResult } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 export type ButtonIconPosition = "left" | "right";
 /**
- * Used to initiate a user action or link to another page.
+ * Triggers an action or links to another page.
  *
  * ```html
  * <esp-button label="Hello there!"></esp-button>
@@ -18,7 +18,7 @@ export type ButtonIconPosition = "left" | "right";
  * </script>
  * ```
  *
- * Here is each of the button intents:
+ * Choose an intent to express the action's status:
  *
  * ```html
  * <div style="display: flex; flex-wrap: wrap; gap: var(--esp-size-padding);">
@@ -145,7 +145,7 @@ export declare class EspalierButton extends EspalierElementBase {
      */
     collapsed: boolean;
     /**
-     * Controls whether or not the button is disabled.
+     * Disables the button.
      *
      * ```html
      * <esp-button disabled label="Disabled"></esp-button>
@@ -225,7 +225,7 @@ export declare class EspalierButton extends EspalierElementBase {
      */
     label: string;
     /**
-     * Controls whether or not the button is in a loading state.
+     * Shows the button's loading state.
      * The button will be disabled and show a spinner while loading
      * is true.
      *

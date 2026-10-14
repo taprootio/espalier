@@ -55,6 +55,7 @@ var u=function(a,e,t,r){var s=arguments.length,i=s<3?e:r===null?r=Object.getOwnP
     }
 
     .status-message {
+      --_esp-surface-layer: 2;
       display: grid;
       place-content: center;
       min-height: 3em;
@@ -76,6 +77,7 @@ var u=function(a,e,t,r){var s=arguments.length,i=s<3?e:r===null?r=Object.getOwnP
       }
 
       :host([data-fullscreen]) .menu-content {
+        --_esp-surface-layer: 2;
         grid-row: 2;
         box-sizing: border-box;
         min-height: 0;

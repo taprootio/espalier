@@ -1,5 +1,6 @@
 import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"../shared/esp-element-base.js";import{COMPACT_VIEWPORT_MEDIA_QUERY as t}from"../shared/responsive.js";const n=[...i.styles,a`
     :host {
+      --_esp-surface-layer: initial;
       --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 1536px);
       --_esp-page-main-min-width: var(--esp-page-main-min-width, 30rem);
       --_esp-page-preview-resolved-min-width: var(--esp-page-preview-min-width, 22.5rem);

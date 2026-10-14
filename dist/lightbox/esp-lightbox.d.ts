@@ -9,6 +9,9 @@ import "../button/esp-button.js";
  * at a CSS selector for the container that holds the images. Clicking
  * any image in that container opens the lightbox at that image.
  *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
+ *
  * On mobile, swipe left or right to navigate. The gallery wraps
  * around — swiping past the last image goes back to the first.
  *

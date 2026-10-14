@@ -27,6 +27,7 @@ var a=function(o,e,i,t){var n=arguments.length,r=n<3?e:t===null?t=Object.getOwnP
       }
 
       .preview {
+        --_esp-surface-layer: 2;
         display: grid;
         place-items: center;
         inline-size: 100%;

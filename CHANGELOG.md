@@ -1,3 +1,11 @@
+# 6.3.0
+
+A field fills one layer above the surface it sits on.
+
+- Fields inside tab panels and boxes now follow the panel or box's declared layer: a layer-2 surface gives its fields layer 3, instead of the previous fixed layer 2. Default layer-1 panels and boxes still give fields layer 2. Dialogs give fields layer 4; headers, footers, and callouts give fields layer 3. Bare-page fields keep their layer-2 fill.
+- New: `surface-layer="1|2|3|4"` selects an Espalier surface's default layer and declares depth for consumer-painted surfaces. The `@taprootio/espalier/shared/surface-layer` CSS helper supports consumer surfaces inside custom shadow roots. Nearest painted surface wins, independently of quiet/inverted contexts and color scheme.
+- `--esp-field-background` overrides still win. Hover and focus derive from the resolved fill. At the layer-4 ceiling the resting field shares its container's fill, with the border and state treatments providing separation.
+
 # 6.2.0
 
 Banners gain a soft height contract, so a banner capped to the first fold or filling the viewport never clips its copy.

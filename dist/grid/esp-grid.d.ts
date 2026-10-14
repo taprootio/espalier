@@ -67,6 +67,9 @@ export type GridLoadErrorEventDetail<T = GridRow> = GridDataStateEventDetail<T> 
  * adding [esp-grid-column](/components/grid/grid-column) elements to
  * the default slot.
  *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
+ *
  * @slot - Grid has a default slot that expects `<esp-grid-column>`
  * elements to define the columns in the grid:
  *

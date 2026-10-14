@@ -471,7 +471,7 @@
     },
     {
       "name": "--esp-field-background",
-      "description": "Background color of the shared field shell. Defaults to `var(--esp-color-layer-2)`."
+      "description": "Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins."
     },
     {
       "name": "--esp-field-border-color",

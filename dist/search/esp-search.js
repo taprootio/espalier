@@ -83,6 +83,7 @@ var o=function(a,e,t,c){var h=arguments.length,r=h<3?e:c===null?c=Object.getOwnP
       }
 
       .panel {
+        --_esp-surface-layer: 1;
         position: relative;
         z-index: 2;
         width: 100%;
@@ -175,6 +176,7 @@ var o=function(a,e,t,c){var h=arguments.length,r=h<3?e:c===null?c=Object.getOwnP
         }
 
         &.active {
+          --_esp-surface-layer: 2;
           background: var(--esp-search-active-background, var(--esp-color-layer-2));
         }
       }

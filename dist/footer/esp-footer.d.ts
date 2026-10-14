@@ -8,12 +8,12 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * artwork, link groups, supporting actions, and legal or utility content.
  * Its background remains full-bleed while its content automatically aligns
  * to the surface of a containing [`<esp-page>`](/components/page/).
- * The decorative background uses the same internal visual-layer primitive as
- * `esp-image` banners; the footer's public background tokens are unchanged.
- *
  * Use bare [`<esp-footer-link-group>`](/components/footer/link-group/) children
  * when navigation groups should auto-flow independently through the grid.
  * `columns` is a maximum: the grid always drops columns when they no longer fit.
+ *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
  *
  * ```html
  * <esp-footer

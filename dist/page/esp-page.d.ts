@@ -23,7 +23,7 @@ export interface PageWorkspaceResizeDetail {
     flyoutWidth: number;
 }
 /**
- * Used to lay out standard page structure.
+ * Arranges a page's header, navigation, main content, and footer.
  *
  * @slot header - Global navigation content (typically an `esp-header`).
  *

@@ -1,12 +1,12 @@
-var p=function(s,t,o,n){var i=arguments.length,e=i<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,o):n,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(s,t,o,n);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(e=(i<3?a(e):i>3?a(t,o,e):a(t,o))||e);return i>3&&e&&Object.defineProperty(t,o,e),e};import{css as f,html as c}from"lit";import{customElement as u,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as h}from"../shared/events.js";import{intentSurfaceTokens as v}from"../shared/style-fragments.js";import{classMap as b}from"lit/directives/class-map.js";import{trashSVG as g}from"../shared/svgs/trash.js";import{ref as y}from"lit/directives/ref.js";import{getIconHrefForHost as S}from"../shared/intent-values.js";import{SlottedIconController as E}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as _}from"../shared/svgs/render-sprite-icon.js";let r=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new E(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=S(this.icon,this),o=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return c`
-      <section class=${b({[`intent-${this.intent}`]:!0})}>
+var p=function(s,t,o,n){var i=arguments.length,e=i<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,o):n,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(s,t,o,n);else for(var l=s.length-1;l>=0;l--)(a=s[l])&&(e=(i<3?a(e):i>3?a(t,o,e):a(t,o))||e);return i>3&&e&&Object.defineProperty(t,o,e),e};import{paintedSurface as f}from"../shared/surface-layer.js";import{css as u,html as c}from"lit";import{customElement as h,property as d}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as v}from"../shared/events.js";import{intentSurfaceTokens as b}from"../shared/style-fragments.js";import{classMap as g}from"lit/directives/class-map.js";import{trashSVG as y}from"../shared/svgs/trash.js";import{ref as S}from"lit/directives/ref.js";import{getIconHrefForHost as E}from"../shared/intent-values.js";import{SlottedIconController as _}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";let r=class extends m{constructor(){super(...arguments),this.intentEmitsTokens=!1,this.iconSlot=new _(this),this.intentBacker="info",this.icon="",this.destroyable=!1}render(){const t=E(this.icon,this),o=this.iconSlot.hasSlottedIcon('[slot="icon-slot"]');return c`
+      <section class=${g({[`intent-${this.intent}`]:!0})}>
         <div class="icon">
           <slot
             name="icon-slot"
-            ${y(this.iconSlot.slotRef)}
+            ${S(this.iconSlot.slotRef)}
             @slotchange=${this.iconSlot.handleSlotChange}
           ></slot>
-          ${!o&&t?_(t):c``}
+          ${!o&&t?x(t):c``}
         </div>
         <div class="message">
           <slot></slot>
@@ -15,12 +15,12 @@ var p=function(s,t,o,n){var i=arguments.length,e=i<3?t:n===null?n=Object.getOwnP
               class="destroy-button"
               intent="danger"
               icon-only
-              @esp-clicked=${()=>{this.dispatchEvent(new CustomEvent(h.INFO_DESTROY,{detail:{toDestroy:this}}))}}
+              @esp-clicked=${()=>{this.dispatchEvent(new CustomEvent(v.INFO_DESTROY,{detail:{toDestroy:this}}))}}
             >
-              ${g}
+              ${y}
             </esp-button>`:c``}
       </section>
-    `}};r.styles=[...m.styles,v,f`
+    `}};r.styles=[...m.styles,f(2,"section"),b,u`
       :host {
         display: block;
       }
@@ -61,4 +61,4 @@ var p=function(s,t,o,n){var i=arguments.length,e=i<3?t:n===null?n=Object.getOwnP
           margin: var(--esp-size-tiny);
         }
       }
-    `],p([d({type:String})],r.prototype,"icon",void 0),p([d({type:Boolean})],r.prototype,"destroyable",void 0),r=p([u("esp-info")],r);export{r as EspalierInfo};
+    `],p([d({type:String})],r.prototype,"icon",void 0),p([d({type:Boolean})],r.prototype,"destroyable",void 0),r=p([h("esp-info")],r);export{r as EspalierInfo};

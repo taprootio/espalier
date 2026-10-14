@@ -188,6 +188,7 @@ var f=function(_,e,t,i){var o=arguments.length,r=o<3?e:i===null?i=Object.getOwnP
         padding-right: var(--esp-size-padding);
 
         &.has-previews {
+          --_esp-surface-layer: 4;
           padding: var(--esp-size-padding);
           background: var(--esp-image-upload-preview-background, var(--esp-color-layer-4));
         }

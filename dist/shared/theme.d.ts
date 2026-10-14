@@ -254,19 +254,11 @@ export type PartialThemeContexts = Record<string, ThemeContext | undefined>;
 /** Ordered role names, for validation and iteration. */
 export declare const ROLE_NAMES: readonly RoleName[];
 /**
- * Which semantic tokens each role slot paints, and at which ramp stop.
+ * Map role slots to semantic tokens and ramp stops.
  *
- * This is the compilation table: it turns five designer-facing roles
- * into the twenty-three engine-room tokens. `dangerText` is absent by
- * design — the status family is reserved and keeps its own source.
- *
- * The `accent` role has no body-text slot on purpose. "Rose is
- * decorative only" is a structural guarantee here, not a comment: text
- * that must come from the accent family comes through `accent.text`,
- * the deepened variant a designer picked for legibility. `accent.hover`
- * lets a hover change *family*, not just lightness — "plum link, rose
- * hover" is an ordinary brand rule (ESP0172); absent, `linkHover` keeps
- * following `accent.text` exactly as before.
+ * `dangerText` stays outside the roles layer because status meanings are reserved.
+ * Accent body copy must use the legible `accent.text` slot. `accent.hover` can
+ * select a different family; without it, hovered links follow `accent.text`.
  */
 export declare const ROLE_TOKEN_PLAN: Readonly<Record<RoleName, Readonly<Record<string, ReadonlyArray<[SemanticColorName, LightnessKey]>>>>>;
 /**
@@ -323,13 +315,10 @@ interface CompileRoleOptions {
     actionSurfacePole?: (source: MappingSource, lightness: number) => "dark" | "light";
 }
 /**
- * Compile roles into semantic mappings.
+ * Compile declared roles into semantic mappings.
  *
- * Only the tokens a declared role owns are emitted, so a theme that
- * declares no roles compiles to nothing and every existing theme keeps
- * its exact output. Token-level `semanticMappings` layer over the
- * result — the engine room stays available for the cases roles do not
- * reach.
+ * A theme with no roles produces no role overrides. Token-level
+ * `semanticMappings` take precedence over the compiled result.
  */
 export declare function compileRoles(roles: ThemeRoles, lightness: LightnessMap, baseMappings: SemanticMappings, options?: CompileRoleOptions): Partial<SemanticMappings>;
 /**

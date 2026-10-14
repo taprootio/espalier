@@ -127,11 +127,6 @@ export declare function buildWebTreePath({ parentPath, segment, rootPath, }: Esp
  * For static declarative node definitions, see
  * [`<esp-tree-item>`](/components/tree/item/).
  *
- * The name is apt: an espalier is a tree trained flat against a frame,
- * so the visual language — branches trained to vertical guide wires,
- * grafting a new shoot onto an existing limb — is the component's own
- * metaphor.
- *
  * ## Data-driven first, composition-capable
  *
  * Bind a hierarchy to the `nodes` property for the primary, data-driven

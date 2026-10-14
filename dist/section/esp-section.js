@@ -1,4 +1,4 @@
-var p=function(r,t,o,n){var s=arguments.length,e=s<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,o):n,a;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(r,t,o,n);else for(var l=r.length-1;l>=0;l--)(a=r[l])&&(e=(s<3?a(e):s>3?a(t,o,e):a(t,o))||e);return s>3&&e&&Object.defineProperty(t,o,e),e};import{css as d,html as v,nothing as m}from"lit";import{customElement as u,property as h}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";import{renderVisualOverlay as y,visualOverlayStyles as f}from"../shared/visual-overlay.js";let i=class extends c{constructor(){super(...arguments),this.decoration=!1}render(){return v`
+var p=function(r,t,o,a){var n=arguments.length,e=n<3?t:a===null?a=Object.getOwnPropertyDescriptor(t,o):a,s;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(r,t,o,a);else for(var l=r.length-1;l>=0;l--)(s=r[l])&&(e=(n<3?s(e):n>3?s(t,o,e):s(t,o))||e);return n>3&&e&&Object.defineProperty(t,o,e),e};import{css as d,html as v,nothing as m}from"lit";import{customElement as u,property as h}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";import{renderVisualOverlay as y,visualOverlayStyles as f}from"../shared/visual-overlay.js";let i=class extends c{constructor(){super(...arguments),this.decoration=!1}render(){return v`
       <div class="esp-section" part="section">
         ${this.decoration?y({className:"decoration"}):m}
         <div class="esp-section-well" part="well">
@@ -7,6 +7,7 @@ var p=function(r,t,o,n){var s=arguments.length,e=s<3?t:n===null?n=Object.getOwnP
       </div>
     `}};i.styles=[...c.styles,d`
       :host {
+        --_esp-surface-layer: initial;
         display: block;
       }
 

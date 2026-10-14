@@ -16,9 +16,11 @@ export interface EspThemeToggleEventDetail {
     scheme: "light" | "dark";
 }
 /**
- * Used to build the top navigation for a site. An empty header
- * displays a bar. It has three slots for populating header content:
+ * Builds a site's top navigation bar. Use its four slots to add content:
  * `topbar`, `brand`, `menu`, and `buttons`.
+ *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
  *
  * The header works together with several companion components:
  * [`<esp-menu>`](/components/menu/) provides the navigation

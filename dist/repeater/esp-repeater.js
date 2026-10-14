@@ -73,6 +73,7 @@ var n=function(f,e,t,s){var r=arguments.length,o=r<3?e:s===null?s=Object.getOwnP
 
       .state-panel,
       .status-footer {
+        --_esp-surface-layer: 2;
         display: grid;
         gap: var(--esp-size-tiny);
         padding: var(--esp-repeater-padding, var(--esp-size-small));

@@ -2,10 +2,8 @@ import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type EspalierFormField } from "../form-item/esp-form-item.js";
 /**
- * A range slider for selecting numeric values. Built entirely from
- * custom elements with ARIA `role="slider"` — no native
- * `<input type="range">` — for consistent cross-browser styling and
- * intentional touch interaction.
+ * A numeric range slider with ARIA `role="slider"`, keyboard support,
+ * and separate touch and pointer behavior.
  *
  * On touch devices, only dragging the thumb changes the value.
  * Tapping the track is ignored so the user can scroll the page

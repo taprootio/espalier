@@ -1,9 +1,12 @@
 import { LitElement } from "lit";
 /**
- * Used to focus content modally. By default, on large screens the
+ * Shows content in a modal dialog. By default, on large screens the
  * dialog content is centered horizontally near the top of the
  * screen. On small screens, the content always tries to take up
  * the full screen width.
+ *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
  *
  * When opened, the dialog:
  * - Moves focus to the first `[autofocus]` element inside the slotted
@@ -102,6 +105,7 @@ import { LitElement } from "lit";
  *
  * @cssprop --esp-color-dialog-bg - The background color of the dialog overlay.
  * @cssprop --esp-dialog-bg-opacity - The opacity of the dialog overlay background.
+ * @attr {"1"|"2"|"3"|"4"} surface-layer - Declares the painted surface depth; defaults to layer 3.
  * @customElement esp-dialog
  * @docPageTitle Dialog
  * @docUrl /components/dialog
@@ -155,7 +159,7 @@ export declare class EspalierDialog extends LitElement {
     protected firstUpdated(): void;
     disconnectedCallback(): void;
     protected render(): import("lit-html").TemplateResult<1>;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

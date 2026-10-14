@@ -8,10 +8,10 @@ export type { SchemeEvents } from "../shared/bus-events.js";
 /**
  * Root container for the Espalier design system.
  *
- * Provides the full design-token pipeline — colors, scales, and
- * fonts — to every descendant component.  All tokens are
- * JS-computed from a pair of Base64-encoded theme objects and
- * emitted as CSS custom properties on the host element.
+ * Supplies descendant components with color, size, and font tokens.
+ * Configure light and dark themes through JavaScript properties or
+ * Base64-encoded attributes. The root emits CSS custom properties
+ * for the active theme.
  *
  * ### Theme API
  *

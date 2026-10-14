@@ -6,6 +6,9 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * [esp-details-group](/components/details/group) to create an
  * accordion where only one item is open at a time.
  *
+ * A field fills one layer above the surface it sits on.
+ * Use `surface-layer="1|2|3|4"` to select the default painted layer.
+ *
  * ```html
  * <esp-details summary="What is Espalier?">
  *   <p>Espalier is a design system and component library

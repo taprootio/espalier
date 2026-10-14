@@ -311,6 +311,7 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
       }
 
       .row {
+        --_esp-surface-layer: 1;
         background-color: var(--esp-tree-row-bg, var(--esp-color-layer-1));
         border: 1px solid var(--esp-tree-row-border-color, var(--esp-color-border));
         border-radius: var(--esp-size-border-radius);
@@ -334,6 +335,7 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
       }
 
       .row:hover {
+        --_esp-surface-layer: 2;
         background-color: var(--esp-tree-hover-bg, var(--esp-color-layer-2));
         border-color: oklch(
           from var(--esp-tree-row-border-color, var(--esp-color-border)) calc(l * 1.1) c h
@@ -341,6 +343,7 @@ var d=function(c,e,t,i){var s=arguments.length,o=s<3?e:i===null?i=Object.getOwnP
       }
 
       .row.selected {
+        --_esp-surface-layer: 3;
         border-color: var(--esp-color-primary);
         background-color: var(--esp-tree-selected-bg, var(--esp-color-layer-3));
       }

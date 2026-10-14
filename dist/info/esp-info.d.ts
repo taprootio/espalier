@@ -4,7 +4,9 @@ export type DestroyEspalierInfo = {
     toDestroy: EspalierInfo;
 };
 /**
- * Used to show an informational message.
+ * Shows an informational or status message.
+ *
+ * A field fills one layer above the surface it sits on.
  *
  * ```html
  * <esp-info>

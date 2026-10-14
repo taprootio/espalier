@@ -1,9 +1,7 @@
 import { LitElement, type PropertyValues } from "lit";
 /**
- * Display a contextual UI overlay that appears when a
- * user interacts with an element, providing a temporary space
- * for additional information, options, or actions without blocking
- * the underlying content. Uses the native Popover API to render
+ * Shows contextual information, options, or actions while the underlying
+ * page remains interactive. Uses the native Popover API to render
  * in the browser's top layer, escaping all ancestor `overflow`
  * and `z-index` contexts.
  *
