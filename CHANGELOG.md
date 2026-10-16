@@ -1,3 +1,11 @@
+# 6.5.0
+
+An open preview takes the width a capped main leaves it, so a page that shows both never leaves canvas beside the preview.
+
+- **Changed: a resized preview or help pane is a floor, not an exact size, while main sits at its configured maximum.** The preview, then open in-grid help, absorbs the spare width up to `--esp-page-preview-max-width` and `--esp-page-flyout-max-width`, and canvas appears only once both stand at their maximums, in equal gutters on a centered page. Before, dragging the preview narrower on a wide page (or setting a retained width) kept it exactly that wide and the surplus became canvas on both sides.
+- **Dragging toward a narrower preview has no visible effect while main is capped**, and the seam holds where main reaches its cap; dragging wider still works. The chosen width is kept and applies again when the page narrows. On a page where a pane has been resized, the exposed outer-edge separators now appear only when the panes are at their maximums.
+- **Unchanged:** pages whose main is not capped, `kind="site"`, and pages where no pane has been resized (configured `--esp-page-*-default-width` values stay exact targets until then) keep their exact widths. There is no opt-in attribute and no new token; to keep canvas, bound the panes with their maximum tokens. The Page alignment guide documents the rule.
+
 # 6.4.0
 
 A full-screen dialog can be bounded to a rectangle, so the rest of the page stays visible around it.

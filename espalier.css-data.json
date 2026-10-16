@@ -1467,7 +1467,7 @@
     },
     {
       "name": "--esp-page-preview-max-width",
-      "description": "Maximum preview width. Defaults to `48rem`. Preview receives flexible trailing space before help grows."
+      "description": "Maximum preview width. Defaults to `48rem`. Preview receives flexible trailing space before help grows, and absorbs the width beyond a capped main up to this maximum."
     },
     {
       "name": "--esp-page-preview-min-width",

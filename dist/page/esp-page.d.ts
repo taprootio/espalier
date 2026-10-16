@@ -57,7 +57,9 @@ export interface PageWorkspaceResizeDetail {
  * separators on the dotted internal seams and the exposed trailing edge of the
  * last auxiliary pane. Preferred pane sizes remain attached to the mounted
  * page instance and are re-clamped by the same allocator whenever the available
- * inline size changes. Opt into collapsing a directly paired
+ * inline size changes. A chosen size is a floor while main sits at its
+ * configured maximum: the preview, then help, absorb the spare width up to
+ * their maximums before any canvas appears. Opt into collapsing a directly paired
  * header/sidebar navigation to its accessible burger/drawer mode after
  * auxiliary panes contract and before main is reclaimed. The rail returns
  * only when doing so preserves the settled pane allocation.
@@ -215,7 +217,8 @@ export interface PageWorkspaceResizeDetail {
  * established preview-first flexible allocation remains in effect. A retained
  * pointer or keyboard resize preference supersedes this target.
  * @cssprop --esp-page-preview-max-width - Maximum preview width. Defaults to
- * `48rem`. Preview receives flexible trailing space before help grows.
+ * `48rem`. Preview receives flexible trailing space before help grows, and
+ * absorbs the width beyond a capped main up to this maximum.
  * @cssprop --esp-page-flyout-min-width - Minimum in-grid help width. Defaults
  * to `20rem`.
  * @cssprop --esp-page-flyout-default-width - Initial automatic in-grid help
