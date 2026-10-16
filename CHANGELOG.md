@@ -1,3 +1,11 @@
+# 6.4.0
+
+A full-screen dialog can be bounded to a rectangle, so the rest of the page stays visible around it.
+
+- **New: four inset custom properties on `esp-dialog`**: `--esp-dialog-inset-block-start`, `--esp-dialog-inset-inline-start`, `--esp-dialog-inset-inline-end`, and `--esp-dialog-inset-block-end`. Each is a length measured from the viewport edge and defaults to `0px`, so a dialog that sets none covers the viewport exactly as before. Set them on the `esp-dialog` host and the dialog's scrolling surface and both backdrop layers paint only inside the rectangle. They are logical: inline start is the left edge in left-to-right text and the right edge in right-to-left text.
+- **`esp-box full-screen` fills the bounded rectangle.** It takes its position and size from the same four properties, from the dialog host or any ancestor, and its scroll container now follows the box instead of the viewport. Without the properties it still fills the viewport.
+- **Bounds change where the dialog paints, not what is reachable.** The dialog has never closed on an outside click, so clicks on the uncovered region reach the page unless something there is `inert`. Inside `esp-page`'s markup the page's tracks are inert as before, so the uncovered header and preview are not clickable; a dialog that is a direct child of another component's shadow root leaves the page around it live. The Tab trap and `Escape` act only while focus is inside the dialog, so a click on an uncovered control takes focus out of it. Set `inert` on the uncovered regions that must not be reachable. The Dialog guide has the details.
+
 # 6.3.0
 
 A field fills one layer above the surface it sits on.

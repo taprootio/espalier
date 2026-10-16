@@ -136,6 +136,41 @@ export declare class EspalierBox extends EspalierElementBase {
      * </script>
      * ```
      *
+     * A full-screen box fills the viewport. Inside a
+     * [bounded dialog](/components/dialog) it fills exactly the dialog's
+     * rectangle instead: it takes its position and size from the same
+     * `--esp-dialog-inset-*` custom properties, set on the `esp-dialog` or any
+     * ancestor of the box.
+     *
+     * ```html
+     * <style>
+     *   esp-dialog.bounded-box {
+     *     --esp-dialog-inset-block-start: 6rem;
+     *     --esp-dialog-inset-inline-start: 3rem;
+     *     --esp-dialog-inset-inline-end: 3rem;
+     *     --esp-dialog-inset-block-end: 2rem;
+     *   }
+     * </style>
+     * <esp-dialog class="bounded-box" full-screen>
+     *   <esp-box full-screen>
+     *     <h2>Box in a bounded dialog</h2>
+     *     <p>This box fills the rectangle the dialog is bounded to.</p>
+     *     <esp-button intent="danger" label="Close"></esp-button>
+     *   </esp-box>
+     * </esp-dialog>
+     * <esp-button label="Show Dialog"></esp-button>
+     * <script>
+     *   const theDialog = findByTagName("esp-dialog")[0];
+     *   const buttons = findByTagName("esp-button");
+     *   buttons[0].addEventListener("esp-clicked", () => {
+     *     theDialog.toggleOpen();
+     *   });
+     *   buttons[1].addEventListener("esp-clicked", () => {
+     *     theDialog.toggleOpen();
+     *   });
+     * </script>
+     * ```
+     *
      * @type {boolean}
      */
     fullScreen: boolean;

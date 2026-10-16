@@ -634,6 +634,30 @@
       "description": "The opacity of the dialog overlay background."
     },
     {
+      "name": "--esp-dialog-inset-block-end",
+      "category": "component",
+      "component": "esp-dialog",
+      "description": "The bottom edge of the area the dialog covers, as a length from the viewport bottom. Defaults to `0px`."
+    },
+    {
+      "name": "--esp-dialog-inset-block-start",
+      "category": "component",
+      "component": "esp-dialog",
+      "description": "The top edge of the area the dialog covers, as a length from the viewport top. Defaults to `0px`."
+    },
+    {
+      "name": "--esp-dialog-inset-inline-end",
+      "category": "component",
+      "component": "esp-dialog",
+      "description": "The trailing edge (right in left-to-right text) of the area the dialog covers, as a length from the viewport edge. Defaults to `0px`."
+    },
+    {
+      "name": "--esp-dialog-inset-inline-start",
+      "category": "component",
+      "component": "esp-dialog",
+      "description": "The leading edge (left in left-to-right text) of the area the dialog covers, as a length from the viewport edge. Defaults to `0px`."
+    },
+    {
       "name": "--esp-field-background",
       "category": "shared-hook",
       "description": "Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins."
