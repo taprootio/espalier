@@ -588,6 +588,7 @@ import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"..
           position: absolute;
           inset: 0;
           background-image: var(--esp-page-canvas-background-image, none);
+          background-attachment: var(--esp-page-canvas-background-attachment, scroll);
           opacity: var(--esp-page-canvas-background-image-opacity, 1);
         }
       }

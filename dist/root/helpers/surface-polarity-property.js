@@ -1,0 +1,1 @@
+import{parseCssColor as e}from"../../shared/color-engine.js";function c(r){const o=e(r["--esp-color-background"]??""),t=e(r["--esp-color-text"]??"");return!o||!t?{}:{"--_esp-surface-polarity":t.l<o.l?"1":"0"}}export{c as surfacePolarityProperty};

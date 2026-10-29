@@ -1414,6 +1414,10 @@
       "description": "The background color of the canvas gutters (the outer regions revealed when the viewport exceeds the cap). Defaults to `transparent`, so gutters match the page until styled and narrow viewports are unaffected."
     },
     {
+      "name": "--esp-page-canvas-background-attachment",
+      "description": "Whether the canvas gutter image scrolls with the page (`scroll`) or stays put against the viewport (`fixed`). Defaults to `scroll`."
+    },
+    {
       "name": "--esp-page-canvas-background-image",
       "description": "A background image for the canvas gutters, mirroring the page background-image knob. Defaults to `none`."
     },

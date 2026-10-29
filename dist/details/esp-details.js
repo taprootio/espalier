@@ -1,4 +1,4 @@
-var d=function(i,e,o,s){var t=arguments.length,r=t<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,o):s,n;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(i,e,o,s);else for(var l=i.length-1;l>=0;l--)(n=i[l])&&(r=(t<3?n(r):t>3?n(e,o,r):n(e,o))||r);return t>3&&r&&Object.defineProperty(e,o,r),r};import{paintedSurface as h}from"../shared/surface-layer.js";import{css as f,html as b}from"lit";import{customElement as v,property as p}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as u}from"../shared/events.js";import{disabledControl as g}from"../shared/style-fragments.js";let a=class extends m{constructor(){super(...arguments),this.summary="",this.open=!1,this.disabled=!1,this._toggleFromClick=!1}close(){this.open=!1}getScrollParent(){let e=this.assignedSlot?.parentElement??(this.parentNode instanceof ShadowRoot?this.parentNode.host:this.parentElement);for(;e&&e!==document.documentElement;){const s=getComputedStyle(e).overflowY;if((s==="auto"||s==="scroll")&&e.scrollHeight>e.clientHeight)return e;e=e.assignedSlot?.parentElement??(e.parentNode instanceof ShadowRoot?e.parentNode.host:e.parentElement)}return null}handleToggle(e){const o=e.target;if(this.disabled){o.open=this.open;return}if(this._toggleFromClick){this._toggleFromClick=!1;return}this.open=o.open,this.dispatchEvent(new CustomEvent(u.DETAILS_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0}))}handleSummaryClick(e){if(e.preventDefault(),this.disabled)return;const o=e.currentTarget,s=o.getBoundingClientRect().top,t=this.getScrollParent(),r=t?t.scrollTop:window.scrollY;this._toggleFromClick=!0,this.open=!this.open,this.updateComplete.then(()=>{this._toggleFromClick=!1,this.dispatchEvent(new CustomEvent(u.DETAILS_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0}));const l=o.getBoundingClientRect().top-s;if(Math.abs(l)>1)if(t){const c=t.scrollTop;Math.abs(c-r)>1&&(t.scrollTop=r)}else{const c=window.scrollY;Math.abs(c-r)>1&&window.scrollBy(0,l)}})}render(){return b`
+var d=function(i,e,o,s){var t=arguments.length,r=t<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,o):s,n;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(i,e,o,s);else for(var l=i.length-1;l>=0;l--)(n=i[l])&&(r=(t<3?n(r):t>3?n(e,o,r):n(e,o))||r);return t>3&&r&&Object.defineProperty(e,o,r),r};import{paintedSurface as f}from"../shared/surface-layer.js";import{css as h,html as b}from"lit";import{customElement as v,property as c}from"lit/decorators.js";import{EspalierElementBase as m}from"../shared/esp-element-base.js";import{ESP_EVENTS as u}from"../shared/events.js";import{disabledControl as g}from"../shared/style-fragments.js";let a=class extends m{constructor(){super(...arguments),this.summary="",this.open=!1,this.disabled=!1,this._toggleFromClick=!1}close(){this.open=!1}getScrollParent(){let e=this.assignedSlot?.parentElement??(this.parentNode instanceof ShadowRoot?this.parentNode.host:this.parentElement);for(;e&&e!==document.documentElement;){const s=getComputedStyle(e).overflowY;if((s==="auto"||s==="scroll")&&e.scrollHeight>e.clientHeight)return e;e=e.assignedSlot?.parentElement??(e.parentNode instanceof ShadowRoot?e.parentNode.host:e.parentElement)}return null}handleToggle(e){const o=e.target;if(this.disabled){o.open=this.open;return}if(this._toggleFromClick){this._toggleFromClick=!1;return}this.open=o.open,this.dispatchEvent(new CustomEvent(u.DETAILS_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0}))}handleSummaryClick(e){if(e.preventDefault(),this.disabled)return;const o=e.currentTarget,s=o.getBoundingClientRect().top,t=this.getScrollParent(),r=t?t.scrollTop:window.scrollY;this._toggleFromClick=!0,this.open=!this.open,this.updateComplete.then(()=>{this._toggleFromClick=!1,this.dispatchEvent(new CustomEvent(u.DETAILS_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0}));const l=o.getBoundingClientRect().top-s;if(Math.abs(l)>1)if(t){const p=t.scrollTop;Math.abs(p-r)>1&&(t.scrollTop=r)}else{const p=window.scrollY;Math.abs(p-r)>1&&window.scrollBy(0,l)}})}render(){return b`
       <details ?open=${this.open} @toggle=${this.handleToggle}>
         <summary @click=${this.handleSummaryClick}>
           <span class="indicator"></span>
@@ -8,22 +8,23 @@ var d=function(i,e,o,s){var t=arguments.length,r=t<3?e:s===null?s=Object.getOwnP
           <slot></slot>
         </div>
       </details>
-    `}};a.styles=[...m.styles,h(1),g(":host([disabled]) summary"),f`
+    `}};a.styles=[...m.styles,f(1),g(":host([disabled]) summary"),h`
       :host {
         display: block;
         
         min-inline-size: 0;
         overflow-anchor: none;
+        
         --_esp-details-resolved-summary-hover-background: var(
           --esp-details-color-summary-hover-background,
-          oklch(from var(--esp-color-layer-1) calc(l * 0.92) c h)
-        );
-      }
-
-      :host([scheme="light"]) {
-        --_esp-details-resolved-summary-hover-background: var(
-          --esp-details-color-summary-hover-background,
-          oklch(from var(--esp-color-layer-1) calc(l + (1 - l) * 0.4) c h)
+          oklch(
+            from var(--esp-color-layer-1)
+              calc(
+                var(--_esp-surface-polarity, 1) * (l + (1 - l) * 0.4) +
+                  (1 - var(--_esp-surface-polarity, 1)) * l * 0.92
+              )
+              c h
+          )
         );
       }
 
@@ -132,4 +133,4 @@ var d=function(i,e,o,s){var t=arguments.length,r=t<3?e:s===null?s=Object.getOwnP
       :host([in-group]:last-of-type) details {
         border-bottom: none;
       }
-    `],d([p({type:String})],a.prototype,"summary",void 0),d([p({type:Boolean,reflect:!0})],a.prototype,"open",void 0),d([p({type:Boolean,reflect:!0})],a.prototype,"disabled",void 0),a=d([v("esp-details")],a);export{a as EspalierDetails};
+    `],d([c({type:String})],a.prototype,"summary",void 0),d([c({type:Boolean,reflect:!0})],a.prototype,"open",void 0),d([c({type:Boolean,reflect:!0})],a.prototype,"disabled",void 0),a=d([v("esp-details")],a);export{a as EspalierDetails};

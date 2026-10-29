@@ -1,3 +1,10 @@
+# 6.6.0
+
+Hover and focus fills follow the theme context they sit in, and the page canvas image can stay fixed while content scrolls.
+
+- **Fixed: field hover and focus fills, and tab and details hover fills, moved toward the ink inside an inverted context.** A focused field in a dark zone on a light page turned light under light text. They now follow the zone's own polarity, emitted with its color table, rather than the page scheme. Explicit `--esp-field-hover-bg`, `--esp-field-focus-bg`, `--esp-tab-color-button-hover`, and `--esp-details-color-summary-hover-background` overrides still win.
+- **New: `--esp-page-canvas-background-attachment`** (`scroll` by default) lets the canvas gutter image stay fixed to the viewport while the page scrolls. Browsers that ignore fixed backgrounds, such as iOS Safari, scroll it with the page.
+
 # 6.5.0
 
 An open preview takes the width a capped main leaves it, so a page that shows both never leaves canvas beside the preview.

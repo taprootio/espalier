@@ -1,4 +1,4 @@
-var d=function(l,t,a,e){var s=arguments.length,r=s<3?t:e===null?e=Object.getOwnPropertyDescriptor(t,a):e,o;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(l,t,a,e);else for(var n=l.length-1;n>=0;n--)(o=l[n])&&(r=(s<3?o(r):s>3?o(t,a,r):o(t,a))||r);return s>3&&r&&Object.defineProperty(t,a,r),r};import{paintedSurface as u}from"../shared/surface-layer.js";import{css as v,html as c,nothing as f}from"lit";import{customElement as g,property as m,state as y}from"lit/decorators.js";import{createRef as w,ref as x}from"lit/directives/ref.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ESP_EVENTS as T}from"../shared/events.js";import{EspalierTab as p}from"./esp-tab.js";import{disabledControl as k}from"../shared/style-fragments.js";let i=class extends b{constructor(){super(...arguments),this.panelsSlot=w(),this.disabled=!1,this.tabData=[]}getTabs(){const t=this.panelsSlot.value?Array.from(this.panelsSlot.value.assignedElements()).filter(a=>a instanceof p):[];return t.length>0?t:Array.from(this.children).filter(a=>a instanceof p)}syncTabData(){const t=this.getTabs();if(t.length===0){this.tabData=[];return}const a=t.find(e=>e.active&&!e.disabled);if(a)for(const e of t)e!==a&&(e.active=!1);else{const e=t.find(s=>!s.disabled);e?e.active=!0:t[0].active=!0}this.tabData=t.map((e,s)=>{const r=`esp-tab-btn-${this.correlationId}-${s}`,o=`esp-tab-panel-${this.correlationId}-${s}`;return e.panelId=o,e.ariaLabelledBy=r,{label:e.label,active:e.active,disabled:this.disabled||e.disabled,buttonId:r,panelId:o}})}activateTab(t){const a=this.getTabs(),e=a[t];if(!(!e||e.disabled||this.disabled)){for(const s of a)s.active=s===e;this.syncTabData(),this.dispatchEvent(new CustomEvent(T.TAB_GROUP_CHANGED,{detail:{index:t,label:e.label},bubbles:!0,composed:!0}))}}handleTabClick(t){this.activateTab(t),this.updateComplete.then(()=>{this.shadowRoot?.getElementById(this.tabData[t]?.buttonId)?.focus()})}handleKeyDown(t){if(!["ArrowLeft","ArrowRight","Home","End"].includes(t.key))return;t.preventDefault();const e=this.tabData.map((n,h)=>({td:n,i:h})).filter(({td:n})=>!n.disabled).map(({i:n})=>n);if(e.length===0)return;const s=this.tabData.findIndex(n=>n.active),r=e.indexOf(s);let o;switch(t.key){case"ArrowRight":r===-1?o=e[0]:o=e[(r+1)%e.length];break;case"ArrowLeft":r===-1?o=e[e.length-1]:o=e[(r-1+e.length)%e.length];break;case"Home":o=e[0];break;case"End":o=e[e.length-1];break;default:return}this.activateTab(o),this.updateComplete.then(()=>{this.shadowRoot?.getElementById(this.tabData[o]?.buttonId)?.focus()})}handleChildUpdated(){this.syncTabData()}handleSlotChange(){this.syncTabData()}connectedCallback(){super.connectedCallback(),this.syncTabData()}willUpdate(t){super.willUpdate(t),t.has("disabled")&&this.syncTabData()}render(){return c`
+var d=function(l,t,a,e){var s=arguments.length,r=s<3?t:e===null?e=Object.getOwnPropertyDescriptor(t,a):e,o;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(l,t,a,e);else for(var n=l.length-1;n>=0;n--)(o=l[n])&&(r=(s<3?o(r):s>3?o(t,a,r):o(t,a))||r);return s>3&&r&&Object.defineProperty(t,a,r),r};import{paintedSurface as u}from"../shared/surface-layer.js";import{css as f,html as c,nothing as v}from"lit";import{customElement as g,property as m,state as y}from"lit/decorators.js";import{createRef as w,ref as x}from"lit/directives/ref.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ESP_EVENTS as T}from"../shared/events.js";import{EspalierTab as p}from"./esp-tab.js";import{disabledControl as k}from"../shared/style-fragments.js";let i=class extends b{constructor(){super(...arguments),this.panelsSlot=w(),this.disabled=!1,this.tabData=[]}getTabs(){const t=this.panelsSlot.value?Array.from(this.panelsSlot.value.assignedElements()).filter(a=>a instanceof p):[];return t.length>0?t:Array.from(this.children).filter(a=>a instanceof p)}syncTabData(){const t=this.getTabs();if(t.length===0){this.tabData=[];return}const a=t.find(e=>e.active&&!e.disabled);if(a)for(const e of t)e!==a&&(e.active=!1);else{const e=t.find(s=>!s.disabled);e?e.active=!0:t[0].active=!0}this.tabData=t.map((e,s)=>{const r=`esp-tab-btn-${this.correlationId}-${s}`,o=`esp-tab-panel-${this.correlationId}-${s}`;return e.panelId=o,e.ariaLabelledBy=r,{label:e.label,active:e.active,disabled:this.disabled||e.disabled,buttonId:r,panelId:o}})}activateTab(t){const a=this.getTabs(),e=a[t];if(!(!e||e.disabled||this.disabled)){for(const s of a)s.active=s===e;this.syncTabData(),this.dispatchEvent(new CustomEvent(T.TAB_GROUP_CHANGED,{detail:{index:t,label:e.label},bubbles:!0,composed:!0}))}}handleTabClick(t){this.activateTab(t),this.updateComplete.then(()=>{this.shadowRoot?.getElementById(this.tabData[t]?.buttonId)?.focus()})}handleKeyDown(t){if(!["ArrowLeft","ArrowRight","Home","End"].includes(t.key))return;t.preventDefault();const e=this.tabData.map((n,h)=>({td:n,i:h})).filter(({td:n})=>!n.disabled).map(({i:n})=>n);if(e.length===0)return;const s=this.tabData.findIndex(n=>n.active),r=e.indexOf(s);let o;switch(t.key){case"ArrowRight":r===-1?o=e[0]:o=e[(r+1)%e.length];break;case"ArrowLeft":r===-1?o=e[e.length-1]:o=e[(r-1+e.length)%e.length];break;case"Home":o=e[0];break;case"End":o=e[e.length-1];break;default:return}this.activateTab(o),this.updateComplete.then(()=>{this.shadowRoot?.getElementById(this.tabData[o]?.buttonId)?.focus()})}handleChildUpdated(){this.syncTabData()}handleSlotChange(){this.syncTabData()}connectedCallback(){super.connectedCallback(),this.syncTabData()}willUpdate(t){super.willUpdate(t),t.has("disabled")&&this.syncTabData()}render(){return c`
       <div class="tab-container">
         <div class="tab-list" role="tablist" part="tab-list" @keydown=${this.handleKeyDown}>
           ${this.tabData.map((t,a)=>c`
@@ -9,7 +9,7 @@ var d=function(l,t,a,e){var s=arguments.length,r=s<3?t:e===null?e=Object.getOwnP
                 part="tab-button"
                 aria-selected=${t.active?"true":"false"}
                 aria-controls=${t.panelId}
-                aria-disabled=${t.disabled?"true":f}
+                aria-disabled=${t.disabled?"true":v}
                 tabindex=${t.active?"0":"-1"}
                 ?disabled=${t.disabled}
                 @click=${()=>this.handleTabClick(a)}
@@ -26,19 +26,20 @@ var d=function(l,t,a,e){var s=arguments.length,r=s<3?t:e===null?e=Object.getOwnP
           ></slot>
         </div>
       </div>
-    `}};i.styles=[...b.styles,u(1),k(".tab-button[disabled]"),v`
+    `}};i.styles=[...b.styles,u(1),k(".tab-button[disabled]"),f`
       :host {
         display: block;
+        
         --_esp-tab-resolved-button-hover: var(
           --esp-tab-color-button-hover,
-          oklch(from var(--esp-color-layer-1) calc(l * 0.92) c h)
-        );
-      }
-
-      :host([scheme="light"]) {
-        --_esp-tab-resolved-button-hover: var(
-          --esp-tab-color-button-hover,
-          oklch(from var(--esp-color-layer-1) calc(l + (1 - l) * 0.4) c h)
+          oklch(
+            from var(--esp-color-layer-1)
+              calc(
+                var(--_esp-surface-polarity, 1) * (l + (1 - l) * 0.4) +
+                  (1 - var(--_esp-surface-polarity, 1)) * l * 0.92
+              )
+              c h
+          )
         );
       }
 

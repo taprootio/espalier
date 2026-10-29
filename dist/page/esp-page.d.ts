@@ -189,6 +189,9 @@ export interface PageWorkspaceResizeDetail {
  * `none`.
  * @cssprop --esp-page-canvas-background-image-opacity - The opacity of the
  * canvas gutter image layer. Defaults to `1`.
+ * @cssprop --esp-page-canvas-background-attachment - Whether the canvas
+ * gutter image scrolls with the page (`scroll`) or stays put against the
+ * viewport (`fixed`). Defaults to `scroll`.
  * @cssprop --esp-page-surface-shadow - The box shadow drawn on the left
  * and right edges of the content surface. On by default; casts into the
  * gutters and is clipped away when the surface fills the viewport, so it
