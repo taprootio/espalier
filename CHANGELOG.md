@@ -1,3 +1,9 @@
+# 6.7.0
+
+Update individual repeater items without resetting a scrolled collection.
+
+- **New: `esp-repeater.updateItems(callback)`** replaces or removes already loaded items in place, preserving their order and the current paging state. Return an unchanged item or `undefined` to keep it, a replacement to refresh its card, or `null` to remove it. Pending page requests continue normally, and removing the loaded tail requests the next page when needed; replacements alone do not fetch pages.
+
 # 6.6.0
 
 Hover and focus fills follow the theme context they sit in, and the page canvas image can stay fixed while content scrolls.

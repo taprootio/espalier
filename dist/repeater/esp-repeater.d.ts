@@ -455,6 +455,23 @@ export declare class EspalierRepeater extends EspalierElementBase {
     protected willUpdate(changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     /**
+     * Replace or remove loaded items without reloading the collection. Return
+     * the original item or `undefined` to keep it, a replacement to update it,
+     * or `null` to remove it. Surviving items keep their order; new items are
+     * not inserted.
+     *
+     * In cursor-paged mode, only pages already loaded are updated. The current
+     * cursor, pending page request, loading state and errors are preserved, and
+     * a pending page still appends normally. Removals can request the next page
+     * if the loaded tail is now near the visible range. Emptying the list gets
+     * one continuation attempt, including after a pending request settles;
+     * replacements alone do not request pages. The callback is not retained for
+     * future pages. Without cursor paging, this updates `items` instead.
+     *
+     * @param updateItem - Synchronous transform applied once to each loaded item.
+     */
+    updateItems(updateItem: (item: unknown) => unknown): void;
+    /**
      * Clear the currently rendered items. In cursor-paged mode this also
      * clears the cursor and any pending load error.
      */
