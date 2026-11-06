@@ -1,3 +1,13 @@
+# 6.8.0
+
+Album previews can offer one action of your own on each image, and their remove button can now be reached from the keyboard and can no longer be tapped unseen.
+
+- **New: `esp-image-upload.previewAction`** (`{ label, icon }`) shows a labelled icon button in the lower-right of each completed preview. It is off by default and always visible when set, with no hover needed. Existing images offer it straight away and selected images once `onComplete` has run; it is hidden while an image uploads, after a failed upload, and while a preview shows that its image failed to load. Using it never removes the image, opens the file picker or starts a drag.
+- **New: `esp-image-upload-preview-action`** fires once per activation by pointer, touch or keyboard. `detail.image` is the object in `uploadedImages` itself and stays the same object through reorder and upload completion, so an album that holds the same image twice can keep each use apart. `ImagePreviewAction` and `ImagePreviewActionDetail` are exported from the package root; `ImagePreviewAction` is also available from `./image-upload/helpers`, and `ImagePreviewActionDetail` from `./shared/events`.
+- **Fixed: `esp-image-upload`'s remove button could not be reached with Tab on a completed preview.** It now takes focus on every preview, with a two-tone ring that shows on any photo, and Enter or Space removes that image. Focus then moves to Add photos, scrolling it into view if a long album has pushed it off screen. With a mouse, the button still appears only on hover or focus.
+- **Changed: a device without hover now always shows the remove button.** One tap on a photo's empty corner used to remove the image with nothing visible to warn the user. A touchscreen laptop whose primary pointer has hover keeps the mouse behaviour.
+- **Changed: an existing image's controls now name its position,** such as `Remove image 3 of 12` and `Edit details: image 3 of 12`, so that screen-reader users can tell the images apart. Selected images still use their file name. Tests that look these controls up by exact name need the new names.
+
 # 6.7.0
 
 Update individual repeater items without resetting a scrolled collection.

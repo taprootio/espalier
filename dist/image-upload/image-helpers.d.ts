@@ -31,6 +31,16 @@ export type ExistingUploadImage = UploadImageBase & {
  * Narrow on `source` to access variant-specific fields.
  */
 export type EspalierUploadImage = SelectedUploadImage | ExistingUploadImage;
+/**
+ * Configures the optional action button on each completed preview of
+ * `esp-image-upload`. Assign a new object to change it.
+ */
+export interface ImagePreviewAction {
+    /** Tooltip text and accessible name of the button. */
+    label: string;
+    /** Icon name from the sprite configured on the surrounding `esp-root`. */
+    icon: string;
+}
 /** Callbacks attached to `esp-image-upload-file-selected` and `esp-image-upload-retry` event details. */
 export interface UploadCallbacks {
     /** Update the progress overlay (0–100 determinate, `null` for indeterminate). */

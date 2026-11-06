@@ -1,4 +1,4 @@
-import { type EspalierUploadImage, type ExistingImage } from "./image-helpers.js";
+import { type EspalierUploadImage, type ExistingImage, type ImagePreviewAction } from "./image-helpers.js";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 /**
  * Used to upload images.
@@ -116,6 +116,66 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * <esp-image-upload></esp-image-upload>
  * ```
  *
+ * **Keyboard and touch**
+ *
+ * Tab reaches each preview's remove button, then its action if `previewAction` is
+ * set, and finally Add photos. Enter or Space removes that image and moves focus to
+ * Add photos, scrolling it into view if a long album has pushed it off screen.
+ *
+ * With a mouse, the remove button appears when the pointer is over a preview or
+ * focus is inside it. A device without hover (`(hover: none)`) always shows it,
+ * because a tap on a hidden button would remove the image with no warning. A
+ * touchscreen laptop whose primary pointer has hover keeps the mouse behaviour, so a
+ * tap on a photo's empty corner there can still remove it.
+ *
+ * Each control's accessible name says which image it acts on. A selected image uses
+ * its file name, as in `Remove holiday.jpg`. An existing image uses its position, as
+ * in `Remove image 3 of 12`, which follows removal and reordering.
+ *
+ * **Adding an action to each preview**
+ *
+ * Set `previewAction` to show a labelled icon button in the lower-right of each
+ * completed preview, for example to open your own dialog about one image. There
+ * is no button by default.
+ *
+ * - `label` is the tooltip and the start of the accessible name, which continues
+ *   with the image's file name or position, as in `Edit details: image 3 of 12`.
+ * - `icon` is an icon name from the sprite configured on `esp-root`.
+ *
+ * Existing images offer the button straight away, and selected images once
+ * `onComplete` has run. It is hidden while an image uploads, after `onFailed`,
+ * after Retry until the next `onComplete`, and while the preview shows that its
+ * image failed to load. Activating it never removes the image, opens the file
+ * picker or starts a drag.
+ *
+ * `detail.image` on `esp-image-upload-preview-action` is the object in
+ * `uploadedImages` itself, and it stays the same object through reorder and
+ * upload completion. An album can hold the same image twice, so keep anything
+ * specific to one use against this object, not against `uploadedId` or an index.
+ * If your dialog applies a change later, first check that
+ * `uploadedImages.includes(image)` is still true.
+ *
+ * ```html
+ * <script>
+ *   const uploader = findByTagName("esp-image-upload")[0];
+ *   uploader.previewAction = { label: "Edit details", icon: "edit" };
+ *   uploader.setExistingImages([
+ *     { url: "https://picsum.photos/id/29/1200/800", width: 1200, height: 800, uploadedId: "img-1" },
+ *     { url: "https://picsum.photos/id/15/900/1200", width: 900,  height: 1200, uploadedId: "img-2" },
+ *   ]);
+ *   uploader.addEventListener("esp-image-upload-file-selected", (e) => {
+ *     // Stub — replace with your real upload. The button appears on completion.
+ *     setTimeout(() => e.detail.onComplete("id-" + e.detail.image.file.name), 1500);
+ *   });
+ *   uploader.addEventListener("esp-image-upload-preview-action", (e) => {
+ *     const { image } = e.detail;
+ *     const name = image.source === "selected" ? image.file.name : image.uploadedId;
+ *     showToast({ message: "Edit details for " + name, icon: "info-i", duration: 3 });
+ *   });
+ * </script>
+ * <esp-image-upload></esp-image-upload>
+ * ```
+ *
  * @event {CustomEvent<EspalierUploadImage>} esp-image-upload-file-removed - Fired when
  * an image has been removed by the user. Narrow on `detail.source` to
  * distinguish newly selected images from pre-existing server images.
@@ -140,6 +200,13 @@ import { EspalierElementBase } from "../shared/esp-element-base.js";
  * selected files are skipped, either because their type is not accepted
  * (`detail.unsupported`) or because they could not be read or decoded
  * (`detail.unreadable`). The component also shows a transient inline notice.
+ *
+ * @event {CustomEvent<ImagePreviewActionDetail>} esp-image-upload-preview-action - Fired
+ * once each time the user activates the `previewAction` button on a completed
+ * preview, whether by pointer, touch or keyboard. `detail.image` is the object in
+ * `uploadedImages` itself, so it identifies one use of an image even when an album
+ * holds the same `uploadedId` twice, and it stays the same object through reorder
+ * and upload completion.
  *
  * @cssprop --esp-image-upload-preview-background - The background color of the image preview area.
  * @docPageTitle Image Upload
@@ -172,6 +239,16 @@ export declare class EspalierImageUpload extends EspalierElementBase {
      * @type {number}
      */
     maxRowHeightVh: number;
+    /**
+     * An optional action button in the lower-right of each completed preview,
+     * reported through `esp-image-upload-preview-action`. Clear it, or leave it
+     * unset, for no button. A blank `label` or an invalid `icon` name also shows
+     * none. Assign a new object to change it, since the component does not watch
+     * the object's fields.
+     *
+     * @type {ImagePreviewAction}
+     */
+    previewAction?: ImagePreviewAction | null;
     connectedCallback(): void;
     disconnectedCallback(): void;
     /**

@@ -94,6 +94,7 @@ export declare const ESP_EVENTS: {
     readonly IMAGE_UPLOAD_FILES_REJECTED: "esp-image-upload-files-rejected";
     readonly IMAGE_UPLOAD_RETRY: "esp-image-upload-retry";
     readonly IMAGE_UPLOAD_IMAGES_REORDERED: "esp-image-upload-images-reordered";
+    readonly IMAGE_UPLOAD_PREVIEW_ACTION: "esp-image-upload-preview-action";
     readonly INFO_DESTROY: "esp-info-destroy";
     readonly INPUT_ICON_CLICKED: "esp-input-icon-clicked";
     readonly LIGHTBOX_CHANGED: "esp-lightbox-changed";
@@ -406,6 +407,21 @@ export interface FilesRejectedDetail {
     /** Files skipped because they could not be read or decoded. */
     unreadable: File[];
 }
+/**
+ * Detail for `esp-image-upload-preview-action` on `esp-image-upload`.
+ *
+ * @docUrl /api/image-preview-action-detail
+ * @menuGroup Event Details
+ * @menuLabel ImagePreviewActionDetail
+ */
+export interface ImagePreviewActionDetail {
+    /**
+     * The object in `uploadedImages` itself. An album can hold the same server
+     * image twice, so this reference, not `uploadedId` or an index, identifies
+     * the use the action was activated on.
+     */
+    image: EspalierUploadImage;
+}
 /** Events fired by `<esp-image-upload>`. */
 export interface EspalierImageUploadEventMap {
     [ESP_EVENTS.IMAGE_UPLOAD_FILE_SELECTED]: CustomEvent<UploadEventDetail>;
@@ -413,6 +429,7 @@ export interface EspalierImageUploadEventMap {
     [ESP_EVENTS.IMAGE_UPLOAD_FILES_REJECTED]: CustomEvent<FilesRejectedDetail>;
     [ESP_EVENTS.IMAGE_UPLOAD_RETRY]: CustomEvent<UploadEventDetail>;
     [ESP_EVENTS.IMAGE_UPLOAD_IMAGES_REORDERED]: CustomEvent<ImagesReorderedDetail>;
+    [ESP_EVENTS.IMAGE_UPLOAD_PREVIEW_ACTION]: CustomEvent<ImagePreviewActionDetail>;
 }
 /** Events fired by `<esp-file-upload>`. */
 export interface EspalierFileUploadEventMap {
