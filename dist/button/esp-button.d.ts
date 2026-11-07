@@ -269,6 +269,12 @@ export declare class EspalierButton extends EspalierElementBase {
      */
     rel: string;
     /**
+     * Hidden phrase appended to the accessible name of a `target="_blank"` link.
+     * Replace for non-English sites. Empty or whitespace text falls back to English.
+     * @default "opens in a new tab"
+     */
+    newTabLabel: string;
+    /**
      * When true and `button-type` is `"submit"`, the enclosing
      * form is submitted without running constraint validation.
      *

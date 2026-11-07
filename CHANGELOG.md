@@ -1,3 +1,11 @@
+# 6.9.0
+
+Menu links can open in another tab, and buttons and menu links announce that destination to screen-reader users.
+
+- `esp-menu-item` and `esp-menu-group` accept `target` and `rel`, passed through to their links without classifying the URL. Empty values omit the attributes.
+- Every `target="_blank"` link rendered by `esp-button`, `esp-menu-item` or `esp-menu-group` now appends “(opens in a new tab)” to its accessible name, including icon-only buttons. This applies to all consumers; tests matching exact link names need updating. There is no visible change. Replace the phrase with `newTabLabel` (`new-tab-label`) for non-English sites; empty text falls back to English. Current-page menu labels and controls without links have no cue.
+- Drawer copies preserve link targets, relationships and translated cues. Activating a new-tab link closes the drawer and restores focus to its trigger; cancelling navigation leaves it open.
+
 # 6.8.0
 
 Album previews can offer one action of your own on each image, and their remove button can now be reached from the keyboard and can no longer be tapped unseen.

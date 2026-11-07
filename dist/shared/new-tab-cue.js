@@ -1,0 +1,1 @@
+import{html as o,nothing as r}from"lit";const s="opens in a new tab";function a(n,t){return(n??"").toLowerCase()==="_blank"?` (${(t??"").trim()||s})`:""}function f(n,t){const e=a(n,t);return e?o`<span class="sr-only">${e}</span>`:r}export{s as DEFAULT_NEW_TAB_LABEL,a as newTabSuffix,f as renderNewTabCue};

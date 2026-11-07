@@ -37,6 +37,16 @@ export declare class EspalierMenuGroup extends EspalierElementBase {
     label: string;
     /** Optional URL for the group label. */
     url: string;
+    /** Target browsing context for the link. Empty omits the attribute. */
+    target: string;
+    /** Link relationship, passed through unchanged. Empty omits the attribute. */
+    rel: string;
+    /**
+     * Hidden phrase appended to the accessible name of a `target="_blank"` link.
+     * Replace for non-English sites. Empty or whitespace text falls back to English.
+     * @default "opens in a new tab"
+     */
+    newTabLabel: string;
     /** Optional icon name from the configured Espalier SVG sprite. */
     icon: string;
     /** Whether the group's children are visible. */

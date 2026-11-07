@@ -43,6 +43,16 @@ export declare class EspalierMenuItem extends EspalierElementBase {
     label: string;
     /** Resource to link to. When empty, the item renders as a button. */
     url: string;
+    /** Target browsing context for the link. Empty omits the attribute. */
+    target: string;
+    /** Link relationship, passed through unchanged. Empty omits the attribute. */
+    rel: string;
+    /**
+     * Hidden phrase appended to the accessible name of a `target="_blank"` link.
+     * Replace for non-English sites. Empty or whitespace text falls back to English.
+     * @default "opens in a new tab"
+     */
+    newTabLabel: string;
     /** Optional icon name from the configured Espalier SVG sprite. */
     icon: string;
     /** Render mode supplied by the parent `esp-menu` or `esp-menu-group`. */
