@@ -7,9 +7,28 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * Items render as links when `url` is provided and as buttons when
  * no URL is present. Button-style items dispatch `esp-clicked`.
  *
+ * To give readers that run no JavaScript a real link, write a plain
+ * `<a slot="link">` beside the attributes, with the same `href`, `target`,
+ * `rel` and label text. A new-tab link adds its "(opens in a new tab)" cue
+ * to the rendered link only, so a copy may add its own hidden cue:
+ *
+ * ```html
+ * <esp-menu-item label="Docs" url="/docs" target="_blank" rel="noopener">
+ *   <a slot="link" href="/docs" target="_blank" rel="noopener">Docs</a>
+ * </esp-menu-item>
+ * ```
+ *
  * @customElement esp-menu-item
  * @slot - Optional SVG or image icon. Slotted content overrides the
  * generated sprite icon from the `icon` attribute.
+ * @slot link - Optional plain `<a href>` copy of the item's link for HTML-only
+ * readers such as crawlers, link previews and readers without JavaScript. Once
+ * the item upgrades, the copy is never rendered, takes no focus and is hidden
+ * from assistive technology; the item renders only from `label`, `url`,
+ * `target` and `rel`, so keep the copy equal to them. Until the item upgrades,
+ * the copy is an ordinary visible child. A page that shows content before
+ * components load and wants no flash can hide it, at the cost of those readers:
+ * `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
  *
  * @event {CustomEvent} esp-clicked - Fired when the item is rendered as a button (no `url`) and activated.
  *

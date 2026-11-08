@@ -142,6 +142,30 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * preferably responsive `<picture>` markup or an `esp-image` with appropriate
  * alternative text.
  * @slot brand - Custom brand identity. Overrides configured brand properties.
+ * @slot brand-link - Optional plain `<a href>` copy of the configured brand link
+ * (`brand-href`) for HTML-only readers such as crawlers, link previews and
+ * readers without JavaScript. Give it the same `href` and the text the
+ * configured brand renders: the logo's alt text (`brand-alt`, nothing when
+ * there is `brand-text`, or "Site logo" when there is neither) followed by
+ * `brand-text`. The brand links only when it has a logo or text and
+ * `brand-href` is set. The copy carries no `target` or `rel`. Once the footer upgrades, the copy is never
+ * rendered, takes no focus and is hidden from assistive technology; the footer
+ * renders only from the `brand-*` attributes, so keep the copy equal to them.
+ * Filling the `brand` slot still replaces the configured brand. Until the
+ * footer upgrades, the copy is an ordinary visible child. A page that shows
+ * content before components load and wants no flash can hide it, at the cost of
+ * those readers:
+ * `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
+ *
+ * ```html
+ * <esp-footer brand-text="Taproot" brand-href="/">
+ *   <a slot="brand-link" href="/">Taproot</a>
+ *   <esp-footer-link-group heading="Product">
+ *     <a href="/features">Features</a>
+ *   </esp-footer-link-group>
+ * </esp-footer>
+ * ```
+ *
  * @slot - Bare `esp-footer-link-group` children for automatic flow, or
  * `esp-footer-column` children for creator-controlled group stacks.
  * @slot aside - Supporting content such as a newsletter, call to action,

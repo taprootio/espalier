@@ -63,6 +63,32 @@ export interface EspThemeToggleEventDetail {
  * </esp-header>
  * ```
  *
+ * @slot brand-link - Optional plain `<a href>` copy of the configured brand
+ * link (`brand-href`) for HTML-only readers such as crawlers, link previews and
+ * readers without JavaScript. Give it the same `href` and the text the
+ * configured brand renders: the logo's alt text (`brand-alt`, nothing when
+ * there is `brand-text`, or "Site logo" when there is neither) followed by
+ * `brand-text`. The brand links only when it has a logo or text and
+ * `brand-href` is set. The copy carries no `target` or `rel`. Once the header upgrades, the copy is never
+ * rendered, takes no focus and is hidden from assistive technology; the header
+ * renders only from the `brand-*` attributes, so keep the copy equal to them.
+ * Filling the `brand` slot still replaces the configured brand. Until the
+ * header upgrades, the copy is an ordinary visible child. A page that shows
+ * content before components load and wants no flash can hide it, at the cost of
+ * those readers:
+ * `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
+ *
+ * ```html
+ * <esp-header brand-text="Taproot" brand-href="/">
+ *   <a slot="brand-link" href="/">Taproot</a>
+ *   <esp-menu slot="menu" mode="horizontal">
+ *     <esp-menu-item label="Docs" url="/docs">
+ *       <a slot="link" href="/docs">Docs</a>
+ *     </esp-menu-item>
+ *   </esp-menu>
+ * </esp-header>
+ * ```
+ *
  * @slot menu - Place site navigation here. The `menu` slot
  * should be populated with an [`<esp-menu>`](/components/menu/)
  * containing [`<esp-menu-item>`](/components/menu/item/) children:

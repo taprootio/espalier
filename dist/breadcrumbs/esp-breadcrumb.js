@@ -1,13 +1,26 @@
-var a=function(l,t,o,s){var i=arguments.length,e=i<3?t:s===null?s=Object.getOwnPropertyDescriptor(t,o):s,n;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(l,t,o,s);else for(var p=l.length-1;p>=0;p--)(n=l[p])&&(e=(i<3?n(e):i>3?n(t,o,e):n(t,o))||e);return i>3&&e&&Object.defineProperty(t,o,e),e};import{LitElement as d,css as m,html as h}from"lit";import{customElement as u,property as c}from"lit/decorators.js";import{unsafeSVG as b}from"lit/directives/unsafe-svg.js";let r=class extends d{constructor(){super(...arguments),this.label="",this.url="",this.separator="",this.isLastElement=!1}_renderLink(){return this.url?h`<a href=${this.url}>${this.label}</a>`:h`<label>${this.label}</label>`}render(){return h`${this._renderLink()}${this.separator?b(this.separator):""}`}};r.styles=m`
+var a=function(n,e,o,s){var i=arguments.length,r=i<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,o):s,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")r=Reflect.decorate(n,e,o,s);else for(var p=n.length-1;p>=0;p--)(l=n[p])&&(r=(i<3?l(r):i>3?l(e,o,r):l(e,o))||r);return i>3&&r&&Object.defineProperty(e,o,r),r};import{LitElement as m,css as d,html as h}from"lit";import{customElement as u,property as c}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{unsafeSVG as v}from"lit/directives/unsafe-svg.js";let t=class extends m{constructor(){super(...arguments),this.label="",this.url="",this.separator="",this.isLastElement=!1}_renderLink(){return this.url?h`<a href=${this.url}>${this.label}</a>`:h`<span aria-current="page">${this.label}</span>`}render(){const e={crumb:!0,"is-current":!this.url};return h`<div class=${b(e)}>
+      ${this._renderLink()}${this.separator?v(this.separator):""}
+    </div>`}};t.styles=d`
+    
     :host {
+      display: block;
+      min-width: 0;
+    }
+
+    
+    .crumb {
       display: grid;
       grid-template-columns: min-content min-content;
       gap: var(--esp-size-tiny-to-small);
       align-items: center;
     }
 
+    .crumb.is-current {
+      grid-template-columns: minmax(0, auto) min-content;
+    }
+
     
-    :is(a, label) {
+    :is(a, span[aria-current="page"]) {
       font-weight: bold;
       width: min-content;
       text-decoration: none;
@@ -26,12 +39,15 @@ var a=function(l,t,o,s){var i=arguments.length,e=i<3?t:s===null?s=Object.getOwnP
     }
 
     
-    label {
+    span[aria-current="page"] {
       color: var(
         --esp-breadcrumb-current-color,
         var(--esp-breadcrumb-color, var(--esp-color-headings))
       );
       font-style: italic;
+      white-space: normal;
+      width: auto;
+      overflow-wrap: anywhere;
     }
 
     
@@ -43,4 +59,4 @@ var a=function(l,t,o,s){var i=arguments.length,e=i<3?t:s===null?s=Object.getOwnP
       height: var(--esp-size-normal-to-medium);
       width: var(--esp-size-normal-to-medium);
     }
-  `,a([c({type:String})],r.prototype,"label",void 0),a([c({type:String})],r.prototype,"url",void 0),a([c({type:String})],r.prototype,"separator",void 0),a([c({attribute:"is-last-element",type:Boolean})],r.prototype,"isLastElement",void 0),r=a([u("esp-breadcrumb")],r);export{r as EspalierBreadcrumb};
+  `,a([c({type:String})],t.prototype,"label",void 0),a([c({type:String})],t.prototype,"url",void 0),a([c({type:String})],t.prototype,"separator",void 0),a([c({attribute:"is-last-element",type:Boolean})],t.prototype,"isLastElement",void 0),t=a([u("esp-breadcrumb")],t);export{t as EspalierBreadcrumb};

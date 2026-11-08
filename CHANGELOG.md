@@ -1,3 +1,15 @@
+# 6.10.0
+
+Navigation can now carry plain HTML links that search engines and HTML-only readers can follow, and breadcrumb trails become a labeled landmark that wraps on narrow screens.
+
+- `esp-menu-item`, `esp-menu-group` and `esp-breadcrumb` accept an optional `<a slot="link" href>` copy of their link, and `esp-header` and `esp-footer` accept an `<a slot="brand-link" href>` copy of the brand link. Crawlers, link previews and readers without JavaScript see a real link in the delivered HTML. Once a component loads, the copy is never shown, focused or announced; the attributes still drive what renders, so keep the copy equal to them (same `href`, the visible label as its text, and `target`/`rel` on menu links that set them).
+- Before a component loads, its copy shows as an ordinary link. Pages that reveal content before components load and want no flash can hide copies, at the cost of readers without JavaScript: `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
+- Focus traps in dialogs, flyouts, search and the lightbox skip the link copies of components that have loaded, so Tab never stops on a link that cannot take focus. Before a component loads, its copy is an ordinary link and stays reachable.
+- A menu item now counts only children without a slot name (or with an empty one) as its icon, so a named-slot child no longer sets the icon layout.
+- `esp-breadcrumbs` renders its trail as a `nav` landmark named `Breadcrumb`; set `aria-label` to name it in another language. If you already wrap the trail in your own `nav`, drop that wrapper to avoid a nested duplicate landmark.
+- The current-page crumb (a crumb without `url`) renders as `<span aria-current="page">` instead of `<label>`, with the same bold, italic and color. Tests that look for `label` inside a crumb need updating.
+- A trail too wide for its line now wraps between crumbs instead of overflowing, and a long current-page label wraps onto further lines, breaking an unbroken word if it must. Linked crumbs stay on one line.
+
 # 6.9.1
 
 Header navigation groups align with neighboring items and expose their disclosure panels to assistive technology.

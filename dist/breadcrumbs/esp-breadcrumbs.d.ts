@@ -16,13 +16,34 @@ export * from "./esp-breadcrumb.js";
  * </esp-breadcrumbs>
  * ```
  *
+ * The trail is a `nav` landmark named `Breadcrumb`; set `aria-label` to
+ * rename it. A trail wider than its container wraps between crumbs, so do not
+ * wrap `esp-breadcrumbs` in a `nav` of your own.
+ *
  * Every crumb with a `url` is a link, including the last one — a trail
  * may end at the deepest folder rather than at the current page. Leave
- * `url` off a crumb to render it as the italic current-page label:
+ * `url` off a crumb to render it as the italic current-page label, which
+ * wraps onto further lines when it is longer than the trail:
  *
  * ```html
  * <esp-breadcrumbs>
  *   <esp-breadcrumb label="Code" url="/code"></esp-breadcrumb>
+ *   <esp-breadcrumb label="This page"></esp-breadcrumb>
+ * </esp-breadcrumbs>
+ * ```
+ *
+ * To give readers that run no JavaScript real links, write a plain
+ * `<a slot="link">` inside each linked crumb, with the same `href` and label
+ * text. The copy is never rendered once the crumb upgrades:
+ *
+ * ```html
+ * <esp-breadcrumbs>
+ *   <esp-breadcrumb label="Code" url="/code">
+ *     <a slot="link" href="/code">Code</a>
+ *   </esp-breadcrumb>
+ *   <esp-breadcrumb label="Guides" url="/code/guides">
+ *     <a slot="link" href="/code/guides">Guides</a>
+ *   </esp-breadcrumb>
  *   <esp-breadcrumb label="This page"></esp-breadcrumb>
  * </esp-breadcrumbs>
  * ```
@@ -77,6 +98,12 @@ export * from "./esp-breadcrumb.js";
  * @menuIcon directions
  */
 export declare class EspalierBreadcrumbs extends EspalierElementBase {
+    /**
+     * Accessible name of the breadcrumb navigation landmark. Defaults to
+     * `Breadcrumb`; set it to translate the name for a non-English site.
+     * Removing the attribute returns the name to `Breadcrumb`.
+     */
+    ariaLabel: string | null;
     protected firstUpdated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

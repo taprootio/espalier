@@ -9,9 +9,29 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * accessible panel; inside that panel, deeper levels render as
  * vertical disclosure navigation.
  *
+ * To give readers that run no JavaScript a real link for a linked group,
+ * write a plain `<a slot="link">` beside the attributes, with the same
+ * `href`, `target`, `rel` and label text:
+ *
+ * ```html
+ * <esp-menu-group label="Guides" url="/guides" target="_blank" rel="noopener">
+ *   <a slot="link" href="/guides" target="_blank" rel="noopener">Guides</a>
+ *   <esp-menu-item label="Start here" url="/guides/start"></esp-menu-item>
+ * </esp-menu-group>
+ * ```
+ *
  * @customElement esp-menu-group
  * @slot - Menu items or nested menu groups.
  * @slot icon - Optional SVG or image icon for the group.
+ * @slot link - Optional plain `<a href>` copy of a linked group's link for
+ * HTML-only readers such as crawlers, link previews and readers without
+ * JavaScript. Once the group upgrades, the copy is never rendered, takes no
+ * focus and is hidden from assistive technology; the group renders only from
+ * `label`, `url`, `target` and `rel`, so keep the copy equal to them. Until the
+ * group upgrades, the copy is an ordinary visible child. A page that shows
+ * content before components load and wants no flash can hide it, at the cost of
+ * those readers:
+ * `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
  *
  * @event {CustomEvent<{ open: boolean }>} esp-menu-group-toggle - Fired when the group opens or closes.
  *

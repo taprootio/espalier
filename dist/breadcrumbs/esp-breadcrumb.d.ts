@@ -4,6 +4,32 @@ import { LitElement } from "lit";
  * [esp-breadcrumbs](/components/breadcrumbs/) to show breadcrumb
  * navigation.
  *
+ * A crumb with a `url` renders as a link. A crumb without one is the current
+ * page: it renders as italic text marked `aria-current="page"` and wraps onto
+ * further lines when it is longer than the trail.
+ *
+ * To give readers that run no JavaScript a real link, write a plain
+ * `<a slot="link">` inside a linked crumb, with the same `href` and label text:
+ *
+ * ```html
+ * <esp-breadcrumbs>
+ *   <esp-breadcrumb label="Code" url="/code">
+ *     <a slot="link" href="/code">Code</a>
+ *   </esp-breadcrumb>
+ *   <esp-breadcrumb label="This page"></esp-breadcrumb>
+ * </esp-breadcrumbs>
+ * ```
+ *
+ * @slot link - Optional plain `<a href>` copy of the crumb's link for HTML-only
+ * readers such as crawlers, link previews and readers without JavaScript. The
+ * crumb has no `<slot>` for it, so once the crumb upgrades the copy is never
+ * rendered, takes no focus and is hidden from assistive technology; the crumb
+ * renders only from `label` and `url`, so keep the copy equal to them. Until
+ * the crumb upgrades, the copy is an ordinary visible child. A page that shows
+ * content before components load and wants no flash can hide it, at the cost of
+ * those readers:
+ * `:not(:defined) > [slot="link"], :not(:defined) > [slot="brand-link"] { display: none; }`.
+ *
  * @cssprop --esp-breadcrumb-color - The text color of the breadcrumb link. Defaults to
  * `var(--esp-color-link)`, so a trail reads as navigation in the same ink as the links in
  * the surrounding content.
