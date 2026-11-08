@@ -1,3 +1,11 @@
+# 6.9.1
+
+Header navigation groups align with neighboring items and expose their disclosure panels to assistive technology.
+
+- Group labels use the same default color, font weight and row geometry as neighboring menu items in inline headers and full-screen drawers. Explicit group color overrides remain supported.
+- Disclosure indicators scale with the label size and stay centered. Each disclosure button names its panel with `aria-controls`; Escape closes the group and restores focus before dismissing a containing drawer.
+- Optional linked group labels retain their separate link and disclosure controls, including target and relationship attributes.
+
 # 6.9.0
 
 Menu links can open in another tab, and buttons and menu links announce that destination to screen-reader users.

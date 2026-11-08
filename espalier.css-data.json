@@ -1271,7 +1271,7 @@
     },
     {
       "name": "--esp-menu-group-color",
-      "description": "Text color of the group header."
+      "description": "Text color of the group header. Defaults to `--esp-menu-item-color`, then `--esp-color-text`."
     },
     {
       "name": "--esp-menu-group-hover-background",

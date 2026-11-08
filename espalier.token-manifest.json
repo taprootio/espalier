@@ -1809,7 +1809,7 @@
       "name": "--esp-menu-group-color",
       "category": "component",
       "component": "esp-menu-group",
-      "description": "Text color of the group header."
+      "description": "Text color of the group header. Defaults to `--esp-menu-item-color`, then `--esp-color-text`."
     },
     {
       "name": "--esp-menu-group-hover-background",
@@ -1922,7 +1922,7 @@
     {
       "name": "--esp-menu-item-font-weight",
       "category": "component",
-      "component": "esp-menu-item",
+      "component": "esp-menu-group",
       "description": "Font weight of horizontal item labels. Defaults to `--esp-font-weight-menu`, then `700`."
     },
     {

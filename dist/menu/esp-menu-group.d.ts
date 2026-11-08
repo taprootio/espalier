@@ -15,7 +15,7 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  *
  * @event {CustomEvent<{ open: boolean }>} esp-menu-group-toggle - Fired when the group opens or closes.
  *
- * @cssprop --esp-menu-group-color - Text color of the group header.
+ * @cssprop --esp-menu-group-color - Text color of the group header. Defaults to `--esp-menu-item-color`, then `--esp-color-text`.
  * @cssprop --esp-menu-group-background - Background color of the group header.
  * @cssprop --esp-menu-group-hover-background - Hover background color of the group header.
  * @cssprop --esp-menu-group-indicator-color - Color of the expand/collapse indicator.
@@ -27,6 +27,7 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  * @cssprop --esp-menu-group-icon-background - Background color of the icon rail.
  * @cssprop --esp-menu-group-icon-size - Size of generated and slotted group icons.
  * @cssprop --esp-menu-item-font-family - Font family of the group label, shared with menu items. Defaults to the theme's `--esp-font-menu`, then `--esp-font-body`.
+ * @cssprop --esp-menu-item-font-weight - Font weight of horizontal group labels, shared with menu items. Defaults to `--esp-font-weight-menu`, then `700`.
  * @docPageTitle Menu Group
  * @docUrl /components/menu/group
  * @menuGroup Navigation
