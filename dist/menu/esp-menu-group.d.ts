@@ -80,8 +80,7 @@ export declare class EspalierMenuGroup extends EspalierElementBase {
     touchDevice: boolean;
     /**
      * Set by `esp-menu` for groups rendered in its full-screen drawer: the
-     * label centers across the row and the disclosure control keeps the
-     * inline end, so a linked group reads like the centered items around it.
+     * label and adjacent disclosure control center together across the row.
      */
     fullScreenPresentation: boolean;
     /**

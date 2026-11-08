@@ -42,6 +42,8 @@ export interface EspTreeNode {
     cuttable?: boolean;
     /** Whether the node can receive a paste-as-child action. Defaults to `false`. */
     pasteChildTarget?: boolean;
+    /** Whether this node can receive a graft when `allow-graft` is set. Defaults to `true`. */
+    graftTarget?: boolean;
     /** Eagerly-provided children. */
     children?: EspTreeNode[];
     /** Marks a branch whose children load lazily via `loadChildren`. */

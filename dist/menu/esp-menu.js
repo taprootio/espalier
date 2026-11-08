@@ -329,6 +329,10 @@ var l=function(v,e,t,i){var r=arguments.length,s=r<3?e:i===null?i=Object.getOwnP
         --esp-menu-group-hover-background: transparent;
       }
 
+      .drawer.full-screen esp-menu-item {
+        text-align: center;
+      }
+
       .drawer.full-screen esp-menu-item::part(menu-text),
       .drawer.full-screen esp-menu-group::part(menu-text) {
         display: flex;

@@ -1,10 +1,10 @@
-var o=function(l,e,i,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,i):a,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(l,e,i,a);else for(var c=l.length-1;c>=0;c--)(d=l[c])&&(s=(p<3?d(s):p>3?d(e,i,s):d(e,i))||s);return p>3&&s&&Object.defineProperty(e,i,s),s},u;import{css as b,html as n,nothing as h}from"lit";import{customElement as y,property as r,state as w}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{createRef as m,ref as g}from"lit/directives/ref.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as x}from"../shared/events.js";import{getIconHrefForHost as z}from"../shared/intent-values.js";import{pathStartsWithSegment as v,pathsMatch as S}from"../shared/path-matching.js";import{SlottedIconController as L}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,renderNewTabCue as T}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{EspalierMenuItem as D}from"./esp-menu-item.js";let t=u=class extends f{constructor(){super(...arguments),this.itemsSlot=m(),this.toggleButton=m(),this.iconSlot=new L(this),this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!1,this.label="",this.url="",this.target="",this.rel="",this.newTabLabel=E,this.icon="",this.open=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.fullScreenPresentation=!1,this.active=!1,this.urlPrefix="",this.globalListenersActive=!1,this.handleDocumentClick=e=>{this.open&&(e.composedPath().includes(this)||this.setOpen(!1))},this.handleDocumentKeydown=e=>{!this.open||e.key!=="Escape"||(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}}connectedCallback(){super.connectedCallback(),this.checkActive()}disconnectedCallback(){super.disconnectedCallback(),this.removeGlobalDismissListeners()}firstUpdated(e){super.firstUpdated(e),this.propagateToChildren()}updated(e){super.updated(e),(e.has("mode")||e.has("depth")||e.has("touchDevice"))&&this.propagateToChildren(),(e.has("mode")||e.has("depth")||e.has("urlPrefix"))&&this.syncUrlPrefixExpansion(),e.has("url")&&this.checkActive(),e.has("open")&&!this.open&&(this.openedByUrlPrefix=!1),(e.has("open")||e.has("mode"))&&(this.open&&this.isHorizontalTopLevel?this.addGlobalDismissListeners():this.removeGlobalDismissListeners())}checkActive(){if(!this.url){this.active=!1;return}this.active=S(this.url)}get isHorizontalTopLevel(){return this.mode==="horizontal"&&this.depth===0}get childMode(){return this.mode==="horizontal"?"vertical":this.mode}syncUrlPrefixExpansion(){const e=v(location.pathname,this.urlPrefix);if(e||(this.dismissedUrlPrefix=!1),e&&!this.dismissedUrlPrefix&&!this.isHorizontalTopLevel){this.open||(this.open=!0,this.openedByUrlPrefix=!0);return}this.openedByUrlPrefix&&(this.open=!1,this.openedByUrlPrefix=!1)}getChildren(){return this.itemsSlot.value?Array.from(this.itemsSlot.value.assignedElements()):[]}propagateToChildren(){for(const e of this.getChildren())e instanceof D?(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice):e instanceof u&&(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice)}handleSlotChange(){this.propagateToChildren()}setOpen(e){this.open!==e&&(this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!e&&v(location.pathname,this.urlPrefix),this.open=e,this.dispatchEvent(new CustomEvent(x.MENU_GROUP_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0})))}handleHeaderClick(){this.toggleOpen()}handleLinkClick(e){e.stopPropagation()}handleToggleClick(e){e.stopPropagation(),this.toggleOpen()}toggleOpen(){this.setOpen(!this.open)}handleGroupKeydown(e){e.key==="Escape"&&this.open&&(e.preventDefault(),e.stopPropagation(),this.setOpen(!1),this.toggleButton.value?.focus())}addGlobalDismissListeners(){this.globalListenersActive||(document.addEventListener("click",this.handleDocumentClick,!0),document.addEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!0)}removeGlobalDismissListeners(){this.globalListenersActive&&(document.removeEventListener("click",this.handleDocumentClick,!0),document.removeEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!1)}renderIcon(){const e=z(this.icon,this),i=this.iconSlot.hasSlottedIcon();return n`
+var i=function(l,e,o,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,o):a,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(l,e,o,a);else for(var c=l.length-1;c>=0;c--)(d=l[c])&&(s=(p<3?d(s):p>3?d(e,o,s):d(e,o))||s);return p>3&&s&&Object.defineProperty(e,o,s),s},u;import{css as b,html as n,nothing as h}from"lit";import{customElement as y,property as r,state as w}from"lit/decorators.js";import{classMap as k}from"lit/directives/class-map.js";import{createRef as m,ref as g}from"lit/directives/ref.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as x}from"../shared/events.js";import{getIconHrefForHost as z}from"../shared/intent-values.js";import{pathStartsWithSegment as v,pathsMatch as L}from"../shared/path-matching.js";import{SlottedIconController as S}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,renderNewTabCue as T}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{EspalierMenuItem as D}from"./esp-menu-item.js";let t=u=class extends f{constructor(){super(...arguments),this.itemsSlot=m(),this.toggleButton=m(),this.iconSlot=new S(this),this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!1,this.label="",this.url="",this.target="",this.rel="",this.newTabLabel=E,this.icon="",this.open=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.fullScreenPresentation=!1,this.active=!1,this.urlPrefix="",this.globalListenersActive=!1,this.handleDocumentClick=e=>{this.open&&(e.composedPath().includes(this)||this.setOpen(!1))},this.handleDocumentKeydown=e=>{!this.open||e.key!=="Escape"||(e.preventDefault(),this.setOpen(!1),this.toggleButton.value?.focus())}}connectedCallback(){super.connectedCallback(),this.checkActive()}disconnectedCallback(){super.disconnectedCallback(),this.removeGlobalDismissListeners()}firstUpdated(e){super.firstUpdated(e),this.propagateToChildren()}updated(e){super.updated(e),(e.has("mode")||e.has("depth")||e.has("touchDevice"))&&this.propagateToChildren(),(e.has("mode")||e.has("depth")||e.has("urlPrefix"))&&this.syncUrlPrefixExpansion(),e.has("url")&&this.checkActive(),e.has("open")&&!this.open&&(this.openedByUrlPrefix=!1),(e.has("open")||e.has("mode"))&&(this.open&&this.isHorizontalTopLevel?this.addGlobalDismissListeners():this.removeGlobalDismissListeners())}checkActive(){if(!this.url){this.active=!1;return}this.active=L(this.url)}get isHorizontalTopLevel(){return this.mode==="horizontal"&&this.depth===0}get childMode(){return this.mode==="horizontal"?"vertical":this.mode}syncUrlPrefixExpansion(){const e=v(location.pathname,this.urlPrefix);if(e||(this.dismissedUrlPrefix=!1),e&&!this.dismissedUrlPrefix&&!this.isHorizontalTopLevel){this.open||(this.open=!0,this.openedByUrlPrefix=!0);return}this.openedByUrlPrefix&&(this.open=!1,this.openedByUrlPrefix=!1)}getChildren(){return this.itemsSlot.value?Array.from(this.itemsSlot.value.assignedElements()):[]}propagateToChildren(){for(const e of this.getChildren())e instanceof D?(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice):e instanceof u&&(e.mode=this.childMode,e.depth=this.depth+1,e.touchDevice=this.touchDevice)}handleSlotChange(){this.propagateToChildren()}setOpen(e){this.open!==e&&(this.openedByUrlPrefix=!1,this.dismissedUrlPrefix=!e&&v(location.pathname,this.urlPrefix),this.open=e,this.dispatchEvent(new CustomEvent(x.MENU_GROUP_TOGGLE,{detail:{open:this.open},bubbles:!0,composed:!0})))}handleHeaderClick(e){this.mode==="drawer"&&!e.composedPath().some(o=>o instanceof HTMLElement&&o.classList.contains("group-icon"))||this.toggleOpen()}handleLinkClick(e){e.stopPropagation()}handleToggleClick(e){e.stopPropagation(),this.toggleOpen()}toggleOpen(){this.setOpen(!this.open)}handleGroupKeydown(e){e.key==="Escape"&&this.open&&(e.preventDefault(),e.stopPropagation(),this.setOpen(!1),this.toggleButton.value?.focus())}addGlobalDismissListeners(){this.globalListenersActive||(document.addEventListener("click",this.handleDocumentClick,!0),document.addEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!0)}removeGlobalDismissListeners(){this.globalListenersActive&&(document.removeEventListener("click",this.handleDocumentClick,!0),document.removeEventListener("keydown",this.handleDocumentKeydown),this.globalListenersActive=!1)}renderIcon(){const e=z(this.icon,this),o=this.iconSlot.hasSlottedIcon();return n`
       <slot
         name="icon"
         ${g(this.iconSlot.slotRef)}
         @slotchange=${this.iconSlot.handleSlotChange}
       ></slot>
-      ${!i&&e?$(e):h}
+      ${!o&&e?$(e):h}
     `}renderToggle(e){return n`<button
       ${g(this.toggleButton)}
       class="group-toggle"
@@ -14,8 +14,8 @@ var o=function(l,e,i,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnP
       @click=${this.handleToggleClick}
     >
       ${e}<span class="indicator" aria-hidden="true"></span>
-    </button>`}render(){const e={group:!0,"is-horizontal":this.isHorizontalTopLevel,"is-vertical":!this.isHorizontalTopLevel,"is-nested":this.depth>0,"is-drawer":this.mode==="drawer","is-open":this.open,"is-active":this.active,"has-icon":this.icon.length>0||this.iconSlot.hasSlottedIcon()},i=n`<span class="group-label-text" part="menu-text">${this.label}</span>`,a=this.url?this.active?n`
-            <span class="current-page" aria-current="page">${i}</span>
+    </button>`}render(){const e={group:!0,"is-horizontal":this.isHorizontalTopLevel,"is-vertical":!this.isHorizontalTopLevel,"is-nested":this.depth>0,"is-drawer":this.mode==="drawer","is-open":this.open,"is-active":this.active,"has-icon":this.icon.length>0||this.iconSlot.hasSlottedIcon()},o=n`<span class="group-label-text" part="menu-text">${this.label}</span>`,a=this.url?this.active?n`
+            <span class="current-page" aria-current="page">${o}</span>
             ${this.renderToggle(n`<span class="sr-only">Toggle ${this.label}</span>`)}
           `:n`
             <a
@@ -24,10 +24,10 @@ var o=function(l,e,i,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnP
               target=${this.target||h}
               rel=${this.rel||h}
               @click=${this.handleLinkClick}
-              >${i}${T(this.target,this.newTabLabel)}</a
+              >${o}${T(this.target,this.newTabLabel)}</a
             >
             ${this.renderToggle(n`<span class="sr-only">Toggle ${this.label}</span>`)}
-          `:this.renderToggle(i);return n`
+          `:this.renderToggle(o);return n`
       <div class=${k(e)} @keydown=${this.handleGroupKeydown}>
         <div class="group-header" @click=${this.handleHeaderClick}>
           <span class="group-label">${a}</span>
@@ -153,32 +153,30 @@ var o=function(l,e,i,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnP
         text-decoration: underline;
       }
 
-      
-      :host([full-screen-presentation]) .group-label {
-        position: relative;
+      .is-drawer .group-label > .group-toggle:only-child,
+      .is-drawer .group-link + .group-toggle,
+      .is-drawer .current-page + .group-toggle {
+        flex: 0 0 auto;
+        width: auto;
       }
 
-      :host([full-screen-presentation]) .group-toggle:only-child .indicator {
-        position: absolute;
-        inset-inline-end: var(--esp-size-small);
+      .is-drawer .group-label > .group-toggle:only-child {
+        flex-shrink: 1;
+        max-width: 100%;
+      }
+
+      .is-drawer .group-items-inner {
+        min-width: 0;
+      }
+
+      
+      :host([full-screen-presentation]) .group-label {
+        justify-content: center;
       }
 
       :host([full-screen-presentation]) .group-link,
       :host([full-screen-presentation]) .current-page {
-        flex: 1 1 auto;
-        width: 100%;
-        justify-content: center;
-        padding: var(--esp-menu-item-padding, var(--esp-size-small) var(--esp-size-padding));
-      }
-
-      :host([full-screen-presentation]) .group-link + .group-toggle,
-      :host([full-screen-presentation]) .current-page + .group-toggle {
-        position: absolute;
-        inset-block: 0;
-        inset-inline-end: 0;
-        flex: none;
-        width: auto;
-        padding-inline: var(--esp-size-small);
+        padding-inline-start: var(--esp-size-normal);
       }
 
       .group-toggle:focus-visible,
@@ -292,4 +290,4 @@ var o=function(l,e,i,a){var p=arguments.length,s=p<3?e:a===null?a=Object.getOwnP
           transition: none;
         }
       }
-    `],o([r({type:String})],t.prototype,"label",void 0),o([r({type:String})],t.prototype,"url",void 0),o([r({type:String})],t.prototype,"target",void 0),o([r({type:String})],t.prototype,"rel",void 0),o([r({type:String,attribute:"new-tab-label"})],t.prototype,"newTabLabel",void 0),o([r({type:String})],t.prototype,"icon",void 0),o([r({type:Boolean,reflect:!0})],t.prototype,"open",void 0),o([r({attribute:!1,type:String})],t.prototype,"mode",void 0),o([r({attribute:!1,type:Number})],t.prototype,"depth",void 0),o([r({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),o([r({attribute:"full-screen-presentation",type:Boolean,reflect:!0})],t.prototype,"fullScreenPresentation",void 0),o([w()],t.prototype,"active",void 0),o([r({type:String,attribute:"url-prefix"})],t.prototype,"urlPrefix",void 0),t=u=o([y("esp-menu-group")],t);export{t as EspalierMenuGroup};
+    `],i([r({type:String})],t.prototype,"label",void 0),i([r({type:String})],t.prototype,"url",void 0),i([r({type:String})],t.prototype,"target",void 0),i([r({type:String})],t.prototype,"rel",void 0),i([r({type:String,attribute:"new-tab-label"})],t.prototype,"newTabLabel",void 0),i([r({type:String})],t.prototype,"icon",void 0),i([r({type:Boolean,reflect:!0})],t.prototype,"open",void 0),i([r({attribute:!1,type:String})],t.prototype,"mode",void 0),i([r({attribute:!1,type:Number})],t.prototype,"depth",void 0),i([r({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),i([r({attribute:"full-screen-presentation",type:Boolean,reflect:!0})],t.prototype,"fullScreenPresentation",void 0),i([w()],t.prototype,"active",void 0),i([r({type:String,attribute:"url-prefix"})],t.prototype,"urlPrefix",void 0),t=u=i([y("esp-menu-group")],t);export{t as EspalierMenuGroup};

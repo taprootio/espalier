@@ -1,3 +1,11 @@
+# 6.11.0
+
+Drawer navigation controls fit their labels, and trees can limit where children are added.
+
+- Menu links and dropdown controls in drawers use content-sized hit regions; dropdown carets stay beside their labels instead of at the row edge.
+- Tree nodes can set `graftTarget: false` to remove child-add controls and block Insert and pending graft commits, while omitted values retain existing behavior.
+- Drawer labels retain their padding, keyboard controls, focus behavior and accessible disclosure state in panel and full-screen presentations.
+
 # 6.10.0
 
 Navigation can now carry plain HTML links that search engines and HTML-only readers can follow, and breadcrumb trails become a labeled landmark that wraps on narrow screens.
