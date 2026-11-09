@@ -1,3 +1,13 @@
+# 6.12.0
+
+Selected header links can sit beside the header controls while keeping one navigation tree.
+
+- Set `header-end` (`headerEnd`) on a top-level linked `esp-menu-item` in a header's primary horizontal menu. Inline headers show these links before the action buttons; auto and forced drawers keep the full source order in one menu. Standalone, nested and button items retain their ordinary presentation.
+- Auto fit accounts for both navigation regions at their natural widths. Explicit Inline keeps the menu and end links reachable within constrained columns, and also takes precedence over the minimal layout. Header actions retain their natural targets.
+- Horizontal scrolling menus show dropdown panels in the top layer so they remain visible outside the scrolling rail. Existing disclosure keyboard, focus and outside-click behavior stays with the group.
+- Radio groups preserve each option's own disabled setting when the group toggles, and release inherited disabled state safely when options move or disconnect.
+- Link destinations, current-page state, icons and new-tab cues follow each presentation, with one active view through drawer changes and source updates.
+
 # 6.11.0
 
 Drawer navigation controls fit their labels, and trees can limit where children are added.

@@ -130,6 +130,31 @@ export interface EspThemeToggleEventDetail {
  * </esp-header>
  * ```
  *
+ * To place a link beside the header controls, set `header-end` on a direct
+ * linked `esp-menu-item` in the primary horizontal menu. Keep the full tree in
+ * that menu: inline end links precede the action slot, while auto and forced
+ * drawers combine every item in its original order. Nested items, groups and
+ * items without a URL retain their ordinary presentation. Explicit Inline
+ * keeps both navigation regions reachable and overrides the minimal layout.
+ * Every owned primary horizontal menu stays on one nonwrapping row, including
+ * menus without end links. Its viewport scrolls when constrained; standalone
+ * menus retain their own overflow choices.
+ *
+ * Put shared navigation styling on the header or a common ancestor. Promoted
+ * links inherit that context and forward menu/item inline public presentation
+ * tokens and explicit typography. Source-only stylesheet selectors, local
+ * context/intent zones and non-public variables are not forwarded. Unmarked
+ * links keep their native source styling.
+ *
+ * ```html
+ * <esp-header brand-text="Example" menu-display="auto">
+ *   <esp-menu slot="menu" mode="horizontal">
+ *     <esp-menu-item label="Join the waitlist" url="/waitlist"></esp-menu-item>
+ *     <esp-menu-item header-end label="Sign in" url="/sign-in"></esp-menu-item>
+ *   </esp-menu>
+ * </esp-header>
+ * ```
+ *
  * Published-site headers can be configured without custom brand
  * markup. Pair `layout`, `menu-display`, `theme-toggle`, and
  * `scroll-behavior` with `esp-page header-position` when the shell
@@ -252,7 +277,8 @@ export declare class EspalierHeader extends EspalierElementBase {
      *   and centers the navigation on the bar between two equal columns.
      * - `extended` puts navigation on a second row on wide screens.
      * - `extended-centered` centers the brand and second-row navigation.
-     * - `minimal` keeps only brand/actions inline and uses the drawer menu.
+     * - `minimal` keeps only brand/actions inline and uses the drawer menu unless
+     *   `menu-display="inline"` explicitly requests standard inline geometry.
      *
      * ```html
      * <div style="display: grid; gap: var(--esp-size-padding);">
@@ -359,7 +385,8 @@ export declare class EspalierHeader extends EspalierElementBase {
     /**
      * Navigation display intent. `auto` tries inline navigation before
      * using a drawer, `drawer` always uses the burger/drawer pattern,
-     * and `inline` leaves overflow handling to the slotted menu.
+     * and `inline` keeps the primary horizontal navigation on one scrolling row
+     * without creating a burger. Explicit `inline` overrides the minimal layout.
      * @default "auto"
      */
     menuDisplay: HeaderMenuDisplay;

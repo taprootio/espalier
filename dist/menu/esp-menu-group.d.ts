@@ -90,6 +90,7 @@ export declare class EspalierMenuGroup extends EspalierElementBase {
     urlPrefix: string;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     protected firstUpdated(_changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     protected render(): TemplateResult<1>;

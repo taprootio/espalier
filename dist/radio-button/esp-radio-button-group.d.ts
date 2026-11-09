@@ -51,6 +51,8 @@ import { type EspalierFormField } from "../form-item/esp-form-item.js";
  */
 export declare class EspalierRadioButtonGroup extends EspalierElementBase implements EspalierFormField {
     static formAssociated: boolean;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
     /**
      * The name used when the group participates in a `<form>`.
      *
@@ -73,7 +75,8 @@ export declare class EspalierRadioButtonGroup extends EspalierElementBase implem
      */
     requiredMessage: string;
     /**
-     * Disables all child radio buttons in the group.
+     * Disables all child radio buttons without changing each choice's own
+     * disabled value.
      */
     disabled: boolean;
     /**

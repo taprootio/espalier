@@ -1,4 +1,4 @@
-import { type PropertyValues, type TemplateResult } from "lit";
+import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import { type ConfiguredBrandOptions } from "../shared/configured-brand.js";
 import "./esp-menu-item.js";
@@ -176,6 +176,7 @@ export declare class EspalierMenu extends EspalierElementBase {
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected firstUpdated(props: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     /**
      * Open the drawer overlay when this menu is drawer-capable.
@@ -194,7 +195,7 @@ export declare class EspalierMenu extends EspalierElementBase {
     getWidth: () => number;
     /** Called by SwipeRevealController when the drawer state changes. */
     onSwipeRevealChanged(open: boolean): void;
-    protected render(): TemplateResult<1>;
+    protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];
 }
 declare global {

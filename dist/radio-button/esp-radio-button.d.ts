@@ -82,9 +82,11 @@ export declare class EspalierRadioButton extends EspalierElementBase implements 
      */
     value: string;
     /**
-     * Controls whether the radio button is disabled.
+     * Controls whether this choice is disabled. A disabled parent group also
+     * prevents interaction without changing this value.
      */
     disabled: boolean;
+    disconnectedCallback(): void;
     /**
      * Focus the radio button control.
      */

@@ -74,6 +74,20 @@ export declare class EspalierMenuItem extends EspalierElementBase {
     newTabLabel: string;
     /** Optional icon name from the configured Espalier SVG sprite. */
     icon: string;
+    /**
+     * Prefer logical inline end before the header controls. Only direct links
+     * in an owning header's primary horizontal menu are promoted. Standalone,
+     * nested and button items remain ordinary menu content. Collapsed links
+     * return to the same drawer in their original source order.
+     * Put shared navigation tokens and context on the header or a common ancestor.
+     * Menu/item inline public presentation tokens and explicit typography are
+     * forwarded; their variables
+     * must resolve through that shared chain or the forwarded public tokens.
+     * Source-only selectors, stylesheet typography, context/intent zones and
+     * non-public variables local to the menu/item are not forwarded.
+     * @default false
+     */
+    headerEnd: boolean;
     /** Render mode supplied by the parent `esp-menu` or `esp-menu-group`. */
     mode: EspalierMenuMode;
     /** Nesting depth supplied by the parent. */
@@ -84,6 +98,7 @@ export declare class EspalierMenuItem extends EspalierElementBase {
      */
     touchDevice: boolean;
     connectedCallback(): void;
+    disconnectedCallback(): void;
     protected updated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];
