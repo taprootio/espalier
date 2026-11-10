@@ -24,6 +24,7 @@ export * from "./page/esp-page.js";
 export * from "./section/esp-section.js";
 export * from "./stack/esp-stack.js";
 export * from "./row/esp-row.js";
+export * from "./columns/esp-columns.js";
 export * from "./popover/esp-popover.js";
 export * from "./dialog/esp-dialog.js";
 export * from "./empty-state/esp-empty-state.js";

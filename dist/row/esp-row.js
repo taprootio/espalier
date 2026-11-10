@@ -1,35 +1,12 @@
-var o=function(p,r,s,a){var i=arguments.length,e=i<3?r:a===null?a=Object.getOwnPropertyDescriptor(r,s):a,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(p,r,s,a);else for(var f=p.length-1;f>=0;f--)(l=p[f])&&(e=(i<3?l(e):i>3?l(r,s,e):l(r,s))||e);return i>3&&e&&Object.defineProperty(r,s,e),e};import{css as u,html as g}from"lit";import{customElement as c,property as n}from"lit/decorators.js";import{EspalierElementBase as w}from"../shared/esp-element-base.js";const h=["start","center","end","between"];let t=class extends w{constructor(){super(...arguments),this.gap="normal",this.align="center",this.justify="start",this.nowrap=!1}render(){return g`
+var s=function(p,r,o,l){var a=arguments.length,e=a<3?r:l===null?l=Object.getOwnPropertyDescriptor(r,o):l,n;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(p,r,o,l);else for(var f=p.length-1;f>=0;f--)(n=p[f])&&(e=(a<3?n(e):a>3?n(r,o,e):n(r,o))||e);return a>3&&e&&Object.defineProperty(r,o,e),e};import{css as w,html as c}from"lit";import{customElement as y,property as i}from"lit/decorators.js";import{layoutGapStyles as h}from"../shared/layout-gap.js";import{EspalierElementBase as u}from"../shared/esp-element-base.js";const d=["start","center","end","between"];let t=class extends u{constructor(){super(...arguments),this.gap="normal",this.align="center",this.justify="start",this.nowrap=!1}render(){return c`
       <div class="esp-row" part="row">
         <slot></slot>
       </div>
-    `}};t.styles=[...w.styles,u`
+    `}};t.styles=[...u.styles,h("--_esp-row-gap"),w`
       :host {
         display: block;
-        --_esp-row-gap: var(--esp-size-normal);
         --_esp-row-align: center;
         --_esp-row-justify: flex-start;
-      }
-
-      :host([gap="none"]) {
-        --_esp-row-gap: 0px;
-      }
-      :host([gap="tiny"]) {
-        --_esp-row-gap: var(--esp-size-tiny);
-      }
-      :host([gap="small"]) {
-        --_esp-row-gap: var(--esp-size-small);
-      }
-      :host([gap="medium"]) {
-        --_esp-row-gap: var(--esp-size-medium);
-      }
-      :host([gap="big"]) {
-        --_esp-row-gap: var(--esp-size-big);
-      }
-      :host([gap="large"]) {
-        --_esp-row-gap: var(--esp-size-large);
-      }
-      :host([gap="huge"]) {
-        --_esp-row-gap: var(--esp-size-huge);
       }
 
       :host([align="start"]) {
@@ -64,4 +41,4 @@ var o=function(p,r,s,a){var i=arguments.length,e=i<3?r:a===null?a=Object.getOwnP
       :host([nowrap]) .esp-row {
         flex-wrap: nowrap;
       }
-    `],o([n({reflect:!0,useDefault:!0})],t.prototype,"gap",void 0),o([n({reflect:!0,useDefault:!0})],t.prototype,"align",void 0),o([n({reflect:!0,useDefault:!0})],t.prototype,"justify",void 0),o([n({type:Boolean,reflect:!0})],t.prototype,"nowrap",void 0),t=o([c("esp-row")],t);export{t as EspalierRow,h as ROW_JUSTIFIES};
+    `],s([i({reflect:!0,useDefault:!0})],t.prototype,"gap",void 0),s([i({reflect:!0,useDefault:!0})],t.prototype,"align",void 0),s([i({reflect:!0,useDefault:!0})],t.prototype,"justify",void 0),s([i({type:Boolean,reflect:!0})],t.prototype,"nowrap",void 0),t=s([y("esp-row")],t);export{t as EspalierRow,d as ROW_JUSTIFIES};

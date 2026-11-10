@@ -1,8 +1,8 @@
-import{css as l,html as n,nothing as a}from"lit";function p({scheme:o,brandLogo:r,brandColor:e,lightBrandLogo:t,darkBrandLogo:c,lightBrandColor:s,darkBrandColor:d}){return{brandLogo:(o==="dark"?c:t)||r,brandColor:(o==="dark"?d:s)||e}}const u=l`3 / 1`,m=l`
+import{css as g,html as r,nothing as l}from"lit";function f({scheme:o,brandLogo:n,brandColor:s,lightBrandLogo:a,darkBrandLogo:t,lightBrandColor:d,darkBrandColor:e}){return{brandLogo:(o==="dark"?t:a)||n,brandColor:(o==="dark"?e:d)||s}}const u=g`3 / 1`,$=g`
   .brand-logo {
     overflow-wrap: anywhere;
   }
-`;function B({brandLogo:o,brandText:r,brandHref:e,brandAlt:t}){if(!o&&!r)return a;const s=n`
-    ${o?n`<img class="brand-logo" src=${o} alt=${t||(r?"":"Site logo")} />`:a}
-    ${r?n`<span class="brand-text">${r}</span>`:a}
-  `;return e?n`<a class="configured-brand" href=${e}>${s}</a>`:n`<span class="configured-brand">${s}</span>`}export{u as CONFIGURED_BRAND_LOGO_ASPECT_RATIO,m as configuredBrandLogoGeometry,B as renderConfiguredBrand,p as resolveConfiguredBrand};
+`;function m({brandLogo:o,brandText:n,brandHref:s,brandAlt:a,reserveLogoSpace:t=!1}){if(!o&&!n)return l;const e=o?r`<img class="brand-logo" src=${o} alt=${a||(n?"":"Site logo")} />`:l,c=r`
+    ${o&&t?r`<span class="brand-logo-reservation">${e}</span>`:e}
+    ${n?r`<span class="brand-text">${n}</span>`:l}
+  `;return s?r`<a class="configured-brand" href=${s}>${c}</a>`:r`<span class="configured-brand">${c}</span>`}export{u as CONFIGURED_BRAND_LOGO_ASPECT_RATIO,$ as configuredBrandLogoGeometry,m as renderConfiguredBrand,f as resolveConfiguredBrand};

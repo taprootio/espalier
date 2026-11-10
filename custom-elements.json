@@ -220,6 +220,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "module": "dist/columns/esp-columns.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "module": "dist/popover/esp-popover.js"
           }
         },
@@ -10188,9 +10196,23 @@
               }
             }
           ],
+          "cssParts": [
+            {
+              "description": "The button chrome and outer layout.",
+              "name": "wrapper"
+            },
+            {
+              "description": "The native button, link, or noninteractive current-page span.",
+              "name": "control"
+            },
+            {
+              "description": "The text label, excluding icons and new-tab cues.",
+              "name": "label"
+            }
+          ],
           "slots": [
             {
-              "description": "Optional custom SVG icon. Slotted icons override the generated SVG from the `icon` attribute. ```html <esp-button label=\"Profile\" icon=\"user-circle\"></esp-button> ```",
+              "description": "Optional custom SVG or image icon. Slotted icons override the generated SVG from the `icon` attribute. ```html <esp-button label=\"Profile\" icon=\"user-circle\"></esp-button> ```",
               "name": ""
             }
           ],
@@ -10320,6 +10342,18 @@
               "default": "\"\"",
               "description": "If href is set, the button will be rendered as an anchor link\npointing to the href value instead of a button.\n\n```html\n<esp-button href=\"#\" label=\"Link button\"></esp-button>\n```",
               "attribute": "href"
+            },
+            {
+              "kind": "field",
+              "name": "current",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Marks a linked destination as the current page. With `href`, renders a\nnoninteractive `span[aria-current=\"page\"]` with button chrome. Loading,\ndisabled and pressed states do not apply. Ignored when `href` is empty.",
+              "attribute": "current",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -11237,6 +11271,15 @@
               "default": "\"\"",
               "description": "If href is set, the button will be rendered as an anchor link\npointing to the href value instead of a button.\n\n```html\n<esp-button href=\"#\" label=\"Link button\"></esp-button>\n```",
               "fieldName": "href"
+            },
+            {
+              "name": "current",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Marks a linked destination as the current page. With `href`, renders a\nnoninteractive `span[aria-current=\"page\"]` with button chrome. Loading,\ndisabled and pressed states do not apply. Ignored when `href` is empty.",
+              "fieldName": "current"
             },
             {
               "name": "icon-only",
@@ -14015,6 +14058,1027 @@
           "declaration": {
             "name": "EspalierColorPicker",
             "module": "dist/color-picker/esp-color-picker.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/columns/esp-columns.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Places two or three independent regions beside each other when each can\nremain at least 18rem wide. All regions stack together below that threshold.\nRequires an `esp-root` ancestor.\n\n```html\n<esp-columns ratio=\"40-60\" gap=\"medium\">\n  <div><h2>Visit us</h2><p>Find a class near you.</p></div>\n  <div><h2>Book a class</h2><p>Your booking form goes here.</p></div>\n</esp-columns>\n```\n\nEach rendered direct unnamed-slot element is one region. Elements with\n`hidden` or computed `display: none`, and script/style/template elements, do\nnot count as regions. Visibility changes retain the original slot nodes.\nThree rendered regions support only the equal ratio. Other counts, unknown\nratios, or non-whitespace direct text\nuse a single stack, retaining all slot content. Regions keep their DOM and\nreading order; this element adds no landmark or form behavior. Sections and\ncontexts continue to own backgrounds and content wells.",
+          "name": "EspalierColumns",
+          "cssProperties": [
+            {
+              "description": "Overrides the selected gap with a non-negative CSS length, including rem, em, calc() and clamp(). Percentage gaps are not supported. Defaults to the `gap` attribute's step, `normal` when unset.",
+              "name": "--esp-columns-gap"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The grid containing the original regions.",
+              "name": "columns"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Two or three independent regions in reading order.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "gap",
+              "type": {
+                "text": "EspalierGap"
+              },
+              "privacy": "public",
+              "default": "\"normal\"",
+              "description": "Space-scale gap name. Unknown names use normal.",
+              "attribute": "gap",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "ratio",
+              "type": {
+                "text": "EspalierColumnsRatio"
+              },
+              "privacy": "public",
+              "default": "\"equal\"",
+              "description": "Equal regions, or two regions at 40/60 or 60/40.",
+              "attribute": "ratio",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "layout",
+              "type": {
+                "text": "ColumnsLayout"
+              },
+              "privacy": "private",
+              "default": "\"stack\""
+            },
+            {
+              "kind": "field",
+              "name": "resizeObserver",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "mutationObserver",
+              "type": {
+                "text": "MutationObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "observedRegions",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Set<Element>()"
+            },
+            {
+              "kind": "field",
+              "name": "updateLayout",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new RafThrottle(() => this.measureLayout())"
+            },
+            {
+              "kind": "method",
+              "name": "observeGeometry",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRegionObservers",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "regions",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "measureLayout",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "contextBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "warnedUnknownContexts",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Set<string>()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "pendingInitialThemeRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "subscribedRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventUnsubscribers",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentBacker",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "privacy": "protected",
+              "default": "\"neutral\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentEmitsTokens",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "protected",
+              "default": "true",
+              "description": "Whether a non-neutral intent emits its inline tokens\n(`--esp-color-primary` and the filled-action pair). Interactive\ncontrols need them; chrome whose intent treatment is class-based\n(badges, callouts, status pills — see `intentSurfaceTokens`) opts\nout so a decorative intent never rewrites inherited tokens for\nslotted content.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "warnedUnknownIntents",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Set<string>()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intent",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "privacy": "public",
+              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
+              "attribute": "intent",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
+              "attribute": "context",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "refreshDescendantIntentDerivations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "A zone rebinding must reach descendants whose intent pairs derive\nover it. Root-level changes arrive over the bus, but the context\nattribute is plain DOM state with no bus event, so the zone host\nwalks its FLATTENED subtree — crossing open shadow roots and\nfollowing slot assignment, the tree its table cascades along — and\nlets each Espalier descendant re-apply against the current\nancestry. Idempotent for hosts this zone doesn't govern; the\nvisited set guards the slot/light diamond (a host's light children\nare also its slots' assigned elements).",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "flattenedParent",
+              "privacy": "private",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Node | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "Node"
+                  }
+                }
+              ],
+              "description": "The flattened-tree parent: through the assigned slot, out of shadow roots.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveAncestorZoneTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierTheme | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "activeTheme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                }
+              ],
+              "description": "The nearest ancestor zone the active theme can actually compile,\nwalking the flattened tree — through assigned slots and out of\nshadow roots — because that is the tree the zone's emitted table\ncascades along: a consumer shell may declare its zone around a\n`<slot>` inside its own shadow. A zone host with an unresolvable\ncontext emits nothing and inherits the next zone out, so unknown\nnames are skipped rather than collapsed to the root theme. Bounded\nby this element's esp-root.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyTokensWhenRootReady",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply scoped tokens now, or defer until the active root's initial theme is ready.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyTokensAfterInitialRootUpdate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "description": "Apply initial scoped tokens once the exact root this host found is ready.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentColorSources",
+              "type": {
+                "text": "Readonly<\n    Record<EspalierIntentVariant, ColorSource | \"\">\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ danger: \"danger\", info: \"info\", neutral: \"\", success: \"success\", warning: \"warning\", }",
+              "description": "Intent color sources: the meaning-bearing families an intent pins\nthe filled-action pair to. `neutral` pins nothing; each other\nintent maps to its own fixed status family (ESP0172 gave `info` a\nreal blue family, replacing the complementary borrow the retired\nvariant system used), and a theme's `intents` field retunes the\nfamily colors themselves.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface — the\npair an intent recolors. Everything else inherits the zone cascade,\nwhich is the ESP0166 fix: under the SHY fitted theme the retired\nvariant re-seeding painted a danger callout's *background* mint\ngreen; an intent leaves the zone's surfaces alone and pins only the\naction pair (plus `--esp-color-primary` for state derivations) to\nthe intent's own status family — fixed hues by default, retunable\nper theme via `intents`. Task 098's\nguarantee survives structurally: the\npin is by source, so no theme mapping can rotate a destructive /\nwarning / positive action off its semantic hue.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyScopedColorTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Compute and apply context- and intent-specific semantic color tokens.\n\nWith no context and a `neutral` intent, all semantic tokens cascade\nfrom `<esp-root>` and previous overrides are cleared. A context\nemits the zone's complete twenty-three-token table; a non-neutral intent\nthen overlays the filled-action pair, derived over the governing\nzone's theme — this host's own context, or the nearest ancestor\nzone's — so its APCA enforcement runs against the zone's actual\naction surface.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveContextTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "{ applied: boolean; theme: EspalierTheme }"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                }
+              ],
+              "description": "Resolve this host's own context name over the active root theme.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "warnUnknownContextWhenSettled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Warn about an unknown context only once the root's theme has\nsettled (ESP0177).\n\nA script-mounted theme lands after its descendants first render, so\na zone naming a context the theme *does* define would otherwise\nwarn about a state that was never rendered to anyone. Waiting for\nthe root to settle — an author theme resolved, or the pre-theme\nwindow closed with none — makes the warning describe the settled\ntheme instead of a transient one. It is deferred, never dropped: a\ngenuinely missing context still warns, just after the window.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveNamedContextTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierTheme | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                },
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Compile a named context's theme, or null when the theme doesn't\ndefine it. Delegates to the exported compiler so a DOM-less consumer\n(the fit-report suite, a check script) inspects exactly the theme a\nzone host renders — the drift this shared path exists to prevent\n(ESP0175).",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyScopedTokenProperties",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "properties",
+                  "type": {
+                    "text": "Record<string, string>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setScopedTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "restoreScopedTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearScopedTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "gap",
+              "type": {
+                "text": "EspalierGap"
+              },
+              "default": "\"normal\"",
+              "description": "Space-scale gap name. Unknown names use normal.",
+              "fieldName": "gap"
+            },
+            {
+              "name": "ratio",
+              "type": {
+                "text": "EspalierColumnsRatio"
+              },
+              "default": "\"equal\"",
+              "description": "Equal regions, or two regions at 40/60 or 60/40.",
+              "fieldName": "ratio"
+            },
+            {
+              "type": {
+                "text": "\"1\"|\"2\"|\"3\"|\"4\""
+              },
+              "description": "Declares the painted surface depth. Fields use the next local layer, capped at layer 4.",
+              "name": "surface-layer",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "intent",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
+              "fieldName": "intent",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
+              "fieldName": "context",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "tagName": "esp-columns",
+          "customElement": true,
+          "docPageTitle": {
+            "name": "Columns",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/columns",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Structure",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "layout",
+            "description": ""
+          },
+          "events": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierColumns",
+          "declaration": {
+            "name": "EspalierColumns",
+            "module": "dist/columns/esp-columns.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-columns",
+          "declaration": {
+            "name": "EspalierColumns",
+            "module": "dist/columns/esp-columns.js"
           }
         }
       ]
@@ -32587,7 +33651,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Builds a site's top navigation bar. Use its four slots to add content:\n`topbar`, `brand`, `menu`, and `buttons`.\n\nA field fills one layer above the surface it sits on.\nUse `surface-layer=\"1|2|3|4\"` to select the default painted layer.\n\nThe header works together with several companion components:\n[`<esp-menu>`](/components/menu/) provides the navigation\ncontainer, [`<esp-menu-item>`](/components/menu/item/)\nrenders individual links, and\n[`<esp-header-button>`](/components/header/button/) adds icon\nbuttons for global actions.\n\n```html\n<esp-header>\n  <div slot=\"brand\" style=\"background-color: red;\" class=\"header-example\">brand</div>\n  <esp-menu slot=\"menu\" mode=\"horizontal\" style=\"background-color: green;\">\n    <esp-menu-item label=\"menu\" url=\"#\"></esp-menu-item>\n  </esp-menu>\n  <div slot=\"buttons\" style=\"background-color: yellow;\" class=\"header-example\">buttons</div>\n</esp-header>\n```",
+          "description": "Builds a site's top navigation bar. Use its four slots to add content:\n`topbar`, `brand`, `menu`, and `buttons`.\n\n`height-multiplier=\"1.8\"` enlarges the primary row and logo while preserving\ncontrol and extra-row sizes. In a fixed `esp-page`, `compact-size=\"standard\"`\nwith `scroll-behavior=\"compact\"` returns to the unscaled baseline. Sticky,\nnormal and standalone hosts retain expanded geometry with these options.\nOptional generic/light/dark compact logos fall back to the regular logo until\nready; the larger expanded/compact brand width is reserved in either state.\n`data-esp-compact` reports resolved compaction for paint-only styling and\ninspection. Hook-keyed layout or typography changes are unsupported. Override\nthe height/logo inputs instead. Compaction holds while header keyboard focus\nor a header drawer/popover is open. The [`<esp-page>`](/components/page/)\nreadiness method waits for initial geometry. Scope light-DOM anchor clearance\nto `--esp-page-header-expanded-size`, capped by the usable viewport height.\n\nA field fills one layer above the surface it sits on.\nUse `surface-layer=\"1|2|3|4\"` to select the default painted layer.\n\nThe header works together with several companion components:\n[`<esp-menu>`](/components/menu/) provides the navigation\ncontainer, [`<esp-menu-item>`](/components/menu/item/)\nrenders individual links, and\n[`<esp-header-button>`](/components/header/button/) adds icon\nbuttons for global actions.\n\n```html\n<esp-header>\n  <div slot=\"brand\" style=\"background-color: red;\" class=\"header-example\">brand</div>\n  <esp-menu slot=\"menu\" mode=\"horizontal\" style=\"background-color: green;\">\n    <esp-menu-item label=\"menu\" url=\"#\"></esp-menu-item>\n  </esp-menu>\n  <div slot=\"buttons\" style=\"background-color: yellow;\" class=\"header-example\">buttons</div>\n</esp-header>\n```",
           "name": "EspalierHeader",
           "cssProperties": [
             {
@@ -32681,6 +33745,10 @@
             {
               "description": "The configured logo maximum inline size. Defaults to `12rem`.",
               "name": "--esp-header-brand-logo-max-width"
+            },
+            {
+              "description": "Reserved ratio for a pending compact logo. Defaults to `var(--esp-header-brand-logo-aspect-ratio, 3 / 1)`.",
+              "name": "--esp-header-compact-brand-logo-aspect-ratio"
             },
             {
               "description": "The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`.",
@@ -32962,6 +34030,63 @@
             },
             {
               "kind": "field",
+              "name": "compactBrandLogo",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Compact logo URL; unresolved or failed images retain the regular logo.",
+              "attribute": "compact-brand-logo"
+            },
+            {
+              "kind": "field",
+              "name": "lightCompactBrandLogo",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Compact logo for light scheme; falls back to generic, then dark compact.",
+              "attribute": "light-compact-brand-logo"
+            },
+            {
+              "kind": "field",
+              "name": "darkCompactBrandLogo",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Compact logo for dark scheme; falls back to generic, then light compact.",
+              "attribute": "dark-compact-brand-logo"
+            },
+            {
+              "kind": "field",
+              "name": "heightMultiplier",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "1",
+              "description": "Scale the primary row from 1.0 to 5.0 in tenths. Controls and extra rows\nretain their baseline sizes. Invalid values normalize to 1.0.",
+              "attribute": "height-multiplier",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "compactSize",
+              "type": {
+                "text": "HeaderCompactSize"
+              },
+              "privacy": "public",
+              "description": "`standard` compacts to the unscaled baseline; `compact` retains the legacy\nabsolute compact-height token. New geometry compacts only in a fixed esp-page.",
+              "default": "\"compact\"",
+              "attribute": "compact-size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "brandHref",
               "type": {
                 "text": "string"
@@ -33118,6 +34243,132 @@
               "description": "Opt out of surface alignment. When an `esp-header` is slotted into an\n`esp-page`, it constrains its bar content to the page's content\nsurface by default (the bar background stays full-bleed). Set this to\nlet the content span the full width instead, as it did before the\npage grew alignment modes. Standalone headers (outside `esp-page`) are\nalready full-bleed and unaffected.",
               "attribute": "full-bleed-content",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "geometry",
+              "privacy": "private",
+              "default": "new HeaderGeometryController(this, () => ({ heightMultiplier: this.heightMultiplier, compactSize: this.compactSize, compactLogo: Boolean(this.compactBrandLogo || this.lightCompactBrandLogo || this.darkCompactBrandLogo), }), () => this.syncBrandFitWidth())"
+            },
+            {
+              "kind": "field",
+              "name": "readyCompactLogo",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "naturalBrandWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "resolveBrand",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "compactLogoSource",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "syncCompactLogoReadiness",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncBrandFitWidth",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "keyboardFocusHeld",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "pointerFocusPending",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryKeyboard",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryPointer",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryPointerEnd",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "openHeaderPopovers",
+              "privacy": "private",
+              "default": "new Set<EventTarget>()"
+            },
+            {
+              "kind": "field",
+              "name": "onHeaderPopoverOpened",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onHeaderPopoverClosed",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onHeaderGroupToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "headerOverlayHeld",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryFocus",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryFocusOut",
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -33765,6 +35016,11 @@
               "privacy": "public",
               "description": "The burger element inside the header. External code can use\nthis to programmatically reset the burger's visual state\n(e.g. when a drawer is closed via swipe).",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "onGeometryContentChanged",
+              "privacy": "private"
             },
             {
               "kind": "method",
@@ -34527,6 +35783,10 @@
           ],
           "attributes": [
             {
+              "description": "Read-only resolved compaction hook for paint-only styling and inspection. Authored values do not control state; hook-keyed layout changes are unsupported.",
+              "name": "data-esp-compact"
+            },
+            {
               "name": "show-burger",
               "type": {
                 "text": "boolean"
@@ -34579,6 +35839,51 @@
               "default": "\"\"",
               "description": "Configured brand logo URL used in dark scheme. A non-empty value\noverrides `brand-logo`; an empty value falls back to it.",
               "fieldName": "darkBrandLogo"
+            },
+            {
+              "name": "compact-brand-logo",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Compact logo URL; unresolved or failed images retain the regular logo.",
+              "fieldName": "compactBrandLogo"
+            },
+            {
+              "name": "light-compact-brand-logo",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Compact logo for light scheme; falls back to generic, then dark compact.",
+              "fieldName": "lightCompactBrandLogo"
+            },
+            {
+              "name": "dark-compact-brand-logo",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Compact logo for dark scheme; falls back to generic, then light compact.",
+              "fieldName": "darkCompactBrandLogo"
+            },
+            {
+              "name": "height-multiplier",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Scale the primary row from 1.0 to 5.0 in tenths. Controls and extra rows\nretain their baseline sizes. Invalid values normalize to 1.0.",
+              "fieldName": "heightMultiplier"
+            },
+            {
+              "name": "compact-size",
+              "type": {
+                "text": "HeaderCompactSize"
+              },
+              "description": "`standard` compacts to the unscaled baseline; `compact` retains the legacy\nabsolute compact-height token. New geometry compacts only in a fixed esp-page.",
+              "default": "\"compact\"",
+              "fieldName": "compactSize"
             },
             {
               "name": "brand-href",
@@ -34798,6 +36103,584 @@
           "declaration": {
             "name": "EspalierHeader",
             "module": "dist/header/esp-header.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/header/header-geometry-controller.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "HEADER_GEOMETRY_PAINT_PROPERTIES",
+          "type": {
+            "text": "[\n  \"opacity\", \"transform\", \"translate\", \"rotate\", \"scale\", \"color\",\n  \"background\", \"background-color\", \"background-image\", \"background-position\",\n  \"background-position-x\", \"background-position-y\", \"background-size\",\n  \"background-repeat\", \"background-origin\", \"background-clip\",\n  \"background-attachment\", \"background-blend-mode\", \"box-shadow\", \"filter\",\n  \"backdrop-filter\", \"outline\", \"outline-color\", \"outline-style\", \"outline-width\",\n  \"outline-offset\", \"border-color\", \"border-top-color\", \"border-right-color\",\n  \"border-bottom-color\", \"border-left-color\", \"border-block-color\",\n  \"border-block-start-color\", \"border-block-end-color\", \"border-inline-color\",\n  \"border-inline-start-color\", \"border-inline-end-color\", \"text-decoration\",\n  \"text-decoration-color\", \"text-decoration-line\", \"text-decoration-style\",\n  \"text-decoration-thickness\", \"text-shadow\", \"fill\", \"fill-opacity\", \"fill-rule\",\n  \"stroke\", \"stroke-opacity\", \"stroke-width\", \"stroke-dasharray\", \"stroke-dashoffset\",\n  \"stroke-linecap\", \"stroke-linejoin\", \"stroke-miterlimit\", \"visibility\",\n]"
+          },
+          "default": "[ \"opacity\", \"transform\", \"translate\", \"rotate\", \"scale\", \"color\", \"background\", \"background-color\", \"background-image\", \"background-position\", \"background-position-x\", \"background-position-y\", \"background-size\", \"background-repeat\", \"background-origin\", \"background-clip\", \"background-attachment\", \"background-blend-mode\", \"box-shadow\", \"filter\", \"backdrop-filter\", \"outline\", \"outline-color\", \"outline-style\", \"outline-width\", \"outline-offset\", \"border-color\", \"border-top-color\", \"border-right-color\", \"border-bottom-color\", \"border-left-color\", \"border-block-color\", \"border-block-start-color\", \"border-block-end-color\", \"border-inline-color\", \"border-inline-start-color\", \"border-inline-end-color\", \"text-decoration\", \"text-decoration-color\", \"text-decoration-line\", \"text-decoration-style\", \"text-decoration-thickness\", \"text-shadow\", \"fill\", \"fill-opacity\", \"fill-rule\", \"stroke\", \"stroke-opacity\", \"stroke-width\", \"stroke-dasharray\", \"stroke-dashoffset\", \"stroke-linecap\", \"stroke-linejoin\", \"stroke-miterlimit\", \"visibility\", ]"
+        },
+        {
+          "kind": "function",
+          "name": "headerGeometryFor",
+          "return": {
+            "type": {
+              "text": "HeaderGeometryController | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "host",
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "Private geometry owner. The existing header remains the only scroll owner.",
+          "name": "HeaderGeometryController",
+          "members": [
+            {
+              "kind": "field",
+              "name": "listeners",
+              "privacy": "private",
+              "default": "new Set<(record: HeaderGeometryRecord) => void>()"
+            },
+            {
+              "kind": "field",
+              "name": "observer",
+              "type": {
+                "text": "ResizeObserver | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "mutations",
+              "type": {
+                "text": "MutationObserver | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "observedChildren",
+              "privacy": "private",
+              "default": "new Set<Element>()"
+            },
+            {
+              "kind": "field",
+              "name": "primaryMenu",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "connected",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "hasMeasured",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "generation",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "invalidated",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "measuring",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "owner",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "fixedRequested",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "fixedAcknowledged",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "requestedCompact",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "requestedTopbarCollapsed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "inlineSize",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "barInlineSize",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "completionGeneration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "completionAnimations",
+              "type": {
+                "text": "Animation[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "initial",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "expandedMeasurements",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "HeaderGeometryRecord"
+              },
+              "privacy": "private",
+              "default": "{ ...this.value, active: this.active, settled: false }"
+            },
+            {
+              "kind": "field",
+              "name": "record",
+              "type": {
+                "text": "HeaderGeometryRecord"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "measurementCount",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "multiplier",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "standard",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "compact",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "topbarCollapsed",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "pending",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "subscribe",
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(record: HeaderGeometryRecord) => void"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "configure",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "disconnect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setPrimaryMenu",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "menu",
+                  "type": {
+                    "text": "HTMLElement | undefined"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setOwner",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "owner",
+                  "type": {
+                    "text": "HTMLElement | null"
+                  }
+                },
+                {
+                  "name": "fixed",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "acknowledgeFixedHost",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "owner",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "requestScroll",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "scrollY",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "compactEnabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "topbarCollapsed",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "threshold",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "held",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "invalidate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "onContentChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncObservation",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "affectsLayout",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "property",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "collectAnimations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "candidates",
+                  "type": {
+                    "text": "Set<Animation>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "geometryAnimations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Animation[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "measureExpanded",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "publish",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "HeaderGeometryRecord"
+                  }
+                },
+                {
+                  "name": "force",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "measure",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HEADER_GEOMETRY_PAINT_PROPERTIES",
+          "declaration": {
+            "name": "HEADER_GEOMETRY_PAINT_PROPERTIES",
+            "module": "dist/header/header-geometry-controller.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "headerGeometryFor",
+          "declaration": {
+            "name": "headerGeometryFor",
+            "module": "dist/header/header-geometry-controller.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HeaderGeometryController",
+          "declaration": {
+            "name": "HeaderGeometryController",
+            "module": "dist/header/header-geometry-controller.js"
           }
         }
       ]
@@ -50249,7 +52132,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A navigation item for [`<esp-menu>`](/components/menu/).\n\nItems render as links when `url` is provided and as buttons when\nno URL is present. Button-style items dispatch `esp-clicked`.\n\nTo give readers that run no JavaScript a real link, write a plain\n`<a slot=\"link\">` beside the attributes, with the same `href`, `target`,\n`rel` and label text. A new-tab link adds its \"(opens in a new tab)\" cue\nto the rendered link only, so a copy may add its own hidden cue:\n\n```html\n<esp-menu-item label=\"Docs\" url=\"/docs\" target=\"_blank\" rel=\"noopener\">\n  <a slot=\"link\" href=\"/docs\" target=\"_blank\" rel=\"noopener\">Docs</a>\n</esp-menu-item>\n```",
+          "description": "A navigation item for [`<esp-menu>`](/components/menu/).\n\nItems render as links when `url` is provided and as buttons when\nno URL is present. URL-less action items dispatch `esp-clicked`.\n`appearance=\"button\"` gives either kind button chrome while preserving its\nlink or action semantics. Current-page links remain noninteractive.\n\nButton appearance supports esp-button's public `--esp-button-padding` token.\nIncognito padding does not apply.\n\nTo give readers that run no JavaScript a real link, write a plain\n`<a slot=\"link\">` beside the attributes, with the same `href`, `target`,\n`rel` and label text. A new-tab link adds its \"(opens in a new tab)\" cue\nto the rendered link only, so a copy may add its own hidden cue:\n\n```html\n<esp-menu-item label=\"Docs\" url=\"/docs\" target=\"_blank\" rel=\"noopener\">\n  <a slot=\"link\" href=\"/docs\" target=\"_blank\" rel=\"noopener\">Docs</a>\n</esp-menu-item>\n```",
           "name": "EspalierMenuItem",
           "cssProperties": [
             {
@@ -50389,6 +52272,12 @@
               }
             }
           ],
+          "cssParts": [
+            {
+              "description": "The label in either appearance, including composed button labels.",
+              "name": "menu-text"
+            }
+          ],
           "slots": [
             {
               "description": "Optional SVG or image icon. Slotted content overrides the generated sprite icon from the `icon` attribute.",
@@ -50427,6 +52316,18 @@
               "default": "\"\"",
               "description": "Resource to link to. When empty, the item renders as a button.",
               "attribute": "url"
+            },
+            {
+              "kind": "field",
+              "name": "appearance",
+              "type": {
+                "text": "MenuItemAppearance"
+              },
+              "privacy": "public",
+              "default": "\"link\"",
+              "description": "Visual treatment independent of URL and header-end placement. Invalid\nvalues resolve to Link and normalize on the next update.",
+              "attribute": "appearance",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -51297,6 +53198,15 @@
               "fieldName": "url"
             },
             {
+              "name": "appearance",
+              "type": {
+                "text": "MenuItemAppearance"
+              },
+              "default": "\"link\"",
+              "description": "Visual treatment independent of URL and header-end placement. Invalid\nvalues resolve to Link and normalize on the next update.",
+              "fieldName": "appearance"
+            },
+            {
               "name": "target",
               "type": {
                 "text": "string"
@@ -51415,6 +53325,14 @@
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "MenuItemAppearance",
+          "declaration": {
+            "name": "MenuItemAppearance",
+            "module": "./menu-presentation.js"
+          }
+        },
         {
           "kind": "js",
           "name": "EspalierMenuItem",
@@ -54544,6 +56462,16 @@
               "description": "Compute the effective top offset for the sticky element.\n\nWhen the header is fixed, it always occupies space at the top of the\nviewport, so we return the full header height.\n\nWhen the header is *not* fixed (scrolls with the page), we return the\nvisible portion of the header's bottom edge clamped to `[0, headerHeight]`.\nThis means:\n- Header fully visible → offset = headerHeight (sidebar sits below header)\n- Header partially scrolled → offset = remaining visible height\n- Header fully scrolled out → offset = 0 (sidebar reaches viewport top)"
             },
             {
+              "kind": "method",
+              "name": "updateHeaderGeometry",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Refresh clearance without resetting a tall sidebar's reversal fence."
+            },
+            {
               "kind": "field",
               "name": "handleResize",
               "privacy": "private"
@@ -54596,7 +56524,7 @@
           "type": {
             "text": "array"
           },
-          "default": "[ ...EspalierElementBase.styles, css` :host { --_esp-surface-layer: initial; --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 1536px); --_esp-page-main-min-width: var(--esp-page-main-min-width, 30rem); --_esp-page-preview-resolved-min-width: var(--esp-page-preview-min-width, 22.5rem); --_esp-page-preview-resolved-max-width: var(--esp-page-preview-max-width, 48rem); --_esp-page-flyout-resolved-min-width: var(--esp-page-flyout-min-width, 20rem); --_esp-page-flyout-resolved-max-width: var(--esp-page-flyout-max-width, 30rem); --_esp-page-preview-used-width: 0px; --_esp-page-flyout-used-width: 0px; --_esp-page-workspace-track: minmax( calc(var(--_esp-page-flyout-min) + var(--_esp-page-preview-min)), calc(var(--_esp-page-preview-used-width) + var(--_esp-page-flyout-used-width)) ); /* The cap sizes the main content *well*: the main track maxes at the cap and the surplus beyond the surface becomes canvas gutters. (Contract preserved from v2.1.0.) */ --_esp-page-main-track: minmax(0, var(--_esp-page-resolved-max-width)); /* Canvas gutter weights (physical left/right in LTR). The flexible gutters claim only the space left once the main track reaches its cap, so they appear exactly when the surface exceeds the cap — at any cap, with no viewport breakpoint (ADR-011). The start default keeps no leading gutter and lets all surplus collect trailing. Empty asides collapse to zero because the header and footer regions are inline-size-contained and no longer leak their min-content into the aside tracks (see the .esp-page-top / .esp-page-footer rules). The fr weights are written as 0fr/1fr (never bare 0) so the track list stays pairwise-interpolable and the flyout open/close can animate via grid track interpolation where supported. */ --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 1fr; /* Help and preview share an exact auxiliary workspace track before the outer trailing gutter. Opening help raises that track's safe minimum; the allocator supplies its concrete used width. */ --_esp-page-flyout-min: 0px; /* Preview starts at the surface edge before help. Reclaiming raises this minimum so the auxiliary track reserves both pane floors while the main track retains its own floor. */ --_esp-page-preview-min: 0px; /* A raised surface edge's drop shadow, cast in the trailing (inline-end) direction. The surface mirrors it onto both inline edges; a match-surface flyout casts only this trailing edge, so it lifts off the canvas while staying attached at its leading perforation (no shadow bleeding over the content it flies out from). */ --_esp-page-surface-edge-shadow: 0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow); /* Resolve the surface shadow/border once (public override plus the built-in default) so the value is readable downstream — the surface layer and the match-surface flyout contract both consume it, and it stays a single source of truth. */ --_esp-page-surface-shadow: var( --esp-page-surface-shadow, -0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow), var(--_esp-page-surface-edge-shadow) ); --_esp-page-surface-border: var(--esp-page-surface-border, none); --_esp-page-fixed-header-offset: var( --esp-page-fixed-header-offset, var(--esp-header-height, calc(4.5 * var(--esp-size-small))) ); display: block; } :host([kind=\"narrow\"]) { --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 768px); } :host([align=\"center\"]) { --_esp-page-gutter-left: 1fr; --_esp-page-gutter-right: 1fr; } :host([align=\"end\"]) { --_esp-page-gutter-left: 1fr; --_esp-page-gutter-right: 0fr; } /* Full is unbounded only while the consumer has not supplied the explicit main maximum. The internal marker is synchronized from the computed public token before workspace allocation, allowing a finite full-kind authoring surface to retain normal alignment gutters. */ :host([kind=\"full\"]) { --_esp-page-resolved-max-width: var(--esp-page-main-max-width, none); } :host([kind=\"full\"]:not([data-main-max-configured])) { --_esp-page-main-track: 1fr; --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 0fr; } /* Site: the marketing shell (ESP0174). The main region is always unbounded — slotted esp-section bands own their centered wells — so this is the unconfigured-full geometry, unconditionally, and align's gutter weights do not apply. Declared after the align rules so it wins on order. */ :host([kind=\"site\"]) { --_esp-page-resolved-max-width: none; --_esp-page-main-track: 1fr; --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 0fr; } /* Flyout placement ladder (ESP0111). Preview and help occupy an exact auxiliary track between the main surface and the outer gutter: 1. spare canvas is converted into the allocated auxiliary track while main remains at its natural maximum 2. help and preview contract to their floors 3. an eligible linked navigation rail yields before the main track narrows toward its minimum 4. if the complete main + preview + help minimums do not fit, JS requests the flyout's existing modal overlay presentation 5. mobile → the media query below releases the minimum and esp-flyout itself becomes a fixed overlay drawer. The flyout-open host attribute is maintained by syncFlyoutState (Blink cannot match :has() inside :host(), so the state is mirrored instead). Declared after the align/kind rules so the open state wins. */ :host([flyout-open]) { --_esp-page-flyout-min: var(--_esp-page-flyout-resolved-min-width); } :host([preview-reclaiming]) { --_esp-page-preview-min: var(--_esp-page-preview-resolved-min-width); } /* Configured defaults and retained drag/keyboard choices participate in the same grid minima as automatic allocation. This lets a target that must reclaim main do so instead of overflowing the gutter, while the allocator still clamps private used widths before they reach Grid. */ :host([flyout-open][data-workspace-targeted]) { --_esp-page-flyout-min: var(--_esp-page-flyout-used-width); } :host([preview-reclaiming][data-workspace-targeted]) { --_esp-page-preview-min: var(--_esp-page-preview-used-width); } :host([flyout-open]), :host([preview-reclaiming]) { --_esp-page-main-track: minmax( var(--_esp-page-main-min-width), var(--_esp-page-resolved-max-width) ); } :host([kind=\"full\"]:not([data-main-max-configured])[flyout-open]), :host([kind=\"full\"]:not([data-main-max-configured])[preview-reclaiming]), :host([kind=\"site\"][flyout-open]), :host([kind=\"site\"][preview-reclaiming]) { --_esp-page-main-track: minmax(var(--_esp-page-main-min-width), 1fr); } /* Deliberate ADR-011 exception: like the esp-menu drawer (same 50em threshold), the flyout's overlay rung is a genuinely viewport-level decision — below it the flyout leaves the grid for a fixed drawer, so the gutter must release the minimum it was reserving. */ @media ${unsafeCSS(COMPACT_VIEWPORT_MEDIA_QUERY)} { :host([flyout-open]) { --_esp-page-flyout-min: 0px; } :host([preview-reclaiming]) { --_esp-page-preview-min: 0px; } :host([flyout-open]), :host([preview-reclaiming]) { --_esp-page-main-track: minmax(0, var(--_esp-page-resolved-max-width)); } :host([kind=\"full\"]:not([data-main-max-configured])[flyout-open]), :host([kind=\"full\"]:not([data-main-max-configured])[preview-reclaiming]), :host([kind=\"site\"][flyout-open]), :host([kind=\"site\"][preview-reclaiming]) { --_esp-page-main-track: 1fr; } .esp-page > .esp-page-preview-space, .esp-page > .esp-page-workspace-resize-handles { display: none; } } /* A forced mode=\"overlay\" flyout is a fixed drawer at any viewport width, so its aside needs the same above-the-header hoist the sub-50em media rule gives the auto-mode drawer — without this the desktop drawer paints beneath the header (aside z 5 vs header z 20). Keyed off the flyout-overlay-open state attribute maintained by syncFlyoutState. */ :host([flyout-overlay-open]) .esp-page > div.esp-page-flyout { z-index: var(--esp-flyout-z-index, 3000); } /* A nested page's fixed drawer still participates in this page's main stacking context. Raise that complete context while the descendant modal is open so the drawer and vellum paint above this page's header instead of trapping their close control beneath it. */ :host([descendant-flyout-overlay-open]) .esp-page > div.esp-page-main { z-index: var(--esp-flyout-z-index, 3000); overflow: visible; } /* Trigger-anchored panels belong to the same document flow as their initiator. BiDirectionalStickyController can keep updating the wrapper's inline top, but position: static deliberately makes it inert until the anchored panel closes. */ :host([flyout-anchored]:not([flyout-full-height])) .esp-page > div.esp-page-flyout > .sticky-wrapper { position: static; } /* Full-document help owns the visible block-size rather than following one field. Span header through footer so the page footer cannot push a viewport-height panel out of view at the document boundary; the sticky controller pins this presentation to the viewport top. */ :host([flyout-full-height]) .esp-page > div.esp-page-flyout { grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 2); } /* Anchored help connects back to its trigger across a visible preview. Raise only the sized help wrapper above the preview surface; the bridge itself is non-interactive inside esp-flyout. */ :host([flyout-anchored][preview-visible]) .esp-page > div.esp-page-flyout { z-index: calc(var(--esp-page-header-z-index, 20) + 2); } slot[name=\"flyout\"]::slotted(esp-flyout) { --_esp-flyout-used-width: var(--_esp-page-flyout-used-width); --_esp-flyout-preview-bridge-width: 0px; --_esp-flyout-preview-anchor-display: none; } :host([preview-visible]) slot[name=\"flyout\"]::slotted(esp-flyout) { --_esp-flyout-preview-bridge-width: var(--_esp-page-preview-used-width); --_esp-flyout-preview-anchor-display: block; } /* Flyout surface-match contract. A slotted esp-flyout with match-surface lifts its trailing edge with the surface's edge shadow, so the panel reads as a raised peer of the content surface rather than the shadowless tear-off. The leading edge keeps its perforation (the border is not overridden) and casts no shadow, so it stays attached at the tear line instead of floating over the content it flies out from. Opt-in and page-scoped: a standalone flyout has no surface to match and is unaffected. */ slot[name=\"flyout\"]::slotted(esp-flyout[match-surface]) { --esp-flyout-shadow: var(--_esp-page-surface-edge-shadow); } /* Header alignment contract. Published on the slotted esp-header (not :host) so it never shadows an inherited or author override and only the header-slot header adopts it — see the host-token-defaults architecture rule and ADR-005. max-width is the resolved cap; lead is the fraction of surplus placed before the content (0 = start, .5 = center, 1 = end). */ slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: var(--_esp-page-resolved-max-width); --esp-header-content-lead: 0; } :host([align=\"center\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-lead: 0.5; } :host([align=\"end\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-lead: 1; } /* full has no cap; publish 100% (not none) so the header contract calc resolves to zero surplus and leaves the header full-bleed. */ :host([kind=\"full\"]:not([data-main-max-configured])) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: 100%; } /* Footer alignment mirrors the header behavior with footer-owned contract names. The full-bleed footer paints its own background; only its internal content adopts the page's cap and lead fraction. */ slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: var(--_esp-page-resolved-max-width); --esp-footer-content-lead: 0; } :host([align=\"center\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-lead: 0.5; } :host([align=\"end\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-lead: 1; } :host([kind=\"full\"]:not([data-main-max-configured])) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: 100%; } /* Site: bar content aligns with the section wells, not a main cap. One public token governs the header, the footer, and every esp-section well, and the well is centered — declared after the align lead rules so the centered site column wins on order. */ :host([kind=\"site\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: var(--esp-page-well-max-width, 72rem); --esp-header-content-lead: 0.5; } :host([kind=\"site\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: var(--esp-page-well-max-width, 72rem); --esp-footer-content-lead: 0.5; } /* Contained shell: the header and footer ride the surface instead of the full viewport, so the whole page reads as one band on the canvas. Only their column placement changes — the full-height canvas and surface layers already do the rest. */ :host([contained]) .esp-page > div.esp-page-top, :host([contained]) .esp-page > div.esp-page-footer { grid-column: surface; } /* On the surface the bar already spans the content width, so the header fills it (no content padding) and drops its own shadow — the continuous surface edge shadow does the framing. */ :host([contained]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-shadow: none; } /* The 100% contract belongs to the capped kinds, where the surface column IS the content width. A contained site keeps the shared well column (ESP0174) — sections and chrome must not split columns just because the shell is contained. */ :host([contained]:not([kind=\"site\"])) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: 100%; } :host([contained]:not([kind=\"site\"])) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: 100%; } :host([kind=\"narrow\"]) .esp-page > div.esp-page-main { /* The golden reading measure, from the shared token (ESP0174); 66ch remains the fallback and the default emission. */ > ::slotted(*) { max-inline-size: var(--esp-measure, 66ch); } } #dialog-drop-zone { z-index: 4000; position: absolute; } :host([preview-visible]) .esp-page > div.esp-page-preview-space > .esp-page-preview { display: block; } :host([workspace-resizable][preview-visible]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-main-preview-resize-handle, :host([workspace-resizable][flyout-open]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-preview-flyout-resize-handle { display: block; } :host([workspace-resizable]:not([data-workspace-resize-ready])) .esp-page > .esp-page-workspace-resize-handles { display: none; } :host([workspace-resizable][data-workspace-trailing-edge-exposed]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle, :host([workspace-resizable][data-workspace-position-held]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle { display: block; } /* Pointer-owned resizing controls the logical leading gutter. It stays fixed for zero-sum pane trades and yields as an outward drag consumes centered outside canvas, keeping the active separator under the pointer in both cases. On release JS moves this pixel track to the aligned target; the normal grid transition supplies the glide before the intrinsic fr gutter contract resumes. */ :host([data-workspace-position-held]) { --_esp-page-gutter-left: var(--_esp-page-resize-leading-gutter-width, 0px); --_esp-page-gutter-right: 1fr; } :host([data-workspace-resizing]) { cursor: col-resize; user-select: none; } /* The grid-track glide that makes programmatic open/close feel animated reads as cursor lag while a pointer owns the seam, and a mid-glide grid feeds stale geometry into the clamp ranges of the next keyboard step. Track changes must be immediate for the whole resize session, pointer or keyboard. */ :host([data-workspace-resizing]) .esp-page, :host([data-workspace-keyboard-adjusting]) .esp-page { transition: none; } /* The linked menu switches its rail to a fixed drawer, but light-DOM menu content can still contribute an intrinsic width to the page's sidebar track. Collapse the owning aside only after the validated header/menu handshake is active, so unmatched navigation remains visible and reachable. */ :host([data-preview-navigation-collapsed]) .esp-page > aside.esp-page-left { inline-size: 0; min-inline-size: 0; } :host([data-preview-measuring]) .esp-page { transition: none; } /* New preview layouts are validated against visible geometry before presentation. Keep that candidate surface non-visible so a rejected measurement can never flash on screen. */ :host([data-preview-validating]) .esp-page-preview { visibility: hidden; } .esp-page { /* dvh keeps the shell within the visible mobile viewport; 100vh is the fallback for browsers without dvh (dvh === vh on desktop). */ min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: [full-start canvas-left-start] var(--_esp-page-gutter-left) [canvas-left-end surface-start left-start] min-content [left-end main-start] var(--_esp-page-main-track) [main-end right-start] min-content [right-end surface-end canvas-right-start flyout-start] var(--_esp-page-workspace-track) [flyout-end] var(--_esp-page-gutter-right) [canvas-right-end full-end]; /* Animate the flyout claiming/releasing its track (and the gutter rebalance) via grid track interpolation where supported; elsewhere the modes still apply, just without the glide. Keep this 0.25s duration synchronized with WORKSPACE_RECENTER_DURATION in workspace-resize-session.ts. */ transition: grid-template-columns 0.25s ease; grid-template-rows: [top-start] min-content [top-end content-start] 1fr [content-end footer-start] min-content [footer-end]; overflow-x: clip; background: var(--esp-page-background, var(--esp-color-background)); line-height: 1.5; font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-type-normal); color: var(--esp-color-text); position: relative; &:before { content: \" \"; display: block; position: absolute; left: 0; top: 0; right: 0; bottom: 0; opacity: var(--esp-page-background-image-opacity, 1); background-image: var(--esp-page-background-image, none); z-index: 1; } > div.esp-page-top { z-index: var(--esp-page-header-z-index, 20); grid-column: full; grid-row: top; position: relative; /* The header spans every column, so without inline-size containment its content's min-content would be distributed into the aside tracks and inflate them below the cap (the asides would never collapse). Contain it like the main well so it takes its width from the grid, not the grid from it. */ contain: inline-size; } /* Sidebar containers — act as the \"track\" for sticky positioning */ aside.esp-page-left, aside.esp-page-right { z-index: 5; grid-row: content; position: relative; /* No explicit height — grid stretch fills the 1fr row, and the aside's bottom edge constrains sticky children. */ } > aside.esp-page-left { grid-column: left; } > div.esp-page-main { z-index: 5; grid-column: main; grid-row: content; position: relative; /* Clip oversized content without becoming a scroll container. A hidden-overflow wrapper traps descendant view timelines (and sticky positioning) on this non-scrolling main well. */ overflow: clip; /* The main well's own background. Defaults to transparent, so the well shows the page background exactly as before; set it to give the content well a distinct card color, or leave it transparent (with --esp-page-surface-shadow: none) for content that floats directly on the page/canvas. */ background: var(--esp-page-main-background, transparent); /* The cap now lives in the main track (minmax(0, cap)); the element fills its column. contain: inline-size still holds because the track gives a definite inline size. */ contain: inline-size; } > aside.esp-page-right { grid-column: right; } /* A neutral div, unlike the left/right asides: the slotted esp-flyout is itself the complementary landmark, and an aside wrapper would nest a second, empty landmark around it. */ > div.esp-page-flyout { /* Sits after preview inside the exact auxiliary track and sizes to the allocated help width. Outer surplus remains in the following gutter rather than under an empty stretched wrapper. */ grid-column: flyout; justify-self: start; grid-row: content; z-index: 5; position: relative; inline-size: var(--_esp-page-flyout-used-width); min-inline-size: 0; margin-inline-start: var(--_esp-page-preview-used-width); /* In the drawer rung the fixed esp-flyout paints inside this wrapper's stacking context, so the wrapper itself must rise above the header (z 20) while staying below the dialog drop zone (4000). Uses the same token as the drawer — set it on the page (or higher) to move both together. */ @media ${unsafeCSS(COMPACT_VIEWPORT_MEDIA_QUERY)} { z-index: var(--esp-flyout-z-index, 3000); } } /* Preview begins at the surface edge and help is offset after its resolved width, producing the logical order main → preview → help inside their exact shared auxiliary track. */ > div.esp-page-preview-space { grid-column: flyout; grid-row: content; z-index: 4; position: relative; min-inline-size: 0; > .esp-page-preview { display: none; box-sizing: border-box; inline-size: var(--_esp-page-preview-used-width); position: relative; background: var( --esp-page-preview-background, var(--esp-page-main-background, var(--esp-page-background, var(--esp-color-background))) ); border-inline-start: var(--esp-page-preview-border, 1px dotted var(--esp-color-border)); box-shadow: var(--esp-page-preview-shadow, var(--_esp-page-surface-edge-shadow)); } } /* A transparent interaction layer keeps the complete hit target above main, preview, and anchored help without raising either painted surface (which would hide the help bridge). */ > div.esp-page-workspace-resize-handles { grid-column: flyout; grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 3); position: relative; min-inline-size: 0; pointer-events: none; } > div.esp-page-workspace-resize-handles > .esp-page-workspace-resize-handle { display: none; box-sizing: border-box; position: absolute; inset-block: 0; z-index: 3; inline-size: var(--esp-page-resize-handle-hit-size, 2.75rem); margin-inline-start: calc(-0.5 * var(--esp-page-resize-handle-hit-size, 2.75rem)); border: 0; outline: 0; background: transparent; cursor: col-resize; pointer-events: auto; touch-action: none; /* The target spans the seam so it remains reachable during document scroll. Focus draws a dashed line along the seam itself — the visible height of the dotted tear-off edge, capped at one viewport — kept in view by sticky positioning while the page scrolls. */ &::after { content: \"\"; display: block; position: sticky; inset-block-start: 0; box-sizing: border-box; inline-size: 0; margin-inline: auto; block-size: 100dvh; max-block-size: 100%; pointer-events: none; } &:focus-visible::after { border-inline-start: var( --esp-page-resize-focus-outline, 2px dashed var(--esp-color-link) ); /* Glow in the line's own color so the focused seam reads as one deliberate highlight rather than a neutral drop shadow. */ box-shadow: var(--esp-page-resize-focus-shadow, 0 0 0.75rem var(--esp-color-link)); } } > div.esp-page-workspace-resize-handles > .esp-page-main-preview-resize-handle { inset-inline-start: 0; } > div.esp-page-workspace-resize-handles > .esp-page-preview-flyout-resize-handle { inset-inline-start: var(--_esp-page-preview-used-width); } > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle { inset-inline-start: calc( var(--_esp-page-preview-used-width) + var(--_esp-page-flyout-used-width) ); } /* Keep token-sized probes outside the width-constrained gutter. If they lived inside a zero-width preview space, layout would clamp their rectangles to zero before JS could decide whether the reclaim rung should be activated. */ > .esp-page-preview-min-width-probe, > .esp-page-preview-default-width-probe, > .esp-page-preview-max-width-probe, > .esp-page-flyout-min-width-probe, > .esp-page-flyout-default-width-probe, > .esp-page-flyout-max-width-probe, > .esp-page-main-min-width-probe, > .esp-page-main-configured-max-width-probe, > .esp-page-main-max-width-probe, > .esp-page-resize-step-probe, > .esp-page-resize-large-step-probe { position: absolute; block-size: 0; visibility: hidden; pointer-events: none; contain: strict; } > .esp-page-preview-min-width-probe { inline-size: var(--_esp-page-preview-resolved-min-width); } > .esp-page-preview-max-width-probe { inline-size: var(--_esp-page-preview-resolved-max-width); } > .esp-page-preview-default-width-probe { inline-size: var(--esp-page-preview-default-width, 0px); } > .esp-page-flyout-min-width-probe { inline-size: var(--_esp-page-flyout-resolved-min-width); } > .esp-page-flyout-max-width-probe { inline-size: var(--_esp-page-flyout-resolved-max-width); } > .esp-page-flyout-default-width-probe { inline-size: var(--esp-page-flyout-default-width, 0px); } > .esp-page-main-min-width-probe { inline-size: var(--_esp-page-main-min-width); } > .esp-page-main-configured-max-width-probe { inline-size: var(--esp-page-main-max-width, 0px); } > .esp-page-main-max-width-probe { inline-size: var(--_esp-page-resolved-max-width); } > .esp-page-resize-step-probe { inline-size: var(--esp-page-resize-step, 1rem); } > .esp-page-resize-large-step-probe { inline-size: var(--esp-page-resize-large-step, 4rem); } /* Canvas: the outer gutter regions promoted to a styleable layer. They only have width once the viewport exceeds the cap, so with the transparent defaults they are invisible and narrow pages are unchanged. Painted below the content (z-index 5) and below the surface shadow. */ > .esp-page-canvas { /* Full height: the canvas runs top-to-bottom. In the default full-bleed chrome the header/footer span the gutters and cover it there, so only the content-band gutters show; in contained mode the header/footer sit on the surface and the canvas shows full height beside them. */ grid-row: top-start / footer-end; z-index: 1; position: relative; pointer-events: none; background-color: var(--esp-page-canvas-background, transparent); /* Image layer mirrors the page background-image knobs: a separate layer so its opacity does not fade the color. */ &::before { content: \"\"; position: absolute; inset: 0; background-image: var(--esp-page-canvas-background-image, none); background-attachment: var(--esp-page-canvas-background-attachment, scroll); opacity: var(--esp-page-canvas-background-image-opacity, 1); } } > .esp-page-canvas--left { grid-column: canvas-left; } > .esp-page-canvas--right { /* The canvas spans both the auxiliary workspace and the independent outer gutter beneath it. */ grid-column: canvas-right; } /* Surface: a transparent backdrop spanning the surface cluster (left aside + main + right aside). It carries the surface edge shadow (on by default) and an optional hairline border. The shadow casts outward into the gutters; when there are no gutters the surface fills the viewport and overflow-x: clip on .esp-page trims the shadow away — so it is visible only above the cap with no container query needed. */ > .esp-page-surface { grid-column: surface; /* Full height so the edge shadow is one continuous line from the header through the content to the footer — no fade at the region joins. */ grid-row: top-start / footer-end; z-index: 2; pointer-events: none; box-shadow: var(--_esp-page-surface-shadow); border-inline: var(--_esp-page-surface-border); } /* Internal wrapper manipulated by BiDirectionalStickyController */ .sticky-wrapper { will-change: top; display: block; width: 100%; position: sticky; top: 0; } > div.esp-page-footer { grid-column: full; grid-row: footer; z-index: 10; background: var(--esp-page-background, var(--esp-color-background)); /* Spans every column; contain it so its content does not inflate the aside tracks (see the header note above). */ contain: inline-size; } &.sticky-header { slot[name=\"header\"]::slotted(esp-header), slot[name=\"sidebar\"]::slotted(esp-menu), slot[name=\"right\"]::slotted(esp-menu) { --esp-menu-top-offset: var(--_esp-page-fixed-header-offset); } > div.esp-page-top { position: sticky; top: var(--esp-page-sticky-header-top, 0); } } &.fixed-header { slot[name=\"header\"]::slotted(esp-header), slot[name=\"sidebar\"]::slotted(esp-menu), slot[name=\"right\"]::slotted(esp-menu) { --esp-menu-top-offset: var(--_esp-page-fixed-header-offset); } > div.esp-page-top { position: fixed; top: 0; left: 0; right: 0; } > div.esp-page-main, > aside.esp-page-left, > aside.esp-page-right, > div.esp-page-flyout, > .esp-page-surface, > .esp-page-canvas { margin-top: var(--_esp-page-fixed-header-offset); } } /* Inherit fonts for inputs and buttons */ input, button, textarea, select { font-family: inherit; font-size: inherit; } /* Make sure text areas without a rows attribute are not tiny */ textarea:not([rows]) { min-height: 10em; } /* Anything that has been anchored to should have extra scroll margin */ :target { scroll-margin-block: 5ex; } } .esp-page:has(esp-dialog[is-open=\"true\"]) { overflow: hidden; } /* Main and preview are additive surfaces. Once preview owns the trailing edge, move elevation there so no shadow appears at the internal join; the surface resumes its normal frame when preview is hidden. */ :host([preview-visible]) .esp-page > .esp-page-surface { box-shadow: none; } /* The preview's outer grid item and landmark span the complete page so the sticky wrapper's containing block has enough travel to remain pinned throughout a tall document. Its dynamic-viewport block size and vertical overflow keep its scroll position independent from the main document. It paints above full-bleed header chrome only in the preview's negotiated gutter track; overlay flyouts still take precedence by hiding preview presentation. */ .esp-page > div.esp-page-preview-space { grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 1); pointer-events: none; > .esp-page-preview { position: absolute; inset-block: 0; inset-inline-start: 0; pointer-events: auto; > .sticky-wrapper { block-size: 100vh; block-size: 100dvh; overflow-y: auto; /* Scroll preview first, then hand wheel/trackpad motion back to the document at either boundary (or when no overflow exists). */ overscroll-behavior-y: auto; } } } @media (prefers-reduced-motion: reduce) { .esp-page { transition: none; } } `, ]"
+          "default": "[ ...EspalierElementBase.styles, css` :host { --_esp-surface-layer: initial; --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 1536px); --_esp-page-main-min-width: var(--esp-page-main-min-width, 30rem); --_esp-page-preview-resolved-min-width: var(--esp-page-preview-min-width, 22.5rem); --_esp-page-preview-resolved-max-width: var(--esp-page-preview-max-width, 48rem); --_esp-page-flyout-resolved-min-width: var(--esp-page-flyout-min-width, 20rem); --_esp-page-flyout-resolved-max-width: var(--esp-page-flyout-max-width, 30rem); --_esp-page-preview-used-width: 0px; --_esp-page-flyout-used-width: 0px; --_esp-page-workspace-track: minmax( calc(var(--_esp-page-flyout-min) + var(--_esp-page-preview-min)), calc(var(--_esp-page-preview-used-width) + var(--_esp-page-flyout-used-width)) ); /* The cap sizes the main content *well*: the main track maxes at the cap and the surplus beyond the surface becomes canvas gutters. (Contract preserved from v2.1.0.) */ --_esp-page-main-track: minmax(0, var(--_esp-page-resolved-max-width)); /* Canvas gutter weights (physical left/right in LTR). The flexible gutters claim only the space left once the main track reaches its cap, so they appear exactly when the surface exceeds the cap — at any cap, with no viewport breakpoint (ADR-011). The start default keeps no leading gutter and lets all surplus collect trailing. Empty asides collapse to zero because the header and footer regions are inline-size-contained and no longer leak their min-content into the aside tracks (see the .esp-page-top / .esp-page-footer rules). The fr weights are written as 0fr/1fr (never bare 0) so the track list stays pairwise-interpolable and the flyout open/close can animate via grid track interpolation where supported. */ --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 1fr; /* Help and preview share an exact auxiliary workspace track before the outer trailing gutter. Opening help raises that track's safe minimum; the allocator supplies its concrete used width. */ --_esp-page-flyout-min: 0px; /* Preview starts at the surface edge before help. Reclaiming raises this minimum so the auxiliary track reserves both pane floors while the main track retains its own floor. */ --_esp-page-preview-min: 0px; /* A raised surface edge's drop shadow, cast in the trailing (inline-end) direction. The surface mirrors it onto both inline edges; a match-surface flyout casts only this trailing edge, so it lifts off the canvas while staying attached at its leading perforation (no shadow bleeding over the content it flies out from). */ --_esp-page-surface-edge-shadow: 0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow); /* Resolve the surface shadow/border once (public override plus the built-in default) so the value is readable downstream — the surface layer and the match-surface flyout contract both consume it, and it stays a single source of truth. */ --_esp-page-surface-shadow: var( --esp-page-surface-shadow, -0.75rem 0 1.5rem -0.75rem var(--esp-color-shadow), var(--_esp-page-surface-edge-shadow) ); --_esp-page-surface-border: var(--esp-page-surface-border, none); --_esp-page-fixed-header-offset: var( --esp-page-fixed-header-offset, var(--esp-header-height, calc(4.5 * var(--esp-size-small))) ); display: block; } :host([kind=\"narrow\"]) { --_esp-page-resolved-max-width: var(--esp-page-main-max-width, 768px); } :host([align=\"center\"]) { --_esp-page-gutter-left: 1fr; --_esp-page-gutter-right: 1fr; } :host([align=\"end\"]) { --_esp-page-gutter-left: 1fr; --_esp-page-gutter-right: 0fr; } /* Full is unbounded only while the consumer has not supplied the explicit main maximum. The internal marker is synchronized from the computed public token before workspace allocation, allowing a finite full-kind authoring surface to retain normal alignment gutters. */ :host([kind=\"full\"]) { --_esp-page-resolved-max-width: var(--esp-page-main-max-width, none); } :host([kind=\"full\"]:not([data-main-max-configured])) { --_esp-page-main-track: 1fr; --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 0fr; } /* Site: the marketing shell (ESP0174). The main region is always unbounded — slotted esp-section bands own their centered wells — so this is the unconfigured-full geometry, unconditionally, and align's gutter weights do not apply. Declared after the align rules so it wins on order. */ :host([kind=\"site\"]) { --_esp-page-resolved-max-width: none; --_esp-page-main-track: 1fr; --_esp-page-gutter-left: 0fr; --_esp-page-gutter-right: 0fr; } /* Flyout placement ladder (ESP0111). Preview and help occupy an exact auxiliary track between the main surface and the outer gutter: 1. spare canvas is converted into the allocated auxiliary track while main remains at its natural maximum 2. help and preview contract to their floors 3. an eligible linked navigation rail yields before the main track narrows toward its minimum 4. if the complete main + preview + help minimums do not fit, JS requests the flyout's existing modal overlay presentation 5. mobile → the media query below releases the minimum and esp-flyout itself becomes a fixed overlay drawer. The flyout-open host attribute is maintained by syncFlyoutState (Blink cannot match :has() inside :host(), so the state is mirrored instead). Declared after the align/kind rules so the open state wins. */ :host([flyout-open]) { --_esp-page-flyout-min: var(--_esp-page-flyout-resolved-min-width); } :host([preview-reclaiming]) { --_esp-page-preview-min: var(--_esp-page-preview-resolved-min-width); } /* Configured defaults and retained drag/keyboard choices participate in the same grid minima as automatic allocation. This lets a target that must reclaim main do so instead of overflowing the gutter, while the allocator still clamps private used widths before they reach Grid. */ :host([flyout-open][data-workspace-targeted]) { --_esp-page-flyout-min: var(--_esp-page-flyout-used-width); } :host([preview-reclaiming][data-workspace-targeted]) { --_esp-page-preview-min: var(--_esp-page-preview-used-width); } :host([flyout-open]), :host([preview-reclaiming]) { --_esp-page-main-track: minmax( var(--_esp-page-main-min-width), var(--_esp-page-resolved-max-width) ); } :host([kind=\"full\"]:not([data-main-max-configured])[flyout-open]), :host([kind=\"full\"]:not([data-main-max-configured])[preview-reclaiming]), :host([kind=\"site\"][flyout-open]), :host([kind=\"site\"][preview-reclaiming]) { --_esp-page-main-track: minmax(var(--_esp-page-main-min-width), 1fr); } /* Deliberate ADR-011 exception: like the esp-menu drawer (same 50em threshold), the flyout's overlay rung is a genuinely viewport-level decision — below it the flyout leaves the grid for a fixed drawer, so the gutter must release the minimum it was reserving. */ @media ${unsafeCSS(COMPACT_VIEWPORT_MEDIA_QUERY)} { :host([flyout-open]) { --_esp-page-flyout-min: 0px; } :host([preview-reclaiming]) { --_esp-page-preview-min: 0px; } :host([flyout-open]), :host([preview-reclaiming]) { --_esp-page-main-track: minmax(0, var(--_esp-page-resolved-max-width)); } :host([kind=\"full\"]:not([data-main-max-configured])[flyout-open]), :host([kind=\"full\"]:not([data-main-max-configured])[preview-reclaiming]), :host([kind=\"site\"][flyout-open]), :host([kind=\"site\"][preview-reclaiming]) { --_esp-page-main-track: 1fr; } .esp-page > .esp-page-preview-space, .esp-page > .esp-page-workspace-resize-handles { display: none; } } /* A forced mode=\"overlay\" flyout is a fixed drawer at any viewport width, so its aside needs the same above-the-header hoist the sub-50em media rule gives the auto-mode drawer — without this the desktop drawer paints beneath the header (aside z 5 vs header z 20). Keyed off the flyout-overlay-open state attribute maintained by syncFlyoutState. */ :host([flyout-overlay-open]) .esp-page > div.esp-page-flyout { z-index: var(--esp-flyout-z-index, 3000); } /* A nested page's fixed drawer still participates in this page's main stacking context. Raise that complete context while the descendant modal is open so the drawer and vellum paint above this page's header instead of trapping their close control beneath it. */ :host([descendant-flyout-overlay-open]) .esp-page > div.esp-page-main { z-index: var(--esp-flyout-z-index, 3000); overflow: visible; } /* Trigger-anchored panels belong to the same document flow as their initiator. BiDirectionalStickyController can keep updating the wrapper's inline top, but position: static deliberately makes it inert until the anchored panel closes. */ :host([flyout-anchored]:not([flyout-full-height])) .esp-page > div.esp-page-flyout > .sticky-wrapper { position: static; } /* Full-document help owns the visible block-size rather than following one field. Span header through footer so the page footer cannot push a viewport-height panel out of view at the document boundary; the sticky controller pins this presentation to the viewport top. */ :host([flyout-full-height]) .esp-page > div.esp-page-flyout { grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 2); } /* Anchored help connects back to its trigger across a visible preview. Raise only the sized help wrapper above the preview surface; the bridge itself is non-interactive inside esp-flyout. */ :host([flyout-anchored][preview-visible]) .esp-page > div.esp-page-flyout { z-index: calc(var(--esp-page-header-z-index, 20) + 2); } slot[name=\"flyout\"]::slotted(esp-flyout) { --_esp-flyout-used-width: var(--_esp-page-flyout-used-width); --_esp-flyout-preview-bridge-width: 0px; --_esp-flyout-preview-anchor-display: none; } :host([preview-visible]) slot[name=\"flyout\"]::slotted(esp-flyout) { --_esp-flyout-preview-bridge-width: var(--_esp-page-preview-used-width); --_esp-flyout-preview-anchor-display: block; } /* Flyout surface-match contract. A slotted esp-flyout with match-surface lifts its trailing edge with the surface's edge shadow, so the panel reads as a raised peer of the content surface rather than the shadowless tear-off. The leading edge keeps its perforation (the border is not overridden) and casts no shadow, so it stays attached at the tear line instead of floating over the content it flies out from. Opt-in and page-scoped: a standalone flyout has no surface to match and is unaffected. */ slot[name=\"flyout\"]::slotted(esp-flyout[match-surface]) { --esp-flyout-shadow: var(--_esp-page-surface-edge-shadow); } /* Header alignment contract. Published on the slotted esp-header (not :host) so it never shadows an inherited or author override and only the header-slot header adopts it — see the host-token-defaults architecture rule and ADR-005. max-width is the resolved cap; lead is the fraction of surplus placed before the content (0 = start, .5 = center, 1 = end). */ slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: var(--_esp-page-resolved-max-width); --esp-header-content-lead: 0; } :host([align=\"center\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-lead: 0.5; } :host([align=\"end\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-lead: 1; } /* full has no cap; publish 100% (not none) so the header contract calc resolves to zero surplus and leaves the header full-bleed. */ :host([kind=\"full\"]:not([data-main-max-configured])) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: 100%; } /* Footer alignment mirrors the header behavior with footer-owned contract names. The full-bleed footer paints its own background; only its internal content adopts the page's cap and lead fraction. */ slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: var(--_esp-page-resolved-max-width); --esp-footer-content-lead: 0; } :host([align=\"center\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-lead: 0.5; } :host([align=\"end\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-lead: 1; } :host([kind=\"full\"]:not([data-main-max-configured])) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: 100%; } /* Site: bar content aligns with the section wells, not a main cap. One public token governs the header, the footer, and every esp-section well, and the well is centered — declared after the align lead rules so the centered site column wins on order. */ :host([kind=\"site\"]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: var(--esp-page-well-max-width, 72rem); --esp-header-content-lead: 0.5; } :host([kind=\"site\"]) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: var(--esp-page-well-max-width, 72rem); --esp-footer-content-lead: 0.5; } /* Contained shell: the header and footer ride the surface instead of the full viewport, so the whole page reads as one band on the canvas. Only their column placement changes — the full-height canvas and surface layers already do the rest. */ :host([contained]) .esp-page > div.esp-page-top, :host([contained]) .esp-page > div.esp-page-footer { grid-column: surface; } /* On the surface the bar already spans the content width, so the header fills it (no content padding) and drops its own shadow — the continuous surface edge shadow does the framing. */ :host([contained]) slot[name=\"header\"]::slotted(esp-header) { --esp-header-shadow: none; } /* The 100% contract belongs to the capped kinds, where the surface column IS the content width. A contained site keeps the shared well column (ESP0174) — sections and chrome must not split columns just because the shell is contained. */ :host([contained]:not([kind=\"site\"])) slot[name=\"header\"]::slotted(esp-header) { --esp-header-content-max-width: 100%; } :host([contained]:not([kind=\"site\"])) slot[name=\"footer\"]::slotted(esp-footer) { --esp-footer-content-max-width: 100%; } :host([kind=\"narrow\"]) .esp-page > div.esp-page-main { /* The golden reading measure, from the shared token (ESP0174); 66ch remains the fallback and the default emission. */ > ::slotted(*) { max-inline-size: var(--esp-measure, 66ch); } } #dialog-drop-zone { z-index: 4000; position: absolute; } :host([preview-visible]) .esp-page > div.esp-page-preview-space > .esp-page-preview { display: block; } :host([workspace-resizable][preview-visible]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-main-preview-resize-handle, :host([workspace-resizable][flyout-open]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-preview-flyout-resize-handle { display: block; } :host([workspace-resizable]:not([data-workspace-resize-ready])) .esp-page > .esp-page-workspace-resize-handles { display: none; } :host([workspace-resizable][data-workspace-trailing-edge-exposed]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle, :host([workspace-resizable][data-workspace-position-held]:not([flyout-overlay-open])) .esp-page > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle { display: block; } /* Pointer-owned resizing controls the logical leading gutter. It stays fixed for zero-sum pane trades and yields as an outward drag consumes centered outside canvas, keeping the active separator under the pointer in both cases. On release JS moves this pixel track to the aligned target; the normal grid transition supplies the glide before the intrinsic fr gutter contract resumes. */ :host([data-workspace-position-held]) { --_esp-page-gutter-left: var(--_esp-page-resize-leading-gutter-width, 0px); --_esp-page-gutter-right: 1fr; } :host([data-workspace-resizing]) { cursor: col-resize; user-select: none; } /* The grid-track glide that makes programmatic open/close feel animated reads as cursor lag while a pointer owns the seam, and a mid-glide grid feeds stale geometry into the clamp ranges of the next keyboard step. Track changes must be immediate for the whole resize session, pointer or keyboard. */ :host([data-workspace-resizing]) .esp-page, :host([data-workspace-keyboard-adjusting]) .esp-page { transition: none; } /* The linked menu switches its rail to a fixed drawer, but light-DOM menu content can still contribute an intrinsic width to the page's sidebar track. Collapse the owning aside only after the validated header/menu handshake is active, so unmatched navigation remains visible and reachable. */ :host([data-preview-navigation-collapsed]) .esp-page > aside.esp-page-left { inline-size: 0; min-inline-size: 0; } :host([data-preview-measuring]) .esp-page { transition: none; } /* New preview layouts are validated against visible geometry before presentation. Keep that candidate surface non-visible so a rejected measurement can never flash on screen. */ :host([data-preview-validating]) .esp-page-preview { visibility: hidden; } .esp-page { /* dvh keeps the shell within the visible mobile viewport; 100vh is the fallback for browsers without dvh (dvh === vh on desktop). */ min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: [full-start canvas-left-start] var(--_esp-page-gutter-left) [canvas-left-end surface-start left-start] min-content [left-end main-start] var(--_esp-page-main-track) [main-end right-start] min-content [right-end surface-end canvas-right-start flyout-start] var(--_esp-page-workspace-track) [flyout-end] var(--_esp-page-gutter-right) [canvas-right-end full-end]; /* Animate the flyout claiming/releasing its track (and the gutter rebalance) via grid track interpolation where supported; elsewhere the modes still apply, just without the glide. Keep this 0.25s duration synchronized with WORKSPACE_RECENTER_DURATION in workspace-resize-session.ts. */ transition: grid-template-columns 0.25s ease; grid-template-rows: [top-start] min-content [top-end content-start] 1fr [content-end footer-start] min-content [footer-end]; overflow-x: clip; background: var(--esp-page-background, var(--esp-color-background)); line-height: 1.5; font-family: var( --_esp-font-body-effective, var(--esp-font-body, var(--_esp-font-body-fallback)) ); font-size: var(--esp-type-normal); color: var(--esp-color-text); position: relative; &:before { content: \" \"; display: block; position: absolute; left: 0; top: 0; right: 0; bottom: 0; opacity: var(--esp-page-background-image-opacity, 1); background-image: var(--esp-page-background-image, none); z-index: 1; } > div.esp-page-top { z-index: var(--esp-page-header-z-index, 20); grid-column: full; grid-row: top; position: relative; /* The header spans every column, so without inline-size containment its content's min-content would be distributed into the aside tracks and inflate them below the cap (the asides would never collapse). Contain it like the main well so it takes its width from the grid, not the grid from it. */ contain: inline-size; } /* Sidebar containers — act as the \"track\" for sticky positioning */ aside.esp-page-left, aside.esp-page-right { z-index: 5; grid-row: content; position: relative; /* No explicit height — grid stretch fills the 1fr row, and the aside's bottom edge constrains sticky children. */ } > aside.esp-page-left { grid-column: left; } > div.esp-page-main { z-index: 5; grid-column: main; grid-row: content; position: relative; /* Clip oversized content without becoming a scroll container. A hidden-overflow wrapper traps descendant view timelines (and sticky positioning) on this non-scrolling main well. */ overflow: clip; /* The main well's own background. Defaults to transparent, so the well shows the page background exactly as before; set it to give the content well a distinct card color, or leave it transparent (with --esp-page-surface-shadow: none) for content that floats directly on the page/canvas. */ background: var(--esp-page-main-background, transparent); /* The cap now lives in the main track (minmax(0, cap)); the element fills its column. contain: inline-size still holds because the track gives a definite inline size. */ contain: inline-size; } > aside.esp-page-right { grid-column: right; } /* A neutral div, unlike the left/right asides: the slotted esp-flyout is itself the complementary landmark, and an aside wrapper would nest a second, empty landmark around it. */ > div.esp-page-flyout { /* Sits after preview inside the exact auxiliary track and sizes to the allocated help width. Outer surplus remains in the following gutter rather than under an empty stretched wrapper. */ grid-column: flyout; justify-self: start; grid-row: content; z-index: 5; position: relative; inline-size: var(--_esp-page-flyout-used-width); min-inline-size: 0; margin-inline-start: var(--_esp-page-preview-used-width); /* In the drawer rung the fixed esp-flyout paints inside this wrapper's stacking context, so the wrapper itself must rise above the header (z 20) while staying below the dialog drop zone (4000). Uses the same token as the drawer — set it on the page (or higher) to move both together. */ @media ${unsafeCSS(COMPACT_VIEWPORT_MEDIA_QUERY)} { z-index: var(--esp-flyout-z-index, 3000); } } /* Preview begins at the surface edge and help is offset after its resolved width, producing the logical order main → preview → help inside their exact shared auxiliary track. */ > div.esp-page-preview-space { grid-column: flyout; grid-row: content; z-index: 4; position: relative; min-inline-size: 0; > .esp-page-preview { display: none; box-sizing: border-box; inline-size: var(--_esp-page-preview-used-width); position: relative; background: var( --esp-page-preview-background, var(--esp-page-main-background, var(--esp-page-background, var(--esp-color-background))) ); border-inline-start: var(--esp-page-preview-border, 1px dotted var(--esp-color-border)); box-shadow: var(--esp-page-preview-shadow, var(--_esp-page-surface-edge-shadow)); } } /* A transparent interaction layer keeps the complete hit target above main, preview, and anchored help without raising either painted surface (which would hide the help bridge). */ > div.esp-page-workspace-resize-handles { grid-column: flyout; grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 3); position: relative; min-inline-size: 0; pointer-events: none; } > div.esp-page-workspace-resize-handles > .esp-page-workspace-resize-handle { display: none; box-sizing: border-box; position: absolute; inset-block: 0; z-index: 3; inline-size: var(--esp-page-resize-handle-hit-size, 2.75rem); margin-inline-start: calc(-0.5 * var(--esp-page-resize-handle-hit-size, 2.75rem)); border: 0; outline: 0; background: transparent; cursor: col-resize; pointer-events: auto; touch-action: none; /* The target spans the seam so it remains reachable during document scroll. Focus draws a dashed line along the seam itself — the visible height of the dotted tear-off edge, capped at one viewport — kept in view by sticky positioning while the page scrolls. */ &::after { content: \"\"; display: block; position: sticky; inset-block-start: 0; box-sizing: border-box; inline-size: 0; margin-inline: auto; block-size: 100dvh; max-block-size: 100%; pointer-events: none; } &:focus-visible::after { border-inline-start: var( --esp-page-resize-focus-outline, 2px dashed var(--esp-color-link) ); /* Glow in the line's own color so the focused seam reads as one deliberate highlight rather than a neutral drop shadow. */ box-shadow: var(--esp-page-resize-focus-shadow, 0 0 0.75rem var(--esp-color-link)); } } > div.esp-page-workspace-resize-handles > .esp-page-main-preview-resize-handle { inset-inline-start: 0; } > div.esp-page-workspace-resize-handles > .esp-page-preview-flyout-resize-handle { inset-inline-start: var(--_esp-page-preview-used-width); } > div.esp-page-workspace-resize-handles > .esp-page-workspace-end-resize-handle { inset-inline-start: calc( var(--_esp-page-preview-used-width) + var(--_esp-page-flyout-used-width) ); } /* Keep token-sized probes outside the width-constrained gutter. If they lived inside a zero-width preview space, layout would clamp their rectangles to zero before JS could decide whether the reclaim rung should be activated. */ > .esp-page-preview-min-width-probe, > .esp-page-preview-default-width-probe, > .esp-page-preview-max-width-probe, > .esp-page-flyout-min-width-probe, > .esp-page-flyout-default-width-probe, > .esp-page-flyout-max-width-probe, > .esp-page-main-min-width-probe, > .esp-page-main-configured-max-width-probe, > .esp-page-main-max-width-probe, > .esp-page-resize-step-probe, > .esp-page-resize-large-step-probe { position: absolute; block-size: 0; visibility: hidden; pointer-events: none; contain: strict; } > .esp-page-preview-min-width-probe { inline-size: var(--_esp-page-preview-resolved-min-width); } > .esp-page-preview-max-width-probe { inline-size: var(--_esp-page-preview-resolved-max-width); } > .esp-page-preview-default-width-probe { inline-size: var(--esp-page-preview-default-width, 0px); } > .esp-page-flyout-min-width-probe { inline-size: var(--_esp-page-flyout-resolved-min-width); } > .esp-page-flyout-max-width-probe { inline-size: var(--_esp-page-flyout-resolved-max-width); } > .esp-page-flyout-default-width-probe { inline-size: var(--esp-page-flyout-default-width, 0px); } > .esp-page-main-min-width-probe { inline-size: var(--_esp-page-main-min-width); } > .esp-page-main-configured-max-width-probe { inline-size: var(--esp-page-main-max-width, 0px); } > .esp-page-main-max-width-probe { inline-size: var(--_esp-page-resolved-max-width); } > .esp-page-resize-step-probe { inline-size: var(--esp-page-resize-step, 1rem); } > .esp-page-resize-large-step-probe { inline-size: var(--esp-page-resize-large-step, 4rem); } /* Canvas: the outer gutter regions promoted to a styleable layer. They only have width once the viewport exceeds the cap, so with the transparent defaults they are invisible and narrow pages are unchanged. Painted below the content (z-index 5) and below the surface shadow. */ > .esp-page-canvas { /* Full height: the canvas runs top-to-bottom. In the default full-bleed chrome the header/footer span the gutters and cover it there, so only the content-band gutters show; in contained mode the header/footer sit on the surface and the canvas shows full height beside them. */ grid-row: top-start / footer-end; z-index: 1; position: relative; pointer-events: none; background-color: var(--esp-page-canvas-background, transparent); /* Image layer mirrors the page background-image knobs: a separate layer so its opacity does not fade the color. */ &::before { content: \"\"; position: absolute; inset: 0; background-image: var(--esp-page-canvas-background-image, none); background-attachment: var(--esp-page-canvas-background-attachment, scroll); opacity: var(--esp-page-canvas-background-image-opacity, 1); } } > .esp-page-canvas--left { grid-column: canvas-left; } > .esp-page-canvas--right { /* The canvas spans both the auxiliary workspace and the independent outer gutter beneath it. */ grid-column: canvas-right; } /* Surface: a transparent backdrop spanning the surface cluster (left aside + main + right aside). It carries the surface edge shadow (on by default) and an optional hairline border. The shadow casts outward into the gutters; when there are no gutters the surface fills the viewport and overflow-x: clip on .esp-page trims the shadow away — so it is visible only above the cap with no container query needed. */ > .esp-page-surface { grid-column: surface; /* Full height so the edge shadow is one continuous line from the header through the content to the footer — no fade at the region joins. */ grid-row: top-start / footer-end; z-index: 2; pointer-events: none; box-shadow: var(--_esp-page-surface-shadow); border-inline: var(--_esp-page-surface-border); } /* Internal wrapper manipulated by BiDirectionalStickyController */ .sticky-wrapper { will-change: top; display: block; width: 100%; position: sticky; top: 0; } > div.esp-page-footer { grid-column: full; grid-row: footer; z-index: 10; background: var(--esp-page-background, var(--esp-color-background)); /* Spans every column; contain it so its content does not inflate the aside tracks (see the header note above). */ contain: inline-size; } &.sticky-header { slot[name=\"header\"]::slotted(esp-header), slot[name=\"sidebar\"]::slotted(esp-menu), slot[name=\"right\"]::slotted(esp-menu) { --esp-menu-top-offset: var(--_esp-page-fixed-header-offset); } > div.esp-page-top { position: sticky; top: var(--esp-page-sticky-header-top, 0); } } &.fixed-header { slot[name=\"header\"]::slotted(esp-header), slot[name=\"sidebar\"]::slotted(esp-menu), slot[name=\"right\"]::slotted(esp-menu) { --esp-menu-top-offset: var(--_esp-page-fixed-header-offset); } > div.esp-page-top { position: fixed; top: 0; left: 0; right: 0; } > div.esp-page-main, > aside.esp-page-left, > aside.esp-page-right, > div.esp-page-flyout, > .esp-page-surface, > .esp-page-canvas { margin-top: var(--_esp-page-fixed-header-offset); } } /* Inherit fonts for inputs and buttons */ input, button, textarea, select { font-family: inherit; font-size: inherit; } /* Make sure text areas without a rows attribute are not tiny */ textarea:not([rows]) { min-height: 10em; } /* Anything that has been anchored to should have extra scroll margin */ :target { scroll-margin-block: 5ex; } } .esp-page > .header-reservation-probe, .esp-page > .header-visible-probe { position: absolute; inline-size: 0; visibility: hidden; pointer-events: none; box-sizing: content-box; } .esp-page > .header-reservation-probe { block-size: var(--esp-page-fixed-header-offset, var(--_esp-page-geometry-expanded, 0px)); } .esp-page > .header-visible-probe { block-size: var(--esp-page-visible-header-offset, var(--esp-page-fixed-header-offset, var(--_esp-page-geometry-current, 0px))); } :host([data-header-geometry-active]) { --_esp-page-fixed-header-offset: var(--_esp-page-geometry-reservation, 0px); } :host([data-header-geometry-active]) .esp-page slot[name=\"header\"]::slotted(esp-header), :host([data-header-geometry-active]) .esp-page slot[name=\"sidebar\"]::slotted(esp-menu), :host([data-header-geometry-active]) .esp-page slot[name=\"right\"]::slotted(esp-menu) { --esp-menu-top-offset: var(--_esp-page-geometry-visible, 0px); } :host([data-header-geometry-pending]) .esp-page > div.esp-page-top { position: relative; } :host([data-header-geometry-pending]) .esp-page > div.esp-page-main, :host([data-header-geometry-pending]) .esp-page > aside.esp-page-left, :host([data-header-geometry-pending]) .esp-page > aside.esp-page-right, :host([data-header-geometry-pending]) .esp-page > div.esp-page-flyout, :host([data-header-geometry-pending]) .esp-page > .esp-page-surface, :host([data-header-geometry-pending]) .esp-page > .esp-page-canvas { margin-top: 0; } .esp-page:has(esp-dialog[is-open=\"true\"]) { overflow: hidden; } /* Main and preview are additive surfaces. Once preview owns the trailing edge, move elevation there so no shadow appears at the internal join; the surface resumes its normal frame when preview is hidden. */ :host([preview-visible]) .esp-page > .esp-page-surface { box-shadow: none; } /* The preview's outer grid item and landmark span the complete page so the sticky wrapper's containing block has enough travel to remain pinned throughout a tall document. Its dynamic-viewport block size and vertical overflow keep its scroll position independent from the main document. It paints above full-bleed header chrome only in the preview's negotiated gutter track; overlay flyouts still take precedence by hiding preview presentation. */ .esp-page > div.esp-page-preview-space { grid-row: top-start / footer-end; z-index: calc(var(--esp-page-header-z-index, 20) + 1); pointer-events: none; > .esp-page-preview { position: absolute; inset-block: 0; inset-inline-start: 0; pointer-events: auto; > .sticky-wrapper { block-size: 100vh; block-size: 100dvh; overflow-y: auto; /* Scroll preview first, then hand wheel/trackpad motion back to the document at either boundary (or when no overflow exists). */ overscroll-behavior-y: auto; } } } @media (prefers-reduced-motion: reduce) { .esp-page { transition: none; } } `, ]"
         }
       ],
       "exports": [
@@ -54728,8 +56656,16 @@
               "name": "--esp-page-resize-focus-shadow"
             },
             {
-              "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`.",
+              "description": "Fixed reservation override; also the default visible clearance override. With active header geometry, defaults to the measured expanded header size; legacy headers use `var(--esp-header-height)`.",
               "name": "--esp-page-fixed-header-offset"
+            },
+            {
+              "description": "Independent visible clearance override for menus and sidebars. Defaults to the fixed offset override, then the live measured header size.",
+              "name": "--esp-page-visible-header-offset"
+            },
+            {
+              "description": "Read-only measured expanded header size exported for descendants. Independent of reservation overrides; unavailable for legacy headers.",
+              "name": "--esp-page-header-expanded-size"
             },
             {
               "description": "Top inset for sticky headers. Defaults to `0`.",
@@ -54869,6 +56805,184 @@
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "headerSlot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "stickyControllers",
+              "type": {
+                "text": "BiDirectionalStickyController[]"
+              },
+              "privacy": "private",
+              "default": "[ new BiDirectionalStickyController(this, \".esp-page-left > .sticky-wrapper\", { topOffset: () => this.fixedVisibleClearance }), new BiDirectionalStickyController(this, \".esp-page-right > .sticky-wrapper\", { topOffset: () => this.fixedVisibleClearance }), new BiDirectionalStickyController(this, \".esp-page-flyout > .sticky-wrapper\", { topOffset: () => this.flyoutFullHeightActive ? 0 : this.fixedVisibleClearance, }), new BiDirectionalStickyController(this, \".esp-page-preview > .sticky-wrapper\", { topOffset: () => 0 }), ]"
+            },
+            {
+              "kind": "field",
+              "name": "geometryHeader",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "headerGeometry",
+              "type": {
+                "text": "HeaderGeometryController | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "unsubscribeHeaderGeometry",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "headerGeometryGeneration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "headerGeometryReady",
+              "type": {
+                "text": "Promise<void>"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resolveHeaderGeometryReady",
+              "type": {
+                "text": "(() => void) | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "geometryOffsets",
+              "type": {
+                "text": "{ reservation: number; visible: number } | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "geometryRecord",
+              "type": {
+                "text": "HeaderGeometryRecord | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "geometryOffsetObserver",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "whenHeaderGeometryReady",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Wait for the current direct header's initial geometry and visible clearance.\nReconciles append/replacement synchronously, including before first render.\nEach target generation keeps one promise; removal/disconnect safely resolves\npending callers. This does not wait for logo network completion."
+            },
+            {
+              "kind": "method",
+              "name": "resolveHeaderGeometryTarget",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "rearmHeaderGeometryReady",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "finishHeaderGeometryReady",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fixedVisibleClearance",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "updateHeaderGeometry",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetHeaderGeometry",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "syncHeaderGeometry",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onHeaderSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onHeaderGeometry",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resolveGeometryOffsets",
+              "privacy": "private"
+            },
             {
               "kind": "field",
               "name": "dialogZone",
@@ -78090,7 +80204,7 @@
           "name": "renderConfiguredBrand",
           "parameters": [
             {
-              "name": "{\n  brandLogo,\n  brandText,\n  brandHref,\n  brandAlt,\n}",
+              "name": "{\n  brandLogo,\n  brandText,\n  brandHref,\n  brandAlt,\n  reserveLogoSpace = false,\n}",
               "type": {
                 "text": "ConfiguredBrandOptions"
               }
@@ -81658,6 +83772,52 @@
           "declaration": {
             "name": "calculateAlbumLayout",
             "module": "dist/shared/justified-layout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/layout-gap.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "LAYOUT_GAPS",
+          "type": {
+            "text": "[\"none\", \"tiny\", \"small\", \"normal\", \"medium\", \"big\", \"large\", \"huge\"]"
+          },
+          "default": "[\"none\", \"tiny\", \"small\", \"normal\", \"medium\", \"big\", \"large\", \"huge\"]",
+          "description": "Space-scale names shared by the layout primitives."
+        },
+        {
+          "kind": "function",
+          "name": "layoutGapStyles",
+          "parameters": [
+            {
+              "name": "alias",
+              "type": {
+                "text": "`--_esp-${string}-gap`"
+              }
+            }
+          ],
+          "description": "Host defaults keep unknown names on the normal step."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LAYOUT_GAPS",
+          "declaration": {
+            "name": "LAYOUT_GAPS",
+            "module": "dist/shared/layout-gap.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "layoutGapStyles",
+          "declaration": {
+            "name": "layoutGapStyles",
+            "module": "dist/shared/layout-gap.js"
           }
         }
       ]
@@ -85317,10 +87477,7 @@
         {
           "kind": "variable",
           "name": "STACK_GAPS",
-          "type": {
-            "text": "[\"none\", \"tiny\", \"small\", \"normal\", \"medium\", \"big\", \"large\", \"huge\"]"
-          },
-          "default": "[\"none\", \"tiny\", \"small\", \"normal\", \"medium\", \"big\", \"large\", \"huge\"]"
+          "default": "LAYOUT_GAPS"
         },
         {
           "kind": "variable",

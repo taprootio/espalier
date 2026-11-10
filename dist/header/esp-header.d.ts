@@ -7,17 +7,32 @@ declare const HEADER_BRAND_ALIGN_VALUES: readonly ["start", "center", "end"];
 declare const HEADER_BRAND_WRAP_VALUES: readonly ["truncate", "wrap", "nowrap"];
 declare const HEADER_MENU_DISPLAY_VALUES: readonly ["auto", "inline", "drawer"];
 declare const HEADER_THEME_TOGGLE_VALUES: readonly ["hidden", "visible"];
+declare const HEADER_COMPACT_SIZE_VALUES: readonly ["compact", "standard"];
 export type HeaderLayout = (typeof HEADER_LAYOUT_VALUES)[number];
 export type HeaderBrandAlign = (typeof HEADER_BRAND_ALIGN_VALUES)[number];
 export type HeaderBrandWrap = (typeof HEADER_BRAND_WRAP_VALUES)[number];
 export type HeaderMenuDisplay = (typeof HEADER_MENU_DISPLAY_VALUES)[number];
 export type HeaderThemeToggle = (typeof HEADER_THEME_TOGGLE_VALUES)[number];
+export type HeaderCompactSize = (typeof HEADER_COMPACT_SIZE_VALUES)[number];
 export interface EspThemeToggleEventDetail {
     scheme: "light" | "dark";
 }
 /**
  * Builds a site's top navigation bar. Use its four slots to add content:
  * `topbar`, `brand`, `menu`, and `buttons`.
+ *
+ * `height-multiplier="1.8"` enlarges the primary row and logo while preserving
+ * control and extra-row sizes. In a fixed `esp-page`, `compact-size="standard"`
+ * with `scroll-behavior="compact"` returns to the unscaled baseline. Sticky,
+ * normal and standalone hosts retain expanded geometry with these options.
+ * Optional generic/light/dark compact logos fall back to the regular logo until
+ * ready; the larger expanded/compact brand width is reserved in either state.
+ * `data-esp-compact` reports resolved compaction for paint-only styling and
+ * inspection. Hook-keyed layout or typography changes are unsupported. Override
+ * the height/logo inputs instead. Compaction holds while header keyboard focus
+ * or a header drawer/popover is open. The [`<esp-page>`](/components/page/)
+ * readiness method waits for initial geometry. Scope light-DOM anchor clearance
+ * to `--esp-page-header-expanded-size`, capped by the usable viewport height.
  *
  * A field fills one layer above the surface it sits on.
  * Use `surface-layer="1|2|3|4"` to select the default painted layer.
@@ -214,6 +229,7 @@ export interface EspThemeToggleEventDetail {
  *
  * @event {CustomEvent<EspThemeToggleEventDetail>} esp-header-theme-toggle - Fired after the built-in theme toggle changes the nearest `esp-root`. Bubbles and crosses the shadow boundary.
  *
+ * @attr data-esp-compact - Read-only resolved compaction hook for paint-only styling and inspection. Authored values do not control state; hook-keyed layout changes are unsupported.
  * @cssprop --esp-header-background - The background color of the header bar. Defaults to `var(--esp-color-layer-2)`.
  * @cssprop --esp-header-border-width - The border width of the header. Defaults to `0 0 1px 0`.
  * @cssprop --esp-header-border - The border style of the header. Defaults to `solid var(--esp-color-border)`.
@@ -237,6 +253,7 @@ export interface EspThemeToggleEventDetail {
  * @cssprop --esp-header-brand-gap - Space between a configured logo and brand text. Defaults to `var(--esp-size-tiny-to-small)`.
  * @cssprop --esp-header-brand-logo-size - The configured logo block size. Defaults to `calc(0.72 * var(--esp-header-height, calc(4.5 * var(--esp-size-small))))`.
  * @cssprop --esp-header-brand-logo-max-width - The configured logo maximum inline size. Defaults to `12rem`.
+ * @cssprop --esp-header-compact-brand-logo-aspect-ratio - Reserved ratio for a pending compact logo. Defaults to `var(--esp-header-brand-logo-aspect-ratio, 3 / 1)`.
  * @cssprop --esp-header-brand-logo-aspect-ratio - The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`.
  * @cssprop --esp-header-brand-max-width - The maximum inline size of configured brand content. Defaults to `min(36ch, 45vw)`.
  * @cssprop --esp-header-brand-hover-color - The configured brand hover color. Defaults to `var(--esp-color-headings-hover)`.
@@ -345,6 +362,24 @@ export declare class EspalierHeader extends EspalierElementBase {
      * overrides `brand-logo`; an empty value falls back to it.
      */
     darkBrandLogo: string;
+    /** Compact logo URL; unresolved or failed images retain the regular logo. */
+    compactBrandLogo: string;
+    /** Compact logo for light scheme; falls back to generic, then dark compact. */
+    lightCompactBrandLogo: string;
+    /** Compact logo for dark scheme; falls back to generic, then light compact. */
+    darkCompactBrandLogo: string;
+    /**
+     * Scale the primary row from 1.0 to 5.0 in tenths. Controls and extra rows
+     * retain their baseline sizes. Invalid values normalize to 1.0.
+     * @default 1
+     */
+    heightMultiplier: number;
+    /**
+     * `standard` compacts to the unscaled baseline; `compact` retains the legacy
+     * absolute compact-height token. New geometry compacts only in a fixed esp-page.
+     * @default "compact"
+     */
+    compactSize: HeaderCompactSize;
     /**
      * Optional brand link used by configured logo/text branding.
      */

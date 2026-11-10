@@ -1,4 +1,4 @@
-var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnPropertyDescriptor(t,s):i,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(h,t,s,i);else for(var c=h.length-1;c>=0;c--)(d=h[c])&&(n=(a<3?d(n):a>3?d(t,s,n):d(t,s))||n);return a>3&&n&&Object.defineProperty(t,s,n),n};import{css as g,html as p,nothing as l}from"lit";import{customElement as f,eventOptions as m,property as r,state as v}from"lit/decorators.js";import{classMap as u}from"lit/directives/class-map.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{ESP_EVENTS as y}from"../shared/events.js";import{ref as w}from"lit/directives/ref.js";import{getIconHrefForHost as T}from"../shared/intent-values.js";import{SlottedIconController as k}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as x}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as S,newTabSuffix as $,renderNewTabCue as E}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as N}from"./action-state-lightness.js";const z=p`<svg
+var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,r):n,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(h,t,r,n);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(o=(l<3?d(o):l>3?d(t,r,o):d(t,r))||o);return l>3&&o&&Object.defineProperty(t,r,o),o};import{css as f,html as c,nothing as s}from"lit";import{customElement as m,eventOptions as v,property as a,state as y}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{ESP_EVENTS as w}from"../shared/events.js";import{ref as x}from"lit/directives/ref.js";import{getIconHrefForHost as T}from"../shared/intent-values.js";import{SlottedIconController as k}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as S,newTabSuffix as E,renderNewTabCue as z}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as N}from"./action-state-lightness.js";const A=c`<svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   fill="none"
@@ -10,41 +10,47 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>`;let e=class extends b{constructor(){super(...arguments),this.iconSlot=new k(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=S,this.formNoValidate=!1,this.buildIcon=t=>this.loading?p` <span>${z}</span> `:p`
+</svg>`;let e=class extends g{constructor(){super(...arguments),this.iconSlot=new k(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.current=!1,this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=S,this.formNoValidate=!1,this.buildIcon=(t,r=!1)=>this.loading&&!r?c` <span>${A}</span> `:c`
       <span>
-        <slot ${w(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
-        ${!this.iconSlot.hasSlottedIcon(":scope > *")&&t?x(t):l}
+        <slot ${x(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
+        ${!this.iconSlot.hasSlottedIcon(":scope > :not(slot)")&&t?$(t):s}
       </span>
-    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,s,i){if(super.attributeChangedCallback(t,s,i),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const a=i===null?null:Number(i),n=a===null||Number.isNaN(a)?null:a;n!==null&&n>=0?(this.innerTabindex=n,this.writeHostTabindex(null)):n===null&&i!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=n}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent(y.CLICKED,{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const s=this.closest("form");if(s){const i=document.createElement("button");i.type="submit",i.hidden=!0,this.formNoValidate&&(i.formNoValidate=!0),s.appendChild(i),s.requestSubmit(i),i.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=T(this.icon,this),s=this.loading||this.iconSlot.hasSlottedIcon(":scope > *")||t.length>0,{collapsed:i,iconOnly:a}=this,n=a?this.getAttribute("aria-label")||this.label||l:l,d=this.getAttribute("aria-pressed")||l,c={"esp-field":!0,"icon-only":a,incognito:this.incognito,"is-collapsed":i,"has-icon":s,"icon-left":s&&!a&&this.iconPosition==="left"};return this.href.length?p`
-          <div part="wrapper" class=${u(c)}>
+    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,r,n){if(super.attributeChangedCallback(t,r,n),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const l=n===null?null:Number(n),o=l===null||Number.isNaN(l)?null:l;o!==null&&o>=0?(this.innerTabindex=o,this.writeHostTabindex(null)):o===null&&n!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=o}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent(w.CLICKED,{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const n=document.createElement("button");n.type="submit",n.hidden=!0,this.formNoValidate&&(n.formNoValidate=!0),r.appendChild(n),r.requestSubmit(n),n.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=T(this.icon,this),r=this.current&&this.href.length>0,n=this.loading&&!r||this.iconSlot.hasSlottedIcon(":scope > :not(slot)")||t.length>0,{collapsed:l,iconOnly:o}=this,d=o?this.getAttribute("aria-label")||this.label||s:s,p=this.getAttribute("aria-pressed")||s,u={"esp-field":!0,"icon-only":o,incognito:this.incognito,"is-collapsed":l,"has-icon":n,"icon-left":n&&!o&&this.iconPosition==="left"};return r?c`<div part="wrapper" class=${b(u)}>
+        <span part="control" class="current-page" aria-current="page" aria-label=${d}>
+          <span part="label">${this.label??""}</span>${this.buildIcon(t,!0)}
+        </span>
+      </div>`:this.href.length?c`
+          <div part="wrapper" class=${b(u)}>
             <a
+              part="control"
               ?disabled=${this.disabled}
               href=${this.href}
-              target=${this.target||l}
-              rel=${this.rel||l}
-              tabindex=${this.innerTabindex??l}
-              aria-label=${n===l?l:`${n}${$(this.target,this.newTabLabel)}`}
+              target=${this.target||s}
+              rel=${this.rel||s}
+              tabindex=${this.innerTabindex??s}
+              aria-label=${d===s?s:`${d}${E(this.target,this.newTabLabel)}`}
             >
-              <span>${this.label??""}</span>
+              <span part="label">${this.label??""}</span>
               ${this.buildIcon(t)}
-              ${a?l:E(this.target,this.newTabLabel)}
+              ${o?s:z(this.target,this.newTabLabel)}
             </a>
           </div>
-        `:p`
-          <div part="wrapper" class=${u(c)}>
+        `:c`
+          <div part="wrapper" class=${b(u)}>
             <button
+              part="control"
               ?disabled=${this.disabled||this.loading}
               @click=${this.handleClick}
               type=${this.buttonType}
-              tabindex=${this.innerTabindex??l}
-              aria-label=${n}
-              aria-pressed=${d}
+              tabindex=${this.innerTabindex??s}
+              aria-label=${d}
+              aria-pressed=${p}
             >
-              <span>${this.label??""}</span>
+              <span part="label">${this.label??""}</span>
               ${this.buildIcon(t)}
             </button>
           </div>
-        `}};e.styles=[...b.styles,C,g`
+        `}};e.styles=[...g.styles,C,f`
       :host {
         --_esp-button-radius: var(--esp-size-border-radius);
       }
@@ -63,7 +69,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
         border-radius: var(--_esp-button-radius);
 
         button,
-        a {
+        a,
+        .current-page {
           width: 100%;
           block-size: 100%;
           white-space: nowrap;
@@ -88,16 +95,30 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 
             .generated-icon,
             ::slotted(svg),
+            ::slotted(img),
             > svg {
               height: calc(1 * var(--esp-size-font));
               width: calc(1 * var(--esp-size-font));
+              object-fit: contain;
             }
           }
         }
 
+        .current-page {
+          box-sizing: border-box;
+          border: none;
+          background: transparent;
+          color: inherit;
+          font-family: inherit;
+          font-size: inherit;
+          text-decoration: none;
+          cursor: default;
+        }
+
         &.icon-left {
           button,
-          a {
+          a,
+          .current-page {
             grid-template-columns: min-content auto;
 
             > span:nth-child(2) {
@@ -108,7 +129,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 
         &.has-icon {
           button,
-          a {
+          a,
+          .current-page {
             > span:nth-child(2) {
               display: grid;
             }
@@ -117,7 +139,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
           
           &:where(:not(.icon-left)) {
             button,
-            a {
+            a,
+            .current-page {
               > span:nth-child(1) {
                 padding-inline-end: 0;
               }
@@ -126,7 +149,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 
           &.icon-left {
             button,
-            a {
+            a,
+            .current-page {
               > span:nth-child(1) {
                 padding-inline-start: 0;
               }
@@ -141,7 +165,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 
         &.icon-only {
           button,
-          a {
+          a,
+          .current-page {
             > span:nth-child(1) {
               display: none;
             }
@@ -171,7 +196,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
           block-size: 100%;
 
           button,
-          a {
+          a,
+          .current-page {
             > span:nth-child(1) {
               justify-content: start;
               padding: var(--esp-button-incognito-padding, var(--esp-size-tiny)) 0;
@@ -187,7 +213,8 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
 
           &.icon-left {
             button,
-            a {
+            a,
+            .current-page {
               > span:nth-child(1) {
                 padding-inline-start: calc(
                   2 * var(--esp-button-incognito-padding, var(--esp-size-tiny))
@@ -233,4 +260,4 @@ var o=function(h,t,s,i){var a=arguments.length,n=a<3?t:i===null?i=Object.getOwnP
           transform: rotate(360deg);
         }
       }
-    `],o([v()],e.prototype,"innerTabindex",void 0),o([r({attribute:"button-type",type:String})],e.prototype,"buttonType",void 0),o([r({type:Boolean})],e.prototype,"collapsed",void 0),o([r({type:Boolean,reflect:!0})],e.prototype,"disabled",void 0),o([r({type:String})],e.prototype,"href",void 0),o([r({attribute:"icon-only",type:Boolean})],e.prototype,"iconOnly",void 0),o([r({type:Boolean,reflect:!0})],e.prototype,"incognito",void 0),o([r({type:String})],e.prototype,"icon",void 0),o([r({attribute:"icon-position",type:String})],e.prototype,"iconPosition",void 0),o([r({type:String})],e.prototype,"label",void 0),o([r({type:Boolean,reflect:!0})],e.prototype,"loading",void 0),o([r({type:String})],e.prototype,"target",void 0),o([r({type:String})],e.prototype,"rel",void 0),o([r({type:String,attribute:"new-tab-label"})],e.prototype,"newTabLabel",void 0),o([r({attribute:"formnovalidate",type:Boolean})],e.prototype,"formNoValidate",void 0),o([m({capture:!1,passive:!0})],e.prototype,"handleClick",null),e=o([f("esp-button")],e);export{e as EspalierButton};
+    `],i([y()],e.prototype,"innerTabindex",void 0),i([a({attribute:"button-type",type:String})],e.prototype,"buttonType",void 0),i([a({type:Boolean})],e.prototype,"collapsed",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"disabled",void 0),i([a({type:String})],e.prototype,"href",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"current",void 0),i([a({attribute:"icon-only",type:Boolean})],e.prototype,"iconOnly",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"incognito",void 0),i([a({type:String})],e.prototype,"icon",void 0),i([a({attribute:"icon-position",type:String})],e.prototype,"iconPosition",void 0),i([a({type:String})],e.prototype,"label",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"loading",void 0),i([a({type:String})],e.prototype,"target",void 0),i([a({type:String})],e.prototype,"rel",void 0),i([a({type:String,attribute:"new-tab-label"})],e.prototype,"newTabLabel",void 0),i([a({attribute:"formnovalidate",type:Boolean})],e.prototype,"formNoValidate",void 0),i([v({capture:!1,passive:!0})],e.prototype,"handleClick",null),e=i([m("esp-button")],e);export{e as EspalierButton};

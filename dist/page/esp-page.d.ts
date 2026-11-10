@@ -240,8 +240,9 @@ export interface PageWorkspaceResizeDetail {
  * height. Defaults to `2px dashed var(--esp-color-link)`.
  * @cssprop --esp-page-resize-focus-shadow - Glow cast by the focused seam
  * line, in the line's color. Defaults to `0 0 0.75rem var(--esp-color-link)`.
- * @cssprop --esp-page-fixed-header-offset - Offset reserved for fixed
- * headers. Defaults to `var(--esp-header-height)`.
+ * @cssprop --esp-page-fixed-header-offset - Fixed reservation override; also the default visible clearance override. With active header geometry, defaults to the measured expanded header size; legacy headers use `var(--esp-header-height)`.
+ * @cssprop --esp-page-visible-header-offset - Independent visible clearance override for menus and sidebars. Defaults to the fixed offset override, then the live measured header size.
+ * @cssprop --esp-page-header-expanded-size - Read-only measured expanded header size exported for descendants. Independent of reservation overrides; unavailable for legacy headers.
  * @cssprop --esp-page-sticky-header-top - Top inset for sticky headers.
  * Defaults to `0`.
  * @cssprop --esp-page-header-z-index - Z-index for fixed/sticky header
@@ -437,6 +438,13 @@ export interface PageWorkspaceResizeDetail {
  * ```
  */
 export declare class EspalierPage extends EspalierElementBase {
+    /**
+     * Wait for the current direct header's initial geometry and visible clearance.
+     * Reconciles append/replacement synchronously, including before first render.
+     * Each target generation keeps one promise; removal/disconnect safely resolves
+     * pending callers. This does not wait for logo network completion.
+     */
+    whenHeaderGeometryReady(): Promise<void>;
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;

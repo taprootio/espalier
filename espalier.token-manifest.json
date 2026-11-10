@@ -580,6 +580,12 @@
       "description": ""
     },
     {
+      "name": "--esp-columns-gap",
+      "category": "component",
+      "component": "esp-columns",
+      "description": "Overrides the selected gap with a non-negative CSS length, including rem, em, calc() and clamp(). Percentage gaps are not supported. Defaults to the `gap` attribute's step, `normal` when unset."
+    },
+    {
       "name": "--esp-details-color-background",
       "category": "component",
       "component": "esp-details",
@@ -1333,6 +1339,12 @@
       "description": "The text/icon color inherited by header controls. Defaults to `var(--esp-color-text)`."
     },
     {
+      "name": "--esp-header-compact-brand-logo-aspect-ratio",
+      "category": "component",
+      "component": "esp-header",
+      "description": "Reserved ratio for a pending compact logo. Defaults to `var(--esp-header-brand-logo-aspect-ratio, 3 / 1)`."
+    },
+    {
       "name": "--esp-header-compact-height",
       "category": "component",
       "component": "esp-header",
@@ -2041,7 +2053,7 @@
       "name": "--esp-page-fixed-header-offset",
       "category": "component",
       "component": "esp-page",
-      "description": "Offset reserved for fixed headers. Defaults to `var(--esp-header-height)`."
+      "description": "Fixed reservation override; also the default visible clearance override. With active header geometry, defaults to the measured expanded header size; legacy headers use `var(--esp-header-height)`."
     },
     {
       "name": "--esp-page-flyout-default-width",
@@ -2060,6 +2072,12 @@
       "category": "component",
       "component": "esp-page",
       "description": "Minimum in-grid help width. Defaults to `20rem`."
+    },
+    {
+      "name": "--esp-page-header-expanded-size",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Read-only measured expanded header size exported for descendants. Independent of reservation overrides; unavailable for legacy headers."
     },
     {
       "name": "--esp-page-header-z-index",
@@ -2168,6 +2186,12 @@
       "category": "component",
       "component": "esp-page",
       "description": "The box shadow drawn on the left and right edges of the content surface. On by default; casts into the gutters and is clipped away when the surface fills the viewport, so it only shows above the cap. Set to `none` to remove it."
+    },
+    {
+      "name": "--esp-page-visible-header-offset",
+      "category": "component",
+      "component": "esp-page",
+      "description": "Independent visible clearance override for menus and sidebars. Defaults to the fixed offset override, then the live measured header size."
     },
     {
       "name": "--esp-page-well-max-width",

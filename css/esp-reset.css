@@ -61,3 +61,20 @@ sup {
   vertical-align: baseline;
   top: -0.7em;
 }
+
+/* Regions remain readable before the optional columns module loads. */
+esp-columns:not(:defined) {
+  display: block;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+
+esp-columns:not(:defined) > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+:where(esp-columns:not(:defined) > :not([hidden]):not(script):not(style):not(template):not(dialog:not([open])):not(datalist):not(link):not(meta):not(noembed):not(base):not(head):not(title):not(param):not(source):not(track):not(area):not(noscript):not(input[type="hidden"])) {
+  display: block;
+}

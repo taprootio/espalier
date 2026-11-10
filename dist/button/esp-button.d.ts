@@ -52,7 +52,7 @@ export type ButtonIconPosition = "left" | "right";
  * ```
  *
  * @customElement esp-button
- * @slot - Optional custom SVG icon. Slotted icons override the
+ * @slot - Optional custom SVG or image icon. Slotted icons override the
  * generated SVG from the `icon` attribute.
  *
  * ```html
@@ -75,6 +75,9 @@ export type ButtonIconPosition = "left" | "right";
  * </script>
  * ```
  *
+ * @csspart wrapper - The button chrome and outer layout.
+ * @csspart control - The native button, link, or noninteractive current-page span.
+ * @csspart label - The text label, excluding icons and new-tab cues.
  * @cssprop --esp-button-padding - The padding inside the button label and icon areas.
  * @cssprop --esp-button-incognito-padding - The padding for the incognito button style.
  * @attr incognito - Renders the button with a borderless, transparent treatment
@@ -170,6 +173,12 @@ export declare class EspalierButton extends EspalierElementBase {
      * @type {string}
      */
     href: string;
+    /**
+     * Marks a linked destination as the current page. With `href`, renders a
+     * noninteractive `span[aria-current="page"]` with button chrome. Loading,
+     * disabled and pressed states do not apply. Ignored when `href` is empty.
+     */
+    current: boolean;
     /**
      * If true, the button only displays the icon.
      *

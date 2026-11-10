@@ -4,6 +4,8 @@ export interface ConfiguredBrandOptions {
     brandText: string;
     brandHref: string;
     brandAlt: string;
+    /** Let the host reserve stable logo space across resolved source changes. */
+    reserveLogoSpace?: boolean;
 }
 export interface ConfiguredBrandConfiguration {
     scheme: "light" | "dark" | "";
@@ -50,4 +52,4 @@ export declare const configuredBrandLogoGeometry: import("lit").CSSResult;
  * Plain anchors and images are intentional: a brand identity should not gain
  * the interaction chrome of Espalier's application-navigation controls.
  */
-export declare function renderConfiguredBrand({ brandLogo, brandText, brandHref, brandAlt, }: ConfiguredBrandOptions): import("lit-html").TemplateResult<1> | typeof nothing;
+export declare function renderConfiguredBrand({ brandLogo, brandText, brandHref, brandAlt, reserveLogoSpace, }: ConfiguredBrandOptions): import("lit-html").TemplateResult<1> | typeof nothing;

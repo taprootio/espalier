@@ -1,3 +1,19 @@
+# 6.13.0
+
+Headers support button links, scalable height and compact logos, while sections gain responsive columns.
+
+- Set menu-item appearance to button for a call to action; it keeps its link or action semantics in inline menus, header-end links and drawers.
+- Button current state renders a noninteractive current-page label. Public wrapper, control and label parts support composed typography.
+- Set `height-multiplier` from 1.0 to 5.0 in tenths. In a fixed `esp-page`, combine `scroll-behavior="compact"` with `compact-size="standard"` to compact to the standard height. Optional `compact-brand-logo`, `light-compact-brand-logo` and `dark-compact-brand-logo` sources have scheme-aware fallback; controls and extra rows retain their baseline sizes.
+- Wait for initial header geometry with `esp-page.whenHeaderGeometryReady()` and read the `--esp-page-header-expanded-size` export for stable reservations and anchored content. Use `--esp-page-visible-header-offset` to override visible clearance through compaction.
+- `esp-columns` lays out two or three independent regions with equal, 40/60 or 60/40 two-region ratios (three regions are equal only), stacking every region together when its container is too narrow for readable content. Its themed gap and original content order stay intact through layout changes.
+
+# 6.12.1
+
+Nested navigation disclosures keep their own expansion state.
+
+- Collapsing or reopening a nested drawer group leaves its parent and the navigation drawer open, including keyboard activation.
+
 # 6.12.0
 
 Selected header links can sit beside the header controls while keeping one navigation tree.

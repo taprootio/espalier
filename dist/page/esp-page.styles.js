@@ -688,6 +688,42 @@ import{css as a,unsafeCSS as e}from"lit";import{EspalierElementBase as i}from"..
       }
     }
 
+    .esp-page > .header-reservation-probe,
+    .esp-page > .header-visible-probe {
+      position: absolute;
+      inline-size: 0;
+      visibility: hidden;
+      pointer-events: none;
+      box-sizing: content-box;
+    }
+
+    .esp-page > .header-reservation-probe {
+      block-size: var(--esp-page-fixed-header-offset, var(--_esp-page-geometry-expanded, 0px));
+    }
+
+    .esp-page > .header-visible-probe {
+      block-size: var(--esp-page-visible-header-offset, var(--esp-page-fixed-header-offset, var(--_esp-page-geometry-current, 0px)));
+    }
+
+    :host([data-header-geometry-active]) {
+      --_esp-page-fixed-header-offset: var(--_esp-page-geometry-reservation, 0px);
+    }
+
+    :host([data-header-geometry-active]) .esp-page slot[name="header"]::slotted(esp-header),
+    :host([data-header-geometry-active]) .esp-page slot[name="sidebar"]::slotted(esp-menu),
+    :host([data-header-geometry-active]) .esp-page slot[name="right"]::slotted(esp-menu) {
+      --esp-menu-top-offset: var(--_esp-page-geometry-visible, 0px);
+    }
+
+    :host([data-header-geometry-pending]) .esp-page > div.esp-page-top { position: relative; }
+
+    :host([data-header-geometry-pending]) .esp-page > div.esp-page-main,
+    :host([data-header-geometry-pending]) .esp-page > aside.esp-page-left,
+    :host([data-header-geometry-pending]) .esp-page > aside.esp-page-right,
+    :host([data-header-geometry-pending]) .esp-page > div.esp-page-flyout,
+    :host([data-header-geometry-pending]) .esp-page > .esp-page-surface,
+    :host([data-header-geometry-pending]) .esp-page > .esp-page-canvas { margin-top: 0; }
+
     .esp-page:has(esp-dialog[is-open="true"]) {
       overflow: hidden;
     }

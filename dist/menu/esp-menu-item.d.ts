@@ -1,11 +1,19 @@
 import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
+import { type MenuItemAppearance } from "./menu-presentation.js";
+import "../button/esp-button.js";
 import type { EspalierMenuMode } from "./esp-menu.js";
+export type { MenuItemAppearance } from "./menu-presentation.js";
 /**
  * A navigation item for [`<esp-menu>`](/components/menu/).
  *
  * Items render as links when `url` is provided and as buttons when
- * no URL is present. Button-style items dispatch `esp-clicked`.
+ * no URL is present. URL-less action items dispatch `esp-clicked`.
+ * `appearance="button"` gives either kind button chrome while preserving its
+ * link or action semantics. Current-page links remain noninteractive.
+ *
+ * Button appearance supports esp-button's public `--esp-button-padding` token.
+ * Incognito padding does not apply.
  *
  * To give readers that run no JavaScript a real link, write a plain
  * `<a slot="link">` beside the attributes, with the same `href`, `target`,
@@ -32,6 +40,7 @@ import type { EspalierMenuMode } from "./esp-menu.js";
  *
  * @event {CustomEvent} esp-clicked - Fired when the item is rendered as a button (no `url`) and activated.
  *
+ * @csspart menu-text - The label in either appearance, including composed button labels.
  * @cssprop --esp-menu-item-color - Text color.
  * @cssprop --esp-menu-item-background - Background color.
  * @cssprop --esp-menu-item-border-color - Border color.
@@ -62,6 +71,11 @@ export declare class EspalierMenuItem extends EspalierElementBase {
     label: string;
     /** Resource to link to. When empty, the item renders as a button. */
     url: string;
+    /**
+     * Visual treatment independent of URL and header-end placement. Invalid
+     * values resolve to Link and normalize on the next update.
+     */
+    appearance: MenuItemAppearance;
     /** Target browsing context for the link. Empty omits the attribute. */
     target: string;
     /** Link relationship, passed through unchanged. Empty omits the attribute. */
@@ -99,6 +113,7 @@ export declare class EspalierMenuItem extends EspalierElementBase {
     touchDevice: boolean;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     protected updated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];
