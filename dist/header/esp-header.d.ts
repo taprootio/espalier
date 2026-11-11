@@ -25,6 +25,11 @@ export interface EspThemeToggleEventDetail {
  * control and extra-row sizes. In a fixed `esp-page`, `compact-size="standard"`
  * with `scroll-behavior="compact"` returns to the unscaled baseline. Sticky,
  * normal and standalone hosts retain expanded geometry with these options.
+ * Expanded rows above 1.0 center navigation and use unframed icon controls,
+ * without the horizontal current-item underline. Compaction restores standard
+ * chrome. Navigation buttons keep theme-space margins and a smaller default
+ * padding; explicit `--esp-button-padding` still wins. A full-screen drawer's
+ * existing close control sits at the viewport's top/end corner.
  * Optional generic/light/dark compact logos fall back to the regular logo until
  * ready; the larger expanded/compact brand width is reserved in either state.
  * `data-esp-compact` reports resolved compaction for paint-only styling and

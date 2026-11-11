@@ -14,6 +14,8 @@ export type { MenuItemAppearance } from "./menu-presentation.js";
  *
  * Button appearance supports esp-button's public `--esp-button-padding` token.
  * Incognito padding does not apply.
+ * Inside a header, button appearance has theme-space margins and a smaller
+ * default padding so adjacent actions stay separate. An explicit padding wins.
  *
  * To give readers that run no JavaScript a real link, write a plain
  * `<a slot="link">` beside the attributes, with the same `href`, `target`,

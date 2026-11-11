@@ -1,7 +1,7 @@
-var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,r):s,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(d,e,r,s);else for(var c=d.length-1;c>=0;c--)(i=d[c])&&(n=(p<3?i(n):p>3?i(e,r,n):i(e,r))||n);return p>3&&n&&Object.defineProperty(e,r,n),n};import{css as f,html as l,nothing as h}from"lit";import{customElement as g,property as a,state as u}from"lit/decorators.js";import{classMap as y}from"lit/directives/class-map.js";import{ref as m}from"lit/directives/ref.js";import{getIconHrefForHost as w}from"../shared/intent-values.js";import{EspalierElementBase as v}from"../shared/esp-element-base.js";import{ESP_EVENTS as k}from"../shared/events.js";import{pathsMatch as z}from"../shared/path-matching.js";import{SlottedIconController as x}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,renderNewTabCue as S}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{MENU_SOURCE_CHANGED as _,resolveMenuItemAppearance as b}from"./menu-presentation.js";import"../button/esp-button.js";let t=class extends v{constructor(){super(...arguments),this.iconSlot=new x(this),this.label="",this.url="",this.appearance="link",this.target="",this.rel="",this.newTabLabel=E,this.icon="",this.headerEnd=!1,this.promotedForHeader=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}get headerEndPromoted(){return this.promotedForHeader}setHeaderEndPromoted(e){this.promotedForHeader=e,this.toggleAttribute("data-esp-header-end-promoted",e)}connectedCallback(){this.setHeaderEndPromoted(!1),super.connectedCallback(),this.checkActive()}disconnectedCallback(){this.setHeaderEndPromoted(!1),super.disconnectedCallback()}willUpdate(e){super.willUpdate(e),e.has("appearance")&&(this.appearance=b(this.appearance))}updated(e){super.updated(e),["label","url","target","rel","newTabLabel","icon","headerEnd","appearance"].some(r=>e.has(r))&&this.dispatchEvent(new CustomEvent(_,{bubbles:!0,composed:!0})),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=z(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(k.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=w(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > :not([slot]), :scope > [slot='']"),s=r||e.length>0,p=b(this.appearance)==="button",n={item:!0,"button-appearance":p,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":s,"is-active":this.active},i=l`<span part="menu-text">${this.label}</span>`,c=l`<span class="icon-area" aria-hidden=${s?"true":h}>
+var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnPropertyDescriptor(e,r):s,i;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(d,e,r,s);else for(var c=d.length-1;c>=0;c--)(i=d[c])&&(n=(p<3?i(n):p>3?i(e,r,n):i(e,r))||n);return p>3&&n&&Object.defineProperty(e,r,n),n};import{css as g,html as l,nothing as h}from"lit";import{customElement as f,property as a,state as u}from"lit/decorators.js";import{classMap as w}from"lit/directives/class-map.js";import{ref as m}from"lit/directives/ref.js";import{getIconHrefForHost as y}from"../shared/intent-values.js";import{EspalierElementBase as v}from"../shared/esp-element-base.js";import{ESP_EVENTS as k}from"../shared/events.js";import{pathsMatch as z}from"../shared/path-matching.js";import{SlottedIconController as x}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,renderNewTabCue as _}from"../shared/new-tab-cue.js";import{srOnly as S}from"../shared/style-fragments.js";import{MENU_SOURCE_CHANGED as C,resolveMenuItemAppearance as b}from"./menu-presentation.js";import"../button/esp-button.js";let t=class extends v{constructor(){super(...arguments),this.iconSlot=new x(this),this.label="",this.url="",this.appearance="link",this.target="",this.rel="",this.newTabLabel=E,this.icon="",this.headerEnd=!1,this.promotedForHeader=!1,this.mode="vertical",this.depth=0,this.touchDevice=!1,this.active=!1}get headerEndPromoted(){return this.promotedForHeader}setHeaderEndPromoted(e){this.promotedForHeader=e,this.toggleAttribute("data-esp-header-end-promoted",e)}connectedCallback(){this.setHeaderEndPromoted(!1),super.connectedCallback(),this.checkActive()}disconnectedCallback(){this.setHeaderEndPromoted(!1),super.disconnectedCallback()}willUpdate(e){super.willUpdate(e),e.has("appearance")&&(this.appearance=b(this.appearance))}updated(e){super.updated(e),["label","url","target","rel","newTabLabel","icon","headerEnd","appearance"].some(r=>e.has(r))&&this.dispatchEvent(new CustomEvent(C,{bubbles:!0,composed:!0})),e.has("url")&&this.checkActive()}checkActive(){if(!this.url){this.active=!1;return}this.active=z(this.url)}handleButtonClick(){this.dispatchEvent(new CustomEvent(k.CLICKED,{detail:{},bubbles:!0,composed:!0}))}render(){const e=y(this.icon,this),r=this.iconSlot.hasSlottedIcon(":scope > :not([slot]), :scope > [slot='']"),s=r||e.length>0,p=b(this.appearance)==="button",n={item:!0,"button-appearance":p,"is-horizontal":this.mode==="horizontal"&&this.depth===0,"is-vertical":this.mode!=="horizontal"||this.depth>0,"is-drawer":this.mode==="drawer","is-nested":this.depth>0,"has-icon":s,"is-active":this.active},i=l`<span part="menu-text">${this.label}</span>`,c=l`<span class="icon-area" aria-hidden=${s?"true":h}>
       <slot ${m(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
       ${!r&&e?$(e):h}
-    </span>`;return l`<div class=${y(n)} ?hidden=${this.headerEndPromoted}>
+    </span>`;return l`<div class=${w(n)} ?hidden=${this.headerEndPromoted}>
       ${p?l`<esp-button
             collapsed
             exportparts="label: menu-text"
@@ -13,9 +13,9 @@ var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnP
             .current=${this.active}
             .icon=${this.icon}
           ><slot ${m(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot></esp-button>`:this.active?l`<span class="current-page" aria-current="page">${i}${c}</span>`:this.url?l`<a href=${this.url} target=${this.target||h} rel=${this.rel||h}
-              >${i}${c}${S(this.target,this.newTabLabel)}</a
+              >${i}${c}${_(this.target,this.newTabLabel)}</a
             >`:l`<button type="button" @click=${this.handleButtonClick}>${i}${c}</button>`}
-    </div>`}};t.styles=[...v.styles,C,f`
+    </div>`}};t.styles=[...v.styles,S,g`
       :host {
         display: block;
       }
@@ -52,9 +52,11 @@ var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnP
       }
 
       .button-appearance > esp-button {
+        --_esp-button-default-padding: var(--_esp-menu-button-default-padding);
         display: inline-block;
         inline-size: fit-content;
-        max-inline-size: 100%;
+        max-inline-size: calc(100% - 2 * var(--_esp-menu-button-margin, 0px));
+        margin: var(--_esp-menu-button-margin, 0px);
         vertical-align: middle;
         font: inherit;
       }
@@ -76,7 +78,8 @@ var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnP
       .button-appearance.is-horizontal {
         display: flex;
         align-items: center;
-        height: var(--esp-header-height, calc(4.5 * var(--esp-size-small)));
+        height: var(--_esp-menu-button-row-height, var(--esp-header-height, calc(4.5 * var(--esp-size-small))));
+        min-block-size: var(--_esp-menu-button-row-min-height, 0px);
         font-weight: var(--esp-menu-item-font-weight, var(--esp-font-weight-menu, 700));
       }
 
@@ -230,11 +233,11 @@ var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnP
 
       .is-horizontal.is-active:not(.button-appearance) {
         background-color: var(--esp-menu-item-active-background, transparent);
-        box-shadow: inset 0 -2px 0
+        box-shadow: var(--_esp-menu-active-indicator-shadow, inset 0 -2px 0
           var(
             --esp-menu-item-active-indicator-color,
             var(--esp-menu-item-active-color, var(--esp-color-link))
-          );
+          ));
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -273,4 +276,4 @@ var o=function(d,e,r,s){var p=arguments.length,n=p<3?e:s===null?s=Object.getOwnP
         width: var(--esp-menu-item-icon-size, calc(1 * var(--esp-size-font)));
         object-fit: contain;
       }
-    `],o([a({type:String})],t.prototype,"label",void 0),o([a({type:String})],t.prototype,"url",void 0),o([a({type:String,reflect:!0})],t.prototype,"appearance",void 0),o([a({type:String})],t.prototype,"target",void 0),o([a({type:String})],t.prototype,"rel",void 0),o([a({type:String,attribute:"new-tab-label"})],t.prototype,"newTabLabel",void 0),o([a({type:String})],t.prototype,"icon",void 0),o([a({type:Boolean,attribute:"header-end",reflect:!0})],t.prototype,"headerEnd",void 0),o([u()],t.prototype,"promotedForHeader",void 0),o([a({attribute:!1,type:String})],t.prototype,"mode",void 0),o([a({attribute:!1,type:Number})],t.prototype,"depth",void 0),o([a({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),o([u()],t.prototype,"active",void 0),t=o([g("esp-menu-item")],t);export{t as EspalierMenuItem};
+    `],o([a({type:String})],t.prototype,"label",void 0),o([a({type:String})],t.prototype,"url",void 0),o([a({type:String,reflect:!0})],t.prototype,"appearance",void 0),o([a({type:String})],t.prototype,"target",void 0),o([a({type:String})],t.prototype,"rel",void 0),o([a({type:String,attribute:"new-tab-label"})],t.prototype,"newTabLabel",void 0),o([a({type:String})],t.prototype,"icon",void 0),o([a({type:Boolean,attribute:"header-end",reflect:!0})],t.prototype,"headerEnd",void 0),o([u()],t.prototype,"promotedForHeader",void 0),o([a({attribute:!1,type:String})],t.prototype,"mode",void 0),o([a({attribute:!1,type:Number})],t.prototype,"depth",void 0),o([a({attribute:!1,type:Boolean})],t.prototype,"touchDevice",void 0),o([u()],t.prototype,"active",void 0),t=o([f("esp-menu-item")],t);export{t as EspalierMenuItem};

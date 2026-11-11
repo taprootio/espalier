@@ -1,4 +1,4 @@
-var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,r):n,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(h,t,r,n);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(o=(l<3?d(o):l>3?d(t,r,o):d(t,r))||o);return l>3&&o&&Object.defineProperty(t,r,o),o};import{css as f,html as c,nothing as s}from"lit";import{customElement as m,eventOptions as v,property as a,state as y}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{ESP_EVENTS as w}from"../shared/events.js";import{ref as x}from"lit/directives/ref.js";import{getIconHrefForHost as T}from"../shared/intent-values.js";import{SlottedIconController as k}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as $}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as S,newTabSuffix as E,renderNewTabCue as z}from"../shared/new-tab-cue.js";import{srOnly as C}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as N}from"./action-state-lightness.js";const A=c`<svg
+var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnPropertyDescriptor(t,r):n,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")o=Reflect.decorate(h,t,r,n);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(o=(l<3?d(o):l>3?d(t,r,o):d(t,r))||o);return l>3&&o&&Object.defineProperty(t,r,o),o};import{css as g,html as c,nothing as s}from"lit";import{customElement as v,eventOptions as y,property as a,state as w}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as x}from"../shared/events.js";import{ref as T}from"lit/directives/ref.js";import{getIconHrefForHost as k}from"../shared/intent-values.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as S}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,newTabSuffix as C,renderNewTabCue as z}from"../shared/new-tab-cue.js";import{srOnly as N}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as A}from"./action-state-lightness.js";const m=g`var(--esp-button-padding, var(--_esp-button-default-padding, var(--esp-size-padding)))`,B=c`<svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   fill="none"
@@ -10,12 +10,12 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>`;let e=class extends g{constructor(){super(...arguments),this.iconSlot=new k(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.current=!1,this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=S,this.formNoValidate=!1,this.buildIcon=(t,r=!1)=>this.loading&&!r?c` <span>${A}</span> `:c`
+</svg>`;let e=class extends f{constructor(){super(...arguments),this.iconSlot=new $(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.current=!1,this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=E,this.formNoValidate=!1,this.buildIcon=(t,r=!1)=>this.loading&&!r?c` <span>${B}</span> `:c`
       <span>
-        <slot ${x(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
-        ${!this.iconSlot.hasSlottedIcon(":scope > :not(slot)")&&t?$(t):s}
+        <slot ${T(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
+        ${!this.iconSlot.hasSlottedIcon(":scope > :not(slot)")&&t?S(t):s}
       </span>
-    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,r,n){if(super.attributeChangedCallback(t,r,n),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const l=n===null?null:Number(n),o=l===null||Number.isNaN(l)?null:l;o!==null&&o>=0?(this.innerTabindex=o,this.writeHostTabindex(null)):o===null&&n!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=o}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent(w.CLICKED,{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const n=document.createElement("button");n.type="submit",n.hidden=!0,this.formNoValidate&&(n.formNoValidate=!0),r.appendChild(n),r.requestSubmit(n),n.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=T(this.icon,this),r=this.current&&this.href.length>0,n=this.loading&&!r||this.iconSlot.hasSlottedIcon(":scope > :not(slot)")||t.length>0,{collapsed:l,iconOnly:o}=this,d=o?this.getAttribute("aria-label")||this.label||s:s,p=this.getAttribute("aria-pressed")||s,u={"esp-field":!0,"icon-only":o,incognito:this.incognito,"is-collapsed":l,"has-icon":n,"icon-left":n&&!o&&this.iconPosition==="left"};return r?c`<div part="wrapper" class=${b(u)}>
+    `}static get observedAttributes(){return[...super.observedAttributes,"tabindex","aria-pressed"]}attributeChangedCallback(t,r,n){if(super.attributeChangedCallback(t,r,n),t==="aria-pressed"){this.requestUpdate();return}if(t!=="tabindex"||this.neutralizingTabindex)return;const l=n===null?null:Number(n),o=l===null||Number.isNaN(l)?null:l;o!==null&&o>=0?(this.innerTabindex=o,this.writeHostTabindex(null)):o===null&&n!==null?(this.innerTabindex=null,this.writeHostTabindex(null)):this.innerTabindex=o}writeHostTabindex(t){this.getAttribute("tabindex")!==t&&(this.neutralizingTabindex=!0,t===null?this.removeAttribute("tabindex"):this.setAttribute("tabindex",t),this.neutralizingTabindex=!1)}removeAttribute(t){super.removeAttribute(t),t==="tabindex"&&!this.neutralizingTabindex&&(this.innerTabindex=null)}focus(t){this.focusShadowElementAfterUpdate("button, a",t)}handleClick(t){if(this.dispatchEvent(new CustomEvent(x.CLICKED,{detail:{},bubbles:!0,composed:!0})),this.buttonType==="submit"){const r=this.closest("form");if(r){const n=document.createElement("button");n.type="submit",n.hidden=!0,this.formNoValidate&&(n.formNoValidate=!0),r.appendChild(n),r.requestSubmit(n),n.remove()}}else this.buttonType==="reset"&&this.closest("form")?.reset()}render(){const t=k(this.icon,this),r=this.current&&this.href.length>0,n=this.loading&&!r||this.iconSlot.hasSlottedIcon(":scope > :not(slot)")||t.length>0,{collapsed:l,iconOnly:o}=this,d=o?this.getAttribute("aria-label")||this.label||s:s,p=this.getAttribute("aria-pressed")||s,u={"esp-field":!0,"icon-only":o,incognito:this.incognito,"is-collapsed":l,"has-icon":n,"icon-left":n&&!o&&this.iconPosition==="left"};return r?c`<div part="wrapper" class=${b(u)}>
         <span part="control" class="current-page" aria-current="page" aria-label=${d}>
           <span part="label">${this.label??""}</span>${this.buildIcon(t,!0)}
         </span>
@@ -28,7 +28,7 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
               target=${this.target||s}
               rel=${this.rel||s}
               tabindex=${this.innerTabindex??s}
-              aria-label=${d===s?s:`${d}${E(this.target,this.newTabLabel)}`}
+              aria-label=${d===s?s:`${d}${C(this.target,this.newTabLabel)}`}
             >
               <span part="label">${this.label??""}</span>
               ${this.buildIcon(t)}
@@ -50,7 +50,7 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
               ${this.buildIcon(t)}
             </button>
           </div>
-        `}};e.styles=[...g.styles,C,f`
+        `}};e.styles=[...f.styles,N,g`
       :host {
         --_esp-button-radius: var(--esp-size-border-radius);
       }
@@ -80,7 +80,7 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
           cursor: pointer;
 
           > span:nth-child(1) {
-            padding: var(--esp-button-padding, var(--esp-size-padding));
+            padding: ${m};
             line-height: 1.3;
             font-weight: bold;
             display: flex;
@@ -91,7 +91,7 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
           > span:nth-child(2) {
             display: none;
             place-content: center;
-            padding: var(--esp-button-padding, var(--esp-size-padding));
+            padding: ${m};
 
             .generated-icon,
             ::slotted(svg),
@@ -184,7 +184,7 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
         &:hover,
         &:focus-within {
           background-color: oklch(
-            from var(--esp-color-action-background) calc(l * ${N})
+            from var(--esp-color-action-background) calc(l * ${A})
               c h
           );
         }
@@ -260,4 +260,4 @@ var i=function(h,t,r,n){var l=arguments.length,o=l<3?t:n===null?n=Object.getOwnP
           transform: rotate(360deg);
         }
       }
-    `],i([y()],e.prototype,"innerTabindex",void 0),i([a({attribute:"button-type",type:String})],e.prototype,"buttonType",void 0),i([a({type:Boolean})],e.prototype,"collapsed",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"disabled",void 0),i([a({type:String})],e.prototype,"href",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"current",void 0),i([a({attribute:"icon-only",type:Boolean})],e.prototype,"iconOnly",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"incognito",void 0),i([a({type:String})],e.prototype,"icon",void 0),i([a({attribute:"icon-position",type:String})],e.prototype,"iconPosition",void 0),i([a({type:String})],e.prototype,"label",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"loading",void 0),i([a({type:String})],e.prototype,"target",void 0),i([a({type:String})],e.prototype,"rel",void 0),i([a({type:String,attribute:"new-tab-label"})],e.prototype,"newTabLabel",void 0),i([a({attribute:"formnovalidate",type:Boolean})],e.prototype,"formNoValidate",void 0),i([v({capture:!1,passive:!0})],e.prototype,"handleClick",null),e=i([m("esp-button")],e);export{e as EspalierButton};
+    `],i([w()],e.prototype,"innerTabindex",void 0),i([a({attribute:"button-type",type:String})],e.prototype,"buttonType",void 0),i([a({type:Boolean})],e.prototype,"collapsed",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"disabled",void 0),i([a({type:String})],e.prototype,"href",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"current",void 0),i([a({attribute:"icon-only",type:Boolean})],e.prototype,"iconOnly",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"incognito",void 0),i([a({type:String})],e.prototype,"icon",void 0),i([a({attribute:"icon-position",type:String})],e.prototype,"iconPosition",void 0),i([a({type:String})],e.prototype,"label",void 0),i([a({type:Boolean,reflect:!0})],e.prototype,"loading",void 0),i([a({type:String})],e.prototype,"target",void 0),i([a({type:String})],e.prototype,"rel",void 0),i([a({type:String,attribute:"new-tab-label"})],e.prototype,"newTabLabel",void 0),i([a({attribute:"formnovalidate",type:Boolean})],e.prototype,"formNoValidate",void 0),i([y({capture:!1,passive:!0})],e.prototype,"handleClick",null),e=i([v("esp-button")],e);export{e as EspalierButton};

@@ -1,3 +1,11 @@
+# 6.13.1
+
+Expanded headers align navigation, simplify icon controls and give calls to action room to breathe.
+
+- Tall expanded headers center menu and end actions vertically, omit the current-item underline and remove icon-control backgrounds, borders and shadows. Compaction restores standard chrome.
+- Header navigation buttons have themed margins between actions and at the header edge, with smaller default padding that respects explicit overrides. Tall rows retain every button border and theme corner radius.
+- Full-screen drawers keep the existing close button's chrome at the viewport's top/end corner, with space above the brand and stable placement through resize.
+
 # 6.13.0
 
 Headers support button links, scalable height and compact logos, while sections gain responsive columns.
