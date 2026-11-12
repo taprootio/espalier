@@ -85,6 +85,9 @@ export type ButtonIconPosition = "left" | "right";
  * @attr aria-pressed - Forwards a toggle's pressed state to the inner native
  * button. Use `"true"` while the controlled content is active and `"false"`
  * otherwise.
+ * @attr aria-label - Forwards an accessible name to the inner native control.
+ * An icon-only button falls back to `label` when it is absent. When the button
+ * shows text, keep the name containing the visible label.
  * @docPageTitle Button
  * @docUrl /components/button
  * @menuGroup Interaction

@@ -1,3 +1,9 @@
+# 6.13.2
+
+`esp-button` now passes its `aria-label` to the inner button or link.
+
+- A button that shows text, an icon-only button and a link button expose the host `aria-label` as the inner control's accessible name, and the name updates when the attribute changes or is removed. Icon-only buttons still fall back to `label`.
+
 # 6.13.1
 
 Expanded headers align navigation, simplify icon controls and give calls to action room to breathe.
