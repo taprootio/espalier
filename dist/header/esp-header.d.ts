@@ -21,15 +21,17 @@ export interface EspThemeToggleEventDetail {
  * Builds a site's top navigation bar. Use its four slots to add content:
  * `topbar`, `brand`, `menu`, and `buttons`.
  *
- * `height-multiplier="1.8"` enlarges the primary row and logo while preserving
+ * `height-multiplier="3.8"` enlarges the primary row and logo while preserving
  * control and extra-row sizes. In a fixed `esp-page`, `compact-size="standard"`
- * with `scroll-behavior="compact"` returns to the unscaled baseline. Sticky,
+ * with `scroll-behavior="compact"` shrinks to `min-height-multiplier` (default 1).
+ * For example, `min-height-multiplier="1.9"` keeps a taller compact endpoint. Sticky,
  * normal and standalone hosts retain expanded geometry with these options.
  * Expanded rows above 1.0 center navigation and use unframed icon controls,
- * without the horizontal current-item underline. Compaction restores standard
- * chrome. Navigation buttons keep theme-space margins and a smaller default
- * padding; explicit `--esp-button-padding` still wins. A full-screen drawer's
- * existing close control sits at the viewport's top/end corner.
+ * without the horizontal current-item underline. A compact minimum above 1.0
+ * keeps this tall chrome; a baseline endpoint restores standard chrome.
+ * Navigation buttons keep theme-space margins and a smaller default padding;
+ * explicit `--esp-button-padding` still wins. A full-screen drawer's existing
+ * close control sits at the viewport's top/end corner.
  * Optional generic/light/dark compact logos fall back to the regular logo until
  * ready; the larger expanded/compact brand width is reserved in either state.
  * `data-esp-compact` reports resolved compaction for paint-only styling and
@@ -380,8 +382,16 @@ export declare class EspalierHeader extends EspalierElementBase {
      */
     heightMultiplier: number;
     /**
-     * `standard` compacts to the unscaled baseline; `compact` retains the legacy
-     * absolute compact-height token. New geometry compacts only in a fixed esp-page.
+     * Scale the standard compact row and logo from 1.0 to 5.0 in tenths.
+     * Invalid values normalize to 1.0. The effective minimum is clamped to
+     * heightMultiplier without changing this authored value. Controls retain
+     * baseline sizes. Only compact-size="standard" in a fixed esp-page uses it.
+     * @default 1
+     */
+    minHeightMultiplier: number;
+    /**
+     * `standard` compacts to minHeightMultiplier times the unscaled baseline.
+     * `compact` retains the legacy absolute compact-height token. New geometry compacts only in a fixed esp-page.
      * @default "compact"
      */
     compactSize: HeaderCompactSize;

@@ -1,3 +1,12 @@
+# 6.14.0
+
+Tall headers shrink with scrolling, and native quotations share one themed recipe.
+
+- Tall fixed headers with compact behavior now shrink by the measured scroll distance, preserving stable page flow through partial and full compaction.
+- Set `min-height-multiplier` with `compact-size="standard"` to choose a taller minimum row and logo while controls retain baseline sizes. The effective minimum is capped at the expanded scale; legacy compact sizing is unchanged.
+- Compact logos appear at the first actual shrink. Tall header chrome stays expanded through partial shrink and at a minimum above the baseline; equal or larger minima keep expanded branding and geometry.
+- Import `blockquoteStyles` from `@taprootio/espalier/shared/blockquote-styles` to give selected native quotations a themed panel, local lead typography and one decorative opening mark in document CSS or Lit editors. Pass an optional figure selector for native captions and work titles; unrelated quotes keep their styles. The SVG mark needs CSP `img-src data:` and disappears when blocked or in forced colors.
+
 # 6.13.2
 
 `esp-button` now passes its `aria-label` to the inner button or link.
