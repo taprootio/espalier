@@ -1,3 +1,13 @@
+# 6.15.0
+
+Footer colors now reach every paragraph and link inside `esp-footer`.
+
+- Footer paragraphs, list items, headings and links follow `--esp-footer-color`, `--esp-footer-heading-color` and `--esp-footer-link-color` wherever they sit, including slotted link-group columns, aside text and the bottom row. Previously the page's text and link colors won, so a dark custom footer could show dark text and low-contrast links.
+- Hovered footer links, including the brand link, use `--esp-footer-link-hover-color` and the new `--esp-footer-link-hover-bg`, which defaults to `var(--esp-color-link-hover-bg)`. Set it to `transparent` when the page's hover tint does not suit a custom footer background.
+- The footer focus outline now defaults to `2px solid var(--esp-footer-link-color, var(--esp-color-link))`, so it follows a custom footer link color.
+- Every footer link now shows the footer's focus ring at a 3px offset, not only link-group columns. Unclassed links also take the theme corner radius; a classed link keeps its own shape, and a classed link with its own focus rule keeps that rule.
+- The footer color rules sit one element above the page's text and link rules. A consumer stylesheet that colors unclassed footer links with a selector below `(0,1,3)` now loses to them; use the `--esp-footer-*` variables instead. A classed link keeps any color rule on its own class, because the scope reaches classed links only at `(0,0,3)`.
+
 # 6.14.0
 
 Tall headers shrink with scrolling, and native quotations share one themed recipe.

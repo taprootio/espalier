@@ -671,7 +671,7 @@
     },
     {
       "name": "--esp-footer-focus-outline",
-      "description": "Focus-visible outline. Defaults to `2px solid var(--esp-color-link)`."
+      "description": "Focus-visible outline for footer links. Defaults to `2px solid var(--esp-footer-link-color, var(--esp-color-link))`."
     },
     {
       "name": "--esp-footer-heading-color",
@@ -688,6 +688,10 @@
     {
       "name": "--esp-footer-link-group-min-width",
       "description": "Intrinsic minimum link-group column width. Defaults to `10rem`."
+    },
+    {
+      "name": "--esp-footer-link-hover-bg",
+      "description": "Hovered link background. Defaults to `var(--esp-color-link-hover-bg)`."
     },
     {
       "name": "--esp-footer-link-hover-color",

@@ -186,7 +186,8 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * @cssprop --esp-footer-heading-color - Heading and configured-brand color. Defaults to `var(--esp-color-headings)`.
  * @cssprop --esp-footer-link-color - Link color. Defaults to `var(--esp-color-link)`.
  * @cssprop --esp-footer-link-hover-color - Hovered link color. Defaults to `var(--esp-color-link-hover)`.
- * @cssprop --esp-footer-focus-outline - Focus-visible outline. Defaults to `2px solid var(--esp-color-link)`.
+ * @cssprop --esp-footer-link-hover-bg - Hovered link background. Defaults to `var(--esp-color-link-hover-bg)`.
+ * @cssprop --esp-footer-focus-outline - Focus-visible outline for footer links. Defaults to `2px solid var(--esp-footer-link-color, var(--esp-color-link))`.
  * @cssprop --esp-footer-border - Block-start footer border. Defaults to `1px solid var(--esp-color-border)`.
  * @cssprop --esp-footer-padding-block - Content block padding. Defaults to `var(--esp-size-padding-page)`.
  * @cssprop --esp-footer-padding-inline - Content inline padding. Defaults to `var(--esp-size-padding-page)`.

@@ -57,7 +57,7 @@ var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnP
 
       ::slotted(a:focus-visible) {
         border-radius: var(--esp-size-border-radius);
-        outline: var(--esp-footer-focus-outline, 2px solid var(--esp-color-link));
+        outline: var(--esp-footer-focus-outline, 2px solid var(--esp-footer-link-color, var(--esp-color-link)));
         outline-offset: 3px;
       }
     `],f([u({type:String})],i.prototype,"heading",void 0),i=f([g("esp-footer-link-group")],i);export{i as EspalierFooterLinkGroup};
