@@ -1,3 +1,9 @@
+# 6.15.1
+
+Header controls stay in place while a pointer click takes over from keyboard focus.
+
+- A scrolled header keeps its current height from a primary pointer press through activation, so opening navigation or a popover cannot lose its click to compaction. Cancelled presses, disabled controls and detached headers release the hold normally.
+
 # 6.15.0
 
 Footer colors now reach every paragraph and link inside `esp-footer`.
