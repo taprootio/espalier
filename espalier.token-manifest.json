@@ -943,6 +943,36 @@
       "description": "Surface-alignment cap published by `esp-page`. Defaults to `100%`."
     },
     {
+      "name": "--esp-footer-current-block-align",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Current logical block placement for caller-owned content. Derived output, unset in Default and always unset in the bottom region; use a layout-specific fallback."
+    },
+    {
+      "name": "--esp-footer-current-inline-align",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Current logical inline placement for caller-owned content. Derived output, unset in the unauthored Default state; use a layout-specific fallback."
+    },
+    {
+      "name": "--esp-footer-current-prose-align",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Current paragraph alignment, including justify with an ordinary last line. Derived output; unset in Default so inherited text remains available."
+    },
+    {
+      "name": "--esp-footer-current-text-align",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Current non-prose text alignment for caller-owned headings, labels and controls. Derived output; unset in Default so inherited text remains available."
+    },
+    {
+      "name": "--esp-footer-dark-brand-logo-aspect-ratio",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Pending or failed natural logo ratio in the dark scheme; validated hint, then the generic ratio, then 3 / 1. Loaded intrinsic dimensions win."
+    },
+    {
       "name": "--esp-footer-focus-outline",
       "category": "component",
       "component": "esp-footer",
@@ -953,6 +983,12 @@
       "category": "component",
       "component": "esp-footer",
       "description": "Heading and configured-brand color. Defaults to `var(--esp-color-headings)`."
+    },
+    {
+      "name": "--esp-footer-light-brand-logo-aspect-ratio",
+      "category": "component",
+      "component": "esp-footer",
+      "description": "Pending or failed natural logo ratio in the light scheme; validated hint, then the generic ratio, then 3 / 1. Loaded intrinsic dimensions win."
     },
     {
       "name": "--esp-footer-link-color",

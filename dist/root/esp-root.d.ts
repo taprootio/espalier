@@ -163,6 +163,16 @@ export declare class EspalierRoot extends LitElement implements SeedColorRoot {
      */
     subscribeScoped<K extends keyof SchemeEvents>(event: K, handler: (payload: SchemeEvents[K]) => void): () => void;
     /**
+     * Optional viewport width in CSS pixels for nested previews. Freezes only
+     * design-system scale viewport terms; rem still follows the HTML root.
+     * Does not resize the frame, affect queries or caller-authored vw, change
+     * the theme, or load fonts. Missing/invalid/non-positive values use ordinary
+     * browser-viewport scaling. Positive finite fractional widths are supported.
+     * Attributes accept trimmed decimal/scientific notation with an optional sign.
+     */
+    get virtualViewportWidth(): number | undefined;
+    set virtualViewportWidth(value: number | undefined);
+    /**
      * Base64-encoded JSON partial theme for the **light** scheme.
      *
      * Only fields you wish to override need to be present — all

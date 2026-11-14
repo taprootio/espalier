@@ -440,7 +440,7 @@ export interface EspalierTheme {
     fontWeightMonospace: string;
     /** External stylesheets injected into `document.head`. */
     stylesheets: string[];
-    /** Root font size in px (sets the HTML root `font-size`). */
+    /** Scale coefficient in px relative to a 16px baseline; does not set or measure HTML font-size. */
     rootFontSize: number;
     /** Modular ratio for the type scale (Major Third = 1.25). */
     typeRatio: number;

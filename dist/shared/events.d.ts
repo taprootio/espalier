@@ -31,9 +31,11 @@ export { type HelpRequest, type HelpState } from "./help-events.js";
 export { type PickerItem } from "../pickers/esp-picker-item.js";
 export { type EspalierUploadImage } from "../image-upload/image-helpers.js";
 export { type FontPickerValueChangedDetail, type GoogleFont, type WebSafeFont, } from "../font-picker/esp-font-picker.js";
+export type { FooterLayout, FooterLayoutChangedDetail } from "./footer-alignment.js";
 export { type EspThemeToggleEventDetail } from "../header/esp-header.js";
 export { type VideoErrorDetail, type VideoErrorReason, type VideoPlayDetail, type VideoReadyDetail, type VideoSourceMode, } from "../video/esp-video.js";
 export { type PageWorkspaceResizeDetail, type PageWorkspaceResizeSource, type PageWorkspaceSeparator, } from "../page/esp-page.js";
+import type { FooterLayoutChangedDetail } from "./footer-alignment.js";
 import type { EspalierDetails } from "../details/esp-details.js";
 import type { ActionMenuSelectDetail } from "../action-menu/esp-action-menu.js";
 import type { FocusChangedDetail } from "../focus-picker/esp-focus-picker.js";
@@ -88,6 +90,7 @@ export declare const ESP_EVENTS: {
     readonly GRID_LOAD_SUCCESS: "esp-grid-load-success";
     readonly GRID_LOAD_ERROR: "esp-grid-load-error";
     readonly GRID_ITEMS_CHANGED: "esp-grid-items-changed";
+    readonly FOOTER_LAYOUT_CHANGED: "esp-layout-changed";
     readonly HEADER_THEME_TOGGLE: "esp-header-theme-toggle";
     readonly IMAGE_UPLOAD_FILE_SELECTED: "esp-image-upload-file-selected";
     readonly IMAGE_UPLOAD_FILE_REMOVED: "esp-image-upload-file-removed";
@@ -358,6 +361,10 @@ export interface EspalierFocusPickerEventMap {
 /** Events fired by `<esp-header-button>`. */
 export interface EspalierHeaderButtonEventMap {
     [ESP_EVENTS.CLICKED]: CustomEvent<Record<string, never>>;
+}
+/** Events fired by `<esp-footer>`. */
+export interface EspalierFooterEventMap {
+    [ESP_EVENTS.FOOTER_LAYOUT_CHANGED]: CustomEvent<FooterLayoutChangedDetail>;
 }
 /** Events fired by `<esp-header>`. */
 export interface EspalierHeaderEventMap {

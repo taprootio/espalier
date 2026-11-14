@@ -20,6 +20,13 @@
 import type { EspalierTheme } from "./theme.js";
 /** The two color schemes a theme resolves for. */
 export type ThemeScheme = "light" | "dark";
+/** Optional instance-level scale preview settings; no DOM measurement is performed. */
+export interface ThemePropertyOptions {
+    /** Positive finite viewport width in CSS pixels. Invalid values use ordinary vw.
+     * Freezes only DS-generated viewport terms; rem still follows the HTML root.
+     */
+    viewportWidth?: number;
+}
 /**
  * Compute every CSS custom property for a resolved theme and scheme.
  *
@@ -38,5 +45,6 @@ export type ThemeScheme = "light" | "dark";
  *
  * @param theme A resolved theme.
  * @param scheme The scheme to compute, matching the theme it came from.
+ * @param options Optional virtual viewport for DS-generated scales only.
  */
-export declare function computeThemeProperties(theme: EspalierTheme, scheme: ThemeScheme): Record<string, string>;
+export declare function computeThemeProperties(theme: EspalierTheme, scheme: ThemeScheme, options?: ThemePropertyOptions): Record<string, string>;

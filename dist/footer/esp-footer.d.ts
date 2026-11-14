@@ -1,3 +1,5 @@
+import { type FooterPlacement, type FooterTextAlign, type FooterLayout, type FooterLayoutChangedDetail } from "../shared/footer-alignment.js";
+import { type FooterLogoSizing } from "../shared/footer-logo-geometry.js";
 import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import "./esp-footer-column.js";
@@ -18,6 +20,27 @@ import "./esp-footer-link-group.js";
  * Narrow tracks wrap long words mid-word. Above 48rem through 64rem, the
  * brand takes its own row. At 48rem and below, every column and bare group
  * stacks full width, spans have no effect, and compact brand tokens apply.
+ *
+ * Configure placement independently from text: `brand-block-align="start"`
+ * moves the lockup and its painted image to the top; `brand-inline-align-wrapped="center"`
+ * centers the brand in its own row; `inline-align-stacked="center"` centers
+ * stacked content. Start/end follow the writing direction. Unset inputs inherit
+ * this profile's footer defaults, then the previous wider profile's intent.
+ * With no authored intent, existing placement and inherited text are preserved.
+ * `text-align="auto"` follows current inline placement; `justify` is for prose
+ * paragraphs, while headings and menu labels follow inline placement.
+ *
+ * `brand-logo-sizing="natural"` removes the fixed-height whitespace around a
+ * width-capped logo. Loaded intrinsic proportions win; scheme-specific ratio
+ * hints reserve pending or failed images. Transparent padding in the asset is
+ * retained. Fixed sizing remains the default.
+ *
+ * Use the inherited `--esp-footer-current-*` context outputs for caller-owned
+ * paragraphs, CTA/social rows and custom brand layouts; see
+ * [footer reference](/components/footer/). Inputs use camelCase properties,
+ * for example `brandInlineAlignWrapped`; clearing one with undefined restores
+ * inheritance. Read `layout` or listen for `esp-layout-changed` when composing
+ * a responsive preview instead of repeating the footer's breakpoints.
  *
  * A field fills one layer above the surface it sits on.
  * Use `surface-layer="1|2|3|4"` to select the default painted layer.
@@ -218,6 +241,13 @@ import "./esp-footer-link-group.js";
  * @cssprop --esp-footer-background-blend-mode - Decorative layer blend mode. Defaults to `normal`.
  * @cssprop --esp-footer-content-max-width - Surface-alignment cap published by `esp-page`. Defaults to `100%`.
  * @cssprop --esp-footer-content-lead - Fraction of surplus placed before content (`0`, `0.5`, or `1`). Defaults to `0`.
+ * @fires {CustomEvent<FooterLayoutChangedDetail>} esp-layout-changed - The CSS-selected layout changed; detail.layout is wide, wrapped or stacked. Bubbles and crosses shadow roots.
+ * @cssprop --esp-footer-current-inline-align - Current logical inline placement for caller-owned content. Derived output, unset in the unauthored Default state; use a layout-specific fallback.
+ * @cssprop --esp-footer-current-block-align - Current logical block placement for caller-owned content. Derived output, unset in Default and always unset in the bottom region; use a layout-specific fallback.
+ * @cssprop --esp-footer-current-text-align - Current non-prose text alignment for caller-owned headings, labels and controls. Derived output; unset in Default so inherited text remains available.
+ * @cssprop --esp-footer-current-prose-align - Current paragraph alignment, including justify with an ordinary last line. Derived output; unset in Default so inherited text remains available.
+ * @cssprop --esp-footer-light-brand-logo-aspect-ratio - Pending or failed natural logo ratio in the light scheme; validated hint, then the generic ratio, then 3 / 1. Loaded intrinsic dimensions win.
+ * @cssprop --esp-footer-dark-brand-logo-aspect-ratio - Pending or failed natural logo ratio in the dark scheme; validated hint, then the generic ratio, then 3 / 1. Loaded intrinsic dimensions win.
  * @docPageTitle Footer
  * @docUrl /components/footer
  * @menuGroup Structure
@@ -225,6 +255,113 @@ import "./esp-footer-link-group.js";
  * @menuIcon layout
  */
 export declare class EspalierFooter extends EspalierElementBase {
+    /** Current CSS-selected content layout. Read-only; changes emit esp-layout-changed. */
+    get layout(): FooterLayout;
+    constructor();
+    /** Logical inline placement in the wide layout; unset inherits. */
+    get inlineAlign(): FooterPlacement | undefined;
+    set inlineAlign(value: FooterPlacement | undefined);
+    /** Logical inline placement in the wrapped layout; unset inherits. */
+    get inlineAlignWrapped(): FooterPlacement | undefined;
+    set inlineAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical inline placement in the stacked layout; unset inherits. */
+    get inlineAlignStacked(): FooterPlacement | undefined;
+    set inlineAlignStacked(value: FooterPlacement | undefined);
+    /** Logical block placement in the wide layout; unset inherits. */
+    get blockAlign(): FooterPlacement | undefined;
+    set blockAlign(value: FooterPlacement | undefined);
+    /** Logical block placement in the wrapped layout; unset inherits. */
+    get blockAlignWrapped(): FooterPlacement | undefined;
+    set blockAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical block placement in the stacked layout; unset inherits. */
+    get blockAlignStacked(): FooterPlacement | undefined;
+    set blockAlignStacked(value: FooterPlacement | undefined);
+    /** Text alignment in the wide layout; unset inherits. */
+    get textAlign(): FooterTextAlign | undefined;
+    set textAlign(value: FooterTextAlign | undefined);
+    /** Text alignment in the wrapped layout; unset inherits. */
+    get textAlignWrapped(): FooterTextAlign | undefined;
+    set textAlignWrapped(value: FooterTextAlign | undefined);
+    /** Text alignment in the stacked layout; unset inherits. */
+    get textAlignStacked(): FooterTextAlign | undefined;
+    set textAlignStacked(value: FooterTextAlign | undefined);
+    /** Logical inline placement in the wide layout; unset inherits. */
+    get brandInlineAlign(): FooterPlacement | undefined;
+    set brandInlineAlign(value: FooterPlacement | undefined);
+    /** Logical inline placement in the wrapped layout; unset inherits. */
+    get brandInlineAlignWrapped(): FooterPlacement | undefined;
+    set brandInlineAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical inline placement in the stacked layout; unset inherits. */
+    get brandInlineAlignStacked(): FooterPlacement | undefined;
+    set brandInlineAlignStacked(value: FooterPlacement | undefined);
+    /** Logical block placement in the wide layout; unset inherits. */
+    get brandBlockAlign(): FooterPlacement | undefined;
+    set brandBlockAlign(value: FooterPlacement | undefined);
+    /** Logical block placement in the wrapped layout; unset inherits. */
+    get brandBlockAlignWrapped(): FooterPlacement | undefined;
+    set brandBlockAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical block placement in the stacked layout; unset inherits. */
+    get brandBlockAlignStacked(): FooterPlacement | undefined;
+    set brandBlockAlignStacked(value: FooterPlacement | undefined);
+    /** Text alignment in the wide layout; unset inherits. */
+    get brandTextAlign(): FooterTextAlign | undefined;
+    set brandTextAlign(value: FooterTextAlign | undefined);
+    /** Text alignment in the wrapped layout; unset inherits. */
+    get brandTextAlignWrapped(): FooterTextAlign | undefined;
+    set brandTextAlignWrapped(value: FooterTextAlign | undefined);
+    /** Text alignment in the stacked layout; unset inherits. */
+    get brandTextAlignStacked(): FooterTextAlign | undefined;
+    set brandTextAlignStacked(value: FooterTextAlign | undefined);
+    /** Logical inline placement in the wide layout; unset inherits. */
+    get asideInlineAlign(): FooterPlacement | undefined;
+    set asideInlineAlign(value: FooterPlacement | undefined);
+    /** Logical inline placement in the wrapped layout; unset inherits. */
+    get asideInlineAlignWrapped(): FooterPlacement | undefined;
+    set asideInlineAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical inline placement in the stacked layout; unset inherits. */
+    get asideInlineAlignStacked(): FooterPlacement | undefined;
+    set asideInlineAlignStacked(value: FooterPlacement | undefined);
+    /** Logical block placement in the wide layout; unset inherits. */
+    get asideBlockAlign(): FooterPlacement | undefined;
+    set asideBlockAlign(value: FooterPlacement | undefined);
+    /** Logical block placement in the wrapped layout; unset inherits. */
+    get asideBlockAlignWrapped(): FooterPlacement | undefined;
+    set asideBlockAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical block placement in the stacked layout; unset inherits. */
+    get asideBlockAlignStacked(): FooterPlacement | undefined;
+    set asideBlockAlignStacked(value: FooterPlacement | undefined);
+    /** Text alignment in the wide layout; unset inherits. */
+    get asideTextAlign(): FooterTextAlign | undefined;
+    set asideTextAlign(value: FooterTextAlign | undefined);
+    /** Text alignment in the wrapped layout; unset inherits. */
+    get asideTextAlignWrapped(): FooterTextAlign | undefined;
+    set asideTextAlignWrapped(value: FooterTextAlign | undefined);
+    /** Text alignment in the stacked layout; unset inherits. */
+    get asideTextAlignStacked(): FooterTextAlign | undefined;
+    set asideTextAlignStacked(value: FooterTextAlign | undefined);
+    /** Logical inline placement in the wide layout; unset inherits. */
+    get bottomInlineAlign(): FooterPlacement | undefined;
+    set bottomInlineAlign(value: FooterPlacement | undefined);
+    /** Logical inline placement in the wrapped layout; unset inherits. */
+    get bottomInlineAlignWrapped(): FooterPlacement | undefined;
+    set bottomInlineAlignWrapped(value: FooterPlacement | undefined);
+    /** Logical inline placement in the stacked layout; unset inherits. */
+    get bottomInlineAlignStacked(): FooterPlacement | undefined;
+    set bottomInlineAlignStacked(value: FooterPlacement | undefined);
+    /** Text alignment in the wide layout; unset inherits. */
+    get bottomTextAlign(): FooterTextAlign | undefined;
+    set bottomTextAlign(value: FooterTextAlign | undefined);
+    /** Text alignment in the wrapped layout; unset inherits. */
+    get bottomTextAlignWrapped(): FooterTextAlign | undefined;
+    set bottomTextAlignWrapped(value: FooterTextAlign | undefined);
+    /** Text alignment in the stacked layout; unset inherits. */
+    get bottomTextAlignStacked(): FooterTextAlign | undefined;
+    set bottomTextAlignStacked(value: FooterTextAlign | undefined);
+    /** Configured logo box sizing. Fixed preserves its scaled height; natural fits its constrained artwork ratio.
+     * @default fixed
+     */
+    get brandLogoSizing(): FooterLogoSizing;
+    set brandLogoSizing(value: FooterLogoSizing);
     /** Configured brand text used when the `brand` slot is empty. */
     brandText: string;
     /** Configured brand logo URL used when the `brand` slot is empty. */
@@ -285,5 +422,8 @@ export declare class EspalierFooter extends EspalierElementBase {
 declare global {
     interface HTMLElementTagNameMap {
         "esp-footer": EspalierFooter;
+    }
+    interface HTMLElementEventMap {
+        "esp-layout-changed": CustomEvent<FooterLayoutChangedDetail>;
     }
 }

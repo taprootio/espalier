@@ -1,3 +1,12 @@
+# 7.1.0
+
+Configure footer placement and text independently, with faithful themed previews.
+
+- Align the brand, link columns, aside and utility content across wide, wrapped and stacked footer layouts, with sparse overrides and independent text alignment.
+- Opt into natural logo boxes to remove space left by a width-capped image while preserving existing fixed sizing by default.
+- Consume public alignment context in custom footer content and read the current layout through a read-only property and change event.
+- Preview theme scales at a virtual viewport width while preserving custom theme ratios, fonts and document-root font semantics.
+
 # 7.0.0
 
 Footers share equal tracks with configurable region spans and optional larger branding in the stacked layout.
