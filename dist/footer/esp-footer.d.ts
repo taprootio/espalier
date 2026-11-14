@@ -2,15 +2,22 @@ import { type PropertyValues } from "lit";
 import { EspalierElementBase } from "../shared/esp-element-base.js";
 import "./esp-footer-column.js";
 import "./esp-footer-link-group.js";
-export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
 /**
  * A responsive site footer with structured spaces for branding, feature
  * artwork, link groups, supporting actions, and legal or utility content.
  * Its background remains full-bleed while its content automatically aligns
  * to the surface of a containing [`<esp-page>`](/components/page/).
  * Use bare [`<esp-footer-link-group>`](/components/footer/link-group/) children
- * when navigation groups should auto-flow independently through the grid.
- * `columns` is a maximum: the grid always drops columns when they no longer fit.
+ * when each group should occupy one track. Only link groups and footer columns
+ * belong in the default slot; put utility content in `bottom`.
+ *
+ * Above 64rem of the `.content` content box, brand, columns and aside share
+ * one row of equal tracks. `brand-span` (1–3), column `span` (1–2), and
+ * `aside-span` (1–2) default to 1. Every span adds a track; a region spanning
+ * two tracks also includes the gap between them. There is no total-track cap.
+ * Narrow tracks wrap long words mid-word. Above 48rem through 64rem, the
+ * brand takes its own row. At 48rem and below, every column and bare group
+ * stacks full width, spans have no effect, and compact brand tokens apply.
  *
  * A field fills one layer above the surface it sits on.
  * Use `surface-layer="1|2|3|4"` to select the default painted layer.
@@ -24,7 +31,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  *   brand-alt="Espalier logo"
  *   light-brand-color="oklch(0.35 0.12 216)"
  *   dark-brand-color="oklch(0.9 0.08 216)"
- *   columns="3">
+ *   brand-span="2">
  *   <esp-footer-link-group heading="Explore">
  *     <a href="/components">Components</a>
  *     <a href="/api">API</a>
@@ -39,14 +46,12 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * ```
  *
  * For creator-controlled columns, wrap each ordered stack of groups in
- * [`<esp-footer-column>`](/components/footer/column/). Each wrapper is one grid
- * item at wide sizes; below the footer's compact container breakpoint, the
- * columns become full-width rows in their slotted order. `columns` remains the
- * maximum number of grid items per row:
+ * [`<esp-footer-column>`](/components/footer/column/). Each wrapper keeps its groups
+ * together as one region. Set `span="2"` to give that region two tracks:
  *
  * ```html
- * <esp-footer columns="3">
- *   <esp-footer-column>
+ * <esp-footer>
+ *   <esp-footer-column span="2">
  *     <esp-footer-link-group heading="Product">
  *       <a href="/features">Features</a>
  *       <a href="/pricing">Pricing</a>
@@ -71,7 +76,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * edge-to-edge artwork:
  *
  * ```html
- * <esp-footer columns="4">
+ * <esp-footer>
  *   <picture slot="media">
  *     <source media="(prefers-color-scheme: dark)" srcset="/assets/canvas-bg-dark.jpg" />
  *     <img
@@ -89,12 +94,15 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * ```
  *
  * Decorative art uses an image layer independent of the base color. The same
- * API supports a repeating landscape band or one large cover image:
+ * API supports a repeating landscape band or one large cover image. Choose
+ * foreground ink for the custom background, and add a scrim when bright
+ * artwork would otherwise reduce text contrast:
  *
  * ```html
  * <style>
  *   esp-footer.mountains {
  *     --esp-footer-background: oklch(0.48 0.12 145);
+ *     --esp-footer-heading-color: white;
  *     --esp-footer-background-image-opacity: 0.55;
  *     --esp-footer-background-image:
  *       linear-gradient(to bottom, transparent 8rem, oklch(0.48 0.12 145)),
@@ -126,7 +134,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * ```html
  * <esp-page align="center" style="--esp-page-main-max-width: 36rem;">
  *   <main>Surface-aligned page content</main>
- *   <esp-footer slot="footer" brand-text="Aligned Studio" columns="3">
+ *   <esp-footer slot="footer" brand-text="Aligned Studio">
  *     <esp-footer-link-group heading="Explore">
  *       <a href="/work">Work</a>
  *       <a href="/about">About</a>
@@ -166,7 +174,7 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * </esp-footer>
  * ```
  *
- * @slot - Bare `esp-footer-link-group` children for automatic flow, or
+ * @slot - Only bare `esp-footer-link-group` children for one track each, or
  * `esp-footer-column` children for creator-controlled group stacks.
  * @slot aside - Supporting content such as a newsletter, call to action,
  * contact details, social links, or locale controls.
@@ -176,9 +184,8 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * @csspart background - The independent decorative image layer.
  * @csspart content - The surface-aligned content wrapper.
  * @csspart media - The media region spanning the aligned content well.
- * @csspart primary - The grid containing brand, link groups, and aside content.
+ * @csspart primary - The row containing brand, link columns, and aside content.
  * @csspart brand - The brand region.
- * @csspart groups - The link-group grid.
  * @csspart aside - The supporting-content region.
  * @csspart bottom - The final legal/utility region.
  * @cssprop --esp-footer-background - Base footer color. Defaults to `var(--esp-color-layer-2)`.
@@ -193,12 +200,15 @@ export type FooterColumns = "auto" | "1" | "2" | "3" | "4" | "5" | "6";
  * @cssprop --esp-footer-padding-inline - Content inline padding. Defaults to `var(--esp-size-padding-page)`.
  * @cssprop --esp-footer-section-gap - Gap between media, primary, and bottom regions. Defaults to `var(--esp-size-big)`.
  * @cssprop --esp-footer-column-gap - Gap between link-group columns and major primary regions. Defaults to `var(--esp-size-padding-page)`.
- * @cssprop --esp-footer-row-gap - Vertical gap between footer grid rows and
+ * @cssprop --esp-footer-row-gap - Vertical gap between footer rows and
  * link groups stacked in `esp-footer-column`. Defaults to `var(--esp-size-big)`.
- * @cssprop --esp-footer-link-group-min-width - Intrinsic minimum link-group column width. Defaults to `10rem`.
  * @cssprop --esp-footer-link-group-gap - Space between a link-group heading and its links. Defaults to `var(--esp-size-small)`.
  * @cssprop --esp-footer-brand-logo-size - Configured logo block size. Defaults to `3rem`.
  * @cssprop --esp-footer-brand-logo-max-width - Configured logo maximum inline size. Defaults to `12rem`.
+ * @cssprop --esp-footer-brand-text-size - Configured brand text size. Defaults to `var(--esp-type-medium)`.
+ * @cssprop --esp-footer-brand-logo-size-compact - Configured logo block size at 48rem and below. Defaults to `var(--esp-footer-brand-logo-size, 3rem)`.
+ * @cssprop --esp-footer-brand-logo-max-width-compact - Configured logo maximum inline size at 48rem and below. Defaults to `var(--esp-footer-brand-logo-max-width, 12rem)`.
+ * @cssprop --esp-footer-brand-text-size-compact - Configured brand text size at 48rem and below. Defaults to `var(--esp-footer-brand-text-size, var(--esp-type-medium))`.
  * @cssprop --esp-footer-brand-logo-aspect-ratio - The ratio the configured logo's box is reserved at while the image is still loading or has failed, so alt text never decides the brand region's width. A logo that loads is always laid out at its own ratio, whatever this is set to. Defaults to `3 / 1`.
  * @cssprop --esp-footer-background-image - Decorative image or gradient layer. Defaults to `none`.
  * @cssprop --esp-footer-background-image-opacity - Decorative layer opacity. Defaults to `1`.
@@ -251,11 +261,16 @@ export declare class EspalierFooter extends EspalierElementBase {
      * `--esp-footer-heading-color`.
      */
     darkBrandColor: string;
-    /**
-     * Maximum number of link-group columns. Numeric values cap the wide layout;
-     * the intrinsic grid still renders fewer columns when space is limited.
+    /** Tracks occupied by the brand (1–3); invalid values read as 1. Ignored when stacked.
+     * @default 1
      */
-    columns: FooterColumns;
+    get brandSpan(): number;
+    set brandSpan(value: number);
+    /** Tracks occupied by the aside (1–2); invalid values read as 1. Ignored when stacked.
+     * @default 1
+     */
+    get asideSpan(): number;
+    set asideSpan(value: number);
     /**
      * Opt out of the `esp-page` surface-alignment contract and allow footer
      * content to use the full bar width. The background is always full-bleed.
@@ -263,7 +278,6 @@ export declare class EspalierFooter extends EspalierElementBase {
     fullBleedContent: boolean;
     /** Optional accessible label for pages containing multiple footer landmarks. */
     landmarkLabel: string;
-    protected willUpdate(changedProperties: PropertyValues): void;
     protected firstUpdated(changedProperties: PropertyValues): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

@@ -1,3 +1,21 @@
+# 7.0.0
+
+Footers share equal tracks with configurable region spans and optional larger branding in the stacked layout.
+
+## Breaking
+
+- Removed the `esp-footer` `columns` attribute; choose widths with `brand-span` (1–3), `aside-span` (1–2), and `esp-footer-column` `span` (1–2).
+- Removed the `groups` shadow part; link columns and bare link groups now participate directly in the shared row.
+- Removed `--esp-footer-link-group-min-width`; track widths follow the available content width and region spans.
+- Removed the exported `FooterColumns` type.
+- Spans replace the nested layout: every span adds an equal track, with no total-track cap. Omitted or invalid spans become 1. Above 64rem of footer content-box width all regions share one row; above 48rem through 64rem the brand occupies its own full-width row. Long words can wrap mid-word within their region.
+- At 48rem of footer content-box width and below, bare link groups now stack with every other region at full width, ignoring spans.
+
+## Added
+
+- Decorative footer examples keep brand ink readable over their artwork in both light and dark schemes.
+- Set `--esp-footer-brand-text-size` to size configured brand text. In the stacked tier only, `--esp-footer-brand-logo-size-compact`, `--esp-footer-brand-logo-max-width-compact`, and `--esp-footer-brand-text-size-compact` can enlarge the brand; each falls back to its wide token and existing default.
+
 # 6.15.1
 
 Header controls stay in place while a pointer click takes over from keyboard focus.

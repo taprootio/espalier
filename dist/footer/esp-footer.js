@@ -1,39 +1,47 @@
-var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnPropertyDescriptor(e,a):r,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(i,e,a,r);else for(var p=i.length-1;p>=0;p--)(l=i[p])&&(d=(s<3?l(d):s>3?l(e,a,d):l(e,a))||d);return s>3&&d&&Object.defineProperty(e,a,d),d};import{paintedSurface as b}from"../shared/surface-layer.js";import{css as v,html as y,nothing as _}from"lit";import{customElement as x,property as n,state as k}from"lit/decorators.js";import{classMap as C}from"lit/directives/class-map.js";import{styleMap as z}from"lit/directives/style-map.js";import{CONFIGURED_BRAND_LOGO_ASPECT_RATIO as B,configuredBrandLogoGeometry as S,renderConfiguredBrand as L,resolveConfiguredBrand as w}from"../shared/configured-brand.js";import{EspalierElementBase as g}from"../shared/esp-element-base.js";import{slotHasContent as h}from"../shared/slot-content.js";import{renderVisualOverlay as $,visualOverlayStyles as O}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m=new Set(["auto","1","2","3","4","5","6"]),c={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1},T={fromAttribute(i){return i&&m.has(i)?i:"auto"},toAttribute(i){return m.has(i)?i:"auto"}};let o=class extends g{constructor(){super(...arguments),this.slotContent={...c},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.columns="auto",this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const a=this.slotRegion(e.target);if(!a)return;const r=h(e.target);this.slotContent[a]!==r&&(this.slotContent={...this.slotContent,[a]:r})}}willUpdate(e){super.willUpdate(e),e.has("columns")&&!m.has(this.columns)&&(this.columns="auto")}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const a={...c};for(const r of this.shadowRoot?.querySelectorAll("slot")??[]){const s=this.slotRegion(r);s&&(a[s]=h(r))}Object.entries(a).some(([r,s])=>this.slotContent[r]!==s)&&(this.slotContent=a)}render(){const{media:e,brand:a,groups:r,aside:s,bottom:d}=this.slotContent,l=w({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),p=a||!!(l.brandLogo||this.brandText),u=p||r||s,f={primary:!0,"has-brand":p,"has-groups":r,"has-aside":s};return y`
+var r=function(p,e,o,a){var i=arguments.length,s=i<3?e:a===null?a=Object.getOwnPropertyDescriptor(e,o):a,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(p,e,o,a);else for(var l=p.length-1;l>=0;l--)(d=p[l])&&(s=(i<3?d(s):i>3?d(e,o,s):d(e,o))||s);return i>3&&s&&Object.defineProperty(e,o,s),s};import{paintedSurface as v}from"../shared/surface-layer.js";import{css as u,html as y,nothing as k}from"lit";import{customElement as S,property as n,state as x}from"lit/decorators.js";import{styleMap as c}from"lit/directives/style-map.js";import{CONFIGURED_BRAND_LOGO_ASPECT_RATIO as z,configuredBrandLogoGeometry as B,renderConfiguredBrand as C,resolveConfiguredBrand as _}from"../shared/configured-brand.js";import{syncNormalizedAttribute as f}from"../shared/attribute-helpers.js";import{EspalierElementBase as b}from"../shared/esp-element-base.js";import{slotHasContent as g}from"../shared/slot-content.js";import{renderVisualOverlay as w,visualOverlayStyles as L}from"../shared/visual-overlay.js";import"./esp-footer-column.js";import"./esp-footer-link-group.js";const m={media:!1,brand:!1,groups:!1,aside:!1,bottom:!1};let t=class extends b{constructor(){super(...arguments),this.slotContent={...m},this.brandText="",this.brandLogo="",this.lightBrandLogo="",this.darkBrandLogo="",this.brandHref="",this.brandAlt="",this.brandColor="",this.lightBrandColor="",this.darkBrandColor="",this.brandSpanBacker=1,this.asideSpanBacker=1,this.fullBleedContent=!1,this.landmarkLabel="",this.handleSlotChange=e=>{if(!(e.target instanceof HTMLSlotElement))return;const o=this.slotRegion(e.target);if(!o)return;const a=g(e.target);this.slotContent[o]!==a&&(this.slotContent={...this.slotContent,[o]:a})}}get brandSpan(){return this.brandSpanBacker}set brandSpan(e){const o=this.brandSpanBacker;this.brandSpanBacker=Number.isInteger(e)&&e>=1&&e<=3?e:1,this.requestUpdate("brandSpan",this.hasAttribute("brand-span")?o:void 0),f(this,"brand-span",String(this.brandSpanBacker))}get asideSpan(){return this.asideSpanBacker}set asideSpan(e){const o=this.asideSpanBacker;this.asideSpanBacker=Number.isInteger(e)&&e>=1&&e<=2?e:1,this.requestUpdate("asideSpan",this.hasAttribute("aside-span")?o:void 0),f(this,"aside-span",String(this.asideSpanBacker))}slotRegion(e){return e.name?["media","brand","aside","bottom"].includes(e.name)?e.name:null:"groups"}firstUpdated(e){super.firstUpdated(e);const o={...m};for(const a of this.shadowRoot?.querySelectorAll("slot")??[]){const i=this.slotRegion(a);i&&(o[i]=g(a))}Object.entries(o).some(([a,i])=>this.slotContent[a]!==i)&&(this.slotContent=o)}render(){const{media:e,brand:o,groups:a,aside:i,bottom:s}=this.slotContent,d=_({scheme:this.scheme,brandLogo:this.brandLogo,brandColor:this.brandColor,lightBrandLogo:this.lightBrandLogo,darkBrandLogo:this.darkBrandLogo,lightBrandColor:this.lightBrandColor,darkBrandColor:this.darkBrandColor}),l=o||!!(d.brandLogo||this.brandText),h=l||a||i;return y`
       <footer
         part="footer"
-        aria-label=${this.landmarkLabel||_}
-        style=${z({"--_esp-footer-brand-color":l.brandColor||null})}
+        aria-label=${this.landmarkLabel||k}
+        style=${c({"--_esp-footer-brand-color":d.brandColor||null})}
       >
-        ${$({className:"background",rootPart:"background"})}
+        ${w({className:"background",rootPart:"background"})}
         <div part="content" class="content-frame">
           <div class="content">
             <div part="media" class="media" ?hidden=${!e}>
               <slot name="media" @slotchange=${this.handleSlotChange}></slot>
             </div>
 
-            <div part="primary" class=${C(f)} ?hidden=${!u}>
-              <div part="brand" class="brand" ?hidden=${!p}>
+            <div part="primary" class="primary" ?hidden=${!h}>
+              <div
+                part="brand"
+                class="brand"
+                style=${c({"--_esp-footer-span":String(this.brandSpan)})}
+                ?hidden=${!l}
+              >
                 <slot name="brand" @slotchange=${this.handleSlotChange}
-                  >${L({brandLogo:l.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
+                  >${C({brandLogo:d.brandLogo,brandText:this.brandText,brandHref:this.brandHref,brandAlt:this.brandAlt})}</slot
                 >
               </div>
 
-              <div part="groups" class="groups" ?hidden=${!r}>
-                <slot @slotchange=${this.handleSlotChange}></slot>
-              </div>
+              <slot @slotchange=${this.handleSlotChange}></slot>
 
-              <div part="aside" class="aside" ?hidden=${!s}>
+              <div
+                part="aside"
+                class="aside"
+                style=${c({"--_esp-footer-span":String(this.asideSpan)})}
+                ?hidden=${!i}
+              >
                 <slot name="aside" @slotchange=${this.handleSlotChange}></slot>
               </div>
             </div>
 
-            <div part="bottom" class="bottom" ?hidden=${!d}>
+            <div part="bottom" class="bottom" ?hidden=${!s}>
               <slot name="bottom" @slotchange=${this.handleSlotChange}></slot>
             </div>
           </div>
         </div>
       </footer>
-    `}};o.styles=[...g.styles,b(2),S,v`
+    `}};t.styles=[...b.styles,v(2),B,u`
       :host {
         display: block;
         min-inline-size: 0;
@@ -93,7 +101,6 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
       .media,
       .primary,
       .brand,
-      .groups,
       .aside,
       .bottom {
         min-inline-size: 0;
@@ -107,107 +114,37 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
         max-inline-size: 100%;
       }
 
+      .primary > slot {
+        display: contents;
+      }
+
       .primary {
-        display: grid;
-        grid-template-columns: minmax(10rem, 1fr) minmax(0, 3fr) minmax(10rem, 1fr);
-        grid-template-areas: "brand groups aside";
-        gap: var(--esp-footer-row-gap, var(--esp-size-big))
-          var(--esp-footer-column-gap, var(--esp-size-padding-page));
+        --_esp-footer-column-gap: var(--esp-footer-column-gap, var(--esp-size-padding-page));
+
+        display: flex;
+        flex-wrap: nowrap;
+        gap: var(--esp-footer-row-gap, var(--esp-size-big)) var(--_esp-footer-column-gap);
         align-items: start;
       }
 
-      .primary.has-brand.has-groups:not(.has-aside),
-      .primary.has-groups.has-aside:not(.has-brand) {
-        grid-template-columns: minmax(10rem, 1fr) minmax(0, 3fr);
+      .brand,
+      .aside,
+      .primary ::slotted(esp-footer-column),
+      .primary ::slotted(esp-footer-link-group) {
+        --_esp-footer-span: 1;
+
+        
+        flex: var(--_esp-footer-span) 1
+          calc((var(--_esp-footer-span) - 1) * var(--_esp-footer-column-gap));
+        min-inline-size: 0;
       }
 
-      .primary.has-brand.has-groups:not(.has-aside) {
-        grid-template-areas: "brand groups";
-      }
-
-      .primary.has-groups.has-aside:not(.has-brand) {
-        grid-template-areas: "groups aside";
-      }
-
-      .primary.has-brand.has-aside:not(.has-groups) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-areas: "brand aside";
-      }
-
-      .primary.has-brand:not(.has-groups):not(.has-aside) {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "brand";
-      }
-
-      .primary.has-groups:not(.has-brand):not(.has-aside) {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "groups";
-      }
-
-      .primary.has-aside:not(.has-brand):not(.has-groups) {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "aside";
-      }
-
-      .brand {
-        grid-area: brand;
-      }
-
-      .groups {
-        --_esp-footer-column-gap: var(--esp-footer-column-gap, var(--esp-size-padding-page));
-        --_esp-footer-column-min: var(--esp-footer-link-group-min-width, 10rem);
-        --_esp-footer-column-basis: var(--_esp-footer-column-min);
-
-        grid-area: groups;
-        display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(min(100%, var(--_esp-footer-column-basis)), 1fr)
-        );
-        gap: var(--esp-footer-row-gap, var(--esp-size-big)) var(--_esp-footer-column-gap);
-      }
-
-      :host([columns="1"]) .groups {
-        --_esp-footer-column-basis: 100%;
-      }
-
-      :host([columns="2"]) .groups {
-        --_esp-footer-column-basis: max(
-          var(--_esp-footer-column-min),
-          calc(50% - var(--_esp-footer-column-gap))
-        );
-      }
-
-      :host([columns="3"]) .groups {
-        --_esp-footer-column-basis: max(
-          var(--_esp-footer-column-min),
-          calc(33.3333% - var(--_esp-footer-column-gap))
-        );
-      }
-
-      :host([columns="4"]) .groups {
-        --_esp-footer-column-basis: max(
-          var(--_esp-footer-column-min),
-          calc(25% - var(--_esp-footer-column-gap))
-        );
-      }
-
-      :host([columns="5"]) .groups {
-        --_esp-footer-column-basis: max(
-          var(--_esp-footer-column-min),
-          calc(20% - var(--_esp-footer-column-gap))
-        );
-      }
-
-      :host([columns="6"]) .groups {
-        --_esp-footer-column-basis: max(
-          var(--_esp-footer-column-min),
-          calc(16.6667% - var(--_esp-footer-column-gap))
-        );
+      .primary ::slotted(esp-footer-column[span="2"]) {
+        --_esp-footer-span: 2;
       }
 
       .aside {
-        grid-area: aside;
+        overflow-wrap: anywhere;
       }
 
       .configured-brand {
@@ -235,7 +172,7 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
             )
           )
         );
-        font-size: var(--esp-type-medium);
+        font-size: var(--esp-footer-brand-text-size, var(--esp-type-medium));
         font-weight: var(--esp-font-weight-brand, var(--esp-font-weight-headings));
         line-height: 1.1;
         overflow-wrap: anywhere;
@@ -251,14 +188,17 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
 
       a.configured-brand:focus-visible {
         border-radius: var(--esp-size-border-radius);
-        outline: var(--esp-footer-focus-outline, 2px solid var(--esp-footer-link-color, var(--esp-color-link)));
+        outline: var(
+          --esp-footer-focus-outline,
+          2px solid var(--esp-footer-link-color, var(--esp-color-link))
+        );
         outline-offset: 3px;
       }
 
       .brand-logo {
         
         aspect-ratio: auto
-          var(--esp-footer-brand-logo-aspect-ratio, ${B});
+          var(--esp-footer-brand-logo-aspect-ratio, ${z});
         display: block;
         inline-size: auto;
         max-inline-size: min(var(--esp-footer-brand-logo-max-width, 12rem), 100%);
@@ -270,56 +210,43 @@ var t=function(i,e,a,r){var s=arguments.length,d=s<3?e:r===null?r=Object.getOwnP
         min-inline-size: 0;
       }
 
-      @container esp-footer (max-width: 48rem) {
-        .groups ::slotted(esp-footer-column) {
-          grid-column: 1 / -1;
+      @container esp-footer (max-width: 64rem) {
+        .primary {
+          flex-wrap: wrap;
         }
 
-        .primary,
-        .primary.has-brand.has-groups:not(.has-aside),
-        .primary.has-groups.has-aside:not(.has-brand),
-        .primary.has-brand.has-aside:not(.has-groups),
-        .primary.has-brand:not(.has-groups):not(.has-aside),
-        .primary.has-groups:not(.has-brand):not(.has-aside),
-        .primary.has-aside:not(.has-brand):not(.has-groups) {
-          grid-template-columns: minmax(0, 1fr);
-        }
-
-        .primary.has-brand.has-groups.has-aside {
-          grid-template-areas:
-            "brand"
-            "groups"
-            "aside";
-        }
-
-        .primary.has-brand.has-groups:not(.has-aside) {
-          grid-template-areas:
-            "brand"
-            "groups";
-        }
-
-        .primary.has-groups.has-aside:not(.has-brand) {
-          grid-template-areas:
-            "groups"
-            "aside";
-        }
-
-        .primary.has-brand.has-aside:not(.has-groups) {
-          grid-template-areas:
-            "brand"
-            "aside";
-        }
-
-        .primary.has-brand:not(.has-groups):not(.has-aside) {
-          grid-template-areas: "brand";
-        }
-
-        .primary.has-groups:not(.has-brand):not(.has-aside) {
-          grid-template-areas: "groups";
-        }
-
-        .primary.has-aside:not(.has-brand):not(.has-groups) {
-          grid-template-areas: "aside";
+        .brand {
+          flex: 1 1 100%;
         }
       }
-    `,O],t([k()],o.prototype,"slotContent",void 0),t([n({attribute:"brand-text",type:String})],o.prototype,"brandText",void 0),t([n({attribute:"brand-logo",type:String})],o.prototype,"brandLogo",void 0),t([n({attribute:"light-brand-logo",type:String})],o.prototype,"lightBrandLogo",void 0),t([n({attribute:"dark-brand-logo",type:String})],o.prototype,"darkBrandLogo",void 0),t([n({attribute:"brand-href",type:String})],o.prototype,"brandHref",void 0),t([n({attribute:"brand-alt",type:String})],o.prototype,"brandAlt",void 0),t([n({attribute:"brand-color",type:String})],o.prototype,"brandColor",void 0),t([n({attribute:"light-brand-color",type:String})],o.prototype,"lightBrandColor",void 0),t([n({attribute:"dark-brand-color",type:String})],o.prototype,"darkBrandColor",void 0),t([n({converter:T,reflect:!0})],o.prototype,"columns",void 0),t([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],o.prototype,"fullBleedContent",void 0),t([n({attribute:"landmark-label",type:String})],o.prototype,"landmarkLabel",void 0),o=t([x("esp-footer")],o);export{o as EspalierFooter};
+
+      @container esp-footer (max-width: 48rem) {
+        .brand,
+        .aside,
+        .primary ::slotted(esp-footer-column),
+        .primary ::slotted(esp-footer-link-group) {
+          flex: 1 1 100%;
+        }
+
+        .configured-brand {
+          font-size: var(
+            --esp-footer-brand-text-size-compact,
+            var(--esp-footer-brand-text-size, var(--esp-type-medium))
+          );
+        }
+
+        .brand-logo {
+          block-size: var(
+            --esp-footer-brand-logo-size-compact,
+            var(--esp-footer-brand-logo-size, 3rem)
+          );
+          max-inline-size: min(
+            var(
+              --esp-footer-brand-logo-max-width-compact,
+              var(--esp-footer-brand-logo-max-width, 12rem)
+            ),
+            100%
+          );
+        }
+      }
+    `,L],r([x()],t.prototype,"slotContent",void 0),r([n({attribute:"brand-text",type:String})],t.prototype,"brandText",void 0),r([n({attribute:"brand-logo",type:String})],t.prototype,"brandLogo",void 0),r([n({attribute:"light-brand-logo",type:String})],t.prototype,"lightBrandLogo",void 0),r([n({attribute:"dark-brand-logo",type:String})],t.prototype,"darkBrandLogo",void 0),r([n({attribute:"brand-href",type:String})],t.prototype,"brandHref",void 0),r([n({attribute:"brand-alt",type:String})],t.prototype,"brandAlt",void 0),r([n({attribute:"brand-color",type:String})],t.prototype,"brandColor",void 0),r([n({attribute:"light-brand-color",type:String})],t.prototype,"lightBrandColor",void 0),r([n({attribute:"dark-brand-color",type:String})],t.prototype,"darkBrandColor",void 0),r([n({attribute:"brand-span",type:Number,reflect:!0})],t.prototype,"brandSpan",null),r([n({attribute:"aside-span",type:Number,reflect:!0})],t.prototype,"asideSpan",null),r([n({attribute:"full-bleed-content",type:Boolean,reflect:!0})],t.prototype,"fullBleedContent",void 0),r([n({attribute:"landmark-label",type:String})],t.prototype,"landmarkLabel",void 0),t=r([S("esp-footer")],t);export{t as EspalierFooter};

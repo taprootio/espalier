@@ -650,8 +650,24 @@
       "description": "Configured logo maximum inline size. Defaults to `12rem`."
     },
     {
+      "name": "--esp-footer-brand-logo-max-width-compact",
+      "description": "Configured logo maximum inline size at 48rem and below. Defaults to `var(--esp-footer-brand-logo-max-width, 12rem)`."
+    },
+    {
       "name": "--esp-footer-brand-logo-size",
       "description": "Configured logo block size. Defaults to `3rem`."
+    },
+    {
+      "name": "--esp-footer-brand-logo-size-compact",
+      "description": "Configured logo block size at 48rem and below. Defaults to `var(--esp-footer-brand-logo-size, 3rem)`."
+    },
+    {
+      "name": "--esp-footer-brand-text-size",
+      "description": "Configured brand text size. Defaults to `var(--esp-type-medium)`."
+    },
+    {
+      "name": "--esp-footer-brand-text-size-compact",
+      "description": "Configured brand text size at 48rem and below. Defaults to `var(--esp-footer-brand-text-size, var(--esp-type-medium))`."
     },
     {
       "name": "--esp-footer-color",
@@ -686,10 +702,6 @@
       "description": "Space between a link-group heading and its links. Defaults to `var(--esp-size-small)`."
     },
     {
-      "name": "--esp-footer-link-group-min-width",
-      "description": "Intrinsic minimum link-group column width. Defaults to `10rem`."
-    },
-    {
       "name": "--esp-footer-link-hover-bg",
       "description": "Hovered link background. Defaults to `var(--esp-color-link-hover-bg)`."
     },
@@ -707,7 +719,7 @@
     },
     {
       "name": "--esp-footer-row-gap",
-      "description": "Vertical gap between footer grid rows and link groups stacked in `esp-footer-column`. Defaults to `var(--esp-size-big)`."
+      "description": "Vertical gap between footer rows and link groups stacked in `esp-footer-column`. Defaults to `var(--esp-size-big)`."
     },
     {
       "name": "--esp-footer-section-gap",

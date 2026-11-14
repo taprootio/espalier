@@ -1,13 +1,13 @@
-var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnPropertyDescriptor(o,r):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(t,o,r,n);else for(var a=t.length-1;a>=0;a--)(l=t[a])&&(e=(s<3?l(e):s>3?l(o,r,e):l(o,r))||e);return s>3&&e&&Object.defineProperty(o,r,e),e};import{css as h,html as d,nothing as p}from"lit";import{customElement as g,property as u}from"lit/decorators.js";import{EspalierElementBase as c}from"../shared/esp-element-base.js";const v="esp-footer-link-group-heading";let i=class extends c{constructor(){super(...arguments),this.heading=""}render(){return d`
+var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnPropertyDescriptor(o,r):n,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")e=Reflect.decorate(t,o,r,n);else for(var a=t.length-1;a>=0;a--)(l=t[a])&&(e=(s<3?l(e):s>3?l(o,r,e):l(o,r))||e);return s>3&&e&&Object.defineProperty(o,r,e),e};import{css as h,html as d,nothing as p}from"lit";import{customElement as g,property as u}from"lit/decorators.js";import{EspalierElementBase as v}from"../shared/esp-element-base.js";const c="esp-footer-link-group-heading";let i=class extends v{constructor(){super(...arguments),this.heading=""}render(){return d`
       <nav
         part="nav"
-        aria-labelledby=${this.heading?v:p}
+        aria-labelledby=${this.heading?c:p}
         aria-label=${this.heading?p:"Footer links"}
       >
-        ${this.heading?d`<h2 part="heading" id=${v}>${this.heading}</h2>`:p}
+        ${this.heading?d`<h2 part="heading" id=${c}>${this.heading}</h2>`:p}
         <div part="links" class="links"><slot></slot></div>
       </nav>
-    `}};i.styles=[...c.styles,h`
+    `}};i.styles=[...v.styles,h`
       :host {
         display: block;
         min-inline-size: 0;
@@ -33,6 +33,7 @@ var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnP
         font-size: var(--esp-type-normal);
         font-weight: var(--esp-font-weight-headings);
         line-height: 1.25;
+        overflow-wrap: anywhere;
       }
 
       .links {
@@ -57,7 +58,10 @@ var f=function(t,o,r,n){var s=arguments.length,e=s<3?o:n===null?n=Object.getOwnP
 
       ::slotted(a:focus-visible) {
         border-radius: var(--esp-size-border-radius);
-        outline: var(--esp-footer-focus-outline, 2px solid var(--esp-footer-link-color, var(--esp-color-link)));
+        outline: var(
+          --esp-footer-focus-outline,
+          2px solid var(--esp-footer-link-color, var(--esp-color-link))
+        );
         outline-offset: 3px;
       }
     `],f([u({type:String})],i.prototype,"heading",void 0),i=f([g("esp-footer-link-group")],i);export{i as EspalierFooterLinkGroup};
