@@ -1,4 +1,4 @@
-var i=function(h,t,r,o){var l=arguments.length,n=l<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,r):o,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(h,t,r,o);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(n=(l<3?d(n):l>3?d(t,r,n):d(t,r))||n);return l>3&&n&&Object.defineProperty(t,r,n),n};import{css as g,html as c,nothing as s}from"lit";import{customElement as v,eventOptions as y,property as a,state as w}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as x}from"../shared/events.js";import{ref as T}from"lit/directives/ref.js";import{getIconHrefForHost as k}from"../shared/intent-values.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as S}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,newTabSuffix as C,renderNewTabCue as z}from"../shared/new-tab-cue.js";import{srOnly as N}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as B}from"./action-state-lightness.js";const m=g`var(--esp-button-padding, var(--_esp-button-default-padding, var(--esp-size-padding)))`,_=c`<svg
+var i=function(h,t,r,o){var l=arguments.length,n=l<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,r):o,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")n=Reflect.decorate(h,t,r,o);else for(var p=h.length-1;p>=0;p--)(d=h[p])&&(n=(l<3?d(n):l>3?d(t,r,n):d(t,r))||n);return l>3&&n&&Object.defineProperty(t,r,n),n};import{css as g,html as c,nothing as s}from"lit";import{customElement as v,eventOptions as y,property as a,state as w}from"lit/decorators.js";import{classMap as b}from"lit/directives/class-map.js";import{EspalierElementBase as f}from"../shared/esp-element-base.js";import{ESP_EVENTS as x}from"../shared/events.js";import{ref as T}from"lit/directives/ref.js";import{getIconHrefForHost as k}from"../shared/intent-values.js";import{SlottedIconController as $}from"../shared/slotted-icon-controller.js";import{renderSpriteIcon as S}from"../shared/svgs/render-sprite-icon.js";import{DEFAULT_NEW_TAB_LABEL as E,newTabSuffix as C,renderNewTabCue as z}from"../shared/new-tab-cue.js";import{srOnly as N}from"../shared/style-fragments.js";import{BUTTON_INTERACTION_LIGHTNESS_FACTOR as _}from"./action-state-lightness.js";const m=g`var(--esp-button-padding, var(--_esp-button-default-padding, var(--esp-size-padding)))`,B=c`<svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   fill="none"
@@ -10,7 +10,7 @@ var i=function(h,t,r,o){var l=arguments.length,n=l<3?t:o===null?o=Object.getOwnP
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>`;let e=class extends f{constructor(){super(...arguments),this.iconSlot=new $(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.current=!1,this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=E,this.formNoValidate=!1,this.buildIcon=(t,r=!1)=>this.loading&&!r?c` <span>${_}</span> `:c`
+</svg>`;let e=class extends f{constructor(){super(...arguments),this.iconSlot=new $(this),this.innerTabindex=null,this.neutralizingTabindex=!1,this.buttonType="button",this.collapsed=!1,this.disabled=!1,this.href="",this.current=!1,this.iconOnly=!1,this.incognito=!1,this.icon="",this.iconPosition="right",this.label="",this.loading=!1,this.target="",this.rel="",this.newTabLabel=E,this.formNoValidate=!1,this.buildIcon=(t,r=!1)=>this.loading&&!r?c` <span>${B}</span> `:c`
       <span>
         <slot ${T(this.iconSlot.slotRef)} @slotchange=${this.iconSlot.handleSlotChange}></slot>
         ${!this.iconSlot.hasSlottedIcon(":scope > :not(slot)")&&t?S(t):s}
@@ -60,7 +60,10 @@ var i=function(h,t,r,o){var l=arguments.length,n=l<3?t:o===null?o=Object.getOwnP
       }
 
       :host([scheme="dark"]) {
-        --esp-color-shadow: oklch(from var(--esp-color-primary) var(--esp-l-ink) c h);
+        --esp-color-shadow: var(
+          --_esp-context-shadow,
+          oklch(from var(--esp-color-primary) var(--esp-l-ink) c h)
+        );
       }
 
       
@@ -184,7 +187,7 @@ var i=function(h,t,r,o){var l=arguments.length,n=l<3?t:o===null?o=Object.getOwnP
         &:hover,
         &:focus-within {
           background-color: oklch(
-            from var(--esp-color-action-background) calc(l * ${B})
+            from var(--esp-color-action-background) calc(l * ${_})
               c h
           );
         }

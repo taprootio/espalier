@@ -148,6 +148,9 @@ var l=function(y,e,t,r){var n=arguments.length,s=n<3?e:r===null?r=Object.getOwnP
 
       .scrim {
         position: fixed;
+        
+        width: auto;
+        height: auto;
         top: var(--esp-menu-top-offset, 0px);
         left: 0;
         right: 0;

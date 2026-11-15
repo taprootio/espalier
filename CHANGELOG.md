@@ -1,3 +1,10 @@
+# 7.1.1
+
+Keep navigation paint inside its theme context.
+
+- Let focused buttons use their enclosing theme context's shadow color in dark mode, including headers and drawers, while preserving the existing dark shadow outside a context.
+- Size a panel drawer's scrim from its existing insets so it covers the page below the header.
+
 # 7.1.0
 
 Configure footer placement and text independently, with faithful themed previews.
