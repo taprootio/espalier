@@ -1,0 +1,1 @@
+import{firstPaintByIdentity as n}from"../shared/paint-identity.js";function p(r,s){const a=Object.entries(s).flatMap(([t,o])=>o.map(d=>({role:t,...d}))),e=n(a),i=n(r);return{unlisted:[...i].filter(([t])=>!e.has(t)).map(([,t])=>t),unobserved:[...e].filter(([t])=>!i.has(t)).map(([,t])=>t)}}export{p as auditPaintCoverage};

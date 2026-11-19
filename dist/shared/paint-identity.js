@@ -1,0 +1,1 @@
+function i(t){return JSON.stringify([t.role,t.element,t.state,t.kind,t.foreground,t.background,t.indicator,t.paintOpacity??1])}function d(t){const n=new Map;for(const e of t){const o=i(e);n.has(o)||n.set(o,e)}return n}export{d as firstPaintByIdentity,i as paintIdentity};

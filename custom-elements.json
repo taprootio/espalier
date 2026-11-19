@@ -1889,6 +1889,54 @@
         },
         {
           "kind": "js",
+          "name": "ThemeFitSuiteOptions",
+          "declaration": {
+            "name": "ThemeFitSuiteOptions",
+            "module": "./shared/theme-fit-report.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintFitPair",
+          "declaration": {
+            "name": "PaintFitPair",
+            "module": "./shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintFitReport",
+          "declaration": {
+            "name": "PaintFitReport",
+            "module": "./shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintFitSurface",
+          "declaration": {
+            "name": "PaintFitSurface",
+            "module": "./shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintFitSurfaceReport",
+          "declaration": {
+            "name": "PaintFitSurfaceReport",
+            "module": "./shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintScheme",
+          "declaration": {
+            "name": "PaintScheme",
+            "module": "./shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "ICON_SPRITE",
           "declaration": {
             "name": "ICON_SPRITE",
@@ -11458,6 +11506,42 @@
           "declaration": {
             "name": "EspalierButton",
             "module": "dist/button/esp-button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/button/paint-registration.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "state"
+        },
+        {
+          "kind": "variable",
+          "name": "flags"
+        },
+        {
+          "kind": "variable",
+          "name": "element"
+        },
+        {
+          "kind": "variable",
+          "name": "buttonPaintRegistration",
+          "type": {
+            "text": "PaintRegistration"
+          },
+          "default": "{ entriesByRole: { header: ([\"inline\", \"inline-panel\", \"panel\", \"full-screen\"] as const) .flatMap((placement) => buttonEntries(placement)), footer: buttonEntries(\"inline\", true), }, targets: { header: [filledButton], footer: [filledButton] }, derivations: { [interactionFill]: (environment) => derivePaintLightness( environment.readColor(\"actionBackground\"), (lightness) => lightness * BUTTON_INTERACTION_LIGHTNESS_FACTOR, ), [focusShadow]: (environment) => { const fieldShadow = environment.readProperty(\"--esp-field-focus-shadow\"); if (fieldShadow) return parsePaintColor(fieldShadow); if (environment.scheme === \"light\") return parsePaintColor(environment.readColor(\"shadow\") ?? \"\"); const contextShadow = environment.readProperty(\"--_esp-context-shadow\"); if (contextShadow) return parsePaintColor(contextShadow); const ink = environment.readProperty(\"--esp-l-ink\")?.trim(); const lightness = ink?.endsWith(\"%\") ? Number(ink.slice(0, -1)) / 100 : Number(ink); return ink && Number.isFinite(lightness) ? derivePaintLightness(environment.readColor(\"primary\"), () => lightness) : null; }, }, }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "buttonPaintRegistration",
+          "declaration": {
+            "name": "buttonPaintRegistration",
+            "module": "dist/button/paint-registration.js"
           }
         }
       ]
@@ -31213,6 +31297,30 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/footer/paint-registration.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "footerPaintRegistration",
+          "type": {
+            "text": "PaintRegistration"
+          },
+          "default": "{ entriesByRole: { footer: [ { element: \"footer-heading\", foreground: \"headings\", background: \"layer2\", state: \"rest\", kind: \"text\", flags: [\"footerHeadings\"], }, { element: \"footer-body\", foreground: \"text\", background: \"layer2\", state: \"rest\", kind: \"text\", flags: [\"footerBody\"], }, ...PAINT_INTERACTIONS.flatMap((state): PaintEntry[] => { const hover = isPaintHover(state); const focus = isPaintFocus(state); const linkText = { foreground: hover ? \"linkHover\" : \"link\", background: hover ? footerLinkHoverBackground : \"layer2\", state, kind: \"text\" as const, }; const pairs: PaintEntry[] = [ { ...linkText, element: \"footer-link\", flags: [\"footerLinks\"] }, { ...linkText, element: \"brand-text\", foreground: hover ? \"linkHover\" : \"brand-color\", flags: state === \"rest\" ? [\"brandText\"] : [\"brandText\", \"brandLink\"], }, ]; if (focus) { for (const [element, flag] of [[\"footer-link\", \"footerLinks\"], [\"brand-link\", \"brandLink\"]]) { pairs.push({ element, foreground: \"link\", background: \"layer2\", state, kind: \"ring\", flags: [flag], }); } } return pairs; }), ], }, targets: { footer: [footerBrand, footerContent] }, }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "footerPaintRegistration",
+          "declaration": {
+            "name": "footerPaintRegistration",
+            "module": "dist/footer/paint-registration.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/form/esp-form.js",
       "declarations": [
         {
@@ -38121,6 +38229,64 @@
           "declaration": {
             "name": "*",
             "module": "dist/header/esp-header.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/header/is-tall-header-paint.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isTallHeaderPaint",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "{\n  heightMultiplier,\n  minHeightMultiplier,\n  compactSize,\n  complete,\n}",
+              "type": {
+                "text": "{\n  heightMultiplier: number;\n  minHeightMultiplier: number;\n  compactSize: \"compact\" | \"standard\";\n  complete: boolean;\n}"
+              }
+            }
+          ],
+          "description": "Whether header controls use the unframed tall-chrome paint at this geometry endpoint."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isTallHeaderPaint",
+          "declaration": {
+            "name": "isTallHeaderPaint",
+            "module": "dist/header/is-tall-header-paint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/header/paint-registration.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "headerPaintRegistration",
+          "type": {
+            "text": "PaintRegistration"
+          },
+          "default": "{ entriesByRole: { header: [ ...PAINT_INTERACTIONS.flatMap((state): PaintEntry[] => { const text: PaintEntry = { element: \"brand-text\", foreground: isPaintHover(state) ? \"headingsHover\" : \"brand-color\", background: \"layer2\", state, kind: \"text\", flags: isPaintFocus(state) ? [\"brandText\", \"brandLink\"] : [\"brandText\"], }; return isPaintFocus(state) ? [text, { element: \"brand-link\", foreground: \"link\", background: \"layer2\", state, kind: \"ring\", flags: [\"brandLink\"], }] : [text]; }), ...([\"standard\", \"tall\"] as const).flatMap((ground) => { const mode = `headerPaint:${ground}`; return [ ...controlEntries(\"search-button\", [\"searchButton\", mode], ground), ...controlEntries(\"theme-toggle\", [\"themeToggle\", mode], ground), ...controlEntries(\"burger\", [\"burger\", mode], ground), ...controlEntries(\"burger\", [\"burger\", \"drawer:panel\", mode], ground, \"panel\"), ]; }), ...controlEntries(\"burger\", [\"burger\", \"drawer:full-screen\"], \"standard\", \"full-screen\"), ], }, targets: { header: [headerBrand, headerControl] }, }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "headerPaintRegistration",
+          "declaration": {
+            "name": "headerPaintRegistration",
+            "module": "dist/header/paint-registration.js"
           }
         }
       ]
@@ -56900,6 +57066,327 @@
       "path": "dist/menu/menu-presentation.js",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/menu/navigation-focus-outline.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "insetNavigationFocusOutline",
+          "default": "css` outline: 2px solid currentColor; outline-offset: -2px; `"
+        },
+        {
+          "kind": "variable",
+          "name": "configuredBrandFocusOutline",
+          "default": "css` border-radius: var(--esp-size-border-radius); outline: 2px solid var(--esp-color-link); outline-offset: 3px; `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "insetNavigationFocusOutline",
+          "declaration": {
+            "name": "insetNavigationFocusOutline",
+            "module": "dist/menu/navigation-focus-outline.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "configuredBrandFocusOutline",
+          "declaration": {
+            "name": "configuredBrandFocusOutline",
+            "module": "dist/menu/navigation-focus-outline.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/menu/navigation-paint.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "closestPaintElement",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "selector",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "navigationPaintPlacement",
+          "return": {
+            "type": {
+              "text": "NavigationPaintPlacement"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "navigationPaintState",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "NavigationPaintPlacement"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "navigationPaintFlags",
+          "return": {
+            "type": {
+              "text": "readonly string[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "NavigationPaintPlacement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "PAINT_INTERACTIONS",
+          "type": {
+            "text": "[\"rest\", \"hover\", \"focus\", \"hover-focus\"]"
+          },
+          "default": "[\"rest\", \"hover\", \"focus\", \"hover-focus\"]"
+        },
+        {
+          "kind": "function",
+          "name": "isPaintHover",
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "PaintInteraction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintFocus",
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "PaintInteraction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "configuredBrandColor",
+          "return": {
+            "type": {
+              "text": "string | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "owner",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "property",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "closestPaintElement",
+          "declaration": {
+            "name": "closestPaintElement",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationPaintPlacement",
+          "declaration": {
+            "name": "navigationPaintPlacement",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationPaintState",
+          "declaration": {
+            "name": "navigationPaintState",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationPaintFlags",
+          "declaration": {
+            "name": "navigationPaintFlags",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PAINT_INTERACTIONS",
+          "declaration": {
+            "name": "PAINT_INTERACTIONS",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintHover",
+          "declaration": {
+            "name": "isPaintHover",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintFocus",
+          "declaration": {
+            "name": "isPaintFocus",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "configuredBrandColor",
+          "declaration": {
+            "name": "configuredBrandColor",
+            "module": "dist/menu/navigation-paint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/menu/paint-registration.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "state",
+          "parameters": [
+            {
+              "name": "interaction",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "state",
+          "parameters": [
+            {
+              "name": "interaction",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "state",
+          "parameters": [
+            {
+              "name": "interaction",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "flags"
+        },
+        {
+          "kind": "variable",
+          "name": "element"
+        },
+        {
+          "kind": "variable",
+          "name": "navigation"
+        },
+        {
+          "kind": "variable",
+          "name": "foreground"
+        },
+        {
+          "kind": "variable",
+          "name": "background"
+        },
+        {
+          "kind": "variable",
+          "name": "menuPaintRegistration",
+          "type": {
+            "text": "PaintRegistration"
+          },
+          "default": "{ entriesByRole: { header: [ ...navigationPlacements.flatMap((placement) => [...itemEntries(placement), ...groupEntries(placement)]), ...PAINT_INTERACTIONS.flatMap((interaction): PaintEntry[] => { const state = navigationPaintState(\"full-screen\", interaction); const flags = navigationPaintFlags(\"full-screen\"); const focus = isPaintFocus(interaction); const hover = isPaintHover(interaction); const brandText: PaintEntry = { // The drawer's brand rule retains its configured ink, and the // inherited anchor hover rule supplies the link wash. element: \"drawer-brand-text\", foreground: \"brand-color\", background: hover ? linkHoverGround : \"layer1\", state, kind: \"text\", flags: [...flags, \"brandText\", ...(hover || focus ? [\"brandLink\"] : [])], }; return focus ? [brandText, { element: \"drawer-brand-link\", foreground: \"link\", background: \"layer1\", state, kind: \"ring\", flags: [...flags, \"brandLink\"], }] : [brandText]; }), ], }, targets: { header: [plainNavigationItem, navigationGroup, drawerBrand] }, }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "menuPaintRegistration",
+          "declaration": {
+            "name": "menuPaintRegistration",
+            "module": "dist/menu/paint-registration.js"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -79277,1510 +79764,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/slider/esp-slider.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A numeric range slider with ARIA `role=\"slider\"`, keyboard support,\nand separate touch and pointer behavior.\n\nOn touch devices, only dragging the thumb changes the value.\nTapping the track is ignored so the user can scroll the page\nwithout accidentally adjusting the slider. On desktop, clicking\nanywhere on the track jumps to that value and begins a drag.\n\nThe slider accepts an accessible name from two sources, checked\nin priority order:\n\n1. Slot content — `<esp-slider>Volume</esp-slider>` renders a\n   visible label and names the slider via `aria-labelledby`.\n2. The `label` attribute — `<esp-slider label=\"Volume\">` applies\n   an invisible `aria-label` when no slot content is present.\n\n```html\n<esp-box>\n  <esp-slider min=\"0\" max=\"10\" step=\"0.5\" value=\"5\">\n    Rating\n  </esp-slider>\n  <esp-slider disabled min=\"0\" max=\"100\" value=\"30\"\n    label=\"Disabled slider\">\n  </esp-slider>\n</esp-box>\n```",
-          "name": "EspalierSlider",
-          "cssProperties": [
-            {
-              "description": "Height of the slider track. Defaults to `6px`.",
-              "name": "--esp-slider-track-height"
-            },
-            {
-              "description": "Background color of the unfilled portion of the track. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-slider-track-color"
-            },
-            {
-              "description": "Background color of the filled portion of the track. Defaults to `var(--esp-color-action-background)`.",
-              "name": "--esp-slider-track-fill-color"
-            },
-            {
-              "description": "Border radius of the track. Defaults to `calc(var(--esp-slider-track-height, 6px) / 2)`.",
-              "name": "--esp-slider-track-border-radius"
-            },
-            {
-              "description": "Diameter of the thumb. Defaults to `var(--esp-size-normal-to-medium)`.",
-              "name": "--esp-slider-thumb-size"
-            },
-            {
-              "description": "Fill color of the thumb. Defaults to `var(--esp-color-layer-1)`.",
-              "name": "--esp-slider-thumb-color"
-            },
-            {
-              "description": "Border color of the thumb. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-slider-thumb-border-color"
-            },
-            {
-              "description": "Box shadow of the thumb. Defaults to `0 1px 3px oklch(0 0 0 / 0.2)`.",
-              "name": "--esp-slider-thumb-shadow"
-            },
-            {
-              "description": "Color of the focus ring shadow. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-slider-focus-shadow"
-            },
-            {
-              "description": "Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins.",
-              "name": "--esp-field-background",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
-              "name": "--esp-field-border-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Border width of the shared field shell. Defaults to `1px`.",
-              "name": "--esp-field-border-width",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
-              "name": "--esp-field-text-color",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-hover-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
-              "name": "--esp-field-focus-bg",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
-              "name": "--esp-field-focus-shadow",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "slots": [
-            {
-              "description": "Label content displayed alongside the slider. When present, it provides the accessible name via `aria-labelledby`.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "formCtrl",
-              "privacy": "private",
-              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, // A range slider always has a normalized numeric value (clamped // to [min, max] and snapped to step), so there is no // representable \"empty\" state that could trigger valueMissing. // Validity is always satisfied. getValidity: () => null, onReset: () => { this.value = String(this._low); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
-            },
-            {
-              "kind": "field",
-              "name": "formItemDescription",
-              "privacy": "private",
-              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this._thumbRef.value, })"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "0",
-              "description": "Minimum slider value.",
-              "attribute": "min"
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "100",
-              "description": "Maximum slider value.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "public",
-              "default": "1",
-              "description": "Step increment. Values snap to the nearest step.",
-              "attribute": "step"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"0\"",
-              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "The name used when the slider participates in a `<form>`.",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "false",
-              "description": "Controls whether the slider is disabled.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "default": "\"\"",
-              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "_dragging",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_hasSlotContent",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_trackRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_thumbRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_slotRef",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "_nextId",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "static": true,
-              "default": "0",
-              "description": "Module-level counter for generating unique label ids."
-            },
-            {
-              "kind": "field",
-              "name": "_labelId",
-              "privacy": "private",
-              "default": "`esp-slider-label-${EspalierSlider._nextId++}`",
-              "description": "Stable id for the label element, used by `aria-labelledby`."
-            },
-            {
-              "kind": "field",
-              "name": "_safeStep",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "The effective step, guaranteed to be a finite positive number.\nFalls back to `1` when the `step` property is zero, negative,\n`NaN`, or `Infinity`.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_safeMin",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective minimum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_safeMax",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective maximum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_stepPrecision",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Number of decimal digits implied by the effective step. Used\nto round away floating-point noise so the public value stays\nclean (e.g. `\"0.3\"` instead of `\"0.30000000000000004\"`).\n\nHandles scientific notation: `0.0000001` stringifies as\n`\"1e-7\"` (7 digits), and `0.00000012` stringifies as\n`\"1.2e-7\"` (8 digits = 1 mantissa fractional digit + 7\nexponent).",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_low",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective lower bound, safe when `min > max`.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "_high",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "description": "Effective upper bound, safe when `min > max`.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "_snapToStep",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "raw",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ],
-              "description": "Snap `raw` to the nearest step relative to `_low`, clamp\nto `[_low, _high]`, and round to the step's decimal precision."
-            },
-            {
-              "kind": "field",
-              "name": "numericValue",
-              "type": {
-                "text": "number"
-              },
-              "description": "The value parsed, clamped, and snapped to step.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "percentage",
-              "type": {
-                "text": "number"
-              },
-              "description": "Fill/thumb position as a percentage of the track width.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "_normalizeValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Normalize `this.value` so it always reflects the\nclamped-and-stepped numeric value, and push the result into\n`ElementInternals` without firing `esp-value-changed`.\n\nCalled from `willUpdate` whenever `value`, `min`, `max`, or\n`step` change."
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "description": "Focus the slider thumb."
-            },
-            {
-              "kind": "method",
-              "name": "validate",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Re-run constraint validation and dispatch `esp-validity-changed`."
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Check whether the current state is valid (delegates to ElementInternals)."
-            },
-            {
-              "kind": "method",
-              "name": "_setValueAndNotify",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "newNumeric",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handleKeyDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerDown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerMove",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handlePointerUp",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_handleLostPointerCapture",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Handles `lostpointercapture`, which fires when the browser\nrevokes capture due to an OS gesture, modal interrupt, or\nthe pointer leaving the document. This prevents the slider\nfrom getting stuck in the dragging state."
-            },
-            {
-              "kind": "method",
-              "name": "_endDrag",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_updateValueFromPointer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "ev",
-                  "type": {
-                    "text": "PointerEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_handleSlotChange",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_syncSlotContent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Inspect the default slot's assigned nodes and update\n`_hasSlotContent`. Called from both `firstUpdated` (to catch\ninitial light-DOM content before `slotchange` fires) and the\n`slotchange` handler (for dynamic changes)."
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Called by the browser when the owning `<form>` is reset."
-            },
-            {
-              "kind": "method",
-              "name": "formStateRestoreCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "state",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Called by the browser to restore form state (bfcache, etc.)."
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "isDisabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
-            },
-            {
-              "kind": "field",
-              "name": "seedColorBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"oklch(0.7 0.125 216)\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "espRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "contextBacker",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scopedTokenOriginalValues",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "warnedUnknownContexts",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Set<string>()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "pendingInitialThemeRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventSubscriptionsActive",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "subscribedRoot",
-              "type": {
-                "text": "EspalierRoot | null"
-              },
-              "privacy": "private",
-              "default": "null",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "rootEventUnsubscribers",
-              "type": {
-                "text": "Array<() => void>"
-              },
-              "privacy": "private",
-              "default": "[]",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "intentBacker",
-              "type": {
-                "text": "EspalierIntentVariant"
-              },
-              "privacy": "protected",
-              "default": "\"neutral\"",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "intentEmitsTokens",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "protected",
-              "default": "true",
-              "description": "Whether a non-neutral intent emits its inline tokens\n(`--esp-color-primary` and the filled-action pair). Interactive\ncontrols need them; chrome whose intent treatment is class-based\n(badges, callouts, status pills — see `intentSurfaceTokens`) opts\nout so a decorative intent never rewrites inherited tokens for\nslotted content.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "warnedUnknownIntents",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new Set<string>()",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "seedColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "correlationId",
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusResolvedElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolveTarget",
-                  "type": {
-                    "text": "() => HTMLElement | null | undefined"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusShadowElementAfterUpdate",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "emitValueChanged",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "T"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "privacy": "public",
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "attribute": "scheme",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "intent",
-              "type": {
-                "text": "EspalierIntentVariant"
-              },
-              "privacy": "public",
-              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
-              "attribute": "intent",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "context",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
-              "attribute": "context",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "refreshDescendantIntentDerivations",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "A zone rebinding must reach descendants whose intent pairs derive\nover it. Root-level changes arrive over the bus, but the context\nattribute is plain DOM state with no bus event, so the zone host\nwalks its FLATTENED subtree — crossing open shadow roots and\nfollowing slot assignment, the tree its table cascades along — and\nlets each Espalier descendant re-apply against the current\nancestry. Idempotent for hosts this zone doesn't govern; the\nvisited set guards the slot/light diamond (a host's light children\nare also its slots' assigned elements).",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "flattenedParent",
-              "privacy": "private",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Node | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "node",
-                  "type": {
-                    "text": "Node"
-                  }
-                }
-              ],
-              "description": "The flattened-tree parent: through the assigned slot, out of shadow roots.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "resolveAncestorZoneTheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierTheme | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "activeTheme",
-                  "type": {
-                    "text": "EspalierTheme"
-                  }
-                }
-              ],
-              "description": "The nearest ancestor zone the active theme can actually compile,\nwalking the flattened tree — through assigned slots and out of\nshadow roots — because that is the tree the zone's emitted table\ncascades along: a consumer shell may declare its zone around a\n`<slot>` inside its own shadow. A zone host with an unresolvable\ncontext emits nothing and inherits the next zone out, so unknown\nnames are skipped rather than collapsed to the root theme. Bounded\nby this element's esp-root.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncRootFromDom",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierRoot | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "throwIfMissing",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyTokensWhenRootReady",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply scoped tokens now, or defer until the active root's initial theme is ready.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyTokensAfterInitialRootUpdate",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "type": {
-                    "text": "EspalierRoot"
-                  }
-                }
-              ],
-              "description": "Apply initial scoped tokens once the exact root this host found is ready.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "subscribeToRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "type": {
-                    "text": "EspalierRoot"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeFromRootEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSeedColorChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleSchemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleThemeChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleIconSpriteUrlChanged",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "traverseToClosest",
-              "privacy": "public",
-              "return": {
-                "type": {
-                  "text": ""
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selector",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The selector of the element to look for"
-                }
-              ],
-              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "intentColorSources",
-              "type": {
-                "text": "Readonly<\n    Record<EspalierIntentVariant, ColorSource | \"\">\n  >"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "{ danger: \"danger\", info: \"info\", neutral: \"\", success: \"success\", warning: \"warning\", }",
-              "description": "Intent color sources: the meaning-bearing families an intent pins\nthe filled-action pair to. `neutral` pins nothing; each other\nintent maps to its own fixed status family (ESP0172 gave `info` a\nreal blue family, replacing the complementary borrow the retired\nvariant system used), and a theme's `intents` field retunes the\nfamily colors themselves.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "semanticActionTokens",
-              "type": {
-                "text": "ReadonlySet<SemanticColorName>"
-              },
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
-              "description": "Semantic tokens that paint a control's filled action surface — the\npair an intent recolors. Everything else inherits the zone cascade,\nwhich is the ESP0166 fix: under the SHY fitted theme the retired\nvariant re-seeding painted a danger callout's *background* mint\ngreen; an intent leaves the zone's surfaces alone and pins only the\naction pair (plus `--esp-color-primary` for state derivations) to\nthe intent's own status family — fixed hues by default, retunable\nper theme via `intents`. Task 098's\nguarantee survives structurally: the\npin is by source, so no theme mapping can rotate a destructive /\nwarning / positive action off its semantic hue.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyScopedColorTokens",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Compute and apply context- and intent-specific semantic color tokens.\n\nWith no context and a `neutral` intent, all semantic tokens cascade\nfrom `<esp-root>` and previous overrides are cleared. A context\nemits the zone's complete twenty-three-token table; a non-neutral intent\nthen overlays the filled-action pair, derived over the governing\nzone's theme — this host's own context, or the nearest ancestor\nzone's — so its APCA enforcement runs against the zone's actual\naction surface.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "resolveContextTheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "{ applied: boolean; theme: EspalierTheme }"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "theme",
-                  "type": {
-                    "text": "EspalierTheme"
-                  }
-                }
-              ],
-              "description": "Resolve this host's own context name over the active root theme.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "warnUnknownContextWhenSettled",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Warn about an unknown context only once the root's theme has\nsettled (ESP0177).\n\nA script-mounted theme lands after its descendants first render, so\na zone naming a context the theme *does* define would otherwise\nwarn about a state that was never rendered to anyone. Waiting for\nthe root to settle — an author theme resolved, or the pre-theme\nwindow closed with none — makes the warning describe the settled\ntheme instead of a transient one. It is deferred, never dropped: a\ngenuinely missing context still warns, just after the window.",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "resolveNamedContextTheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EspalierTheme | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "theme",
-                  "type": {
-                    "text": "EspalierTheme"
-                  }
-                },
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Compile a named context's theme, or null when the theme doesn't\ndefine it. Delegates to the exported compiler so a DOM-less consumer\n(the fit-report suite, a check script) inspects exactly the theme a\nzone host renders — the drift this shared path exists to prevent\n(ESP0175).",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "applyScopedTokenProperties",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "properties",
-                  "type": {
-                    "text": "Record<string, string>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setScopedTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "restoreScopedTokenProperty",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "clearScopedTokens",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "CustomEvent<string>"
-              },
-              "description": "Fired when the slider value changes. The detail is the new value as a string.",
-              "name": "esp-value-changed"
-            },
-            {
-              "type": {
-                "text": "CustomEvent<{ valid: boolean; message: string }>"
-              },
-              "description": "Fired whenever the always-valid form contract is evaluated.",
-              "name": "esp-validity-changed"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "min",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Minimum slider value.",
-              "fieldName": "min"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "number"
-              },
-              "default": "100",
-              "description": "Maximum slider value.",
-              "fieldName": "max"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "description": "Step increment. Values snap to the nearest step.",
-              "fieldName": "step"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"0\"",
-              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
-              "fieldName": "value"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The name used when the slider participates in a `<form>`.",
-              "fieldName": "name"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Controls whether the slider is disabled.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
-              "fieldName": "label"
-            },
-            {
-              "type": {
-                "text": "\"1\"|\"2\"|\"3\"|\"4\""
-              },
-              "description": "Declares the painted surface depth. Fields use the next local layer, capped at layer 4.",
-              "name": "surface-layer",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "scheme",
-              "type": {
-                "text": "\"dark\" | \"light\""
-              },
-              "default": "\"light\"",
-              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
-              "fieldName": "scheme",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "intent",
-              "type": {
-                "text": "EspalierIntentVariant"
-              },
-              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
-              "fieldName": "intent",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            },
-            {
-              "name": "context",
-              "type": {
-                "text": "string"
-              },
-              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
-              "fieldName": "context",
-              "inheritedFrom": {
-                "name": "EspalierElementBase",
-                "module": "dist/shared/esp-element-base.js"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "EspalierElementBase",
-            "module": "dist/shared/esp-element-base.js"
-          },
-          "docPageTitle": {
-            "name": "Slider",
-            "description": ""
-          },
-          "docUrl": {
-            "name": "/components/slider",
-            "description": ""
-          },
-          "menuGroup": {
-            "name": "Form",
-            "description": "Controls"
-          },
-          "menuLabel": {
-            "name": "Slider",
-            "description": ""
-          },
-          "menuIcon": {
-            "name": "sliders",
-            "description": ""
-          },
-          "tagName": "esp-slider",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EspalierSlider",
-          "declaration": {
-            "name": "EspalierSlider",
-            "module": "dist/slider/esp-slider.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "esp-slider",
-          "declaration": {
-            "name": "EspalierSlider",
-            "module": "dist/slider/esp-slider.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/shared/aria-describedby.js",
       "declarations": [
         {
@@ -81424,6 +80407,24 @@
         },
         {
           "kind": "function",
+          "name": "srgbToOklab",
+          "return": {
+            "type": {
+              "text": "OklabColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "srgb",
+              "type": {
+                "text": "SRGB"
+              }
+            }
+          ],
+          "description": "Forward transform: gamma-encoded sRGB → OKLab (Ottosson reference matrices)."
+        },
+        {
+          "kind": "function",
           "name": "oklabToOklch",
           "return": {
             "type": {
@@ -81466,6 +80467,30 @@
             }
           ],
           "description": "Parse any accepted CSS color form into OKLCH components.\n\nAccepted forms:\n- `oklch(0.7 0.125 216)` / `oklch(70% 31.25% 0.6turn)` — parsed\n  natively via parseOklch, no re-rounding\n- `#rrggbb` / `#rgb`\n- `rgb(120, 72, 106)` / `rgb(120 72 106)` — numbers (with exponents)\n  or percentages; the legacy comma syntax requires all channels to be\n  the same type, the modern syntax may mix; `rgba()` is accepted as an\n  alias of the three-argument form\n- `hsl(338, 25%, 38%)` / `hsl(.94turn 25% 38%)` — hue as a number or\n  `deg`/`grad`/`rad`/`turn` angle; the legacy comma syntax requires\n  percentage saturation and lightness, the modern syntax also accepts\n  bare numbers; `hsla()` is accepted as an alias\n\nCSS comments are equivalent to whitespace in every form, and only\nCSS whitespace (tab, newline, form feed, carriage return, space)\nseparates arguments — JavaScript-only whitespace such as NBSP is\nrejected, matching browsers.\n\nNon-OKLCH forms convert through the forward sRGB → OKLab transform,\nnormalized to display precision (L 3 / C 4 / H 1 decimals, hue 0 when\nachromatic) when that rounding reproduces the identical 8-bit color\nin-gamut, and kept at full precision otherwise. Alpha is rejected in\nevery form — theme colors are opaque.\n\nReturns `null` when the string is not a valid instance of any\naccepted form."
+        },
+        {
+          "kind": "function",
+          "name": "parseCssColorValue",
+          "return": {
+            "type": {
+              "text": "CssColorValue | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "colorStr",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "allowAlpha",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ],
+          "description": "Shared channel grammar for opaque theme input and alpha-aware paint."
         }
       ],
       "exports": [
@@ -81607,6 +80632,14 @@
         },
         {
           "kind": "js",
+          "name": "srgbToOklab",
+          "declaration": {
+            "name": "srgbToOklab",
+            "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "oklabToOklch",
           "declaration": {
             "name": "oklabToOklch",
@@ -81627,6 +80660,115 @@
           "declaration": {
             "name": "parseCssColor",
             "module": "dist/shared/color-engine.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "parseCssColorValue",
+          "declaration": {
+            "name": "parseCssColorValue",
+            "module": "dist/shared/color-engine.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/composed-dom.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isShadowRoot",
+          "return": {
+            "type": {
+              "text": "node is ShadowRoot"
+            }
+          },
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "Node"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "composedParent",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "Element | Text"
+              }
+            }
+          ],
+          "description": "The rendered parent across a slot assignment or an open shadow boundary."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isShadowRoot",
+          "declaration": {
+            "name": "isShadowRoot",
+            "module": "dist/shared/composed-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "composedParent",
+          "declaration": {
+            "name": "composedParent",
+            "module": "dist/shared/composed-dom.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/configured-brand-color.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "resolveConfiguredBrandColor",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "schemeColor",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "genericColor",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Resolve brand ink before rendering or measuring it. Blank overrides leave the fallback available."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "resolveConfiguredBrandColor",
+          "declaration": {
+            "name": "resolveConfiguredBrandColor",
+            "module": "dist/shared/configured-brand-color.js"
           }
         }
       ]
@@ -81710,6 +80852,29 @@
           "declaration": {
             "name": "renderConfiguredBrand",
             "module": "dist/shared/configured-brand.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/css-named-colors.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "CSS_NAMED_COLORS",
+          "type": {
+            "text": "Readonly<Record<string, string>>"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CSS_NAMED_COLORS",
+          "declaration": {
+            "name": "CSS_NAMED_COLORS",
+            "module": "dist/shared/css-named-colors.js"
           }
         }
       ]
@@ -86031,6 +85196,759 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/shared/paint-catalog.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "PAINT_TOKEN_IDS",
+          "type": {
+            "text": "readonly string[]"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "BRAND_PAINT_ID",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"brand-color\""
+        },
+        {
+          "kind": "function",
+          "name": "paintTokenProperty",
+          "return": {
+            "type": {
+              "text": "string | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "identifier",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintName",
+          "return": {
+            "type": {
+              "text": "value is string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintRole",
+          "return": {
+            "type": {
+              "text": "value is string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintKind",
+          "return": {
+            "type": {
+              "text": "value is PaintKind"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintFlags",
+          "return": {
+            "type": {
+              "text": "value is readonly string[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isPaintNavigationFact",
+          "return": {
+            "type": {
+              "text": "value is PaintNavigationFact"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "validatePaintEntries",
+          "return": {
+            "type": {
+              "text": "asserts entriesByRole is PaintEntriesByRole"
+            }
+          },
+          "parameters": [
+            {
+              "name": "entriesByRole",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "derivations",
+              "default": "PAINT_DERIVATIONS",
+              "type": {
+                "text": "PaintDerivations"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "createPaintCatalog",
+          "return": {
+            "type": {
+              "text": "PaintCatalog"
+            }
+          },
+          "parameters": [
+            {
+              "name": "registrations",
+              "type": {
+                "text": "readonly PaintRegistration[]"
+              }
+            }
+          ],
+          "description": "Assemble component registrations without giving any role special treatment."
+        },
+        {
+          "kind": "variable",
+          "name": "PAINT_CATALOG"
+        },
+        {
+          "kind": "variable",
+          "name": "PAINT_TARGETS"
+        },
+        {
+          "kind": "variable",
+          "name": "PAINT_DERIVATIONS"
+        },
+        {
+          "kind": "function",
+          "name": "enabledPaintEntries",
+          "return": {
+            "type": {
+              "text": "readonly PaintEntry[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "role",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "features",
+              "type": {
+                "text": "PaintSchemeFeatures"
+              }
+            },
+            {
+              "name": "entriesByRole",
+              "default": "PAINT_CATALOG",
+              "type": {
+                "text": "PaintEntriesByRole"
+              }
+            },
+            {
+              "name": "{ brandColor }",
+              "default": "{}",
+              "type": {
+                "text": "{ brandColor?: string }"
+              }
+            }
+          ],
+          "description": "Select rendered entries and resolve brand ink using the active scheme's configured override."
+        },
+        {
+          "kind": "function",
+          "name": "resolvePaintColor",
+          "return": {
+            "type": {
+              "text": "PaintColor | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "identifier",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "environment",
+              "type": {
+                "text": "PaintColorEnvironment"
+              }
+            },
+            {
+              "name": "derivations",
+              "default": "PAINT_DERIVATIONS",
+              "type": {
+                "text": "PaintDerivations"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PAINT_TOKEN_IDS",
+          "declaration": {
+            "name": "PAINT_TOKEN_IDS",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BRAND_PAINT_ID",
+          "declaration": {
+            "name": "BRAND_PAINT_ID",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "paintTokenProperty",
+          "declaration": {
+            "name": "paintTokenProperty",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintName",
+          "declaration": {
+            "name": "isPaintName",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintRole",
+          "declaration": {
+            "name": "isPaintRole",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintKind",
+          "declaration": {
+            "name": "isPaintKind",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintFlags",
+          "declaration": {
+            "name": "isPaintFlags",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPaintNavigationFact",
+          "declaration": {
+            "name": "isPaintNavigationFact",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "validatePaintEntries",
+          "declaration": {
+            "name": "validatePaintEntries",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createPaintCatalog",
+          "declaration": {
+            "name": "createPaintCatalog",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PAINT_CATALOG",
+          "declaration": {
+            "name": "PAINT_CATALOG",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PAINT_TARGETS",
+          "declaration": {
+            "name": "PAINT_TARGETS",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PAINT_DERIVATIONS",
+          "declaration": {
+            "name": "PAINT_DERIVATIONS",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "enabledPaintEntries",
+          "declaration": {
+            "name": "enabledPaintEntries",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resolvePaintColor",
+          "declaration": {
+            "name": "resolvePaintColor",
+            "module": "dist/shared/paint-catalog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/paint-color.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "parsePaintColor",
+          "return": {
+            "type": {
+              "text": "PaintColor | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Parse absolute CSS paint, retaining its declared alpha."
+        },
+        {
+          "kind": "function",
+          "name": "derivePaintLightness",
+          "return": {
+            "type": {
+              "text": "PaintColor | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "name": "lightness",
+              "type": {
+                "text": "(original: number) => number"
+              }
+            }
+          ],
+          "description": "Change the lightness channel of a relative OKLCH color."
+        },
+        {
+          "kind": "function",
+          "name": "compositePaint",
+          "return": {
+            "type": {
+              "text": "PaintColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "foreground",
+              "type": {
+                "text": "PaintColor"
+              }
+            },
+            {
+              "name": "background",
+              "type": {
+                "text": "PaintColor"
+              }
+            }
+          ],
+          "description": "Composite foreground over background using CSS source-over alpha."
+        },
+        {
+          "kind": "variable",
+          "name": "MIN_SHADOW_INDICATOR_BLUR",
+          "type": {
+            "text": "number"
+          },
+          "default": "3"
+        },
+        {
+          "kind": "variable",
+          "name": "MAX_SHADOW_INDICATOR_BLUR",
+          "type": {
+            "text": "number"
+          },
+          "default": "4"
+        },
+        {
+          "kind": "variable",
+          "name": "SHADOW_INDICATOR_SAMPLE_OFFSET",
+          "type": {
+            "text": "number"
+          },
+          "default": "0.1"
+        },
+        {
+          "kind": "variable",
+          "name": "SHADOW_INDICATOR_MARGIN_SIGMAS",
+          "type": {
+            "text": "number"
+          },
+          "default": "4"
+        },
+        {
+          "kind": "function",
+          "name": "supportsShadowIndicatorBlur",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "blur",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "shadowIndicatorAlpha",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "shadow",
+              "type": {
+                "text": "{ alpha: number; blur: number }"
+              }
+            }
+          ],
+          "description": "Lower coverage estimate at the supported straight edge. Hard bands use full alpha."
+        },
+        {
+          "kind": "function",
+          "name": "paintRequiredRatio",
+          "return": {
+            "type": {
+              "text": "3 | 4.5"
+            }
+          },
+          "parameters": [
+            {
+              "name": "kind",
+              "type": {
+                "text": "PaintKind"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parsePaintColor",
+          "declaration": {
+            "name": "parsePaintColor",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "derivePaintLightness",
+          "declaration": {
+            "name": "derivePaintLightness",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "compositePaint",
+          "declaration": {
+            "name": "compositePaint",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MIN_SHADOW_INDICATOR_BLUR",
+          "declaration": {
+            "name": "MIN_SHADOW_INDICATOR_BLUR",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MAX_SHADOW_INDICATOR_BLUR",
+          "declaration": {
+            "name": "MAX_SHADOW_INDICATOR_BLUR",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SHADOW_INDICATOR_SAMPLE_OFFSET",
+          "declaration": {
+            "name": "SHADOW_INDICATOR_SAMPLE_OFFSET",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SHADOW_INDICATOR_MARGIN_SIGMAS",
+          "declaration": {
+            "name": "SHADOW_INDICATOR_MARGIN_SIGMAS",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "supportsShadowIndicatorBlur",
+          "declaration": {
+            "name": "supportsShadowIndicatorBlur",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "shadowIndicatorAlpha",
+          "declaration": {
+            "name": "shadowIndicatorAlpha",
+            "module": "dist/shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "paintRequiredRatio",
+          "declaration": {
+            "name": "paintRequiredRatio",
+            "module": "dist/shared/paint-color.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/paint-fit.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "context"
+        },
+        {
+          "kind": "variable",
+          "name": "brandColor"
+        },
+        {
+          "kind": "function",
+          "name": "readProperty",
+          "return": {
+            "type": {
+              "text": "string | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "property",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "measurePaintSurfaces",
+          "return": {
+            "type": {
+              "text": "PaintFitReport"
+            }
+          },
+          "parameters": [
+            {
+              "name": "properties",
+              "type": {
+                "text": "Record<PaintScheme, CompiledSurfaces>"
+              }
+            },
+            {
+              "name": "surfaces",
+              "type": {
+                "text": "readonly PaintFitSurface[]"
+              }
+            },
+            {
+              "name": "extraEntries",
+              "default": "{}",
+              "type": {
+                "text": "PaintEntriesByRole"
+              }
+            },
+            {
+              "name": "catalog",
+              "default": "{ entriesByRole: PAINT_CATALOG, derivations: PAINT_DERIVATIONS }"
+            },
+            {
+              "name": "onMeasurement",
+              "optional": true,
+              "type": {
+                "text": "PaintMeasurementTrace"
+              }
+            }
+          ],
+          "description": "Measure the state gates against properties emitted by the theme compiler."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "measurePaintSurfaces",
+          "declaration": {
+            "name": "measurePaintSurfaces",
+            "module": "dist/shared/paint-fit.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/paint-identity.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "paintIdentity",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "pair",
+              "type": {
+                "text": "PaintIdentity"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "firstPaintByIdentity",
+          "return": {
+            "type": {
+              "text": "ReadonlyMap<string, T>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "pairs",
+              "type": {
+                "text": "readonly T[]"
+              }
+            }
+          ],
+          "description": "Keep the first witness for each set of paint inputs, independently of its enabled gates."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "paintIdentity",
+          "declaration": {
+            "name": "paintIdentity",
+            "module": "dist/shared/paint-identity.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "firstPaintByIdentity",
+          "declaration": {
+            "name": "firstPaintByIdentity",
+            "module": "dist/shared/paint-identity.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/paint-types.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/shared/path-matching.js",
       "declarations": [
         {
@@ -87152,6 +87070,13 @@
               "type": {
                 "text": "PartialTheme"
               }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "ThemeFitSuiteOptions"
+              }
             }
           ],
           "description": "Fit-report every surface a themed site has (ESP0175): for each scheme,\nthe root plus every declared context, each with its cross-token lints.\n\nTakes the partials an `esp-root` would take (they merge over the same\nscheme defaults the root uses), so the suite describes exactly the\nsite the partials produce — the 448-line hand-rolled check script,\nminus the client-specific lines. Surfaces are the union of both\nschemes' context names so an asymmetric pair still reports every\nsurface it can; `validateThemePair` is the gate that rejects the\nasymmetry itself."
@@ -87594,14 +87519,6 @@
             }
           ],
           "description": "Whether each role-paired ink token's *source* was named by the theme\nor paired off another role (ESP0223).\n\nThe distinction matters to anything judging how far a token landed\nfrom the swatch it names. `action.ink` defaults to the canvas colour,\nso an undeclared ink IS the page ground by contract — it is re-lit to\nthe opposite end of the ramp on purpose, and the large anchor ΔE that\nfollows describes the contract working, not a theme missing its\nbrand. A theme that names the slot has made a separate claim about\nthe label's family, and the same ΔE then describes a claim that did\nnot survive.\n\nA pure read of `roles`: the compile is not re-run, and a role the\ntheme never declared reports nothing rather than guessing."
-        },
-        {
-          "kind": "variable",
-          "name": "TOKEN_PAIRINGS",
-          "type": {
-            "text": "Readonly<\n  Record<\"actionText\", TokenPairing> & Partial<Record<SemanticColorName, TokenPairing>>\n>"
-          },
-          "default": "{ text: { bg: \"background\", targetLc: 75 }, typeOverline: { bg: \"background\", targetLc: 90 }, typeLabel: { bg: \"background\", targetLc: 75 }, typeLead: { bg: \"background\", targetLc: 75 }, typeCaption: { bg: \"background\", targetLc: 90 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, // Hovered links paint on the linkHoverBg wash everywhere (root // light-DOM anchors and shadow anchors alike), so the ink is enforced // against the surface a reader actually sees — pairing it with the // page background left the dark default 4+ Lc under tier on the // rendered wash (ESP0175). linkHover: { bg: \"linkHoverBg\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }"
         },
         {
           "kind": "variable",
@@ -88077,6 +87994,54 @@
       "exports": [
         {
           "kind": "js",
+          "name": "isTallHeaderPaint",
+          "declaration": {
+            "name": "isTallHeaderPaint",
+            "module": "../header/is-tall-header-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TOKEN_PAIRINGS",
+          "declaration": {
+            "name": "TOKEN_PAIRINGS",
+            "module": "./token-pairings.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AA_LARGE_RATIO",
+          "declaration": {
+            "name": "AA_LARGE_RATIO",
+            "module": "./wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AA_NON_TEXT_RATIO",
+          "declaration": {
+            "name": "AA_NON_TEXT_RATIO",
+            "module": "./wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AA_TEXT_RATIO",
+          "declaration": {
+            "name": "AA_TEXT_RATIO",
+            "module": "./wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "wcagRatio",
+          "declaration": {
+            "name": "wcagRatio",
+            "module": "./wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "ANCHOR_SLUG_PATTERN",
           "declaration": {
             "name": "ANCHOR_SLUG_PATTERN",
@@ -88152,14 +88117,6 @@
           "name": "roleInkProvenance",
           "declaration": {
             "name": "roleInkProvenance",
-            "module": "dist/shared/theme.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TOKEN_PAIRINGS",
-          "declaration": {
-            "name": "TOKEN_PAIRINGS",
             "module": "dist/shared/theme.js"
           }
         },
@@ -88436,6 +88393,30 @@
           "declaration": {
             "name": "showToast",
             "module": "dist/shared/toast-events.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/token-pairings.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TOKEN_PAIRINGS",
+          "type": {
+            "text": "Readonly<\n  Record<\"actionText\" | \"linkHover\", TokenPairing> & Partial<Record<SemanticColorName, TokenPairing>>\n>"
+          },
+          "default": "{ text: { bg: \"background\", targetLc: 75 }, typeOverline: { bg: \"background\", targetLc: 90 }, typeLabel: { bg: \"background\", targetLc: 75 }, typeLead: { bg: \"background\", targetLc: 75 }, typeCaption: { bg: \"background\", targetLc: 90 }, dangerText: { bg: \"background\", targetLc: 75 }, headings: { bg: \"background\", targetLc: 60 }, headingsHover: { bg: \"background\", targetLc: 60 }, link: { bg: \"background\", targetLc: 75 }, // Hovered links paint on the linkHoverBg wash everywhere (root // light-DOM anchors and shadow anchors alike), so the ink is enforced // against the surface a reader actually sees — pairing it with the // page background left the dark default 4+ Lc under tier on the // rendered wash (ESP0175). linkHover: { bg: \"linkHoverBg\", targetLc: 75 }, actionText: { bg: \"actionBackground\", targetLc: 75 }, inputCaret: { bg: \"layer2\", targetLc: 60 }, inputSelection: { bg: \"inputSelectionBg\", targetLc: 60 }, }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TOKEN_PAIRINGS",
+          "declaration": {
+            "name": "TOKEN_PAIRINGS",
+            "module": "dist/shared/token-pairings.js"
           }
         }
       ]
@@ -88975,6 +88956,1601 @@
           "declaration": {
             "name": "visualOverlayStyles",
             "module": "dist/shared/visual-overlay.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/shared/wcag-contrast.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "AA_TEXT_RATIO",
+          "type": {
+            "text": "number"
+          },
+          "default": "4.5",
+          "description": "Minimum WCAG AA contrast for text."
+        },
+        {
+          "kind": "variable",
+          "name": "AA_LARGE_RATIO",
+          "type": {
+            "text": "number"
+          },
+          "default": "3",
+          "description": "Minimum WCAG AA contrast for large text."
+        },
+        {
+          "kind": "variable",
+          "name": "AA_NON_TEXT_RATIO",
+          "type": {
+            "text": "number"
+          },
+          "default": "3",
+          "description": "Minimum WCAG AA contrast for graphics and indicators."
+        },
+        {
+          "kind": "function",
+          "name": "wcagRatio",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "foreground",
+              "type": {
+                "text": "WcagColor"
+              }
+            },
+            {
+              "name": "background",
+              "type": {
+                "text": "WcagColor"
+              }
+            }
+          ],
+          "description": "Return the unrounded contrast of two opaque gamma-encoded sRGB colors (channels 0–1)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AA_TEXT_RATIO",
+          "declaration": {
+            "name": "AA_TEXT_RATIO",
+            "module": "dist/shared/wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AA_LARGE_RATIO",
+          "declaration": {
+            "name": "AA_LARGE_RATIO",
+            "module": "dist/shared/wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AA_NON_TEXT_RATIO",
+          "declaration": {
+            "name": "AA_NON_TEXT_RATIO",
+            "module": "dist/shared/wcag-contrast.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "wcagRatio",
+          "declaration": {
+            "name": "wcagRatio",
+            "module": "dist/shared/wcag-contrast.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/slider/esp-slider.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A numeric range slider with ARIA `role=\"slider\"`, keyboard support,\nand separate touch and pointer behavior.\n\nOn touch devices, only dragging the thumb changes the value.\nTapping the track is ignored so the user can scroll the page\nwithout accidentally adjusting the slider. On desktop, clicking\nanywhere on the track jumps to that value and begins a drag.\n\nThe slider accepts an accessible name from two sources, checked\nin priority order:\n\n1. Slot content — `<esp-slider>Volume</esp-slider>` renders a\n   visible label and names the slider via `aria-labelledby`.\n2. The `label` attribute — `<esp-slider label=\"Volume\">` applies\n   an invisible `aria-label` when no slot content is present.\n\n```html\n<esp-box>\n  <esp-slider min=\"0\" max=\"10\" step=\"0.5\" value=\"5\">\n    Rating\n  </esp-slider>\n  <esp-slider disabled min=\"0\" max=\"100\" value=\"30\"\n    label=\"Disabled slider\">\n  </esp-slider>\n</esp-box>\n```",
+          "name": "EspalierSlider",
+          "cssProperties": [
+            {
+              "description": "Height of the slider track. Defaults to `6px`.",
+              "name": "--esp-slider-track-height"
+            },
+            {
+              "description": "Background color of the unfilled portion of the track. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-slider-track-color"
+            },
+            {
+              "description": "Background color of the filled portion of the track. Defaults to `var(--esp-color-action-background)`.",
+              "name": "--esp-slider-track-fill-color"
+            },
+            {
+              "description": "Border radius of the track. Defaults to `calc(var(--esp-slider-track-height, 6px) / 2)`.",
+              "name": "--esp-slider-track-border-radius"
+            },
+            {
+              "description": "Diameter of the thumb. Defaults to `var(--esp-size-normal-to-medium)`.",
+              "name": "--esp-slider-thumb-size"
+            },
+            {
+              "description": "Fill color of the thumb. Defaults to `var(--esp-color-layer-1)`.",
+              "name": "--esp-slider-thumb-color"
+            },
+            {
+              "description": "Border color of the thumb. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-slider-thumb-border-color"
+            },
+            {
+              "description": "Box shadow of the thumb. Defaults to `0 1px 3px oklch(0 0 0 / 0.2)`.",
+              "name": "--esp-slider-thumb-shadow"
+            },
+            {
+              "description": "Color of the focus ring shadow. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-slider-focus-shadow"
+            },
+            {
+              "description": "Background color of the shared field shell. Defaults to one layer above the nearest declared surface, capped at `var(--esp-color-layer-4)`, or `var(--esp-color-layer-2)` without a declared surface. An explicit override wins.",
+              "name": "--esp-field-background",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border color of the shared field shell. Defaults to `var(--esp-color-border)`.",
+              "name": "--esp-field-border-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Border width of the shared field shell. Defaults to `1px`.",
+              "name": "--esp-field-border-width",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Text color used inside the shared field shell. Defaults to `var(--esp-color-text)`.",
+              "name": "--esp-field-text-color",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Hover background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-hover-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Focus background color of the shared field shell. Derived from `--esp-field-background`.",
+              "name": "--esp-field-focus-bg",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "description": "Shadow color used for shared field focus treatment. Defaults to `var(--esp-color-shadow)`.",
+              "name": "--esp-field-focus-shadow",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "description": "Label content displayed alongside the slider. When present, it provides the accessible name via `aria-labelledby`.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formCtrl",
+              "privacy": "private",
+              "default": "new FormFieldController({ host: this, internals: this.internals, getFormValue: () => this.value || null, // A range slider always has a normalized numeric value (clamped // to [min, max] and snapped to step), so there is no // representable \"empty\" state that could trigger valueMissing. // Validity is always satisfied. getValidity: () => null, onReset: () => { this.value = String(this._low); }, onRestore: (state: string) => { this.value = state; }, onDisabled: (isDisabled: boolean) => { this.disabled = isDisabled; }, })"
+            },
+            {
+              "kind": "field",
+              "name": "formItemDescription",
+              "privacy": "private",
+              "default": "new FormFieldDescriptionController({ host: this, getTarget: () => this._thumbRef.value, })"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0",
+              "description": "Minimum slider value.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "100",
+              "description": "Maximum slider value.",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "1",
+              "description": "Step increment. Values snap to the nearest step.",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"0\"",
+              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "The name used when the slider participates in a `<form>`.",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false",
+              "description": "Controls whether the slider is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "\"\"",
+              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "_dragging",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_hasSlotContent",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_trackRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_thumbRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_slotRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_nextId",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0",
+              "description": "Module-level counter for generating unique label ids."
+            },
+            {
+              "kind": "field",
+              "name": "_labelId",
+              "privacy": "private",
+              "default": "`esp-slider-label-${EspalierSlider._nextId++}`",
+              "description": "Stable id for the label element, used by `aria-labelledby`."
+            },
+            {
+              "kind": "field",
+              "name": "_safeStep",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "The effective step, guaranteed to be a finite positive number.\nFalls back to `1` when the `step` property is zero, negative,\n`NaN`, or `Infinity`.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_safeMin",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective minimum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_safeMax",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective maximum, guarded against invalid attribute/property\nvalues so slider math, ARIA, and form values never expose NaN.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_stepPrecision",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Number of decimal digits implied by the effective step. Used\nto round away floating-point noise so the public value stays\nclean (e.g. `\"0.3\"` instead of `\"0.30000000000000004\"`).\n\nHandles scientific notation: `0.0000001` stringifies as\n`\"1e-7\"` (7 digits), and `0.00000012` stringifies as\n`\"1.2e-7\"` (8 digits = 1 mantissa fractional digit + 7\nexponent).",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_low",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective lower bound, safe when `min > max`.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_high",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "Effective upper bound, safe when `min > max`.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_snapToStep",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "raw",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Snap `raw` to the nearest step relative to `_low`, clamp\nto `[_low, _high]`, and round to the step's decimal precision."
+            },
+            {
+              "kind": "field",
+              "name": "numericValue",
+              "type": {
+                "text": "number"
+              },
+              "description": "The value parsed, clamped, and snapped to step.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "percentage",
+              "type": {
+                "text": "number"
+              },
+              "description": "Fill/thumb position as a percentage of the track width.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_normalizeValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Normalize `this.value` so it always reflects the\nclamped-and-stepped numeric value, and push the result into\n`ElementInternals` without firing `esp-value-changed`.\n\nCalled from `willUpdate` whenever `value`, `min`, `max`, or\n`step` change."
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "Focus the slider thumb."
+            },
+            {
+              "kind": "method",
+              "name": "validate",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Re-run constraint validation and dispatch `esp-validity-changed`."
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Check whether the current state is valid (delegates to ElementInternals)."
+            },
+            {
+              "kind": "method",
+              "name": "_setValueAndNotify",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "newNumeric",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerMove",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerUp",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_handleLostPointerCapture",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Handles `lostpointercapture`, which fires when the browser\nrevokes capture due to an OS gesture, modal interrupt, or\nthe pointer leaving the document. This prevents the slider\nfrom getting stuck in the dragging state."
+            },
+            {
+              "kind": "method",
+              "name": "_endDrag",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_updateValueFromPointer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "ev",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleSlotChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_syncSlotContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Inspect the default slot's assigned nodes and update\n`_hasSlotContent`. Called from both `firstUpdated` (to catch\ninitial light-DOM content before `slotchange` fires) and the\n`slotchange` handler (for dynamic changes)."
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Called by the browser when the owning `<form>` is reset."
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Called by the browser to restore form state (bfcache, etc.)."
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "isDisabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Called by the browser when a parent `<fieldset>` is enabled or disabled."
+            },
+            {
+              "kind": "field",
+              "name": "seedColorBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"oklch(0.7 0.125 216)\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "espRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "contextBacker",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedTokenOriginalValues",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Map< string, { generatedPriority: string; generatedValue: string; originalPriority: string; originalValue: string | null; } >()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "warnedUnknownContexts",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Set<string>()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "pendingInitialThemeRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventSubscriptionsActive",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "subscribedRoot",
+              "type": {
+                "text": "EspalierRoot | null"
+              },
+              "privacy": "private",
+              "default": "null",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "rootEventUnsubscribers",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentBacker",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "privacy": "protected",
+              "default": "\"neutral\"",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentEmitsTokens",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "protected",
+              "default": "true",
+              "description": "Whether a non-neutral intent emits its inline tokens\n(`--esp-color-primary` and the filled-action pair). Interactive\ncontrols need them; chrome whose intent treatment is class-based\n(badges, callouts, status pills — see `intentSurfaceTokens`) opts\nout so a decorative intent never rewrites inherited tokens for\nslotted content.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "warnedUnknownIntents",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new Set<string>()",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "seedColor",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "correlationId",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusResolvedElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolveTarget",
+                  "type": {
+                    "text": "() => HTMLElement | null | undefined"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusShadowElementAfterUpdate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "emitValueChanged",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "privacy": "public",
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "attribute": "scheme",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intent",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "privacy": "public",
+              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
+              "attribute": "intent",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
+              "attribute": "context",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "refreshDescendantIntentDerivations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "A zone rebinding must reach descendants whose intent pairs derive\nover it. Root-level changes arrive over the bus, but the context\nattribute is plain DOM state with no bus event, so the zone host\nwalks its FLATTENED subtree — crossing open shadow roots and\nfollowing slot assignment, the tree its table cascades along — and\nlets each Espalier descendant re-apply against the current\nancestry. Idempotent for hosts this zone doesn't govern; the\nvisited set guards the slot/light diamond (a host's light children\nare also its slots' assigned elements).",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "flattenedParent",
+              "privacy": "private",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Node | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "Node"
+                  }
+                }
+              ],
+              "description": "The flattened-tree parent: through the assigned slot, out of shadow roots.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveAncestorZoneTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierTheme | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "activeTheme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                }
+              ],
+              "description": "The nearest ancestor zone the active theme can actually compile,\nwalking the flattened tree — through assigned slots and out of\nshadow roots — because that is the tree the zone's emitted table\ncascades along: a consumer shell may declare its zone around a\n`<slot>` inside its own shadow. A zone host with an unresolvable\ncontext emits nothing and inherits the next zone out, so unknown\nnames are skipped rather than collapsed to the root theme. Bounded\nby this element's esp-root.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncRootFromDom",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierRoot | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "throwIfMissing",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyTokensWhenRootReady",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply scoped tokens now, or defer until the active root's initial theme is ready.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyTokensAfterInitialRootUpdate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "description": "Apply initial scoped tokens once the exact root this host found is ready.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "subscribeToRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "EspalierRoot"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeFromRootEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSeedColorChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleSchemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleThemeChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleIconSpriteUrlChanged",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "traverseToClosest",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The selector of the element to look for"
+                }
+              ],
+              "description": "Traverse up the DOM tree to find the closest element that\nmatches the selector. This method is aware of shadow DOM\nboundaries and will traverse through them to find the element.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "intentColorSources",
+              "type": {
+                "text": "Readonly<\n    Record<EspalierIntentVariant, ColorSource | \"\">\n  >"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ danger: \"danger\", info: \"info\", neutral: \"\", success: \"success\", warning: \"warning\", }",
+              "description": "Intent color sources: the meaning-bearing families an intent pins\nthe filled-action pair to. `neutral` pins nothing; each other\nintent maps to its own fixed status family (ESP0172 gave `info` a\nreal blue family, replacing the complementary borrow the retired\nvariant system used), and a theme's `intents` field retunes the\nfamily colors themselves.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "semanticActionTokens",
+              "type": {
+                "text": "ReadonlySet<SemanticColorName>"
+              },
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "new Set<SemanticColorName>([\"actionBackground\", \"actionText\"])",
+              "description": "Semantic tokens that paint a control's filled action surface — the\npair an intent recolors. Everything else inherits the zone cascade,\nwhich is the ESP0166 fix: under the SHY fitted theme the retired\nvariant re-seeding painted a danger callout's *background* mint\ngreen; an intent leaves the zone's surfaces alone and pins only the\naction pair (plus `--esp-color-primary` for state derivations) to\nthe intent's own status family — fixed hues by default, retunable\nper theme via `intents`. Task 098's\nguarantee survives structurally: the\npin is by source, so no theme mapping can rotate a destructive /\nwarning / positive action off its semantic hue.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyScopedColorTokens",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Compute and apply context- and intent-specific semantic color tokens.\n\nWith no context and a `neutral` intent, all semantic tokens cascade\nfrom `<esp-root>` and previous overrides are cleared. A context\nemits the zone's complete twenty-three-token table; a non-neutral intent\nthen overlays the filled-action pair, derived over the governing\nzone's theme — this host's own context, or the nearest ancestor\nzone's — so its APCA enforcement runs against the zone's actual\naction surface.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveContextTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "{ applied: boolean; theme: EspalierTheme }"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                }
+              ],
+              "description": "Resolve this host's own context name over the active root theme.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "warnUnknownContextWhenSettled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Warn about an unknown context only once the root's theme has\nsettled (ESP0177).\n\nA script-mounted theme lands after its descendants first render, so\na zone naming a context the theme *does* define would otherwise\nwarn about a state that was never rendered to anyone. Waiting for\nthe root to settle — an author theme resolved, or the pre-theme\nwindow closed with none — makes the warning describe the settled\ntheme instead of a transient one. It is deferred, never dropped: a\ngenuinely missing context still warns, just after the window.",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolveNamedContextTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EspalierTheme | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theme",
+                  "type": {
+                    "text": "EspalierTheme"
+                  }
+                },
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Compile a named context's theme, or null when the theme doesn't\ndefine it. Delegates to the exported compiler so a DOM-less consumer\n(the fit-report suite, a check script) inspects exactly the theme a\nzone host renders — the drift this shared path exists to prevent\n(ESP0175).",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyScopedTokenProperties",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "properties",
+                  "type": {
+                    "text": "Record<string, string>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setScopedTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "restoreScopedTokenProperty",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearScopedTokens",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "type": {
+                "text": "CustomEvent<string>"
+              },
+              "description": "Fired when the slider value changes. The detail is the new value as a string.",
+              "name": "esp-value-changed"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<{ valid: boolean; message: string }>"
+              },
+              "description": "Fired whenever the always-valid form contract is evaluated.",
+              "name": "esp-validity-changed"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Minimum slider value.",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "description": "Maximum slider value.",
+              "fieldName": "max"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Step increment. Values snap to the nearest step.",
+              "fieldName": "step"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"0\"",
+              "description": "Current slider value as a string for form compatibility.\nAlways kept in sync with the rendered state: clamped to\n`[min, max]` and snapped to `step` whenever the value, min,\nmax, or step properties change.",
+              "fieldName": "value"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The name used when the slider participates in a `<form>`.",
+              "fieldName": "name"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls whether the slider is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Accessible label for the slider. Used as `aria-label` on the\nthumb when no slot content is present. When the default slot\nhas content, `aria-labelledby` takes precedence and this\nproperty is ignored.",
+              "fieldName": "label"
+            },
+            {
+              "type": {
+                "text": "\"1\"|\"2\"|\"3\"|\"4\""
+              },
+              "description": "Declares the painted surface depth. Fields use the next local layer, capped at layer 4.",
+              "name": "surface-layer",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "scheme",
+              "type": {
+                "text": "\"dark\" | \"light\""
+              },
+              "default": "\"light\"",
+              "description": "The scheme to use for the component. This property is used internally\nto control the light/dark scheme so it matches the scheme of\n[esp-root](/components/root). It should not be set manually, it\nexists as an attribute for styling purposes.",
+              "fieldName": "scheme",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "intent",
+              "type": {
+                "text": "EspalierIntentVariant"
+              },
+              "description": "The element's [intent](/espalier-guides/) — its meaning: `neutral`\n(no pin), or `success`, `warning`, `danger`, `info` — each pinned\nto its fixed status family (blue for `info`), retunable per theme\nvia `intents`. On token-emitting controls a non-neutral intent pins the\nfilled-action pair to that family, derived over the governing\nzone's theme; class-styled chrome (badges, callouts, status pills)\nopts out of inline emission and renders its treatment from CSS\nclasses instead. An intent never repaints the surrounding zone,\nwhich is what contexts are for. Removing the attribute restores\nthe element's own default intent.",
+              "fieldName": "intent",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            },
+            {
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "description": "A theme-defined color zone. The selected context rebinds designer-facing\nroles and emits a complete, contrast-enforced semantic token table on this\nhost for descendants to inherit.",
+              "fieldName": "context",
+              "inheritedFrom": {
+                "name": "EspalierElementBase",
+                "module": "dist/shared/esp-element-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "EspalierElementBase",
+            "module": "dist/shared/esp-element-base.js"
+          },
+          "docPageTitle": {
+            "name": "Slider",
+            "description": ""
+          },
+          "docUrl": {
+            "name": "/components/slider",
+            "description": ""
+          },
+          "menuGroup": {
+            "name": "Form",
+            "description": "Controls"
+          },
+          "menuLabel": {
+            "name": "Slider",
+            "description": ""
+          },
+          "menuIcon": {
+            "name": "sliders",
+            "description": ""
+          },
+          "tagName": "esp-slider",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EspalierSlider",
+          "declaration": {
+            "name": "EspalierSlider",
+            "module": "dist/slider/esp-slider.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "esp-slider",
+          "declaration": {
+            "name": "EspalierSlider",
+            "module": "dist/slider/esp-slider.js"
           }
         }
       ]
@@ -94429,6 +96005,769 @@
           "declaration": {
             "name": "EspalierTab",
             "module": "dist/tabs/esp-tab.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/index.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PAINT_CATALOG",
+          "declaration": {
+            "name": "PAINT_CATALOG",
+            "module": "../shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "enabledPaintEntries",
+          "declaration": {
+            "name": "enabledPaintEntries",
+            "module": "../shared/paint-catalog.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintColor",
+          "declaration": {
+            "name": "PaintColor",
+            "module": "../shared/paint-color.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintAttribution",
+          "declaration": {
+            "name": "PaintAttribution",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintCandidate",
+          "declaration": {
+            "name": "PaintCandidate",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintEntriesByRole",
+          "declaration": {
+            "name": "PaintEntriesByRole",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintEntry",
+          "declaration": {
+            "name": "PaintEntry",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintInteraction",
+          "declaration": {
+            "name": "PaintInteraction",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintKind",
+          "declaration": {
+            "name": "PaintKind",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintNavigationFact",
+          "declaration": {
+            "name": "PaintNavigationFact",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintSchemeFeatures",
+          "declaration": {
+            "name": "PaintSchemeFeatures",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintTarget",
+          "declaration": {
+            "name": "PaintTarget",
+            "module": "../shared/paint-types.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "auditPaintCoverage",
+          "declaration": {
+            "name": "auditPaintCoverage",
+            "module": "./paint-coverage.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintCoverageAudit",
+          "declaration": {
+            "name": "PaintCoverageAudit",
+            "module": "./paint-coverage.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "observePaint",
+          "declaration": {
+            "name": "observePaint",
+            "module": "./observe-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ObservePaintOptions",
+          "declaration": {
+            "name": "ObservePaintOptions",
+            "module": "./observe-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PaintObservation",
+          "declaration": {
+            "name": "PaintObservation",
+            "module": "./observe-paint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/observe-paint.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observePaint",
+          "return": {
+            "type": {
+              "text": "Promise<PaintObservation[]>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "root",
+              "type": {
+                "text": "Element | ShadowRoot"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "ObservePaintOptions"
+              }
+            }
+          ],
+          "description": "Read visible paint beneath an attached surface. Call after the browser has\nreached the intended interaction and layout state. Missing or ambiguous\nattributions and color identities are reported with their DOM locations."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observePaint",
+          "declaration": {
+            "name": "observePaint",
+            "module": "dist/testing/observe-paint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/paint-bands.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "readIndicators",
+          "return": {
+            "type": {
+              "text": "Map<Element, Indicator[]>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "elements",
+              "type": {
+                "text": "readonly Element[]"
+              }
+            },
+            {
+              "name": "scopes",
+              "type": {
+                "text": "readonly (Document | ShadowRoot)[]"
+              }
+            }
+          ],
+          "description": "Compare rendered bands with real or CSS-projected unfocused and resting values."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "readIndicators",
+          "declaration": {
+            "name": "readIndicators",
+            "module": "dist/testing/paint-bands.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/paint-coverage.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "auditPaintCoverage",
+          "return": {
+            "type": {
+              "text": "PaintCoverageAudit"
+            }
+          },
+          "parameters": [
+            {
+              "name": "observations",
+              "type": {
+                "text": "readonly PaintObservation[]"
+              }
+            },
+            {
+              "name": "expected",
+              "type": {
+                "text": "PaintEntriesByRole"
+              }
+            }
+          ],
+          "description": "Compare driven states with enabled entries, keeping one witness per missing paint pair."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "auditPaintCoverage",
+          "declaration": {
+            "name": "auditPaintCoverage",
+            "module": "dist/testing/paint-coverage.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/paint-dom.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "SVG_NAMESPACE",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"http://www.w3.org/2000/svg\""
+        },
+        {
+          "kind": "function",
+          "name": "composedNodes",
+          "return": {
+            "type": {
+              "text": "{ elements: Element[]; text: Text[] }"
+            }
+          },
+          "parameters": [
+            {
+              "name": "root",
+              "type": {
+                "text": "Element | ShadowRoot"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "element",
+          "default": "node"
+        },
+        {
+          "kind": "function",
+          "name": "locationOf",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "text",
+              "optional": true,
+              "type": {
+                "text": "Text"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "allShadowScopes",
+          "return": {
+            "type": {
+              "text": "(Document | ShadowRoot)[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "document",
+              "type": {
+                "text": "Document"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "withPaintHitTesting",
+          "return": {
+            "type": {
+              "text": "T"
+            }
+          },
+          "parameters": [
+            {
+              "name": "scopes",
+              "type": {
+                "text": "readonly (Document | ShadowRoot)[]"
+              }
+            },
+            {
+              "name": "callback",
+              "type": {
+                "text": "() => T"
+              }
+            }
+          ],
+          "description": "Hit testing omits the pointer-transparent sibling layers that can supply the actual backdrop."
+        },
+        {
+          "kind": "function",
+          "name": "sampleRect",
+          "return": {
+            "type": {
+              "text": "Point[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "rect",
+              "type": {
+                "text": "DOMRectReadOnly"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "textPoints",
+          "return": {
+            "type": {
+              "text": "Point[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "text",
+              "type": {
+                "text": "Text"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "equalColor",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "first",
+              "type": {
+                "text": "PaintColor"
+              }
+            },
+            {
+              "name": "second",
+              "type": {
+                "text": "PaintColor"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "opacity",
+          "return": {
+            "type": {
+              "text": "PaintColor"
+            }
+          },
+          "parameters": [
+            {
+              "name": "color",
+              "type": {
+                "text": "PaintColor"
+              }
+            },
+            {
+              "name": "factor",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "cssPaintColor",
+          "return": {
+            "type": {
+              "text": "PaintColor | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "browserColor",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "expression",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "color"
+        },
+        {
+          "kind": "function",
+          "name": "styleOf",
+          "return": {
+            "type": {
+              "text": "CSSStyleDeclaration"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "hasVisibleBox",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "groups",
+          "type": {
+            "text": "OpacityGroup[]"
+          },
+          "default": "[]"
+        },
+        {
+          "kind": "function",
+          "name": "createPaintSampler",
+          "parameters": [
+            {
+              "name": "document",
+              "type": {
+                "text": "Document"
+              }
+            },
+            {
+              "name": "svgLayersAt",
+              "type": {
+                "text": "(element: Element, point: Point, hits: ReadonlySet<Element>) => readonly LocalPaintLayer[]"
+              }
+            }
+          ],
+          "description": "Retained hits are front-to-back. An element's box can be above its\ndescendants in the hit list only through retargeting; its background is\nstill behind their ink. A separate opaque box in front hides the sample."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SVG_NAMESPACE",
+          "declaration": {
+            "name": "SVG_NAMESPACE",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "composedNodes",
+          "declaration": {
+            "name": "composedNodes",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "locationOf",
+          "declaration": {
+            "name": "locationOf",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "allShadowScopes",
+          "declaration": {
+            "name": "allShadowScopes",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "withPaintHitTesting",
+          "declaration": {
+            "name": "withPaintHitTesting",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sampleRect",
+          "declaration": {
+            "name": "sampleRect",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "textPoints",
+          "declaration": {
+            "name": "textPoints",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "equalColor",
+          "declaration": {
+            "name": "equalColor",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "opacity",
+          "declaration": {
+            "name": "opacity",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "cssPaintColor",
+          "declaration": {
+            "name": "cssPaintColor",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "browserColor",
+          "declaration": {
+            "name": "browserColor",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "styleOf",
+          "declaration": {
+            "name": "styleOf",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "hasVisibleBox",
+          "declaration": {
+            "name": "hasVisibleBox",
+            "module": "dist/testing/paint-dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createPaintSampler",
+          "declaration": {
+            "name": "createPaintSampler",
+            "module": "dist/testing/paint-dom.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/testing/svg-paint.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isSvgUse",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "loadSprites",
+          "return": {
+            "type": {
+              "text": "Promise<Sprites>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "elements",
+              "type": {
+                "text": "readonly Element[]"
+              }
+            }
+          ],
+          "description": "Prefetch readable external sprites before sampling a live interaction state."
+        },
+        {
+          "kind": "variable",
+          "name": "points"
+        },
+        {
+          "kind": "variable",
+          "name": "root"
+        },
+        {
+          "kind": "variable",
+          "name": "clips",
+          "default": "new WeakMap<Element, ClipRect>()"
+        },
+        {
+          "kind": "variable",
+          "name": "wrapper"
+        },
+        {
+          "kind": "variable",
+          "name": "opacity"
+        },
+        {
+          "kind": "function",
+          "name": "createSvgPaintSampler",
+          "parameters": [
+            {
+              "name": "sprites",
+              "type": {
+                "text": "Sprites"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isSvgUse",
+          "declaration": {
+            "name": "isSvgUse",
+            "module": "dist/testing/svg-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "loadSprites",
+          "declaration": {
+            "name": "loadSprites",
+            "module": "dist/testing/svg-paint.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createSvgPaintSampler",
+          "declaration": {
+            "name": "createSvgPaintSampler",
+            "module": "dist/testing/svg-paint.js"
           }
         }
       ]

@@ -31,6 +31,9 @@
  * ```
  */
 import { type DataPalette, type DataRamps, type PartialDataRamps } from "./data-colors.js";
+export { isTallHeaderPaint } from "../header/is-tall-header-paint.js";
+export { TOKEN_PAIRINGS } from "./token-pairings.js";
+export { AA_LARGE_RATIO, AA_NON_TEXT_RATIO, AA_TEXT_RATIO, wcagRatio } from "./wcag-contrast.js";
 /** A key in the lightness ramp.  Each maps to a perceptual role. */
 export type LightnessKey = "surface" | "raised1" | "raised2" | "raised3" | "raised4" | "accent" | "muted" | "text" | "border" | "ink" | "shadow";
 /** Lightness values (0–1) for every ramp position. */
@@ -629,29 +632,6 @@ export interface ThemeValidationResult {
     /** Soft issues — the theme will work but values are unusual. */
     warnings: string[];
 }
-/**
- * Which semantic tokens are ink, what surface each sits on, and the
- * APCA contrast each must clear.
- *
- * This pairing lived as an identical hardcoded table inside both
- * `compute-theme-properties.ts` and `esp-element-base.ts` — invisible to
- * themes and duplicated in exactly the way this repository's adoption
- * rules exist to prevent. It belongs to the model: every serious system
- * makes the surface/ink pair the unit designers see (Material's
- * `on-primary`, shadcn's `-foreground`), and the roles layer derives an
- * action's ink from it rather than asking a designer to hand-pick a
- * legible color.
- *
- * Lc targets follow the APCA guidelines (ADR-002):
- *   90 → body text at any size
- *   75 → 16 px+ text (UI labels, links, body)
- *   60 → 24 px+ bold / 28 px+ normal (headings, carets, decorative)
- */
-type TokenPairing = Readonly<{
-    bg: SemanticColorName;
-    targetLc: number;
-}>;
-export declare const TOKEN_PAIRINGS: Readonly<Record<"actionText", TokenPairing> & Partial<Record<SemanticColorName, TokenPairing>>>;
 /** Ordered list of all semantic color token names. */
 export declare const SEMANTIC_COLOR_NAMES: readonly SemanticColorName[];
 /** `true` when `value` is one of the stable semantic color token names. */
@@ -896,4 +876,3 @@ export declare function buildTaprootLightTheme(backgroundImageUrl: string): stri
  * @returns A Base64-encoded {@link PartialTheme}.
  */
 export declare function buildTaprootDarkTheme(backgroundImageUrl: string): string;
-export {};

@@ -50,6 +50,7 @@
  */
 import { type ColorVisionSimulation, type DataPalette, type DataSeriesKey } from "./data-colors.js";
 import { type EspalierTheme, type LightnessReference, type MappingSource, type PartialTheme, type SemanticColorName } from "./theme.js";
+import type { PaintEntriesByRole, PaintFitReport, PaintFitSurface } from "./paint-types.js";
 /** What APCA enforcement did to one token. */
 export interface ThemeFitApcaAction {
     /** The requested value, as an `oklch()` string. */
@@ -225,7 +226,7 @@ export interface ThemeFitDataPaletteLint {
     message: string;
 }
 /** Runtime validation/comparison vocabulary used by the exported field descriptors. */
-export type ThemeFitFieldKind = "anchor" | "anchor-record" | "apca" | "boolean" | "data-palette-record" | "explicit" | "fit-lint-id" | "lint-array" | "message" | "number" | "pairing" | "palette-lint-id" | "palette-lint-record" | "report-array" | "scheme" | "semantic" | "semantic-array" | "series-pair" | "simulation" | "string" | "string-array" | "token-array" | "warning";
+export type ThemeFitFieldKind = "anchor" | "anchor-record" | "apca" | "boolean" | "data-palette-record" | "explicit" | "fit-lint-id" | "lint-array" | "message" | "number" | "paint-record" | "pairing" | "palette-lint-id" | "palette-lint-record" | "report-array" | "scheme" | "semantic" | "semantic-array" | "series-pair" | "simulation" | "string" | "string-array" | "token-array" | "warning";
 /** One runtime field descriptor used by fit-suite validation and comparison. */
 export interface ThemeFitFieldDescriptor<Field extends PropertyKey = PropertyKey> {
     readonly field: Field;
@@ -322,6 +323,13 @@ export interface ThemeFitSuite {
     light: ThemeFitSurfaceReport[];
     /** One report per surface the dark theme defines. */
     dark: ThemeFitSurfaceReport[];
+    /** WCAG measurements of enabled component paint for explicitly requested roles. */
+    paint?: PaintFitReport;
+}
+/** Optional component paint measurements to add to the APCA fit suite. */
+export interface ThemeFitSuiteOptions {
+    paintSurfaces?: readonly PaintFitSurface[];
+    extraEntries?: PaintEntriesByRole;
 }
 /** Runtime schema for every surface-report field. */
 export declare const THEME_FIT_REPORT_FIELDS: readonly ThemeFitFieldDescriptor<keyof ThemeFitSurfaceReport>[];
@@ -343,5 +351,5 @@ export declare const THEME_FIT_SUITE_FIELDS: readonly ThemeFitFieldDescriptor<ke
  * seed color is unparseable), because the required palette snapshot cannot be
  * produced. {@link themeFitReport} retains its narrower empty-report behavior.
  */
-export declare function themeFitReportSuite(lightPartial: PartialTheme, darkPartial: PartialTheme): ThemeFitSuite;
+export declare function themeFitReportSuite(lightPartial: PartialTheme, darkPartial: PartialTheme, options?: ThemeFitSuiteOptions): ThemeFitSuite;
 export {};

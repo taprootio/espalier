@@ -1,0 +1,1 @@
+import{gammaToLinear as r}from"./color-engine.js";const c=4.5,i=3,T=3;function e({r:n,g:o,b:t}){return .2126*r(n)+.7152*r(o)+.0722*r(t)}function m(n,o){const t=e(n),a=e(o);return(Math.max(t,a)+.05)/(Math.min(t,a)+.05)}export{i as AA_LARGE_RATIO,T as AA_NON_TEXT_RATIO,c as AA_TEXT_RATIO,m as wcagRatio};

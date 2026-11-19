@@ -1,0 +1,1 @@
+function n(t){return t.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&"host"in t}function r(t){if(t.assignedSlot)return t.assignedSlot;if(t.parentElement)return t.parentElement;const e=t.parentNode;return e&&n(e)?e.host:null}export{r as composedParent,n as isShadowRoot};

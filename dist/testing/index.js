@@ -1,0 +1,1 @@
+import{PAINT_CATALOG as o,enabledPaintEntries as t}from"../shared/paint-catalog.js";import{auditPaintCoverage as i}from"./paint-coverage.js";import{observePaint as P}from"./observe-paint.js";export{o as PAINT_CATALOG,i as auditPaintCoverage,t as enabledPaintEntries,P as observePaint};

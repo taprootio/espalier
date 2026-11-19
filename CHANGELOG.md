@@ -1,3 +1,12 @@
+# 7.2.0
+
+Measure the contrast of text, icons and focus indicators as Espalier actually paints them.
+
+- Theme fit reports can measure enabled paint for headers and footers, including navigation drawers, hover and keyboard focus. View WCAG ratios for both color schemes.
+- Browser tests can import `@taprootio/espalier/testing` or inject its standalone script to compare rendered paint with the catalog. Register consumer paint through the same API.
+- Header controls show a keyboard focus indicator within the control, and the header brand link shows an outline in both normal and forced colors.
+- Blank scheme-specific brand colors fall back to the generic brand color in the header, footer and fit report.
+
 # 7.1.1
 
 Keep navigation paint inside its theme context.
